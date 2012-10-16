@@ -1,0 +1,10 @@
+.yourlabs-autocomplete  {
+	max-height: 90px;
+	overflow-y: auto;
+ 	overflow-x: hidden;
+}
+
+.autocomplete_thumbnail {
+	height: 30px;
+	width: 30px;
+}

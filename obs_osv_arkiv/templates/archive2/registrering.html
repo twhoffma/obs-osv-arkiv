@@ -1,0 +1,433 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset=UTF-8>
+<title>Registrering</title>
+
+<link href="/media/css/registrering.css" rel="stylesheet" type="text/css">
+<link href='http://fonts.googleapis.com/css?family=Quattrocento+Sans:400,400italic,700,700italic' rel='stylesheet' type='text/css'>
+<link type="text/css" href="/media/css/ui-lightness/jquery-ui-1.8.21.custom.css" rel="stylesheet" />
+<script src="/media/js/jquery-1.7.2.min.js" type="text/javascript"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.9/jquery-ui.min.js" type="text/javascript"></script>
+<script>
+$(document).ready(
+	function(){
+		$(".keyword").autocomplete({
+			source: complete_tag,
+			minLength: 2,
+			select: add_suggestion
+		});
+		
+		$(".material").autocomplete({
+			source: complete_tag,
+			minLength: 2,
+			select: add_suggestion
+		});
+
+		$(".topic").each(
+			function(){
+				$(this).autocomplete({
+						source: complete_topic,
+						minLength: 2,
+						select: add_topic_select
+				});
+		});
+
+		$(".subtopic").each(
+			function(){
+				$(this).autocomplete({
+						source: complete_subtopic,
+						minLength: 2,
+						search: prepare_subtopic_search
+				});
+		});
+
+		$(".btn_delete_topic").each(
+			function(iter){
+				$(this).bind("click", delete_topic)
+			}
+		);
+
+		$(".btn_add_topic").each(
+			function(iter){
+				$(this).bind("click", add_topic)
+			}
+		);
+		
+		$(".btn_add_location").bind("click", add_location);
+		
+		$('#dialog-add_location').submit(
+			function(){
+				alert("submitting");
+				$.ajax({
+					data: $(this).serialize(),
+					type: $(this).attr('method'),
+					url: $(this).attr('action'),
+					success: function(data, textStatus, jqXHR){
+						alert(textStatus);
+					},
+					error: function(jqXHR, textStatus, errorThrown){
+						alert('Error: ' + textStatus)
+					}
+					
+				});
+			}
+		);
+		
+		$('#id_area').bind("change", function(){
+			var area = $(this).val();
+			$('#id_room').children("option").remove();
+	
+			$.ajax({
+				type: "POST",
+				url: "/room_autocomplete/",
+				data: {
+					'area': area,
+				},
+				success: function(data) {
+					var rooms = $.parseJSON(data);
+					$.each(rooms,
+						function(){
+							$('#id_room').append($('<option></option>').val(this).html(this));
+						}
+					);
+				}
+			});
+		});
+			
+		/*
+		$("#frm_registration").submit(
+			function(){
+				$.ajax({
+					data: $(this).serialize(),
+					type: $(this).attr('method'),
+					url: $(this).attr('action'),
+					success: function(response){
+						alert(response);
+					}
+				});	
+			}
+		);
+		*/ 
+	}
+);
+
+function add_suggestion(event, ui){
+	terms = $(this).val().split(",");
+	terms.pop();
+	terms.push(ui.item.label);
+	$(this).val(terms.join(","));
+	return(false);
+}
+
+function add_topic_select(event, ui){
+	$('#topic_subtopic_helper').val(ui.item.label);
+	//alert($('#topic_subtopic_helper').val());
+	return(true);
+}
+
+function complete_topic(request, response){
+	$.ajax({
+		type: "POST",
+		url: "/topic_autocomplete/",
+		data: {
+			'topic': request.term,
+		},
+		success: function(data) {
+				response($.parseJSON(data));
+			}
+	});
+}
+
+function prepare_subtopic_search(event, ui){
+	var term = this.value;
+	var subtopic_id = $(this).attr('id');
+	var topic_id = subtopic_id.replace('-subtopic', '-topic');
+	$('#topic_subtopic_helper').val($('#'+topic_id).val());	
+}
+
+function complete_subtopic(request, response){
+	var topic = $('#topic_subtopic_helper').val();
+	
+	$.ajax({
+		type: "POST",
+		url: "/subtopic_autocomplete/",
+		data: {
+			'topic': topic,
+			'subtopic': request.term,
+		},
+		success: function(data) {
+				response($.parseJSON(data));
+			}
+	});
+}
+
+function complete_tag(request, response){
+	terms = request.term.split(",");
+	if(terms.length == 1){
+		term = terms[0];
+	}else{
+		term = terms.slice(-1)[0];
+	}
+	
+	$.ajax({
+		type: "POST",
+		url: "/tag_autocomplete/",
+		data: {
+			'query': term,
+		},
+		success: function(data) {
+				response($.parseJSON(data));
+			}
+	});
+}
+
+function delete_topic(){
+	var total = $("#id_form-TOTAL_FORMS").val();
+	total--;
+	
+	p = $(this).parent('div');
+	//test = p.attr('class');	
+	//alert("Parent id: "+test);
+	p.remove();	
+	$("#id_form-TOTAL_FORMS").val(total);
+	
+		
+	//alert('total forms after removal: '+$("#id_form-TOTAL_FORMS").val());
+}
+
+function add_topic(){
+	var total = $("#id_form-TOTAL_FORMS").val();
+	
+	last_topic = $("#id-topic_formset>div:last").prev();
+	
+	new_topic_id = total;	
+
+	last_topic.clone(true).removeClass('div-form-'+(total-1)).addClass('div-form-'+total).appendTo('#id-topic_formset');
+	new_topic = $('.div-form-'+total);
+	
+	new_topic.children().each(
+		function(){
+			var child_id = $(this).attr('id');
+			var child_name = $(this).attr('name');
+			
+			if(child_id){	
+				child_id = child_id.replace('-'+(total-1)+'-','-'+total+'-');	
+				child_name = child_name.replace('-'+(total-1)+'-','-'+total+'-');	
+				$(this).attr('id', child_id);
+				$(this).attr('name', child_name);
+				$(this).val('');
+			}
+		}
+	);
+	
+
+	total++;
+	$("#id_form-TOTAL_FORMS").val(total);
+}
+
+function add_location(){
+	$('#dialog-add_location').dialog({
+		height: 200,
+		modal: true
+	});
+}
+
+</script>
+
+<!--[if lt IE 9]>
+<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+
+</head>
+
+<body>
+
+<div id="pagewrap">
+
+<header></header>
+
+<div id="left">
+
+<form id="frm_registration" action="" method="post"> 
+{% csrf_token %}
+
+<label for="idnummer">Identifikasjonsnummer</label><br />
+{{ item_form.item_number }}
+<br />
+
+<label for="tittel">Tittel/betegnelse</label><br />
+{{ item_form.title }}
+
+<label for="emne">Emne</label><br />
+<!-- {{ topic_formset }} -->
+
+<div id="id-topic_formset" name="topic_formset" />
+<input type="hidden" id="topic_subtopic_helper" value="" />
+
+{{ topic_formset.management_form }}
+{% for form in topic_formset %}
+<div class="div-{{ form.prefix }}">
+<div class="btn_delete_topic">[-]</div>
+{{ form.id }}
+{{ form.topic }}
+{{ form.subtopic }}
+</div>
+{% endfor %}
+</div>
+
+<div class="btn_add_topic">[+]</div>
+<br />
+<br />
+<label for="tilstand">Tilstand</label><br />
+{{ item_form.condition }}	
+
+<label for="id_dating_certainty">Datering</label><br />
+{{ item_form.dating_certainty }}<br />
+
+<label for="id_date_from" style="width: 4em;">Fra</label>
+{{item_form.date_from}}
+{{item_form.era_from}} <br />
+
+<label for="id_date_to" style="width: 4em;">Til</label>
+{{item_form.date_to}}
+{{item_form.era_to}}
+
+<br />
+
+<label for="prodsted">Produksjonssted</label><br />
+{{ item_form.origin_certainty }}
+
+{{item_form.origin_city}}
+{{item_form.origin_country}}
+{{item_form.origin_continent}}
+
+<label for="kunstner">Kunstner/produsent</label><br />
+
+{{ item_form.artist }}
+
+<label for="dimensjon">Dimensjon/vekt</label><br />
+
+{{ item_form.dim_height}}
+{{ item_form.dim_width}}
+{{ item_form.dim_depth}}
+{{ item_form.dim_weight}}
+
+<label for="teknikk">Materiale/teknikk</label><br />
+{{ item_form.materials }}
+
+<label for="proviniens">Proviniens</label><br />
+{{ aquization_method }}
+
+<input type="text" name="" id="proviniens" class="enkel2"/><br />
+
+</div><!--end of left-->
+
+<div id="middle">
+<h1>guttormsgaards arkiv</h1>
+<img class="featured" src="#" />
+<div id="thumb"><img src="#" /><img src="#" /><img src="#" /><img src="#" /><img src="#" /></div><!--end of  thumb--><br />
+
+<div id="buttonrow">
+<div class="styleFileInput">        
+
+<input type="button" value="bilder" class="browseButton_bilder" /> 
+<input type="file" size="1" class="theFileInput" /></div>​
+
+<div class="styleFileInput">        
+<input type="button" value="film" class="browseButton_film" /> 
+<input type="file" size="1" class="theFileInput" /></div>​  
+
+<div class="styleFileInput">        
+<input type="button" value="lyd" class="browseButton_lyd" /> 
+<input type="file" size="1" class="theFileInput" /></div>
+
+<div class="styleFileInput">        
+​<input type="button" value="tekst" class="browseButton_tekst" /> 
+<input type="file" size="1" class="theFileInput" /></div>​
+</div><!--end of buttonrow-->
+</div><!--end of middle-->
+
+<div id="right">
+
+<label for="oppbevaring">Oppbevares hvor?</label><br />
+<div class="btn_add_location">[+]</div>
+
+{{location_select_form}}
+
+
+<select name="lokasjon" id="oppbevaring"><br />
+<option value="meieriet">Meieriet</option>
+<option value="loftet">Loftet</option>
+<option value="loftet">Meieribygning 2. etg.</option>
+<option value="loftet">Blå bygning</option>
+<option value="loftet">Potetkoker'n</option>
+</select><br />
+
+<label for="rom">Rom:</label></ br>
+<select name="rom" id="rom"></ br>
+<option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option>
+</select></ br>
+
+<label for="horisontalt">H:</label></ br>
+<select name="" id="horistontalt"></ br>
+<option value="a">A</option><option value="b">B</option><option value="c">C</option><option value="d">D</option><option value="e">E</option><option value="f">F</option><option value="g">G</option><option value="h">H</option><option value="i">I</option><option value="j">J</option>
+</select></ br>
+
+<label for="vertikalt">V:</label></ br>
+<select name="" id="vertikalt"></ br>
+<option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option>
+</select></ br>
+
+<label for="annet">Annet sted</label><br />
+<input type="text" name="" id="tags" class="enkel"/><br />
+
+<label for="utlant">Utlånt</label><br />
+
+{{ item_form.loan_status }}
+
+<label for="supplerende">Supplerende</label><br />
+{{ item_form.description }}
+
+<label for="tags">Nøkkelord</label><br />
+{{ item_form.keywords }}
+
+<label for="reflitt">Referanselitteratur</label><br />
+{{ item_form.ref_literatur }}
+
+<input type="submit" value="Lagre" />
+</form>
+
+<form action="/item/find/" method="post">
+<label for="sok">Søk</label><br />
+<input type="text" name="" id="sok" class="enkel"/><br />
+<input type="submit" value="Søk" />
+</form>
+</div><!--end of right-->
+
+<footer></footer>
+
+</div><!--end of pagewrap-->
+
+<div id="dialog-add_location" title="Legg til sted">
+	<form action="/add_location/" method="POST">
+	{% csrf_token %}
+	{{location_form.id}}	
+	
+	<label for="id_area">Sted</label>	
+	{{location_form.area}}
+	<br />	
+	
+	<label for="id_area">Rom</label>	
+	{{location_form.room}}	
+	<br />	
+	
+	<label for="id_area">Lokasjon</label>	
+	{{location_form.position_ref}}	
+	<br />
+	<input type="Submit" />
+	</form>	
+</div>
+
+</body>
+</html>

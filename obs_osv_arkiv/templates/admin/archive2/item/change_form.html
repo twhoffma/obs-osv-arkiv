@@ -1,0 +1,240 @@
+{% extends "admin/change_form.html" %}
+
+{% block extrahead %}
+	{{ block.super }}
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript"></script>
+	<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.9/jquery-ui.min.js" type="text/javascript"></script>
+
+<script>
+$(document).ready(
+	function(){
+		$(".keyword").autocomplete({
+			source: complete_tag,
+			minLength: 2,
+			select: add_suggestion
+		});
+		
+		$(".material").autocomplete({
+			source: complete_tag,
+			minLength: 2,
+			select: add_suggestion
+		});
+
+		$(".topic").each(
+			function(){
+				$(this).autocomplete({
+						source: complete_topic,
+						minLength: 2,
+						select: add_topic_select
+				});
+		});
+
+		$(".subtopic").each(
+			function(){
+				$(this).autocomplete({
+						source: complete_subtopic,
+						minLength: 0,
+						search: prepare_subtopic_search
+				});
+		});
+
+		$(".btn_delete_topic").each(
+			function(iter){
+				$(this).bind("click", delete_topic)
+			}
+		);
+
+		$(".btn_add_topic").each(
+			function(iter){
+				$(this).bind("click", add_topic)
+			}
+		);
+		
+		$(".btn_add_location").bind("click", add_location);
+		
+		$('#dialog-add_location').submit(
+			function(){
+				alert("submitting");
+				$.ajax({
+					data: $(this).serialize(),
+					type: $(this).attr('method'),
+					url: $(this).attr('action'),
+					success: function(data, textStatus, jqXHR){
+						alert(textStatus);
+					},
+					error: function(jqXHR, textStatus, errorThrown){
+						alert('Error: ' + textStatus)
+					}
+					
+				});
+			}
+		);
+		
+		$('#id_area').bind("change", function(){
+			var area = $(this).val();
+			$('#id_room').children("option").remove();
+	
+			$.ajax({
+				type: "POST",
+				url: "/room_autocomplete/",
+				data: {
+					'area': area,
+				},
+				success: function(data) {
+					var rooms = $.parseJSON(data);
+					$.each(rooms,
+						function(){
+							$('#id_room').append($('<option></option>').val(this).html(this));
+						}
+					);
+				}
+			});
+		});
+			
+		/*
+		$("#frm_registration").submit(
+			function(){
+				$.ajax({
+					data: $(this).serialize(),
+					type: $(this).attr('method'),
+					url: $(this).attr('action'),
+					success: function(response){
+						alert(response);
+					}
+				});	
+			}
+		);
+		*/ 
+	}
+);
+
+function add_suggestion(event, ui){
+	terms = $(this).val().split(",");
+	terms.pop();
+	terms.push(ui.item.label);
+	$(this).val(terms.join(","));
+	return(false);
+}
+
+function add_topic_select(event, ui){
+	$('#topic_subtopic_helper').val(ui.item.label);
+	//alert($('#topic_subtopic_helper').val());
+	return(true);
+}
+
+function complete_topic(request, response){
+	$.ajax({
+		type: "POST",
+		url: "/topic_autocomplete/",
+		data: {
+			'topic': request.term,
+		},
+		success: function(data) {
+				response($.parseJSON(data));
+			}
+	});
+}
+
+function prepare_subtopic_search(event, ui){
+	var term = this.value;
+	var subtopic_id = $(this).attr('id');
+	var topic_id = subtopic_id.replace('-subtopic', '-topic');
+	$('#topic_subtopic_helper').val($('#'+topic_id).val());	
+}
+
+function complete_subtopic(request, response){
+	var topic = $('#topic_subtopic_helper').val();
+	
+	$.ajax({
+		type: "POST",
+		url: "/subtopic_autocomplete/",
+		data: {
+			'topic': topic,
+			'subtopic': request.term,
+		},
+		success: function(data) {
+				response($.parseJSON(data));
+			}
+	});
+}
+
+function complete_tag(request, response){
+	terms = request.term.split(",");
+	if(terms.length == 1){
+		term = terms[0];
+	}else{
+		term = terms.slice(-1)[0];
+	}
+	
+	$.ajax({
+		type: "POST",
+		url: "/tag_autocomplete/",
+		data: {
+			'query': term,
+		},
+		success: function(data) {
+				response($.parseJSON(data));
+			}
+	});
+}
+
+function delete_topic(){
+	var total = $("#id_form-TOTAL_FORMS").val();
+	total--;
+	
+	p = $(this).parent('div');
+	//test = p.attr('class');	
+	//alert("Parent id: "+test);
+	p.remove();	
+	$("#id_form-TOTAL_FORMS").val(total);
+	
+		
+	//alert('total forms after removal: '+$("#id_form-TOTAL_FORMS").val());
+}
+
+function add_topic(){
+	var total = $("#id_form-TOTAL_FORMS").val();
+	
+	last_topic = $("#id-topic_formset>div:last").prev();
+	
+	new_topic_id = total;	
+
+	last_topic.clone(true).removeClass('div-form-'+(total-1)).addClass('div-form-'+total).appendTo('#id-topic_formset');
+	new_topic = $('.div-form-'+total);
+	
+	new_topic.children().each(
+		function(){
+			var child_id = $(this).attr('id');
+			var child_name = $(this).attr('name');
+			
+			if(child_id){	
+				child_id = child_id.replace('-'+(total-1)+'-','-'+total+'-');	
+				child_name = child_name.replace('-'+(total-1)+'-','-'+total+'-');	
+				$(this).attr('id', child_id);
+				$(this).attr('name', child_name);
+				$(this).val('');
+			}
+		}
+	);
+	
+
+	total++;
+	$("#id_form-TOTAL_FORMS").val(total);
+}
+
+function add_location(){
+	$('#dialog-add_location').dialog({
+		height: 200,
+		modal: true
+	});
+}
+
+</script>
+{% endblock %}
+
+{% block content %}
+  {{ block.super }}
+
+	
+  <input type="hidden" id="topic_subtopic_helper" value="" />
+{% endblock %}

@@ -1,0 +1,72 @@
+{% load staticfiles %}
+<html>
+<head>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.9/jquery-ui.min.js" type="text/javascript"></script>
+<script>
+$(document).ready(
+	function(){
+		$(".keyword").autocomplete({
+			source: complete_tag,
+			minLength: 2,
+			select: add_suggestion
+		});
+	}
+);
+
+function add_suggestion(event, ui){
+	terms = $(this).val().split(",");
+	terms.pop();
+	terms.push(ui.item.label);
+	$(this).val(terms.join(","));
+	return(false);
+}
+
+function complete_tag(request, response){
+	terms = request.term.split(",");
+	if(terms.length == 1){
+		term = terms[0];
+	}else{
+		term = terms.slice(-1)[0];
+	}
+	
+	$.ajax({
+		type: "POST",
+		url: "/tag_autocomplete/",
+		data: {
+			'query': term,
+		},
+		success: function(data) {
+				response($.parseJSON(data));
+			}
+	});
+}
+
+</script>
+</head>
+<body>
+<h1>{{ STATIC_URL }}</h1>
+<p>a {% static "morland1guttormsgaard_594.jpg" %} b</p>
+
+<p>This is the form:</p>
+<form action="" method="post"> 
+{% csrf_token %}
+{{item_form.as_p}}
+
+<div class="ui-widget" style="margin-top:2em; font-family:Arial">
+	Result:
+	<div id="log" style="height: 200px; width: 300px; overflow: auto;" class="ui-widget-content"></div>
+</div>
+
+{{topic_formset.as_p}}
+
+<p>Your static dir is "{{STATIC_URL}}"</p>
+<input type="submit" value="Lagre" />
+</form>
+<h2>Plain vanilla edit form:</h2>
+<form action="" method="post"> 
+{{vanillaitem_edit.as_p}}
+<input type="submit" value="Lagre" />
+</form>
+</body>
+</html>

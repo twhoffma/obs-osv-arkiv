@@ -1,0 +1,13 @@
+<html>
+<body>
+	<h3>Categories</h3>
+	{% for node in nodes %}
+		<a href="/?node={{ node.pk }}">{{ node }} </a>
+	{% endfor %}
+	
+	<h3>Items</h3>
+	{% for item in items %}
+		<a href="/?item={{ item.pk }}">{{ item }} </a>
+	{% endfor %}
+</body>
+</html>
