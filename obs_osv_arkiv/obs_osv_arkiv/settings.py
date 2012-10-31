@@ -46,7 +46,7 @@ USE_TZ = True
 # Absolute filesystem path to the directory that will hold user-uploaded files.
 # Example: "/home/media/media.lawrence.com/media/"
 MEDIA_ROOT = '/home/toby/projects/obs-osv-arkiv/media'
-#MEDIA_ROOT = ''
+#MEDIA_ROOT = '/home/users/guttormsg/www/static'
 
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash.
@@ -59,7 +59,7 @@ MEDIA_URL = '/media/'
 # in apps' "static/" subdirectories and in STATICFILES_DIRS.
 # Example: "/home/media/media.lawrence.com/static/"
 STATIC_ROOT = '/home/toby/projects/obs-osv-arkiv/static'
-#STATIC_ROOT = ''
+#STATIC_ROOT = '/home/users/guttormsg/www/static'
 
 # URL prefix for static files.
 # Example: "http://media.lawrence.com/static/"
