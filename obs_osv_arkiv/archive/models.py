@@ -74,6 +74,36 @@ class Topic(models.Model):
 	def __unicode__(self):
 		return(self.topic)
 
+class Address(models.Model):
+	name = models.CharField(max_length=200)
+	street = models.CharField(max_length=200, blank=True, null=True)
+	postal_number = models.CharField(max_length=200, blank=True, null=True)
+	postal_area = models.CharField(max_length=200, blank=True, null=True)
+	country = models.CharField(max_length=200, blank=True, null=True)
+	
+	def __unicode__(self):
+		return(self.name)
+
+class Area(models.Model):
+	name = models.CharField(max_length=200) 
+	address = models.ForeignKey(Address)
+	
+	class Meta:
+		unique_together = (("name", "address"), )
+	
+	def __unicode__(self):
+		return(self.name)
+
+class Room(models.Model):
+	name = models.CharField(max_length=200)
+	area = models.ForeignKey(Area)
+	
+	class Meta:
+		unique_together = (("name", "area"), )
+	
+	def __unicode__(self):
+		return(self.name)
+
 class Item(models.Model):
 	ERA_CHOICES = (
 		('BC', 'Before Christ'),
@@ -87,7 +117,6 @@ class Item(models.Model):
 	feature_media = models.ForeignKey(Media, verbose_name=u'Feature Media', blank=True, null=True, related_name='feature_media_set')
 	item_number = models.CharField(max_length=14, unique=True, blank=False, verbose_name=u'Identifikasjonsnummer')
 	title = models.CharField(max_length=200, blank=False, verbose_name=u'Tittel/Betegnelse', null=False)
-	#topic = models.ManyToManyField(Topic, verbose_name=u'Emne', blank=False, related_name='items')
 	condition = models.ForeignKey(Condition, blank=False, null=False, verbose_name=u'Tilstand')
 	dating_certainty = models.CharField(max_length=20, choices=CERTAINTY_CHOICES, verbose_name=u'Sikkerhet', blank=True, null=True) 
 	era_from = models.CharField(max_length=2, choices=ERA_CHOICES, verbose_name=u'Periode', blank=True, null=True)
@@ -108,6 +137,10 @@ class Item(models.Model):
 	ref_literature = models.TextField(verbose_name=u'Ref. Litteratur', blank=True)	
 	aquization_method = models.CharField(max_length=200, verbose_name=u'Proviniens', blank=True, null=True)
 	location = models.ForeignKey(Location, verbose_name=u'Lokasjon', blank=True, null=True)	
+	address = models.ForeignKey(Address, verbose_name=u'Sted', blank=True, null=True)
+	area = models.ForeignKey(Area, verbose_name=u'Område', blank=True, null=True)
+	room = models.ForeignKey(Room, verbose_name=u'Rom', blank=True, null=True)
+	position = models.CharField(max_length=200, blank=True, null=True)
 	loan_status = models.CharField(max_length=200, verbose_name=u'Utlånsstatus', blank=True, null=True)
 	description = models.CharField(max_length=2000, verbose_name=u'Supplerende', blank=True, null=True)
 	media = models.ManyToManyField(Media, verbose_name=u'Media', blank=True)
