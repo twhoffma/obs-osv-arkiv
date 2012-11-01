@@ -2,6 +2,6 @@
 *.pot
 *.pyc
 local_settings.py
-static/
+obs_osv_arkiv/static/
 media/
 deps/
