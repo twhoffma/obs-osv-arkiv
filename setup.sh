@@ -1,5 +1,6 @@
-cd $HOME
-mkdir test_bin
+#!/bin/sh
+
+mkdir $HOME/test_bin
 export PYTHONPATH=$HOME/test_bin
 
 easy_install -d $HOME/test_bin virtualenv
