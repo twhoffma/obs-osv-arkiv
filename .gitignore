@@ -5,3 +5,4 @@ local_settings.py
 obs_osv_arkiv/static/
 media/
 deps/
+migrations/
