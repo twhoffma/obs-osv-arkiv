@@ -1,10 +1,17 @@
 #!/bin/sh
 
-mkdir $HOME/test_bin
-export PYTHONPATH=$HOME/test_bin
+export PYTHONPATH=$HOME/bin
 
-easy_install -d $HOME/test_bin virtualenv
+if [! -f $HOME/bin/virtualenv]; then
+	mkdir $HOME/test_bin
+	easy_install -d $HOME/test_bin virtualenv
+end
 
-$HOME/test_bin/virtualenv ./test_deps
+$HOME/bin/virtualenv ./deps
 
-. ./test_deps/bin/activate
+. ./deps/bin/activate
+
+pip install Django
+pip install south
+pip install PIL
+pip install MySQL-python
