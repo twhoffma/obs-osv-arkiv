@@ -5,7 +5,7 @@ export PYTHONPATH=$HOME/bin
 if [! -f $HOME/bin/virtualenv]; then
 	mkdir $HOME/test_bin
 	easy_install -d $HOME/test_bin virtualenv
-end
+fi
 
 $HOME/bin/virtualenv ./deps
 
