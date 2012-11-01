@@ -6,3 +6,4 @@ obs_osv_arkiv/static/
 media/
 deps/
 migrations/
+*.swp
