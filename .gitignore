@@ -7,3 +7,5 @@ media/
 deps/
 migrations/
 *.swp
+\.pyc
+\.swp

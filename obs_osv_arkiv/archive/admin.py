@@ -24,11 +24,8 @@ class MediaInline(admin.TabularInline):
 	extra = 1
 	template = 'admin/archive/edit_inline/media_tabular.html'
 
-#class TopicInline(admin.TabularInline):
-#	model=Item.topic.through
-#	extra = 0
-#	form = Item_topicEditForm
-#	template = 'admin/archive/edit_inline/tabular.html'
+#class AddressAdmin(admin.ModelAdmin):
+#	model = 
 
 class ItemAdmin(admin.ModelAdmin):
 	model = Item
@@ -53,6 +50,7 @@ class ItemAdmin(admin.ModelAdmin):
 				}),
 			('Dimensions', {'fields': ('dim_height', 'dim_width', 'dim_depth', 'dim_weight')
 				}),
+			('Sted', {'fields': ('address', 'area', 'room', 'position')}), 
 			(None, {'fields': ('materials', 'keywords', 'ref_literature', 'aquization_method', 'location', 'loan_status', 'description')}),
 		)
 	

@@ -10,6 +10,23 @@ from django.utils.safestring import mark_safe
 from django.utils.encoding import force_unicode
 from itertools import chain
 
+
+class ItemLocationForm(forms.Form):
+	address = forms.CharField(required=False)
+	area = forms.CharField(required=False)
+	room = forms.CharField(required=False)
+	
+	def __init__(self, *args, **kwargs):
+		super(ItemLocationForm, self).__init__(*args, **kwargs)
+	
+	def clean(self):
+		self.cleaned_data = super(ItemLocationForm, self).clean()
+		return(self.cleaned_data)
+	
+	def is_valid(self):
+		valid = super(ItemLocationForm, self).is_valid()
+		return(valid)
+
 class ItemSearchForm(forms.Form):
 	item_number = forms.CharField() 
 	title = forms.CharField() 
@@ -47,16 +64,7 @@ class ItemAdminForm(forms.ModelForm):
 		
 		self.cleaned_data['materials'] = materials
 		self.cleaned_data['keywords'] = keywords
-		#
-		#for k in ['materials', 'keywords']:
-		#	tags = []
-		#	for material in self.cleaned_data[k].split(','):
-		#		try:
-		#			t = Tag.objects.get(name=material)
-		#			tags.append(t)
-		#		except:
-		#			continue
-		#	self.cleaned_data[k] = tags
+		
 		return(self.cleaned_data)
 
 class Item_materialEditForm(forms.ModelForm):
