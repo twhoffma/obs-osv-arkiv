@@ -107,13 +107,13 @@ class LocationEditForm(forms.ModelForm):
 	class Meta:
 		model = Location
 
-class LocationSelectForm(forms.Form):
-	area = forms.ChoiceField(choices=[(l.area, l.area) for l in Location.objects.all()])
-	room = forms.ChoiceField(choices=[])
-	position_ref = forms.ChoiceField(choices=[])
-	
-	def __init(self, *args, **kwargs):
-		super
+#class LocationSelectForm(forms.Form):
+#	area = forms.ChoiceField(choices=[(l.area, l.area) for l in Location.objects.all()])
+#	room = forms.ChoiceField(choices=[])
+#	position_ref = forms.ChoiceField(choices=[])
+#	
+#	def __init(self, *args, **kwargs):
+#		super
 
 class TopicSelectForm(forms.Form):
 	topic = forms.ChoiceField(choices=[], label=None)
