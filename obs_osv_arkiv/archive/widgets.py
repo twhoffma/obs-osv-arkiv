@@ -22,51 +22,51 @@ class TopicWidget(widgets.MultiWidget):
 		return([None, None])
 
 #https://github.com/django/django/blob/master/django/forms/extras/widgets.py
-class SelectLocationWidget(widgets.Widget):
-	def __init__(self, attrs=None, required=True):
-		self.attrs = attrs or {}
-		self.required = required
-	
-	def render(self, name, value, attrs=None):
-		#pdb.set_trace()
-		from archive.models import Location
-		output= []
-		
-		choices_area = [(l.area, l.area) for l in Location.objects.all()]
-		
-		if value:
-			loc = Location.objects.get(pk=value)
-			selected_area = loc.area
-			selected_room = loc.room
-			selected_pos = loc.position_ref
-			
-			choices_room = [(l.room, l.room) for l in Location.objects.filter(area=selected_area)]
-			pos = loc.position_ref
-		else:
-			selected_area = choices_area[0][0]
-			selected_room = ''
-			selected_pos = ''			
-
-		choices_room = [(l.room, l.room) for l in Location.objects.filter(area=selected_area)]
-		if selected_room == '':
-			selected_room = choices_room[0][0]
-		
-		s = widgets.Select(choices=choices_area, attrs={'id': 'id-area'})
-		output.append(s.render("area", selected_area))
-		
-		s = widgets.Select(choices=choices_room, attrs={'id': 'id-room'})
-		output.append(s.render("room", selected_room))
-		
-		s = widgets.TextInput(attrs={'id': 'id-position'})
-		output.append(s.render("pos", selected_pos))
-		
-		return(mark_safe('\n'.join(output)))	
-	
-	def value_from_datadict(self, data, files, name):
-		from archive.models import Location
-		(location, created) = Location.objects.get_or_create(area=data.get('area'), room=data.get('room'), position_ref=data.get('pos'))
-		return(location.pk)
-		#return([data.get('area'), data.get('room'), data.get('pos')])
+#class SelectLocationWidget(widgets.Widget):
+#	def __init__(self, attrs=None, required=True):
+#		self.attrs = attrs or {}
+#		self.required = required
+#	
+#	def render(self, name, value, attrs=None):
+#		#pdb.set_trace()
+#		from archive.models import Location
+#		output= []
+#		
+#		choices_area = [(l.area, l.area) for l in Location.objects.all()]
+#		
+#		if value:
+#			loc = Location.objects.get(pk=value)
+#			selected_area = loc.area
+#			selected_room = loc.room
+#			selected_pos = loc.position_ref
+#			
+#			choices_room = [(l.room, l.room) for l in Location.objects.filter(area=selected_area)]
+#			pos = loc.position_ref
+#		else:
+#			selected_area = choices_area[0][0]
+#			selected_room = ''
+#			selected_pos = ''			
+#
+#		choices_room = [(l.room, l.room) for l in Location.objects.filter(area=selected_area)]
+#		if selected_room == '':
+#			selected_room = choices_room[0][0]
+#		
+#		s = widgets.Select(choices=choices_area, attrs={'id': 'id-area'})
+#		output.append(s.render("area", selected_area))
+#		
+#		s = widgets.Select(choices=choices_room, attrs={'id': 'id-room'})
+#		output.append(s.render("room", selected_room))
+#		
+#		s = widgets.TextInput(attrs={'id': 'id-position'})
+#		output.append(s.render("pos", selected_pos))
+#		
+#		return(mark_safe('\n'.join(output)))	
+#	
+#	def value_from_datadict(self, data, files, name):
+#		from archive.models import Location
+#		(location, created) = Location.objects.get_or_create(area=data.get('area'), room=data.get('room'), position_ref=data.get('pos'))
+#		return(location.pk)
+#		#return([data.get('area'), data.get('room'), data.get('pos')])
 			
 
 class LocationWidget(widgets.MultiWidget):

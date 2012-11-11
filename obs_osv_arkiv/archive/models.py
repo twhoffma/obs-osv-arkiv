@@ -30,13 +30,13 @@ class Media(models.Model):
 		return(self.filename.name)
 	
 #XXX: This should change. either unique=False or separate models for each field. Maybe put area, room and position in Item?
-class Location(models.Model):
-	area = models.CharField(max_length=100)
-	room = models.CharField(max_length=100)
-	position_ref = models.CharField(max_length=200)
-	
-	def __unicode__(self):
-		return(self.area + "," + self.room + "," + self.position_ref)
+#class Location(models.Model):
+#	area = models.CharField(max_length=100)
+#	room = models.CharField(max_length=100)
+#	position_ref = models.CharField(max_length=200)
+#	
+#	def __unicode__(self):
+#		return(self.area + "," + self.room + "," + self.position_ref)
 
 class Tag(models.Model):
 	name = models.CharField(max_length=200)
@@ -104,6 +104,16 @@ class Room(models.Model):
 	def __unicode__(self):
 		return(self.name)
 
+class Location(models.Model):
+	name = models.CharField(max_length=200)
+	room = models.ForeignKey(Room)
+	
+	class Meta:
+		unique_together = (("name", "room"), )
+	
+	def __unicode__(self):
+		return(self.name)
+
 class Item(models.Model):
 	ERA_CHOICES = (
 		('BC', 'Before Christ'),
@@ -128,18 +138,18 @@ class Item(models.Model):
 	origin_country = models.CharField(max_length=200, verbose_name=u'Land', blank=True, null=True)
 	origin_continent = models.CharField(max_length=200, verbose_name=u'Verdensdel', blank=True, null=True)
 	artist = models.CharField(max_length=200, verbose_name=u'Kunstner/Produsent', blank=True, null=True)
-	dim_height = models.DecimalField(decimal_places=2, max_digits=3, verbose_name=u'Høyde (cm)', blank=True, null=True)
-	dim_width = models.DecimalField(decimal_places=2, max_digits=3, verbose_name=u'Bredde (cm)', blank=True, null=True)
-	dim_depth = models.DecimalField(decimal_places=2, max_digits=3, verbose_name=u'Dybde (cm)', blank=True, null=True)
-	dim_weight = models.DecimalField(decimal_places=2, max_digits=3, verbose_name=u'Vekt (g)', blank=True, null=True)
+	dim_height = models.DecimalField(decimal_places=2, max_digits=9, verbose_name=u'Høyde (cm)', blank=True, null=True)
+	dim_width = models.DecimalField(decimal_places=2, max_digits=9, verbose_name=u'Bredde (cm)', blank=True, null=True)
+	dim_depth = models.DecimalField(decimal_places=2, max_digits=9, verbose_name=u'Dybde (cm)', blank=True, null=True)
+	dim_weight = models.DecimalField(decimal_places=2, max_digits=9, verbose_name=u'Vekt (g)', blank=True, null=True)
 	materials = models.ManyToManyField(Materials, verbose_name=u'Materiale/Teknikk', blank=True)
 	keywords = models.ManyToManyField(Keywords, verbose_name=u'Nøkkelord', blank=True)
 	ref_literature = models.TextField(verbose_name=u'Ref. Litteratur', blank=True)	
 	aquization_method = models.CharField(max_length=200, verbose_name=u'Proviniens', blank=True, null=True)
-	location = models.ForeignKey(Location, verbose_name=u'Lokasjon', blank=True, null=True)	
 	address = models.ForeignKey(Address, verbose_name=u'Sted', blank=True, null=True)
 	area = models.ForeignKey(Area, verbose_name=u'Område', blank=True, null=True)
 	room = models.ForeignKey(Room, verbose_name=u'Rom', blank=True, null=True)
+	location = models.ForeignKey(Location, verbose_name=u'Lokasjon', blank=True, null=True)	
 	position = models.CharField(max_length=200, blank=True, null=True)
 	loan_status = models.CharField(max_length=200, verbose_name=u'Utlånsstatus', blank=True, null=True)
 	description = models.CharField(max_length=2000, verbose_name=u'Supplerende', blank=True, null=True)

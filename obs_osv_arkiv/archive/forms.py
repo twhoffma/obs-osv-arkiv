@@ -2,8 +2,8 @@ import pdb
 from django import forms
 from django.forms import widgets
 from archive.models import Item, Topic, Condition, Tag, Location, Keywords, Materials
-from archive.widgets import TopicWidget, TagWidget, SelectLocationWidget, KeywordWidget, MaterialWidget
-from archive.fields import TopicField, LocationField
+from archive.widgets import TopicWidget, TagWidget, KeywordWidget, MaterialWidget#, SelectLocationWidget
+from archive.fields import TopicField #, LocationField
 
 from django.forms.util import flatatt
 from django.utils.safestring import mark_safe
@@ -41,7 +41,7 @@ class ItemAdminForm(forms.ModelForm):
 	
 	def __init__(self, *args, **kwargs):
 		super(ItemAdminForm, self).__init__(*args, **kwargs)
-		self.fields['location'].widget = SelectLocationWidget()
+		#self.fields['location'].widget = SelectLocationWidget()
 	
 	def clean(self):
 		self.cleaned_data = super(ItemAdminForm, self).clean()

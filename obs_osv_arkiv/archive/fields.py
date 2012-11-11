@@ -1,5 +1,5 @@
 from django.forms import MultiValueField, CharField, ChoiceField
-from archive.widgets import TopicWidget, LocationWidget, SelectLocationWidget
+from archive.widgets import TopicWidget, LocationWidget#, SelectLocationWidget
 
 class TopicField(MultiValueField):
 	widget = TopicWidget
@@ -39,24 +39,24 @@ class TopicField(MultiValueField):
 #			return(loc)
 #		return(None)	
 				
-class LocationField(CharField):
-	widget = SelectLocationWidget
-
-	#def __init__(self, *args, **kwargs):
-	#	from archive.models import Location
-	#			
-	#	fields = (
-	#			ChoiceField(choices=[(l.area, l.area) for l in Location.objects.all()]),
-	#			ChoiceField(choices=[(0, '---')]),
-	#			CharField(),
-	#		)
-	#	super(LocationField, self).__init__(fields, *args, **kwargs)
-	
-	def compress(self, data_list):
-		pdb.set_trace()
-		if data_list:
-			from archive.models import Location
-			if Location.objects.filter(area=data_list[0], room=data_list[1], position_ref=data_list[2]):
-				l = Location.objects.get(area=data_list[0], room=data_list[1], position_ref=data_list[2])
-				return(l)
-			return None
+#class LocationField(CharField):
+#	widget = SelectLocationWidget
+#
+#	#def __init__(self, *args, **kwargs):
+#	#	from archive.models import Location
+#	#			
+#	#	fields = (
+#	#			ChoiceField(choices=[(l.area, l.area) for l in Location.objects.all()]),
+#	#			ChoiceField(choices=[(0, '---')]),
+#	#			CharField(),
+#	#		)
+#	#	super(LocationField, self).__init__(fields, *args, **kwargs)
+#	
+#	def compress(self, data_list):
+#		pdb.set_trace()
+#		if data_list:
+#			from archive.models import Location
+#			if Location.objects.filter(area=data_list[0], room=data_list[1], position_ref=data_list[2]):
+#				l = Location.objects.get(area=data_list[0], room=data_list[1], position_ref=data_list[2])
+#				return(l)
+#			return None
