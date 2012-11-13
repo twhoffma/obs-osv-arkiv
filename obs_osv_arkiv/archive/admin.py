@@ -50,8 +50,8 @@ class ItemAdmin(admin.ModelAdmin):
 				}),
 			('Dimensions', {'fields': ('dim_height', 'dim_width', 'dim_depth', 'dim_weight')
 				}),
-			('Sted', {'fields': ('address', 'area', 'room', 'position')}), 
-			(None, {'fields': ('materials', 'keywords', 'ref_literature', 'aquization_method', 'location', 'loan_status', 'description')}),
+			('Sted', {'fields': ('address', 'area', 'room', 'location', 'position')}), 
+			(None, {'fields': ('materials', 'keywords', 'ref_literature', 'aquization_method', 'loan_status', 'description')}),
 		)
 	
 	def get_urls(self):

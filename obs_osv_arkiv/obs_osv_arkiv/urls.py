@@ -27,6 +27,8 @@ urlpatterns = patterns('',
     url(r'^topic_autocomplete/$', 'archive.views.topic_autocomplete'),
     url(r'^subtopic_autocomplete/$', 'archive.views.subtopic_autocomplete'),
     url(r'^room_autocomplete/$', 'archive.views.room_autocomplete'),
+    url(r'^area_autocomplete/$', 'archive.views.area_autocomplete'),
+    url(r'^location_autocomplete/$', 'archive.views.location_autocomplete'),
     (r'%s(?P<path>.*)' % settings.MEDIA_URL[1:], 'django.views.static.serve', {'document_root': settings.MEDIA_ROOT}),
     url(r'^navigation/', include('navigation_autocomplete.urls')),
 )

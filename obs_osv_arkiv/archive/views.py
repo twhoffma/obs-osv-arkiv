@@ -1,4 +1,4 @@
-from archive.models import Media, Location, Tag, Condition,Item,Topic, Category
+from archive.models import Media, Location, Tag, Condition,Item,Topic, Category, Address, Area, Room, Location
 from archive.forms import ItemEditForm, TopicSelectForm, LocationEditForm#, LocationSelectForm #,TopicEditForm 
 from django.shortcuts import render_to_response, get_object_or_404
 from django.http import HttpResponse, Http404
@@ -21,6 +21,7 @@ def museum(request):
 	if request.GET.has_key('node'):
 		node_id = request.GET.get('node')
 		c = Category.objects.get(pk=node_id)
+		page_items['parent'] = c
 		page_items['nodes'] = c.get_children()
 		page_items['items'] = c.item_set.all()
 	else:
@@ -46,6 +47,48 @@ def add_location(request):
 		#return HttpResponse("FAIL")
 	
 	return(response)
+
+#used
+@csrf_exempt
+def area_autocomplete(request):
+	results = []
+	if request.method == "POST":
+		if request.POST.has_key(u'query'):
+			value = request.POST.get(u'query')
+			if value:
+				addr = Address.objects.filter(pk=value)
+				models = Area.objects.filter(address=addr)
+				results = [(t.pk, t.name) for t in models]
+	json = simplejson.dumps(results)
+	return HttpResponse(json)
+
+#used
+@csrf_exempt
+def room_autocomplete(request):
+	results = []
+	if request.method == "POST":
+		if request.POST.has_key(u'query'):
+			value = request.POST.get(u'query')
+			if value:
+				area = Area.objects.get(pk=value)
+				models = Room.objects.filter(area=area)
+				results = [(t.pk, t.name) for t in models]
+	json = simplejson.dumps(results)
+	return HttpResponse(json)
+
+#used
+@csrf_exempt
+def location_autocomplete(request):
+	results = []
+	if request.method == "POST":
+		if request.POST.has_key(u'query'):
+			value = request.POST.get(u'query')
+			if value:
+				room = Room.objects.get(pk=value)
+				models = Location.objects.filter(room=room)
+				results = [(t.pk, t.name) for t in models]
+	json = simplejson.dumps(results)
+	return HttpResponse(json)
 
 @csrf_exempt
 def tag_autocomplete(request):
@@ -94,16 +137,16 @@ def topic_autocomplete(request):
 	return HttpResponse(json)
 
 
-@csrf_exempt
-def room_autocomplete(request):
-	results = []
-	if request.method == "POST":
-		if request.POST.has_key(u'area'):
-			value = request.POST.get(u'area')
-			models = Location.objects.filter(area__iexact=value)
-			results = [t.room for t in models]
-	json = simplejson.dumps(results)
-	return HttpResponse(json)
+#@csrf_exempt
+#def room_autocomplete(request):
+#	results = []
+#	if request.method == "POST":
+#		if request.POST.has_key(u'area'):
+#			value = request.POST.get(u'area')
+#			models = Location.objects.filter(area__iexact=value)
+#			results = [t.room for t in models]
+#	json = simplejson.dumps(results)
+#	return HttpResponse(json)
 
 @csrf_exempt
 def subtopic_autocomplete(request):
