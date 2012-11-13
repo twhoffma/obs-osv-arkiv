@@ -5,7 +5,7 @@
 		"fields": {
 			"name": "Svært god",
 			"description": "Gjendstanden er i førsteklasses bevaringstilstand. Ingen synelige skader eller tegn på nedbryting.",
-			"condition_value": "0",
+			"condition_value": "0"
 		}
 	},
 	{
@@ -14,7 +14,7 @@
 		"fields": {
 			"name": "God",
 			"description": "Gjenstanden er i god stand. Mindre synlige skader. Merket av tidens tann.",
-			"condition_value": "1",
+			"condition_value": "1"
 		}
 	},
 	{
@@ -23,7 +23,7 @@
 		"fields": {
 			"name": "Tilfredstillende/mindre god",
 			"description": "Enkelte skader og/eller ustabil tilstand. Gjenstanden er merket av tidens tann.",
-			"condition_value": "2",
+			"condition_value": "2"
 		}
 	},
 	{
@@ -32,7 +32,7 @@
 		"fields": {
 			"name": "Dårlig/kritisk",
 			"description": "Gjenstanden har store skader, er i dårlig bevaringstilstand. Trenger omfattende behandling for å hindre total ødeleggelse.",
-			"condition_value": "3",
+			"condition_value": "3"
 		}
 	}
 ]
