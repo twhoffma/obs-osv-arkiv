@@ -3,30 +3,32 @@ from django import forms
 from django.conf.urls import patterns
 from django.shortcuts import render_to_response, HttpResponseRedirect
 from django.template import RequestContext
-from archive.models import Item, Topic, Tag, Media, Location, Condition, Category, Materials, Keywords
+from archive.models import Item, Topic, Tag, Media, Location, Condition, Category, Materials, Keywords, Address, Area, Room, Location
 from forms import Item_materialEditForm, ItemAdminForm, ItemSearchForm
+import autocomplete_light
 import pdb
 import mimetypes
 
-import autocomplete_light
+
+#class MaterialsInline(admin.TabularInline):
+#	model=Item.materials.through
+#	extra = 0
+#	form = Item_materialEditForm
+#
+#
+#class AddressAdmin(admin.ModelAdmin):
+#	model = 
 
 class ItemCategoryInline(admin.TabularInline):
 	model=Item.category.through
 	extra = 0
-
-class MaterialsInline(admin.TabularInline):
-	model=Item.materials.through
-	extra = 0
-	form = Item_materialEditForm
 
 class MediaInline(admin.TabularInline):
 	model=Item.media.through
 	extra = 1
 	template = 'admin/archive/edit_inline/media_tabular.html'
 
-#class AddressAdmin(admin.ModelAdmin):
-#	model = 
-
+#--- Main Item Admin 
 class ItemAdmin(admin.ModelAdmin):
 	model = Item
 	form = ItemAdminForm
@@ -74,10 +76,29 @@ class ItemAdmin(admin.ModelAdmin):
 		#page_items['search_form'] = ItemAdminForm()
 		page_items['search_form'] = ItemSearchForm()
 		return render_to_response('archive/search.html', page_items, context_instance=RequestContext(request))
+#---
 
+#--- Category Admin for organization
 class CategoryAdmin(admin.ModelAdmin):
 	form = autocomplete_light.modelform_factory(Category)
 
+#---
+
+#---Item location admin interfaces
+class AddressAdmin(admin.ModelAdmin):
+	model = Address
+
+class AreaAdmin(admin.ModelAdmin):
+	model = Area
+
+class RoomAdmin(admin.ModelAdmin):
+	model = Room
+
+class LocationAdmin(admin.ModelAdmin):
+	model = Location
+#---
+
+#--- File and media admins
 class MediaAdmin(admin.ModelAdmin):
 	model = Media
 	
@@ -98,11 +119,16 @@ class MediaAdmin(admin.ModelAdmin):
 			im.thumbnail((50,50), Image.ANTIALIAS)
 			matches = re.split('(.*)\.([^\.]*)$', file)
 			im.save(matches[1] + "_thumb.jpg" , "JPEG")
-	
+
+#---
+
 admin.site.register(Category, CategoryAdmin)
 admin.site.register(Topic)
 admin.site.register(Tag)
 admin.site.register(Media, MediaAdmin)
-admin.site.register(Location)
 admin.site.register(Condition)
 admin.site.register(Item, ItemAdmin)
+admin.site.register(Address)
+admin.site.register(Area)
+admin.site.register(Room)
+admin.site.register(Location)

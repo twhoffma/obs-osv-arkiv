@@ -30,24 +30,6 @@ def museum(request):
 		
 	return render_to_response('archive/museum.html', page_items, context_instance=RequestContext(request))
 
-def add_location(request):
-	response = HttpResponse()
-	response['Content-Type'] = 'application/json'
-	
-	if request.method == "POST":
-		form = LocationEditForm(request.POST)
-		if form.is_valid():
-			form.save()
-			
-			response.write(simplejson.dumps("OK"))
-		else:
-			response.write(simplejson.dumps("FAIL: " + "\n" + "\n".join(form.errors.keys())))
-	else:
-		response.write("Not a POST")
-		#return HttpResponse("FAIL")
-	
-	return(response)
-
 #used
 @csrf_exempt
 def area_autocomplete(request):
@@ -125,18 +107,18 @@ def material_autocomplete(request):
 	json = simplejson.dumps(results)
 	return HttpResponse(json)
 
-@csrf_exempt
-def topic_autocomplete(request):
-	results = []
-	if request.method == "POST":
-		if request.POST.has_key(u'topic'):
-			value = request.POST.get(u'topic')
-			models = Topic.objects.filter(topic__icontains=value)
-			results = [t.topic for t in models]
-	json = simplejson.dumps(results)
-	return HttpResponse(json)
-
-
+#@csrf_exempt
+#def topic_autocomplete(request):
+#	results = []
+#	if request.method == "POST":
+#		if request.POST.has_key(u'topic'):
+#			value = request.POST.get(u'topic')
+#			models = Topic.objects.filter(topic__icontains=value)
+#			results = [t.topic for t in models]
+#	json = simplejson.dumps(results)
+#	return HttpResponse(json)
+#
+#
 #@csrf_exempt
 #def room_autocomplete(request):
 #	results = []
@@ -147,16 +129,34 @@ def topic_autocomplete(request):
 #			results = [t.room for t in models]
 #	json = simplejson.dumps(results)
 #	return HttpResponse(json)
-
-@csrf_exempt
-def subtopic_autocomplete(request):
-	results = []
-	if request.method == "POST":
-		if request.POST.has_key(u'topic') and request.POST.has_key(u'subtopic'):
-			topic = request.POST.get(u'topic')
-			subtopic = request.POST.get(u'subtopic')
-			models = Topic.objects.filter(topic__iexact=topic).filter(subtopic__icontains=subtopic)
-			results = [t.subtopic for t in models]
-	json = simplejson.dumps(results)
-	return HttpResponse(json)
+#
+#@csrf_exempt
+#def subtopic_autocomplete(request):
+#	results = []
+#	if request.method == "POST":
+#		if request.POST.has_key(u'topic') and request.POST.has_key(u'subtopic'):
+#			topic = request.POST.get(u'topic')
+#			subtopic = request.POST.get(u'subtopic')
+#			models = Topic.objects.filter(topic__iexact=topic).filter(subtopic__icontains=subtopic)
+#			results = [t.subtopic for t in models]
+#	json = simplejson.dumps(results)
+#	return HttpResponse(json)
+#
+#def add_location(request):
+#	response = HttpResponse()
+#	response['Content-Type'] = 'application/json'
+#	
+#	if request.method == "POST":
+#		form = LocationEditForm(request.POST)
+#		if form.is_valid():
+#			form.save()
+#			
+#			response.write(simplejson.dumps("OK"))
+#		else:
+#			response.write(simplejson.dumps("FAIL: " + "\n" + "\n".join(form.errors.keys())))
+#	else:
+#		response.write("Not a POST")
+#		#return HttpResponse("FAIL")
+#	
+#	return(response)
 

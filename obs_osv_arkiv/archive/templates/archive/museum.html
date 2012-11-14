@@ -1,13 +1,19 @@
 <html>
 <body>
-	<h3>Categories</h3>
+	<div style="background-color: #FFA500; min-height: 1em; min-weight: 1em; margin-left: 3px; display: inline;">	
+		{{ parent.name }}
+	</div>
 	{% for node in nodes %}
-		<a href="/?node={{ node.pk }}">{{ node }} </a>
+		<div style="background-color: #F52887; min-height: 1em; min-width: 1em; margin-left: 3px; display: inline;">
+			<a href="/?node={{ node.pk }}">{{ node.name }} </a>
+		</div>
 	{% endfor %}
 	
 	<h3>Items</h3>
 	{% for item in items %}
-		<a href="/?item={{ item.pk }}">{{ item }} </a>
+		<div style="background-color: #F6F6F6; min-height: 1em; min-width: 1em; margin-left: 3px; display: inline;">
+			<a href="/?item={{ item.pk }}">{{ item.title }} </a>
+		</div>
 	{% endfor %}
 </body>
 </html>
