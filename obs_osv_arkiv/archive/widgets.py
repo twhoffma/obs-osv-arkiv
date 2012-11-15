@@ -113,15 +113,11 @@ class MaterialWidget(widgets.Widget):
 				#final_attrs['value'] = value
 		else:
 			final_attrs['value'] = ''
-		#import pdb
-		#pdb.set_trace()
-		return mark_safe(u'<textarea %s > %s </textarea>' % (flatatt(final_attrs), val.decode('utf-8')))
-		#return mark_safe(u'<input%s />' % flatatt(final_attrs))
+		return mark_safe(u'<textarea %s >%s</textarea>' % (flatatt(final_attrs), val.decode('utf-8')))
 
 class KeywordWidget(widgets.Widget):
 	def render(self, name, value, attrs=None):
 		from archive.models import Keywords
-		#final_attrs = self.build_attrs(attrs, type='text', name=name)
 		final_attrs = self.build_attrs(attrs, name=name)
 		objects = []
 		val = ''
@@ -144,9 +140,7 @@ class KeywordWidget(widgets.Widget):
 				#final_attrs['value'] = value
 		else:
 			final_attrs['value'] = ''
-		return mark_safe(u'<textarea %s > %s </textarea>' % (flatatt(final_attrs), val.decode('utf-8')))
-		#return mark_safe(u'<textarea >%s</textarea>' % value)
-		#return mark_safe(u'<textarea%s ></textarea>' % flatatt(final_attrs))
+		return mark_safe(u'<textarea %s >%s</textarea>' % (flatatt(final_attrs), val.decode('utf-8')))
 
 class TagWidget(widgets.Widget):
 	def render(self, name, value, attrs=None):

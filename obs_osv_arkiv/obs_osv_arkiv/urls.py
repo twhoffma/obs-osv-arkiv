@@ -18,7 +18,7 @@ urlpatterns = patterns('',
     # Uncomment the next line to enable the admin:
     # url(r'^admin/', include(admin.site.urls)),
     url(r'^$', 'archive.views.museum'),
-    url(r'^admin/search/', 'archive.views.search'),
+    #url(r'^admin/search/', 'archive.views.search'),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^tag_autocomplete/$', 'archive.views.tag_autocomplete'),
     url(r'^keyword_autocomplete/$', 'archive.views.keyword_autocomplete'),

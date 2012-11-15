@@ -11,21 +11,21 @@ from django.utils.encoding import force_unicode
 from itertools import chain
 
 
-class ItemLocationForm(forms.Form):
-	address = forms.CharField(required=False)
-	area = forms.CharField(required=False)
-	room = forms.CharField(required=False)
-	
-	def __init__(self, *args, **kwargs):
-		super(ItemLocationForm, self).__init__(*args, **kwargs)
-	
-	def clean(self):
-		self.cleaned_data = super(ItemLocationForm, self).clean()
-		return(self.cleaned_data)
-	
-	def is_valid(self):
-		valid = super(ItemLocationForm, self).is_valid()
-		return(valid)
+#class ItemLocationForm(forms.Form):
+#	address = forms.CharField(required=False)
+#	area = forms.CharField(required=False)
+#	room = forms.CharField(required=False)
+#	
+#	def __init__(self, *args, **kwargs):
+#		super(ItemLocationForm, self).__init__(*args, **kwargs)
+#	
+#	def clean(self):
+#		self.cleaned_data = super(ItemLocationForm, self).clean()
+#		return(self.cleaned_data)
+#	
+#	def is_valid(self):
+#		valid = super(ItemLocationForm, self).is_valid()
+#		return(valid)
 
 class ItemSearchForm(forms.Form):
 	item_number = forms.CharField() 
@@ -114,65 +114,65 @@ class LocationEditForm(forms.ModelForm):
 #	
 #	def __init(self, *args, **kwargs):
 #		super
-
-class TopicSelectForm(forms.Form):
-	topic = forms.ChoiceField(choices=[], label=None)
-	subtopic = forms.ChoiceField(choices=[], label=None)
-	
-	def __init__(self, *args, **kwargs):
-		super(TopicSelectForm, self).__init__(*args, **kwargs)
-		self.fields['topic'].widget.attrs.update({'class': 'dobbel'})
-		self.fields['subtopic'].widget.attrs.update({'class': 'dobbel'})
-		self.fields['topic'].choices = [t.topic for t in Topic.objects.all()]
-		
-	
-class ItemEditForm(forms.ModelForm):
-	condition = forms.ModelChoiceField(widget=forms.RadioSelect(), queryset=Condition.objects.all(), empty_label=None)
-	materials = forms.CharField(required=False, widget=widgets.TextInput(attrs={'class' : 'material enkel'}))
-	keywords = forms.CharField(required=False, widget=widgets.TextInput(attrs={'class': 'keyword enkel'}))
-	
-	class Meta:
-		model = Item
-		fields = (
-			'item_number',
-			'title',
-			'condition',
-			'dating_certainty',
-			'era_from',
-			'date_from',
-			'era_to',
-			'date_to',
-			'origin_certainty',
-			'origin_city',
-			'origin_country',
-			'origin_continent',
-			'artist',
-			'dim_height',
-			'dim_width',
-			'dim_depth',
-			'dim_weight',
-			'ref_literature',
-			'aquization_method',
-			'location',
-			'loan_status',
-			'description'
-		)
-		widgets = {
-			'item_number': forms.TextInput(attrs={'class': 'enkel'}),
-			'title': forms.TextInput(attrs={'class': 'enkel'}),
-			'condition': forms.RadioSelect,
-			'date_from': forms.TextInput(attrs={'class': 'dobbel'}),
-			'date_to': forms.TextInput(attrs={'class': 'dobbel'}),
-			'origin_city': forms.TextInput(attrs={'class': 'trippel'}),
-			'origin_country': forms.TextInput(attrs={'class': 'trippel'}),
-			'origin_continent': forms.TextInput(attrs={'class': 'trippel'}),
-			'artist': forms.TextInput(attrs={'class': 'enkel'}),
-			'dim_height': forms.TextInput(attrs={'class': 'dobbel'}),
-			'dim_width': forms.TextInput(attrs={'class': 'dobbel'}),
-			'dim_depth': forms.TextInput(attrs={'class': 'dobbel'}),
-			'dim_weight': forms.TextInput(attrs={'class': 'dobbel'}),
-			'ref_literatur': forms.TextInput(attrs={'class': 'dobbel'}),
-			'aquization_method': forms.Textarea(attrs={'class': 'enkel'}),
-			'loan_status': forms.TextInput(attrs={'class': 'enkel'}),
-			'description': forms.Textarea(attrs={'cols': 80, 'rows': 20, 'class': 'enkel'}),
-		}
+#
+#class TopicSelectForm(forms.Form):
+#	topic = forms.ChoiceField(choices=[], label=None)
+#	subtopic = forms.ChoiceField(choices=[], label=None)
+#	
+#	def __init__(self, *args, **kwargs):
+#		super(TopicSelectForm, self).__init__(*args, **kwargs)
+#		self.fields['topic'].widget.attrs.update({'class': 'dobbel'})
+#		self.fields['subtopic'].widget.attrs.update({'class': 'dobbel'})
+#		self.fields['topic'].choices = [t.topic for t in Topic.objects.all()]
+#		
+#	
+#class ItemEditForm(forms.ModelForm):
+#	condition = forms.ModelChoiceField(widget=forms.RadioSelect(), queryset=Condition.objects.all(), empty_label=None)
+#	materials = forms.CharField(required=False, widget=widgets.TextInput(attrs={'class' : 'material enkel'}))
+#	keywords = forms.CharField(required=False, widget=widgets.TextInput(attrs={'class': 'keyword enkel'}))
+#	
+#	class Meta:
+#		model = Item
+#		fields = (
+#			'item_number',
+#			'title',
+#			'condition',
+#			'dating_certainty',
+#			'era_from',
+#			'date_from',
+#			'era_to',
+#			'date_to',
+#			'origin_certainty',
+#			'origin_city',
+#			'origin_country',
+#			'origin_continent',
+#			'artist',
+#			'dim_height',
+#			'dim_width',
+#			'dim_depth',
+#			'dim_weight',
+#			'ref_literature',
+#			'aquization_method',
+#			'location',
+#			'loan_status',
+#			'description'
+#		)
+#		widgets = {
+#			'item_number': forms.TextInput(attrs={'class': 'enkel'}),
+#			'title': forms.TextInput(attrs={'class': 'enkel'}),
+#			'condition': forms.RadioSelect,
+#			'date_from': forms.TextInput(attrs={'class': 'dobbel'}),
+#			'date_to': forms.TextInput(attrs={'class': 'dobbel'}),
+#			'origin_city': forms.TextInput(attrs={'class': 'trippel'}),
+#			'origin_country': forms.TextInput(attrs={'class': 'trippel'}),
+#			'origin_continent': forms.TextInput(attrs={'class': 'trippel'}),
+#			'artist': forms.TextInput(attrs={'class': 'enkel'}),
+#			'dim_height': forms.TextInput(attrs={'class': 'dobbel'}),
+#			'dim_width': forms.TextInput(attrs={'class': 'dobbel'}),
+#			'dim_depth': forms.TextInput(attrs={'class': 'dobbel'}),
+#			'dim_weight': forms.TextInput(attrs={'class': 'dobbel'}),
+#			'ref_literatur': forms.TextInput(attrs={'class': 'dobbel'}),
+#			'aquization_method': forms.Textarea(attrs={'class': 'enkel'}),
+#			'loan_status': forms.TextInput(attrs={'class': 'enkel'}),
+#			'description': forms.Textarea(attrs={'cols': 80, 'rows': 20, 'class': 'enkel'}),
+#		}

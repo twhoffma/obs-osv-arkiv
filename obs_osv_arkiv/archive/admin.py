@@ -4,6 +4,7 @@ from django.conf.urls import patterns
 from django.shortcuts import render_to_response, HttpResponseRedirect
 from django.template import RequestContext
 from archive.models import Item, Topic, Tag, Media, Location, Condition, Category, Materials, Keywords, Address, Area, Room, Location
+from django.core.urlresolvers import reverse
 from forms import Item_materialEditForm, ItemAdminForm, ItemSearchForm
 import autocomplete_light
 import pdb
@@ -36,34 +37,38 @@ class ItemAdmin(admin.ModelAdmin):
 	exclude = ('media', 'category')
 	radio_fields = {'condition': admin.HORIZONTAL}	
 	fieldsets = (
-			(None, { 'fields': (
-				'published',
-				'feature_media',
-				'item_number',
-				'title',
-				'condition',
-				)
+			(None, { 'fields': ('published','feature_media','item_number','title','condition')}),
+			('Datering', {'fields': ('dating_certainty', ('era_from', 'date_from', 'era_to', 'date_to'))
 				}),
-			('Datering', {'fields': ('dating_certainty', 'era_from', 'date_from', 'era_to', 'date_to')
-				}),
-			('Lokasjon', {'fields': ('origin_certainty', 'origin_city', 'origin_country', 'origin_continent')
+			('Lokasjon', {'fields': ('origin_certainty', ('origin_city', 'origin_country', 'origin_continent'), 'origin_provinience')
 				}),
 			(None, {'fields': ('artist',)
 				}),
 			('Dimensions', {'fields': ('dim_height', 'dim_width', 'dim_depth', 'dim_weight')
 				}),
 			('Sted', {'fields': ('address', 'area', 'room', 'location', 'position')}), 
-			(None, {'fields': ('materials', 'keywords', 'ref_literature', 'aquization_method', 'loan_status', 'description')}),
+			(None, {'fields': ('materials', 'keywords', 'ref_literature', 'loan_status', 'description')}),
 		)
 	
 	def get_urls(self):
 		urls = super(ItemAdmin, self).get_urls()
 		extra_urls = patterns('',
-			(r'^search/$', self.admin_site.admin_view(self.search))
+			(r'^search/$', self.admin_site.admin_view(self.search)),
+			(r'^adv_search/$', self.admin_site.admin_view(self.adv_search)),
 		)
 		return(extra_urls+urls)
 	
 	def search(self, request):
+		redirect_url = '/admin/archive/item/'
+		
+		if request.method == 'GET' and len(request.GET) > 0:
+			redirect_url = redirect_url + '?'
+			query = request.GET['query']
+			if query:
+				redirect_url = redirect_url + 'title__icontains=' + query
+		return HttpResponseRedirect(redirect_url)
+	
+	def adv_search(self, request):
 		if request.method == 'GET' and len(request.GET) > 0:
 			redirect_url = '/admin/archive/item/?'
 			for field in request.GET.lists():
@@ -73,9 +78,9 @@ class ItemAdmin(admin.ModelAdmin):
 					redirect_url = redirect_url + field[0] + '__icontains=' + field[1][0]
 			return HttpResponseRedirect(redirect_url)	
 		page_items = {}
-		#page_items['search_form'] = ItemAdminForm()
 		page_items['search_form'] = ItemSearchForm()
 		return render_to_response('archive/search.html', page_items, context_instance=RequestContext(request))
+		
 #---
 
 #--- Category Admin for organization
