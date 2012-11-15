@@ -2,8 +2,8 @@ import pdb
 from django import forms
 from django.forms import widgets
 from archive.models import Item, Topic, Condition, Tag, Location, Keywords, Materials
-from archive.widgets import TopicWidget, TagWidget, KeywordWidget, MaterialWidget#, SelectLocationWidget
-from archive.fields import TopicField #, LocationField
+from archive.widgets import TagWidget, KeywordWidget, MaterialWidget#TopicWidget, , SelectLocationWidget
+#from archive.fields import TopicField #, LocationField
 
 from django.forms.util import flatatt
 from django.utils.safestring import mark_safe
@@ -33,8 +33,8 @@ class ItemSearchForm(forms.Form):
 	
 
 class ItemAdminForm(forms.ModelForm):
-	materials = forms.CharField(widget=MaterialWidget(), required=False)
-	keywords = forms.CharField(widget=KeywordWidget(), required=False)
+	materials = forms.CharField(widget=MaterialWidget(attrs={'rows': 3, 'cols': 80}), required=False)
+	keywords = forms.CharField(widget=KeywordWidget(attrs={'rows': 3, 'cols': 80}), required=False)
 		
 	class Meta:
 		model = Item

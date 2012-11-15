@@ -15,6 +15,8 @@
   {{ block.super }}
 		
   <input type="hidden" id="topic_subtopic_helper" value="" />
+  <div class="ui-widget">
+  </div>
 {% endblock %}
 
 {% block extrastyle %}
@@ -30,5 +32,13 @@
 	.aligned label.inline {
 		width: auto;
 	}
+	
+	.ui-autocomplete {
+		background-color: #F6F6F6;
+	}
+	
+	ul.ui-corner-all {
+		list-style: none;
+	}	
 	</style>
 {% endblock %}

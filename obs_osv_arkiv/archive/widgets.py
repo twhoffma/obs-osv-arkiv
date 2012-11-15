@@ -5,22 +5,22 @@ from django.forms.util import flatatt
 from django.utils.safestring import mark_safe
 import pdb
 
-class TopicWidget(widgets.MultiWidget):
-	def __init__(self, attrs=None):
-		_widgets = (
-			widgets.TextInput(attrs={'class': 'topic'}),
-			widgets.TextInput(attrs={'class': 'subtopic'}),
-		)
-		
-		super(TopicWidget, self).__init__(_widgets, attrs)
-	
-	def decompress(self, value):
-		from archive.models import Topic
-		if value:
-			t = Topic.objects.get(pk=value)
-			return([t.topic, t.subtopic])
-		return([None, None])
-
+#class TopicWidget(widgets.MultiWidget):
+#	def __init__(self, attrs=None):
+#		_widgets = (
+#			widgets.TextInput(attrs={'class': 'topic'}),
+#			widgets.TextInput(attrs={'class': 'subtopic'}),
+#		)
+#		
+#		super(TopicWidget, self).__init__(_widgets, attrs)
+#	
+#	def decompress(self, value):
+#		from archive.models import Topic
+#		if value:
+#			t = Topic.objects.get(pk=value)
+#			return([t.topic, t.subtopic])
+#		return([None, None])
+#
 #https://github.com/django/django/blob/master/django/forms/extras/widgets.py
 #class SelectLocationWidget(widgets.Widget):
 #	def __init__(self, attrs=None, required=True):
@@ -67,31 +67,33 @@ class TopicWidget(widgets.MultiWidget):
 #		(location, created) = Location.objects.get_or_create(area=data.get('area'), room=data.get('room'), position_ref=data.get('pos'))
 #		return(location.pk)
 #		#return([data.get('area'), data.get('room'), data.get('pos')])
-			
-
-class LocationWidget(widgets.MultiWidget):
-	def __init__(self, attrs=None):
-		from archive.models import Location
-		_widgets = (
-			widgets.Select(choices=[(l.area, l.area) for l in Location.objects.all()]),
-			widgets.Select(attrs),
-			widgets.TextInput(attrs)
-		)
-		super(LocationWidget, self).__init__(_widgets, attrs)
-	
-	def decompress(self, value):
-		from archive.models import Location
-		if value:
-			l = Location.objects.get(pk=value)
-			return([l.area, l.room, l.position_ref])
-		return([None, None, None])
-
+#			
+#
+#class LocationWidget(widgets.MultiWidget):
+#	def __init__(self, attrs=None):
+#		from archive.models import Location
+#		_widgets = (
+#			widgets.Select(choices=[(l.area, l.area) for l in Location.objects.all()]),
+#			widgets.Select(attrs),
+#			widgets.TextInput(attrs)
+#		)
+#		super(LocationWidget, self).__init__(_widgets, attrs)
+#	
+#	def decompress(self, value):
+#		from archive.models import Location
+#		if value:
+#			l = Location.objects.get(pk=value)
+#			return([l.area, l.room, l.position_ref])
+#		return([None, None, None])
+#
 
 class MaterialWidget(widgets.Widget):
 	def render(self, name, value, attrs=None):
 		from archive.models import Materials
-		final_attrs = self.build_attrs(attrs, type='text', name=name)
+		#final_attrs = self.build_attrs(attrs, type='text', name=name)
+		final_attrs = self.build_attrs(attrs, name=name)
 		objects = []
+		val = ''
 		
 		if value:	
 			for each in value:
@@ -107,17 +109,23 @@ class MaterialWidget(widgets.Widget):
 			value = ','.join(values)
 			
 			if value:
-				final_attrs['value'] = value
+				val = value
+				#final_attrs['value'] = value
 		else:
 			final_attrs['value'] = ''
-		return mark_safe(u'<input%s />' % flatatt(final_attrs))
+		#import pdb
+		#pdb.set_trace()
+		return mark_safe(u'<textarea %s > %s </textarea>' % (flatatt(final_attrs), val.decode('utf-8')))
+		#return mark_safe(u'<input%s />' % flatatt(final_attrs))
 
 class KeywordWidget(widgets.Widget):
 	def render(self, name, value, attrs=None):
 		from archive.models import Keywords
-		final_attrs = self.build_attrs(attrs, type='text', name=name)
+		#final_attrs = self.build_attrs(attrs, type='text', name=name)
+		final_attrs = self.build_attrs(attrs, name=name)
 		objects = []
-		
+		val = ''
+
 		if value:	
 			for each in value:
 				try:
@@ -132,10 +140,13 @@ class KeywordWidget(widgets.Widget):
 			value = ','.join(values)
 			
 			if value:
-				final_attrs['value'] = value
+				val = ''
+				#final_attrs['value'] = value
 		else:
 			final_attrs['value'] = ''
-		return mark_safe(u'<input%s />' % flatatt(final_attrs))
+		return mark_safe(u'<textarea %s > %s </textarea>' % (flatatt(final_attrs), val.decode('utf-8')))
+		#return mark_safe(u'<textarea >%s</textarea>' % value)
+		#return mark_safe(u'<textarea%s ></textarea>' % flatatt(final_attrs))
 
 class TagWidget(widgets.Widget):
 	def render(self, name, value, attrs=None):
