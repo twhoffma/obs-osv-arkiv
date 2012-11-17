@@ -1,6 +1,6 @@
 # Django settings for obs_osv_arkiv project.
 
-DEBUG = True
+DEBUG = False
 TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
