@@ -1,6 +1,6 @@
 # Django settings for obs_osv_arkiv project.
 
-DEBUG = True
+DEBUG = False
 TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
@@ -105,10 +105,12 @@ ROOT_URLCONF = 'obs_osv_arkiv.urls'
 # Python dotted path to the WSGI application used by Django's runserver.
 WSGI_APPLICATION = 'obs_osv_arkiv.wsgi.application'
 
+import os
 TEMPLATE_DIRS = (
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
+    '/home/toby/projects/obs-osv-arkiv.com/obs_osv_arkiv/templates',
 )
 
 INSTALLED_APPS = (
