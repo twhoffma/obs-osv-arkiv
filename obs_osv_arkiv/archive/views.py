@@ -1,5 +1,4 @@
-from archive.models import Media, Location, Tag, Condition,Item,Topic, Category, Address, Area, Room, Location
-#from archive.forms import ItemEditForm, TopicSelectForm, LocationEditForm#, LocationSelectForm #,TopicEditForm 
+from archive.models import Media, Tag, Condition,Item,Topic, Category, Address, Area, Room, Location
 from django.shortcuts import render_to_response, get_object_or_404
 from django.http import HttpResponse, Http404
 from django.core.context_processors import csrf
@@ -9,11 +8,40 @@ from django.utils import simplejson
 from django.views.decorators.csrf import csrf_exempt
 from django.template import Template, RequestContext
 
+from django.views.generic.list import ListView
+from django.views.generic import DetailView
 import pdb
+
+
+class ItemListView(ListView):
+	model = Item
+	
+	def get_queryset(self):
+		if self.args and self.args[0]:
+			c = get_object_or_404(Category, pk=self.args[0])
+			self.parent_category = c
+			self.child_categories = c.get_children()
+			return(c.item_set.all())
+		else:
+			self.parent_category = None
+			self.child_categories = Category.objects.root_nodes()
+			return(Item.objects.filter(pk=None))
+	
+	def get_context_data(self, **kwargs):
+		context = super(ItemListView, self).get_context_data(**kwargs)
+		context['parent'] = self.parent_category
+		context['nodes'] = self.child_categories
+		return(context)
+
+class ItemDetailView(DetailView):
+	model = Item
+	
 
 @csrf_exempt
 def search(request):
 	return render_to_response('archive/search.html', context_instance=RequestContext(request))
+
+
 
 @csrf_exempt
 def museum(request):
