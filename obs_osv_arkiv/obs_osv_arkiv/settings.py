@@ -1,7 +1,8 @@
 # Django settings for obs_osv_arkiv project.
 
-DEBUG = False
+DEBUG = True
 TEMPLATE_DEBUG = DEBUG
+THUMBNAIL_DEBUG = True
 
 ADMINS = (
     ('Torgeir Hoffmann', 'hoffy@server'),
@@ -126,6 +127,7 @@ INSTALLED_APPS = (
     'mptt', 
     'autocomplete_light',
     'navigation_autocomplete',
+    'easy_thumbnails',
 )
 
 # A sample logging configuration. The only tangible logging

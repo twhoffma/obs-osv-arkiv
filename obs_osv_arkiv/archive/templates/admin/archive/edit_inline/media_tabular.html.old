@@ -1,5 +1,4 @@
 {% load i18n admin_static admin_modify %}
-{% load media_details %}
 <div class="inline-group" id="{{ inline_admin_formset.formset.prefix }}-group">
   <div class="tabular inline-related {% if forloop.last %}last-related{% endif %}">
 {{ inline_admin_formset.formset.management_form }}
@@ -51,7 +50,6 @@
               {% else %}
                   {{ field.field.errors.as_ul }}
                   {{ field.field }}
-		  Details: {% media_details inline_admin_form.original.media %}
               {% endif %}
               </td>
             {% endfor %}

@@ -2,6 +2,7 @@ from django.conf.urls import patterns, include, url
 from django.conf import settings
 from archive import views
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
+import archive
 
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin
@@ -15,22 +16,8 @@ urlpatterns = patterns('',
     # Uncomment the admin/doc line below to enable admin documentation:
     # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
 
-    # Uncomment the next line to enable the admin:
-    # url(r'^admin/', include(admin.site.urls)),
-    #url(r'^$', 'archive.views.museum'),
-    url(r'^node/(\d+)/$|^$', views.ItemListView.as_view()), 
-    url(r'^item/(?P<pk>\d+)/$', views.ItemDetailView.as_view()), 
-    #url(r'^admin/search/', 'archive.views.search'),
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^tag_autocomplete/$', 'archive.views.tag_autocomplete'),
-    url(r'^keyword_autocomplete/$', 'archive.views.keyword_autocomplete'),
-    url(r'^material_autocomplete/$', 'archive.views.material_autocomplete'),
-    url(r'^room_autocomplete/$', 'archive.views.room_autocomplete'),
-    url(r'^area_autocomplete/$', 'archive.views.area_autocomplete'),
-    url(r'^location_autocomplete/$', 'archive.views.location_autocomplete'),
-    #url(r'^topic_autocomplete/$', 'archive.views.topic_autocomplete'),
-    #url(r'^add_location/$', 'archive.views.add_location'),
-    #url(r'^subtopic_autocomplete/$', 'archive.views.subtopic_autocomplete'),
-    #(r'%s(?P<path>.*)' % settings.MEDIA_URL[1:], 'django.views.static.serve', {'document_root': settings.MEDIA_ROOT}),
-    url(r'^navigation/', include('navigation_autocomplete.urls')),
+    url('', include('archive.urls')),
+    url(r'^media/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.MEDIA_ROOT}),
 )
+
