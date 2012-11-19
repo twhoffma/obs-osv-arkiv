@@ -11,15 +11,6 @@ import pdb
 import mimetypes
 
 
-#class MaterialsInline(admin.TabularInline):
-#	model=Item.materials.through
-#	extra = 0
-#	form = Item_materialEditForm
-#
-#
-#class AddressAdmin(admin.ModelAdmin):
-#	model = 
-
 class ItemCategoryInline(admin.TabularInline):
 	model=Item.category.through
 	extra = 0
@@ -35,7 +26,9 @@ class ItemAdmin(admin.ModelAdmin):
 	form = ItemAdminForm
 	inlines = [MediaInline, ItemCategoryInline]	
 	exclude = ('media', 'category')
-	radio_fields = {'condition': admin.HORIZONTAL}	
+	radio_fields = {'condition': admin.HORIZONTAL}
+	search_fields = ['item_number', 'title', 'artist', 'materials__name', 'keywords__name', 'description']
+	list_display = ['item_number', 'title', 'artist']
 	fieldsets = (
 			(None, { 'fields': ('published','feature_media','item_number','title','condition')}),
 			('Datering', {'fields': ('dating_certainty', ('era_from', 'date_from', 'era_to', 'date_to'))

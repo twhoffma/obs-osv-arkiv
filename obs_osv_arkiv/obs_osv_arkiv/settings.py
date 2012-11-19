@@ -2,7 +2,7 @@
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
-THUMBNAIL_DEBUG = True
+THUMBNAIL_DEBUG = False
 
 ADMINS = (
     ('Torgeir Hoffmann', 'hoffy@server'),

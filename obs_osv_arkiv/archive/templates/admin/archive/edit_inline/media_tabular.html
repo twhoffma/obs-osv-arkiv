@@ -51,7 +51,9 @@
               {% else %}
                   {{ field.field.errors.as_ul }}
                   {{ field.field }}
-		  Details: {% media_details inline_admin_form.original.media %}
+		  {% if inline_admin_form.original.media %}
+		  	Details: {% media_details inline_admin_form.original.media %}
+		  {% endif %}
               {% endif %}
               </td>
             {% endfor %}

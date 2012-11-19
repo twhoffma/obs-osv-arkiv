@@ -1,5 +1,7 @@
+{% load thumbnail %}
+{% load static %}
 <ul>
-{% for detail in details %}
-	<li> {{ details }}
-{% endfor %}
+	<li> <a href="{% get_media_prefix %}{{ file }}" ><img src="{% thumbnail file "50x50" %}" /></a>
+	<li> {{ filename }}
+	<li> {{ mime }}
 </ul>

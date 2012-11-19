@@ -13,7 +13,10 @@
 
 {% block content %}
   <img id="id_img_feature_media" src="{{MEDIA_URL}}{{original.feature_media}}" />
-  <img src="{% thumbnail original.feature_media.filename "100x100" %}" />
+  {% if original.feature_media %}
+  	
+	<img src="{% thumbnail original.feature_media.filename "100x100" %}" />
+  {% endif  %}
   {{ block.super }}
 		
   <input type="hidden" id="topic_subtopic_helper" value="" />

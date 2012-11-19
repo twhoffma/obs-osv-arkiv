@@ -1,10 +1,15 @@
 from django.template import Library
+import pdb
 
 register = Library()
 
-@register.inclusion_tags('media_details.html')
+@register.inclusion_tag('archive/media_details.html')
 def media_details(media):
-	details = []
-	details['filename'] = media.filename.filename
-	details['mime-type'] = media.media_type
-	return({'details': details})
+	if media == '':
+		filename = ''
+		mime_type = ''
+	else:
+		file = media.filename
+		filename = media.filename.name
+		mime_type = media.media_type		
+	return({'filename': filename, 'mime': mime_type, 'file': file})
