@@ -23,7 +23,7 @@
         {% if inline_admin_form.form.non_field_errors %}
         <tr><td colspan="{{ inline_admin_form|cell_count }}">{{ inline_admin_form.form.non_field_errors }}</td></tr>
         {% endif %}
-        <tr class="form-row {% cycle "row1" "row2" %} {% if inline_admin_form.original or inline_admin_form.show_url %}has_original{% endif %}{% if forloop.last %} empty-form{% endif %}"
+        <tr class="media-row form-row {% cycle "row1" "row2" %} {% if inline_admin_form.original or inline_admin_form.show_url %}has_original{% endif %}{% if forloop.last %} empty-form{% endif %}"
              id="{{ inline_admin_formset.formset.prefix }}-{% if not forloop.last %}{{ forloop.counter0 }}{% else %}empty{% endif %}">
         <td class="original">
           {% if inline_admin_form.original or inline_admin_form.show_url %}<p>
@@ -51,15 +51,14 @@
               {% else %}
                   {{ field.field.errors.as_ul }}
                   {{ field.field }}
-		  {% if inline_admin_form.original.media %}
-		  	Details: {% media_details inline_admin_form.original.media %}
+		  {% if field.field.name == "media" %}
+		  	{% if inline_admin_form.original.media %}
+		  		Details: {{ field.field.name }}{% media_details inline_admin_form.original.media %}
+		  	{% endif %}
 		  {% endif %}
               {% endif %}
               </td>
             {% endfor %}
-		<td{% if field.field.name %}  class="field-{{ field.field.name }}" {% endif %}>
-			<img src="" />
-		</td>
           {% endfor %}
         {% endfor %}
         {% if inline_admin_formset.formset.can_delete %}
@@ -130,8 +129,18 @@
                 reinitDateTimeShortCuts();
                 updateSelectFilter();
                 alternatingRows(row);
+		/* bind_media(row);*/
             })
         });
+
+	$(rows).find("select").bind('change', function(){
+		alert($(this).val());
+	});	
     });
+	function bind_media(row) {
+		$(row).find("select").bind('change', function(){
+			alert($(this).val());
+		});
+	}
 })(django.jQuery);
 </script>

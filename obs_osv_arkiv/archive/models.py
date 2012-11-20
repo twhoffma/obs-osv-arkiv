@@ -35,6 +35,14 @@ class Media(models.Model):
 		
 	def __unicode__(self):
 		return(self.filename.name)
+
+class ItemMedia(models.Model):
+	item = models.ForeignKey('Item')
+	media = models.ForeignKey('Media')
+	order = models.IntegerField()
+	
+	def __unicode__(self):
+		return(self.media.__unicode__())
 	
 class Tag(models.Model):
 	name = models.CharField(max_length=200)
@@ -186,7 +194,7 @@ class Item(models.Model):
 	position = models.CharField(max_length=200, blank=True, null=True)
 	loan_status = models.CharField(max_length=200, verbose_name=u'Utlånsstatus', blank=True, null=True)
 	description = models.TextField(verbose_name=u'Supplerende', blank=True, null=True)
-	media = models.ManyToManyField(Media, verbose_name=u'Media', blank=True)
+	media = models.ManyToManyField(Media, verbose_name=u'Media', blank=True, through=ItemMedia)
 	category = models.ManyToManyField(Category, blank=True, null=True)
 	#qr_archive = models.ImageField()
 	#qr_exhibit = models.ImageField()	

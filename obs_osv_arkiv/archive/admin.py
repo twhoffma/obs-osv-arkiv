@@ -9,7 +9,8 @@ from forms import Item_materialEditForm, ItemAdminForm, ItemSearchForm
 import autocomplete_light
 import pdb
 import mimetypes
-
+from django.forms.widgets import Select
+from django.db import models 
 
 class ItemCategoryInline(admin.TabularInline):
 	model=Item.category.through
@@ -19,6 +20,10 @@ class MediaInline(admin.TabularInline):
 	model=Item.media.through
 	extra = 1
 	template = 'admin/archive/edit_inline/media_tabular.html'
+	ordering = ['order']
+	formfield_overrides = {
+		models.ForeignKey: {'widget': Select(attrs={'class': 'media_change'})}
+	}
 
 #--- Main Item Admin 
 class ItemAdmin(admin.ModelAdmin):

@@ -22,6 +22,19 @@ $(document).ready(
 			select: add_suggestion
 		});
 		
+		/*
+		$('.field-media').find('select').each(function(){
+			$(this).on('change', function(){
+				var val = $(this).val();
+				alert(''+$(this).val());	
+			});
+		});
+
+		$('.media_change').on('change', function(){
+			alert('value='+$(this).val())
+		});
+		*/
+		
 		/* IN USE */
 		$('#id_feature_media').bind('change', function(){
 			var selection = $('option:selected', this).text();
