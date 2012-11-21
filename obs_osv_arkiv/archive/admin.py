@@ -24,6 +24,9 @@ class MediaInline(admin.TabularInline):
 	formfield_overrides = {
 		models.ForeignKey: {'widget': Select(attrs={'class': 'media_change'})}
 	}
+	
+	class Media:
+		js = ('js/jquery-ui-1.9.1.custom.min.js', )
 
 #--- Main Item Admin 
 class ItemAdmin(admin.ModelAdmin):

@@ -18,7 +18,7 @@
      {% if inline_admin_formset.formset.can_delete %}<th>{% trans "Delete?" %}</th>{% endif %}
      </tr></thead>
 
-     <tbody>
+     <tbody class="media-inline-table">
      {% for inline_admin_form in inline_admin_formset %}
         {% if inline_admin_form.form.non_field_errors %}
         <tr><td colspan="{{ inline_admin_form|cell_count }}">{{ inline_admin_form.form.non_field_errors }}</td></tr>
@@ -132,10 +132,12 @@
 		/* bind_media(row);*/
             })
         });
-
+	
 	$(rows).find("select").bind('change', function(){
 		alert($(this).val());
-	});	
+	});
+	
+	/* $('.media-inline-table').sortable();	*/
     });
 	function bind_media(row) {
 		$(row).find("select").bind('change', function(){
@@ -143,4 +145,13 @@
 		});
 	}
 })(django.jQuery);
+
+    $(document).ready(function($) {
+	$('.media-inline-table').sortable({stop:on_drop});
+    	
+	function on_drop(event, ui) {
+		ui.item.find("input").val(ui.item.index()+1);
+    	}	
+    });
+    
 </script>
