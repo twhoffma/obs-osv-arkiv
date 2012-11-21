@@ -35,7 +35,18 @@ class ItemListView(ListView):
 
 class ItemDetailView(DetailView):
 	model = Item
-	
+
+@csrf_exempt
+def image_details(request):
+	if request.method == "GET":
+		from archive.models import Media
+		mpk = request.GET.get('media_pk') 
+		m = Media.objects.get(pk=mpk)
+		context = {}
+		context['filename'] = m.filename.name 
+		context['file'] = m.filename
+		context['mime'] = m.media_type
+		return render_to_response('archive/media_details.html', context,context_instance=RequestContext(request))
 
 @csrf_exempt
 def search(request):

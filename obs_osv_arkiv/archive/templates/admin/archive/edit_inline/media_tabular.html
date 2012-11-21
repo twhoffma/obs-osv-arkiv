@@ -53,7 +53,9 @@
                   {{ field.field }}
 		  {% if field.field.name == "media" %}
 		  	{% if inline_admin_form.original.media %}
-		  		Details: {{ field.field.name }}{% media_details inline_admin_form.original.media %}
+		  		<div class="media_details">
+					Details: {{ field.field.name }}{% media_details inline_admin_form.original.media %}
+				</div>
 		  	{% endif %}
 		  {% endif %}
               {% endif %}
@@ -134,23 +136,28 @@
         });
 	
 	$(rows).find("select").bind('change', function(){
-		alert($(this).val());
+		$(this).parent().find("div.media_details").load("/media_details?media_pk="+$(this).val());
+		/* alert($(this).val()); */
 	});
 	
 	/* $('.media-inline-table').sortable();	*/
     });
 	function bind_media(row) {
 		$(row).find("select").bind('change', function(){
-			alert($(this).val());
+			$(this).parent().find("div.media_details").load("/media_details?media_pk="+$(this).val());
+			/* alert($(this).val());*/
 		});
 	}
 })(django.jQuery);
 
     $(document).ready(function($) {
-	$('.media-inline-table').sortable({stop:on_drop});
+	$('.media-inline-table').sortable({stop:on_drop, cancel: "tr:not(.media-row)"});
     	
 	function on_drop(event, ui) {
-		ui.item.find("input").val(ui.item.index()+1);
+		ui.item.parent().find("tr").each(function(){
+			$(this).find("input").val($(this).index() + 1);
+		});
+		/* ui.item.find("input").val(ui.item.index()+1); */
     	}	
     });
     

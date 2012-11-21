@@ -18,7 +18,7 @@ class ItemCategoryInline(admin.TabularInline):
 
 class MediaInline(admin.TabularInline):
 	model=Item.media.through
-	extra = 1
+	extra = 0
 	template = 'admin/archive/edit_inline/media_tabular.html'
 	ordering = ['order']
 	formfield_overrides = {

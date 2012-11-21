@@ -10,4 +10,5 @@ urlpatterns = patterns('',
     url(r'^room_autocomplete/$', 'archive.views.room_autocomplete'),
     url(r'^area_autocomplete/$', 'archive.views.area_autocomplete'),
     url(r'^location_autocomplete/$', 'archive.views.location_autocomplete'),
+    url(r'^media_details/$', 'archive.views.image_details'),
 )
