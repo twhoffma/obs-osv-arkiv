@@ -21,9 +21,10 @@ class MediaInline(admin.TabularInline):
 	extra = 0
 	template = 'admin/archive/edit_inline/media_tabular.html'
 	ordering = ['order']
-	formfield_overrides = {
-		models.ForeignKey: {'widget': Select(attrs={'class': 'media_change'})}
-	}
+	#formfield_overrides = {
+	#	models.ForeignKey: {'widget': Select(attrs={'class': 'media_change'})}
+	#}
+	fields = ['media', 'order']
 	
 	class Media:
 		js = ('js/jquery-ui-1.9.1.custom.min.js', )

@@ -1,6 +1,9 @@
 {% load i18n admin_static admin_modify %}
 {% load media_details %}
 <div class="inline-group" id="{{ inline_admin_formset.formset.prefix }}-group">
+  {% if inline_admin_formset.formset.errors %}
+    {{ inline_admin_formset.formset.errors  }}
+  {% endif %}
   <div class="tabular inline-related {% if forloop.last %}last-related{% endif %}">
 {{ inline_admin_formset.formset.management_form }}
 <fieldset class="module">
@@ -17,7 +20,7 @@
      {% endfor %}
      {% if inline_admin_formset.formset.can_delete %}<th>{% trans "Delete?" %}</th>{% endif %}
      </tr></thead>
-
+     
      <tbody class="media-inline-table">
      {% for inline_admin_form in inline_admin_formset %}
         {% if inline_admin_form.form.non_field_errors %}
@@ -54,7 +57,7 @@
 		  {% if field.field.name == "media" %}
 		  	{% if inline_admin_form.original.media %}
 		  		<div class="media_details">
-					Details: {{ field.field.name }}{% media_details inline_admin_form.original.media %}
+					{% media_details inline_admin_form.original.media %}
 				</div>
 		  	{% endif %}
 		  {% endif %}
@@ -131,33 +134,38 @@
                 reinitDateTimeShortCuts();
                 updateSelectFilter();
                 alternatingRows(row);
-		/* bind_media(row);*/
+		bind_media(row);
             })
         });
 	
 	$(rows).find("select").bind('change', function(){
 		$(this).parent().find("div.media_details").load("/media_details?media_pk="+$(this).val());
-		/* alert($(this).val()); */
 	});
-	
-	/* $('.media-inline-table').sortable();	*/
     });
 	function bind_media(row) {
+		$(row).find("select").parent().append('<div class="media_details"></div>');
 		$(row).find("select").bind('change', function(){
 			$(this).parent().find("div.media_details").load("/media_details?media_pk="+$(this).val());
-			/* alert($(this).val());*/
 		});
 	}
 })(django.jQuery);
 
     $(document).ready(function($) {
 	$('.media-inline-table').sortable({stop:on_drop, cancel: "tr:not(.media-row)"});
-    	
+    	$('.media-inline-table input').bind('click.sortable mousedown.sortable', function(ev){
+		ev.target.focus();
+	});
+
 	function on_drop(event, ui) {
 		ui.item.parent().find("tr").each(function(){
-			$(this).find("input").val($(this).index() + 1);
+			$(this).children("td.field-order").find("input").val($(this).index() + 1);
+			$(this).removeClass("row1 row2");
+			if(($(this).index()+1) % 2 == 0){
+				$(this).addClass("row1");
+			}else{
+				$(this).addClass("row2");
+			}
 		});
-		/* ui.item.find("input").val(ui.item.index()+1); */
     	}	
     });
     
