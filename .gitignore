@@ -10,3 +10,4 @@ migrations/
 \.pyc
 \.swp
 .pyc
+*.mo

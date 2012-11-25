@@ -2,16 +2,11 @@
 {% load i18n %}
 
 {% block branding %}
-    <h1 style="display: inline-block" id="site-name">{% trans 'OBS-OSV ARKIV' %}</h1>
-
-    {% if user.is_authenticated %}
-	SEARCH
-    {% endif %}
+  {{block.super}}
 {% endblock %}
 
 {% block content %}
-	HERE IS SEARCH IN ADMIN?
-	
+	{{block.super}}
 	<form method="GET">
 	{{ search_form }}
 	<input type="submit" />

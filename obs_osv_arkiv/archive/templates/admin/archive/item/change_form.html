@@ -13,11 +13,9 @@
 
 
 {% block content %}
-  <img id="id_img_feature_media" src="{{MEDIA_URL}}{{original.feature_media}}" />
-  {% if original.feature_media %}
-  	
-	<img src="{% thumbnail original.feature_media.filename "100x100" %}" />
-  {% endif  %}
+  <div class="lightbox">
+	
+  </div>
   {{ block.super }}
 		
   <input type="hidden" id="topic_subtopic_helper" value="" />
@@ -41,10 +39,28 @@
 	
 	.ui-autocomplete {
 		background-color: #F6F6F6;
+		max-height: 10em;
+		overflow-y: auto;
+		overflow-x: hidden;
+		width: 200px;
 	}
 	
-	ul.ui-corner-all {
-		list-style: none;
+	.ui-autocomplete > li {
+		list-style-type: none;
+	}
+
+	.ui-autocomplete > li:hover {
+		color: red;
+	}
+	
+	#id_address, #id_area, #id_location, #id_room {
+		min-width: 90%;
+		width: 90%;
+	}
+
+	textarea {
+		resize: none;
+		width: 80em;
 	}	
 	</style>
 {% endblock %}

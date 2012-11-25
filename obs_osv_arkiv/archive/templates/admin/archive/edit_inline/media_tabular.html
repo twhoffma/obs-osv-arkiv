@@ -166,7 +166,18 @@
 				$(this).addClass("row2");
 			}
 		});
-    	}	
+    	}
+
+	$("a[rel='popshowit']").bind('click', function(event){
+		$("div.lightbox").html('<img src="'+$(this).attr("href") + '" style="max-width: 50%; max-height: 50%; z-index: 3200; position: fixed; left: 25%; top: 25%" />');
+		$("div.lightbox").show();
+		event.preventDefault();
+	});
+
+	$("div.lightbox").bind('click', function(event){
+		$("div.lightbox").html('');
+		$("div.lightbox").hide();
+	});
     });
     
 </script>

@@ -1,4 +1,4 @@
-from archive.models import Media, Tag, Condition,Item,Topic, Category, Address, Area, Room, Location
+from archive.models import Media, Tag, Condition,Item, Category, Address, Area, Room, Location #,Topic
 from django.shortcuts import render_to_response, get_object_or_404
 from django.http import HttpResponse, Http404
 from django.core.context_processors import csrf

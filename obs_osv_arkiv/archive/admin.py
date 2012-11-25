@@ -3,7 +3,7 @@ from django import forms
 from django.conf.urls import patterns
 from django.shortcuts import render_to_response, HttpResponseRedirect
 from django.template import RequestContext
-from archive.models import Item, Topic, Tag, Media, Location, Condition, Category, Materials, Keywords, Address, Area, Room, Location
+from archive.models import Item, Tag, Media, Location, Condition, Category, Materials, Keywords, Address, Area, Room, Location #,Topic
 from django.core.urlresolvers import reverse
 from forms import Item_materialEditForm, ItemAdminForm, ItemSearchForm
 import autocomplete_light
@@ -11,6 +11,7 @@ import pdb
 import mimetypes
 from django.forms.widgets import Select
 from django.db import models 
+from django.utils.translation import ugettext_lazy as _
 
 class ItemCategoryInline(admin.TabularInline):
 	model=Item.category.through
@@ -21,9 +22,6 @@ class MediaInline(admin.TabularInline):
 	extra = 0
 	template = 'admin/archive/edit_inline/media_tabular.html'
 	ordering = ['order']
-	#formfield_overrides = {
-	#	models.ForeignKey: {'widget': Select(attrs={'class': 'media_change'})}
-	#}
 	fields = ['media', 'order']
 	
 	class Media:
@@ -37,18 +35,22 @@ class ItemAdmin(admin.ModelAdmin):
 	exclude = ('media', 'category')
 	radio_fields = {'condition': admin.HORIZONTAL}
 	search_fields = ['item_number', 'title', 'artist', 'materials__name', 'keywords__name', 'description']
-	list_display = ['item_number', 'title', 'artist']
+	list_display = ['published', 'item_number', 'title', 'artist']
+	actions = ['publish', 'unpublish']
+	list_display_links = ['item_number']
+	save_on_top = True
+	
 	fieldsets = (
 			(None, { 'fields': ('published','feature_media','item_number','title','condition')}),
-			('Datering', {'fields': ('dating_certainty', ('era_from', 'date_from', 'era_to', 'date_to'))
+			(_('Dating'), {'fields': ('dating_certainty', ('era_from', 'date_from', 'era_to', 'date_to'))
 				}),
 			('Lokasjon', {'fields': ('origin_certainty', ('origin_city', 'origin_country', 'origin_continent'), 'origin_provinience')
 				}),
 			(None, {'fields': ('artist',)
 				}),
-			('Dimensions', {'fields': ('dim_height', 'dim_width', 'dim_depth', 'dim_weight')
+			(_('Dimensions'), {'fields': (('dim_height', 'dim_width', 'dim_depth', 'dim_weight'),)
 				}),
-			('Sted', {'fields': ('address', 'area', 'room', 'location', 'position')}), 
+			(_('Placement'), {'fields': (('address', 'area', 'room', 'location'), 'position')}), 
 			(None, {'fields': ('materials', 'keywords', 'ref_literature', 'loan_status', 'description')}),
 		)
 	
@@ -56,21 +58,31 @@ class ItemAdmin(admin.ModelAdmin):
 		urls = super(ItemAdmin, self).get_urls()
 		extra_urls = patterns('',
 			(r'^search/$', self.admin_site.admin_view(self.search)),
-			(r'^adv_search/$', self.admin_site.admin_view(self.adv_search)),
+			#(r'^adv_search/$', self.admin_site.admin_view(self.adv_search)),
 		)
 		return(extra_urls+urls)
+
+	def publish(self, request, queryset):
+		for obj in queryset:
+			obj.published = True
+			obj.save()
+	
+	def unpublish(self, request, queryset):
+		for obj in queryset:
+			obj.published = False
+			obj.save()
+	
+	#def search(self, request):
+	#	redirect_url = '/admin/archive/item/'
+	#	
+	#	if request.method == 'GET' and len(request.GET) > 0:
+	#		redirect_url = redirect_url + '?'
+	#		query = request.GET['query']
+	#		if query:
+	#			redirect_url = redirect_url + 'title__icontains=' + query
+	#	return HttpResponseRedirect(redirect_url)
 	
 	def search(self, request):
-		redirect_url = '/admin/archive/item/'
-		
-		if request.method == 'GET' and len(request.GET) > 0:
-			redirect_url = redirect_url + '?'
-			query = request.GET['query']
-			if query:
-				redirect_url = redirect_url + 'title__icontains=' + query
-		return HttpResponseRedirect(redirect_url)
-	
-	def adv_search(self, request):
 		if request.method == 'GET' and len(request.GET) > 0:
 			redirect_url = '/admin/archive/item/?'
 			for field in request.GET.lists():
@@ -110,27 +122,27 @@ class MediaAdmin(admin.ModelAdmin):
 	model = Media
 	
 	def save_model(self, request, obj, form, change):
-		from PIL import Image
+		#from PIL import Image
 		from django.conf import settings
 		import re
 		
 		#Guess filetype
 		(mimetype, submimetype) = mimetypes.guess_type(obj.filename.name)
-		is_image = not re.match('image/.*', mimetype) is None
+		#is_image = not re.match('image/.*', mimetype) is None
 		
 		obj.save()
 		file = settings.MEDIA_ROOT + "/" + obj.filename.name
 		
-		if is_image:
-			im = Image.open(file)
-			im.thumbnail((50,50), Image.ANTIALIAS)
-			matches = re.split('(.*)\.([^\.]*)$', file)
-			im.save(matches[1] + "_thumb.jpg" , "JPEG")
-
+		i#f is_image:
+		#	im = Image.open(file)
+		#	im.thumbnail((50,50), Image.ANTIALIAS)
+		#	matches = re.split('(.*)\.([^\.]*)$', file)
+		#	im.save(matches[1] + "_thumb.jpg" , "JPEG")
+#
 #---
 
 admin.site.register(Category, CategoryAdmin)
-admin.site.register(Topic)
+#admin.site.register(Topic)
 admin.site.register(Tag)
 admin.site.register(Media, MediaAdmin)
 admin.site.register(Condition)

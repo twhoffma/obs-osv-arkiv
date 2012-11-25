@@ -1,8 +1,8 @@
 import pdb
 from django import forms
 from django.forms import widgets
-from archive.models import Item, Topic, Condition, Tag, Location, Keywords, Materials
-from archive.widgets import TagWidget, KeywordWidget, MaterialWidget#TopicWidget, , SelectLocationWidget
+from archive.models import Item, Condition, Tag, Location, Keywords, Materials #,Topic
+from archive.widgets import TagWidget, KeywordWidget, MaterialWidget #TopicWidget, , SelectLocationWidget
 #from archive.fields import TopicField #, LocationField
 
 from django.forms.util import flatatt
@@ -10,31 +10,13 @@ from django.utils.safestring import mark_safe
 from django.utils.encoding import force_unicode
 from itertools import chain
 
-
-#class ItemLocationForm(forms.Form):
-#	address = forms.CharField(required=False)
-#	area = forms.CharField(required=False)
-#	room = forms.CharField(required=False)
-#	
-#	def __init__(self, *args, **kwargs):
-#		super(ItemLocationForm, self).__init__(*args, **kwargs)
-#	
-#	def clean(self):
-#		self.cleaned_data = super(ItemLocationForm, self).clean()
-#		return(self.cleaned_data)
-#	
-#	def is_valid(self):
-#		valid = super(ItemLocationForm, self).is_valid()
-#		return(valid)
-
 class ItemSearchForm(forms.Form):
 	item_number = forms.CharField() 
 	title = forms.CharField() 
-	
 
 class ItemAdminForm(forms.ModelForm):
-	materials = forms.CharField(widget=MaterialWidget(attrs={'rows': 3, 'cols': 80}), required=False)
-	keywords = forms.CharField(widget=KeywordWidget(attrs={'rows': 3, 'cols': 80}), required=False)
+	materials = forms.CharField(widget=MaterialWidget(attrs={'rows': 3}), required=False)
+	keywords = forms.CharField(widget=KeywordWidget(attrs={'rows': 3}), required=False)
 		
 	class Meta:
 		model = Item
@@ -74,7 +56,7 @@ class Item_materialEditForm(forms.ModelForm):
 	
 
 
-#class Item_topicEditForm(forms.ModelForm):
+#class Item_topicEditForm(forms.ModelForm)V:
 #	topic = TopicField(required=False)
 #	
 #	class Meta:

@@ -1,7 +1,7 @@
 {% load thumbnail %}
 {% load static %}
-<ul style="list-style-type: none; list-style: none;">
-	<li> <a href="{% get_media_prefix %}{{ file }}"><img src="{% thumbnail file "50x50" %}" /></a>
-	<li> {{ filename }}
-	<li> {{ mime }}
+<ul >
+	<li style="list-style-type: none; list-style: none;"> <a href="{% get_media_prefix %}{{ file }}" rel="popshowit" ><img src="{% thumbnail file "50x50" %}" /></a>
+	<li style="list-style-type: none; list-style: none;"> {{ filename }}
+	<li style="list-style-type: none; list-style: none;"> {{ mime }}
 </ul>

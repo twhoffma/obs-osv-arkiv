@@ -56,6 +56,11 @@
         <ul class="object-tools">
           {% block object-tools-items %}
             <li>
+              <a href="/admin/archive/item/search/" class="viewssitelink">
+                {% blocktrans with cl.opts.verbose_name as name %}Advanced search{% endblocktrans %}
+              </a>
+            </li>
+            <li>
               <a href="{% url cl.opts|admin_urlname:'add' %}{% if is_popup %}?_popup=1{% endif %}" class="addlink">
                 {% blocktrans with cl.opts.verbose_name as name %}Add {{ name }}{% endblocktrans %}
               </a>
