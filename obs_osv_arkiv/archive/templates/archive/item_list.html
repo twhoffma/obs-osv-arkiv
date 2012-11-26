@@ -24,9 +24,9 @@
 	<nav>	
 		{% if parent %}
 			{% if parent.is_root_node %}
-				<a class="emne" href="/">{{ parent.name }} </a>
+				<a class="corner-stamp emne" href="/">{{ parent.name }} </a>
 			{% else %}
-				<a class="emne" href="/node/{{ parent.parent.pk }}">{{ parent.name }} </a>
+				<a class="corner-stamp emne" href="/node/{{ parent.parent.pk }}">{{ parent.name }} </a>
 			{% endif %}
 		{% endif %}
 		{% for node in nodes %}
