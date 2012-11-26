@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-11-25 01:24+0100\n"
+"POT-Creation-Date: 2012-11-25 18:24+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -21,19 +21,21 @@ msgstr ""
 msgid "Dating"
 msgstr "Datering"
 
-#: archive/admin.py:51
-msgid "Dimensions"
-msgstr "Mål"
+#: archive/admin.py:47 archive/models.py:137 archive/models.py:183
+#, fuzzy
+msgid "Location"
+msgstr "lokasjon"
 
-#: archive/admin.py:53
-msgid "Placement"
-msgstr "Plassering"
+#: archive/admin.py:51
+#, fuzzy
+msgid "dimensions"
+msgstr "mål"
 
 #: archive/models.py:14
 msgid "Category"
 msgstr "Kategori"
 
-#: archive/models.py:15 archive/models.py:199
+#: archive/models.py:15
 msgid "Categories"
 msgstr "Kategorier"
 
@@ -57,7 +59,7 @@ msgstr "Tekst"
 msgid "Other"
 msgstr "Annet"
 
-#: archive/models.py:34 archive/models.py:35 archive/models.py:198
+#: archive/models.py:34 archive/models.py:35
 msgid "Media"
 msgstr "Media"
 
@@ -70,172 +72,197 @@ msgid "Tags"
 msgstr "Tagger"
 
 #: archive/models.py:64
-msgid "Material"
+#, fuzzy
+msgid "material"
 msgstr "Materiale"
 
-#: archive/models.py:65
-msgid "Materialer"
-msgstr "Materialer"
-
-#: archive/models.py:75 archive/models.py:76 archive/models.py:189
-msgid "Keywords"
-msgstr "Nøkkelord"
-
-#: archive/models.py:87 archive/models.py:172
-msgid "Condition"
+#: archive/models.py:87 archive/models.py:161
+#, fuzzy
+msgid "condition"
 msgstr "Tilstand"
 
 #: archive/models.py:88
-msgid "Conditions"
+#, fuzzy
+msgid "conditions"
 msgstr "Tilstander"
 
-#: archive/models.py:112 archive/models.py:191
-msgid "Address"
-msgstr "Adresse"
+#: archive/models.py:102
+#, fuzzy
+msgid "addresses"
+msgstr "addresser"
 
 #: archive/models.py:113
-msgid "Addresses"
-msgstr "Addresser"
-
-#: archive/models.py:124
-msgid "Area/Building"
+#, fuzzy
+msgid "area/building"
 msgstr "Område/Bygning"
 
-#: archive/models.py:125
-msgid "Areas/Buildings"
+#: archive/models.py:114
+#, fuzzy
+msgid "areas/buildings"
 msgstr "Områder/Bygninger"
 
-#: archive/models.py:136
-msgid "Subarea/Room"
+#: archive/models.py:125
+#, fuzzy
+msgid "subarea/room"
 msgstr "Underområde/Rom"
 
-#: archive/models.py:137
-msgid "Subareas/Rooms"
+#: archive/models.py:126
+#, fuzzy
+msgid "subareas/rooms"
 msgstr "Underområder/Rom"
 
-#: archive/models.py:148 archive/models.py:194
-msgid "Location"
-msgstr "Lokasjon"
+#: archive/models.py:138
+#, fuzzy
+msgid "locations"
+msgstr "lokasjoner"
 
-#: archive/models.py:149
-msgid "Locations"
-msgstr "Lokasjoner"
-
-#: archive/models.py:156
+#: archive/models.py:145
 msgid "AD"
 msgstr "FVT"
 
-#: archive/models.py:157
+#: archive/models.py:146
 msgid "BC"
 msgstr "EVT"
 
-#: archive/models.py:160
-msgid "Sure"
-msgstr "Sikker"
+#: archive/models.py:149
+msgid "sure"
+msgstr "sikker"
 
-#: archive/models.py:161
-msgid "Approximate/Uncertain"
-msgstr "Tilnærmet/Usikker"
+#: archive/models.py:150
+#, fuzzy
+msgid "approximate/uncertain"
+msgstr "tilnærmet/usikker"
 
-#: archive/models.py:165
+#: archive/models.py:154
 msgid "Item"
 msgstr "Gjenstand"
 
-#: archive/models.py:166
+#: archive/models.py:155
 msgid "Items"
 msgstr "Gjenstander"
 
-#: archive/models.py:169
-msgid "Feature image"
+#: archive/models.py:157
+msgid "published"
+msgstr "Publisert"
+
+#: archive/models.py:158
+#, fuzzy
+msgid "feature image"
 msgstr "Hovedbilde"
 
-#: archive/models.py:170
-msgid "Item number"
+#: archive/models.py:159
+#, fuzzy
+msgid "item number"
 msgstr "Gjenstandsnummer"
 
-#: archive/models.py:171
+#: archive/models.py:160
 msgid "Title"
 msgstr "Tittel"
 
-#: archive/models.py:173 archive/models.py:178
-msgid "Certainty"
+#: archive/models.py:162 archive/models.py:167
+#, fuzzy
+msgid "certainty"
 msgstr "Sikkerhet"
 
-#: archive/models.py:174 archive/models.py:176
-msgid "Period"
+#: archive/models.py:163 archive/models.py:165
+#, fuzzy
+msgid "period"
 msgstr "Periode"
 
-#: archive/models.py:175
-msgid "From"
-msgstr "Fra"
+#: archive/models.py:164
+msgid "from"
+msgstr "fra"
 
-#: archive/models.py:177
-msgid "To"
-msgstr "Til"
+#: archive/models.py:166
+msgid "to"
+msgstr "til"
 
-#: archive/models.py:179
-msgid "City"
-msgstr "By"
+#: archive/models.py:168
+msgid "city"
+msgstr "by"
 
-#: archive/models.py:180
-msgid "Country"
-msgstr "Land"
+#: archive/models.py:169
+#, fuzzy
+msgid "country"
+msgstr "land"
 
-#: archive/models.py:181
-msgid "Continent"
-msgstr "Kontinent"
+#: archive/models.py:170
+#, fuzzy
+msgid "continent"
+msgstr "kontinent"
 
-#: archive/models.py:182
-msgid "Provinience"
-msgstr "Proveniens"
+#: archive/models.py:171
+#, fuzzy
+msgid "provinience"
+msgstr "proveniens"
 
-#: archive/models.py:183
-msgid "Artist"
+#: archive/models.py:172
+#, fuzzy
+msgid "artist"
 msgstr "Kunstner/Produsent"
 
-#: archive/models.py:184
-msgid "Height (cm)"
+#: archive/models.py:173
+#, fuzzy
+msgid "height (cm)"
 msgstr "Høyde (cm)"
 
-#: archive/models.py:185
-msgid "Width (cm)"
+#: archive/models.py:174
+#, fuzzy
+msgid "width (cm)"
 msgstr "Bredde (cm)"
 
-#: archive/models.py:186
-msgid "Depth (cm)"
+#: archive/models.py:175
+#, fuzzy
+msgid "depth (cm)"
 msgstr "Dybde (cm)"
 
+#: archive/models.py:176
+#, fuzzy
+msgid "weight (g)"
+msgstr "vekt (g)"
+
+#: archive/models.py:177
+#, fuzzy
+msgid "materials/technique"
+msgstr "materialer/teknikk"
+
+#: archive/models.py:179
+#, fuzzy
+msgid "literature"
+msgstr "litteratur"
+
+#: archive/models.py:181
+msgid "area"
+msgstr "område/bygning"
+
+#: archive/models.py:182
+msgid "room"
+msgstr "underområde/rom"
+
+#: archive/models.py:184
+#, fuzzy
+msgid "Position"
+msgstr "posisjon"
+
+#: archive/models.py:185
+#, fuzzy
+msgid "loan status"
+msgstr "utlånsstatus"
+
+#: archive/models.py:186
+#, fuzzy
+msgid "description"
+msgstr "beskrivelse"
+
 #: archive/models.py:187
-msgid "Weight (g)"
-msgstr "Vekt (g)"
+#, fuzzy
+msgid "media"
+msgstr "Media"
 
 #: archive/models.py:188
-msgid "Materials/Technique"
-msgstr "Materialer/Teknikk"
-
-#: archive/models.py:190
-msgid "Literature"
-msgstr "Litteratur"
-
-#: archive/models.py:192
-msgid "Area"
-msgstr "Område"
-
-#: archive/models.py:193
-msgid "Room"
-msgstr "Rom"
-
-#: archive/models.py:195
-msgid "Position"
-msgstr "Posisjon"
-
-#: archive/models.py:196
-msgid "Loan status"
-msgstr "Utlånsstatus"
-
-#: archive/models.py:197
-msgid "Description"
-msgstr "Beskrivelse"
+#, fuzzy
+msgid "categories"
+msgstr "Kategorier"
 
 #: archive/templates/admin/archive/edit_inline/media_tabular.html:21
 #: archive/templates/admin/archive/edit_inline/tabular.html:17
@@ -443,3 +470,42 @@ msgstr ""
 #, python-format
 msgid "%s tag requires a queryset"
 msgstr ""
+
+msgid "Sure"
+msgstr "Sikker"
+
+msgid "From"
+msgstr "Fra"
+
+msgid "To"
+msgstr "Til"
+
+msgid "City"
+msgstr "By"
+
+msgid "Area"
+msgstr "Område"
+
+msgid "Room"
+msgstr "Rom"
+
+msgid "Address"
+msgstr "Addresse"
+
+msgid "address"
+msgstr "addresse"
+
+msgid "location"
+msgstr "Oppbevaring"
+
+msgid "placement"
+msgstr "plassering"
+
+msgid "Placement"
+msgstr "Oppbevaring"
+
+msgid "materials"
+msgstr "materialer"
+
+msgid "keywords"
+msgstr "nøkkelord"

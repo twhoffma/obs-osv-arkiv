@@ -9,14 +9,16 @@ from django.forms.util import flatatt
 from django.utils.safestring import mark_safe
 from django.utils.encoding import force_unicode
 from itertools import chain
+from django.utils.translation import ugettext_lazy as _
+
 
 class ItemSearchForm(forms.Form):
 	item_number = forms.CharField() 
 	title = forms.CharField() 
 
 class ItemAdminForm(forms.ModelForm):
-	materials = forms.CharField(widget=MaterialWidget(attrs={'rows': 3}), required=False)
-	keywords = forms.CharField(widget=KeywordWidget(attrs={'rows': 3}), required=False)
+	materials = forms.CharField(widget=MaterialWidget(attrs={'rows': 3}), required=False, label=_('materials'))
+	keywords = forms.CharField(widget=KeywordWidget(attrs={'rows': 3}), required=False, label=_('keywords'))
 		
 	class Meta:
 		model = Item
