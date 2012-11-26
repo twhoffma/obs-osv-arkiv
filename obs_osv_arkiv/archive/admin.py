@@ -120,29 +120,8 @@ class LocationAdmin(admin.ModelAdmin):
 #--- File and media admins
 class MediaAdmin(admin.ModelAdmin):
 	model = Media
-	
-	def save_model(self, request, obj, form, change):
-		#from PIL import Image
-		from django.conf import settings
-		import re
-		
-		#Guess filetype
-		(mimetype, submimetype) = mimetypes.guess_type(obj.filename.name)
-		#is_image = not re.match('image/.*', mimetype) is None
-		
-		obj.save()
-		file = settings.MEDIA_ROOT + "/" + obj.filename.name
-		
-		i#f is_image:
-		#	im = Image.open(file)
-		#	im.thumbnail((50,50), Image.ANTIALIAS)
-		#	matches = re.split('(.*)\.([^\.]*)$', file)
-		#	im.save(matches[1] + "_thumb.jpg" , "JPEG")
-#
-#---
 
 admin.site.register(Category, CategoryAdmin)
-#admin.site.register(Topic)
 admin.site.register(Tag)
 admin.site.register(Media, MediaAdmin)
 admin.site.register(Condition)
