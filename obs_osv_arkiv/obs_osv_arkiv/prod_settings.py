@@ -122,6 +122,7 @@ INSTALLED_APPS = (
     'mptt', 
     'autocomplete_light',
     'navigation_autocomplete',
+    'easy_thumbnails'
 )
 
 # A sample logging configuration. The only tangible logging
