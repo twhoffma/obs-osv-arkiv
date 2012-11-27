@@ -1,4 +1,4 @@
-{% extends "admin/archive/change_form_base.html" %}
+{% extends "admin/change_form.html" %}
 {% load thumbnail %}
 
 {% block extrahead %}

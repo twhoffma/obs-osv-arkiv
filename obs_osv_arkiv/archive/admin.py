@@ -34,7 +34,7 @@ class ItemAdmin(admin.ModelAdmin):
 	inlines = [MediaInline, ItemCategoryInline]	
 	exclude = ('media', 'category')
 	radio_fields = {'condition': admin.HORIZONTAL}
-	search_fields = ['item_number', 'title', 'artist', 'materials__name', 'keywords__name', 'description']
+	search_fields = ['item_number', 'title', 'artist', 'materials__name', 'keywords__name', 'description', 'category__name']
 	list_display = ['published', 'item_number', 'title', 'artist']
 	actions = ['publish', 'unpublish']
 	list_display_links = ['item_number']
@@ -71,16 +71,6 @@ class ItemAdmin(admin.ModelAdmin):
 		for obj in queryset:
 			obj.published = False
 			obj.save()
-	
-	#def search(self, request):
-	#	redirect_url = '/admin/archive/item/'
-	#	
-	#	if request.method == 'GET' and len(request.GET) > 0:
-	#		redirect_url = redirect_url + '?'
-	#		query = request.GET['query']
-	#		if query:
-	#			redirect_url = redirect_url + 'title__icontains=' + query
-	#	return HttpResponseRedirect(redirect_url)
 	
 	def search(self, request):
 		if request.method == 'GET' and len(request.GET) > 0:
