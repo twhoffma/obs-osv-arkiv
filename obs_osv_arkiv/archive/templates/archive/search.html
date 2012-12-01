@@ -1,15 +1,23 @@
-{% extends "admin/base.html" %}
-{% load i18n %}
-
-{% block branding %}
-  {{block.super}}
-{% endblock %}
+{% extends "admin/base_site.html" %}
+{% load i18n admin_static %}
 
 {% block content %}
-	{{block.super}}
-	<form method="GET">
-	{{ search_form }}
+	{{ block.super }}
+	<form method="POST" action="/admin/archive/item/">
+	<p>
+	  <label for="id_item_number">{{ search_form.item_number.label }}</label>
+	  {{ search_form.item_number_choices }}
+	  {{ search_form.item_number }}
+	<p>
+	<p>
+	  <label for="id_item_number">{{ search_form.title.label }}</label>
+	  {{ search_form.title_choices }}
+	  {{ search_form.title }}
+	<p>
+	{% csrf_token %}
 	<input type="submit" />
 	</form>
+	
+	
 {% endblock %}
 

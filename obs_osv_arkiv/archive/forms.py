@@ -13,9 +13,14 @@ from django.utils.translation import ugettext_lazy as _
 
 
 class ItemSearchForm(forms.Form):
+	TEXT_CHOICES = (('ICONTAINS',_('contains')), ('ISTARTSWITH',_('starts with')), ('IENDSWITH', _('ends with')))
+	NUMBER_CHOICES = (('GTE',_('greater than or equal')), ('LTE', _('less than or equal')), ('EQ', _('equals')))
+	DATE_CHOICES = (('GTE',_('greater than or equal')), ('LTE', _('less than or equal')), ('EQ', _('equals')))
 	item_number = forms.CharField() 
+	item_number_choices = forms.ChoiceField(choices=TEXT_CHOICES)
 	title = forms.CharField() 
-
+	title_choices = forms.ChoiceField(choices=TEXT_CHOICES)
+	
 class ItemAdminForm(forms.ModelForm):
 	materials = forms.CharField(widget=MaterialWidget(attrs={'rows': 3}), required=False, label=_('materials'))
 	keywords = forms.CharField(widget=KeywordWidget(attrs={'rows': 3}), required=False, label=_('keywords'))

@@ -509,3 +509,15 @@ msgstr "materialer"
 
 msgid "keywords"
 msgstr "nøkkelord"
+
+msgid "starts with"
+msgstr "starter med"
+
+msgid "ends with"
+msgstr "ender med"
+
+msgid "contains"
+msgstr "inneholder"
+
+msgid "order"
+msgstr "rekkefølge"
