@@ -19,18 +19,27 @@ class ItemListView(ListView):
 	def get_queryset(self):
 		if self.args and self.args[0]:
 			c = get_object_or_404(Category, pk=self.args[0])
-			self.parent_category = c
+			self.parent_category = c.get_ancestors()
+			self.current_category = c
 			self.child_categories = c.get_children()
 			return(c.item_set.all())
 		else:
 			self.parent_category = None
+			self.current_category = None
 			self.child_categories = Category.objects.root_nodes()
 			return(Item.objects.filter(pk=None))
 	
 	def get_context_data(self, **kwargs):
 		context = super(ItemListView, self).get_context_data(**kwargs)
 		context['parent'] = self.parent_category
+		context['current'] = self.current_category
 		context['nodes'] = self.child_categories
+		if self.object_list:
+			context['bg'] = None
+		elif (self.parent_category and self.parent_category.count > 0) or self.current_category:
+			context['bg'] = u'flyvemann2.jpg'
+		else:
+			context['bg'] = u'flyvemann1.jpg'
 		return(context)
 
 class ItemDetailView(DetailView):

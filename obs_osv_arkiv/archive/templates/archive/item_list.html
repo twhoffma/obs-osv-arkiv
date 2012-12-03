@@ -22,11 +22,19 @@
 
 <header>
 	<nav>	
-		{% if parent %}
-			{% if parent.is_root_node %}
-				<a class="corner-stamp emne" href="/">{{ parent.name }} </a>
+		{% for node in parent %}
+			{% if node.is_root_node %}
+				<a class="corner-stamp emne" href="/">{{ node.name }} </a>
 			{% else %}
-				<a class="corner-stamp emne" href="/node/{{ parent.parent.pk }}">{{ parent.name }} </a>
+				<a class="corner-stamp emne" href="/node/{{ node.parent.pk }}">{{ node.name }} </a>
+			{% endif %}
+			
+		{% endfor %}
+		{% if current %}
+			{% if current.is_root_node %}
+				<a class="corner-stamp emne" href="/">{{ current.name }} </a>
+			{% else %}
+				<a class="corner-stamp emne" href="/node/{{ current.parent.pk }}">{{ current.name }} </a>
 			{% endif %}
 		{% endif %}
 		{% for node in nodes %}
@@ -37,22 +45,28 @@
 	
 	<div style="margin-top: 4em;">
 		{% for item in object_list %}
-			<a class="emne" href="/item/{{ item.pk }}">{{ item.title }} </a>
+			{% if item.itemmedia_set.all.0 %}
+				<a class="emne" href="/item/{{ item.pk }}"> {{ item.itemmedia_set.all.0 }} </a>
+			{% else %}
+				<a class="emne" href="/item/{{ item.pk }}">{{ item.title }} </a>
+			{% endif %}
 		{% endfor %}
 	<div>
 
 <footer>
 <div id="logo"><h1><a href="/">guttormsgaards arkiv</a></h1></div>
 
+{% if bg %}
 <script type="text/javascript"><!--Kan dette legges i functions?-->
 			jQuery(function($){
 				
 				$.supersized({
-					slides  :  	[ {image : '{{STATIC_URL}}images/supersized/flyvemann1.jpg', title : 'xxx'} ]
+					slides  :  	[ {image : '{{STATIC_URL}}images/supersized/{{ bg }}', title : 'xxx'} ]
 				});
 		    });
 </script>
-            
+
+{% endif %}   
 <script type="text/javascript" src="{{STATIC_URL}}js/functions.js"></script>
 
 </footer>

@@ -154,6 +154,9 @@ class Item(models.Model):
 		verbose_name = _('Item')
 		verbose_name_plural = _('Items')
 	
+	def header_image(self):
+		return(self.itemmedia_set.order_by('order')[:1])
+		
 	published = models.BooleanField(verbose_name=_('published'))
 	feature_media = models.ForeignKey(Media, verbose_name=_('feature image'), blank=True, null=True, related_name='feature_media_set')
 	item_number = models.CharField(max_length=14, unique=True, blank=False, verbose_name=_('item number'))

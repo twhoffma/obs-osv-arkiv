@@ -1,6 +1,8 @@
 @charset "UTF-8";
 /* CSS Document */
 
+/* Generelt stæsj */
+
 * {padding:0; margin:0; font-size:100%;}
 
 html {font-size:100%;} /*For IE*/
@@ -11,9 +13,14 @@ body { font-size:62.5%; background-color:#CCC; }
 
 a {text-decoration:none;}
 
-#logo { position:absolute; bottom:25px; left: 30px;}
+#logo { position:fixed; bottom:25px; left: 30px;}
 
 #logo a { font-size:3.5em; color:white; text-transform:uppercase; font-family: Gill Sans, 'Quattrocento Sans', arial, sans-serif; font-weight:normal; /*text-shadow: 0px 0px 5px #000*/display:block; }
+
+#search {position:fixed; bottom:32px; right:60px;}
+#search input {width: 160px; font-size:1.5em;}
+
+/* Toppmeny */
 
 nav { width:95%; margin:20px auto 0px auto; }
 
@@ -30,9 +37,21 @@ background: #F09;
 color: white;
 }
 
+/* Annet */
+
 #content {width:95%; margin:20px auto 0px auto;}
 
 .thumb {width:200px; display:block; float:left; margin:5px;}
+
+/* Gjenstandsnivå */
+
+#item {width:95%; margin:20px auto 0px auto; clear:both;}
+
+.item-img {width:48%; max-width:900px;  padding:0.5%;}
+
+#item-thumbs {width:95%; margin:20px auto 0px auto; list-style:none; clear:both;}
+
+.item-thumb {width:15%; padding:0.5%; max-width:120px;}
 
 /**** Isotope CSS3 transitions ****/
 
