@@ -25,7 +25,7 @@ class MediaInline(admin.TabularInline):
 	fields = ['media', 'order']
 	
 	class Media:
-		js = ('js/jquery-1.8.2.min.js', 'js/jquery-ui-1.9.1.custom.min.js', 'js/media_inline.js',)
+		js = ('js/jquery-1.8.2.min.js', 'js/jquery-ui-1.9.1.custom.min.js', 'js/media_inline.js', 'js/jquery.ui.touch-punch.min.js')
 
 #--- Main Item Admin 
 class ItemAdmin(admin.ModelAdmin):

@@ -22,8 +22,8 @@ class ItemSearchForm(forms.Form):
 	title_choices = forms.ChoiceField(choices=TEXT_CHOICES)
 	
 class ItemAdminForm(forms.ModelForm):
-	materials = forms.CharField(widget=MaterialWidget(attrs={'rows': 3}), required=False, label=_('materials'))
-	keywords = forms.CharField(widget=KeywordWidget(attrs={'rows': 3}), required=False, label=_('keywords'))
+	materials = forms.CharField(widget=MaterialWidget(attrs={'rows': 3}), required=False, label=_("Materials"))
+	keywords = forms.CharField(widget=KeywordWidget(attrs={'rows': 3}), required=False, label=_("Keywords"))
 		
 	class Meta:
 		model = Item

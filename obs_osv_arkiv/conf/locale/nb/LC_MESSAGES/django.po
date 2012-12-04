@@ -21,11 +21,6 @@ msgstr ""
 msgid "Dating"
 msgstr "Datering"
 
-#: archive/admin.py:47 archive/models.py:137 archive/models.py:183
-#, fuzzy
-msgid "Location"
-msgstr "lokasjon"
-
 #: archive/admin.py:51
 #, fuzzy
 msgid "dimensions"
@@ -71,51 +66,6 @@ msgstr "Tag"
 msgid "Tags"
 msgstr "Tagger"
 
-#: archive/models.py:64
-#, fuzzy
-msgid "material"
-msgstr "Materiale"
-
-#: archive/models.py:87 archive/models.py:161
-#, fuzzy
-msgid "condition"
-msgstr "Tilstand"
-
-#: archive/models.py:88
-#, fuzzy
-msgid "conditions"
-msgstr "Tilstander"
-
-#: archive/models.py:102
-#, fuzzy
-msgid "addresses"
-msgstr "addresser"
-
-#: archive/models.py:113
-#, fuzzy
-msgid "area/building"
-msgstr "Område/Bygning"
-
-#: archive/models.py:114
-#, fuzzy
-msgid "areas/buildings"
-msgstr "Områder/Bygninger"
-
-#: archive/models.py:125
-#, fuzzy
-msgid "subarea/room"
-msgstr "Underområde/Rom"
-
-#: archive/models.py:126
-#, fuzzy
-msgid "subareas/rooms"
-msgstr "Underområder/Rom"
-
-#: archive/models.py:138
-#, fuzzy
-msgid "locations"
-msgstr "lokasjoner"
-
 #: archive/models.py:145
 msgid "AD"
 msgstr "FVT"
@@ -141,28 +91,9 @@ msgstr "Gjenstand"
 msgid "Items"
 msgstr "Gjenstander"
 
-#: archive/models.py:157
-msgid "published"
-msgstr "Publisert"
-
-#: archive/models.py:158
-#, fuzzy
-msgid "feature image"
-msgstr "Hovedbilde"
-
-#: archive/models.py:159
-#, fuzzy
-msgid "item number"
-msgstr "Gjenstandsnummer"
-
 #: archive/models.py:160
 msgid "Title"
 msgstr "Tittel"
-
-#: archive/models.py:162 archive/models.py:167
-#, fuzzy
-msgid "certainty"
-msgstr "Sikkerhet"
 
 #: archive/models.py:163 archive/models.py:165
 #, fuzzy
@@ -181,55 +112,10 @@ msgstr "til"
 msgid "city"
 msgstr "by"
 
-#: archive/models.py:169
-#, fuzzy
-msgid "country"
-msgstr "land"
-
-#: archive/models.py:170
-#, fuzzy
-msgid "continent"
-msgstr "kontinent"
-
-#: archive/models.py:171
-#, fuzzy
-msgid "provinience"
-msgstr "proveniens"
-
-#: archive/models.py:172
-#, fuzzy
-msgid "artist"
-msgstr "Kunstner/Produsent"
-
-#: archive/models.py:173
-#, fuzzy
-msgid "height (cm)"
-msgstr "Høyde (cm)"
-
-#: archive/models.py:174
-#, fuzzy
-msgid "width (cm)"
-msgstr "Bredde (cm)"
-
-#: archive/models.py:175
-#, fuzzy
-msgid "depth (cm)"
-msgstr "Dybde (cm)"
-
-#: archive/models.py:176
-#, fuzzy
-msgid "weight (g)"
-msgstr "vekt (g)"
-
 #: archive/models.py:177
 #, fuzzy
 msgid "materials/technique"
 msgstr "materialer/teknikk"
-
-#: archive/models.py:179
-#, fuzzy
-msgid "literature"
-msgstr "litteratur"
 
 #: archive/models.py:181
 msgid "area"
@@ -244,25 +130,10 @@ msgstr "underområde/rom"
 msgid "Position"
 msgstr "posisjon"
 
-#: archive/models.py:185
-#, fuzzy
-msgid "loan status"
-msgstr "utlånsstatus"
-
-#: archive/models.py:186
-#, fuzzy
-msgid "description"
-msgstr "beskrivelse"
-
 #: archive/models.py:187
 #, fuzzy
 msgid "media"
-msgstr "Media"
-
-#: archive/models.py:188
-#, fuzzy
-msgid "categories"
-msgstr "Kategorier"
+msgstr "media"
 
 #: archive/templates/admin/archive/edit_inline/media_tabular.html:21
 #: archive/templates/admin/archive/edit_inline/tabular.html:17
@@ -489,26 +360,20 @@ msgstr "Område"
 msgid "Room"
 msgstr "Rom"
 
-msgid "Address"
-msgstr "Addresse"
-
 msgid "address"
 msgstr "addresse"
 
-msgid "location"
-msgstr "Oppbevaring"
+msgid "Addresses"
+msgstr "Addresser"
+
+msgid "addresses"
+msgstr "addresser"
 
 msgid "placement"
 msgstr "plassering"
 
 msgid "Placement"
 msgstr "Oppbevaring"
-
-msgid "materials"
-msgstr "materialer"
-
-msgid "keywords"
-msgstr "nøkkelord"
 
 msgid "starts with"
 msgstr "starter med"
@@ -519,5 +384,137 @@ msgstr "ender med"
 msgid "contains"
 msgstr "inneholder"
 
+msgid "archive"
+msgstr "arkiv"
+
+msgid "Archive"
+msgstr "Arkiv"
+
+msgid "condition"
+msgstr "tilstand"
+
+msgid "conditions"
+msgstr "tilstander"
+
+msgid "area/building"
+msgstr "område/bygning"
+
+msgid "areas/buildings"
+msgstr "områder/bygninger"
+
+msgid "subarea/room"
+msgstr "underområde/rom"
+
+msgid "subareas/rooms"
+msgstr "underområder/rom"
+
+msgid "location"
+msgstr "oppbevaringssted"
+
+msgid "locations"
+msgstr "oppbevaringssteder"
+
+msgid "name"
+msgstr "navn"
+
+msgid "street"
+msgstr "vei"
+
+msgid "postal number"
+msgstr "postnummer"
+
+msgid "postal area"
+msgstr "poststed"
+
+msgid "country"
+msgstr "land"
+
+msgid "parent"
+msgstr "foreldrenode"
+
+msgid "filename"
+msgstr "filnavn"
+
+msgid "filetype"
+msgstr "filtype"
+
+msgid "item"
+msgstr "gjenstand"
+
 msgid "order"
 msgstr "rekkefølge"
+
+msgid "description"
+msgstr "beskrivelse"
+
+msgid "category"
+msgstr "kategori"
+
+msgid "categories"
+msgstr "kategorier"
+
+msgid "tag"
+msgstr "tag"
+
+msgid "tags"
+msgstr "tagger"
+
+msgid "published"
+msgstr "publisert"
+
+msgid "feature image"
+msgstr "hovedbilde"
+
+msgid "item number"
+msgstr "gjenstandsnummer"
+
+msgid "Location"
+msgstr "Oppbevaring"
+
+msgid "certainty"
+msgstr "sikkerhet"
+
+msgid "provinience"
+msgstr "proviniens"
+
+msgid "continent"
+msgstr "kontinent"
+
+msgid "artist"
+msgstr "kunstner/produsent"
+
+msgid "height (cm)"
+msgstr "høyde (cm)"
+
+msgid "width (cm)"
+msgstr "bredde (cm)"
+
+msgid "depth (cm)"
+msgstr "dybde (cm)"
+
+msgid "weight (g)"
+msgstr "vekt (g)"
+
+msgid "material"
+msgstr "materiale"
+
+msgid "materials"
+msgstr "materialer"
+
+msgid "keyword"
+msgstr "nøkkelord"
+
+msgid "keywords"
+msgstr "nøkkelord"
+
+msgid "literature"
+msgstr "litteratur"
+
+msgid "loan status"
+msgstr "utlånsstatus"
+
+msgid "Materials"
+msgstr "Materialer"
+
+msgid "Keywords"
+msgstr "Nøkkelord"

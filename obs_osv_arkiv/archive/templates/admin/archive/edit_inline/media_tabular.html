@@ -1,9 +1,6 @@
 {% load i18n admin_static admin_modify %}
 {% load media_details %}
 <div class="inline-group" id="{{ inline_admin_formset.formset.prefix }}-group">
-  {% if inline_admin_formset.formset.errors %}
-    {{ inline_admin_formset.formset.errors  }}
-  {% endif %}
   <div class="tabular inline-related {% if forloop.last %}last-related{% endif %}">
 {{ inline_admin_formset.formset.management_form }}
 <fieldset class="module">

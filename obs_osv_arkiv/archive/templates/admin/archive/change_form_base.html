@@ -39,11 +39,6 @@
 {% endblock %}
 <form {% if has_file_field %}enctype="multipart/form-data" {% endif %}action="{{ form_url }}" method="post" id="{{ opts.module_name }}_form">{% csrf_token %}{% block form_top %}{% endblock %}
 <div>
-{% block inline_field_sets %}
-{% for inline_admin_formset in inline_admin_formsets %}
-    {% include inline_admin_formset.opts.template %}
-{% endfor %}
-{% endblock %}
 
 {% if is_popup %}<input type="hidden" name="_popup" value="1" />{% endif %}
 {% if save_on_top %}{% block submit_buttons_top %}{% submit_row %}{% endblock %}{% endif %}
@@ -54,6 +49,11 @@
     {{ adminform.form.non_field_errors }}
 {% endif %}
 
+{% block inline_field_sets %}
+{% for inline_admin_formset in inline_admin_formsets %}
+    {% include inline_admin_formset.opts.template %}
+{% endfor %}
+{% endblock %}
 {% block field_sets %}
 {% for fieldset in adminform %}
   {% include "admin/includes/fieldset.html" %}
