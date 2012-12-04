@@ -14,10 +14,26 @@ $('nav').isotope({
   }
 });
 
+$('#item-info-wrapper').isotope({
+  // options
+  itemSelector : '.infoboks',
+  layoutMode : 'masonry'
+});
+
+
 $('#content').isotope({
   // options
   itemSelector : '.thumb',
   layoutMode : 'masonry'
+});
+
+$(function(){
+        $(".thumb").hover(function(){
+                            $(this).fadeTo('fast',0.3);   
+                            },
+                            function(){
+                            $(this).fadeTo('fast',1);       
+                            });
 });
 
 var $container = $('#content');

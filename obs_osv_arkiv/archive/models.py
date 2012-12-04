@@ -146,8 +146,8 @@ class Item(models.Model):
 		('BC', _('BC'))
 	)
 	CERTAINTY_CHOICES = (
-		('sure', _('sure')),
-		('uncertain', _('approximate/uncertain'))
+		('sure', _("sure")),
+		('uncertain', _("approximate/uncertain"))
 	)
 
 	class Meta:

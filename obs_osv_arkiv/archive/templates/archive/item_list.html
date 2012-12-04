@@ -1,3 +1,5 @@
+{% load feature_image %}
+
 <!DOCTYPE HTML>
 <html>
 <head>
@@ -7,6 +9,9 @@
 <link href='http://fonts.googleapis.com/css?family=Quattrocento+Sans:400,400italic,700,700italic' rel='stylesheet' type='text/css'>
 <link rel="stylesheet" href="{{STATIC_URL}}css/style.css" type="text/css">
 <link rel="stylesheet" href="{{STATIC_URL}}css/supersized.core.css" type="text/css" media="screen" />
+<link rel="stylesheet" media='screen and (min-width: 600px) and (max-width: 3000px)' href='{{STATIC_URL}}css/style.css' />
+<link rel="stylesheet" media='screen and (min-width: 1px) and (max-width: 599px)' href='{{STATIC_URL}}css/style-smaller.css' />
+<link rel="stylesheet" href="{{STATIC_URL}}css/jquery-ui-1.9.1.custom.min.css" type="text/css" />
 
 <!--[if lt IE 9]>
 <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -14,19 +19,25 @@
 
 <script type="text/javascript" src="{{STATIC_URL}}js/jquery-1.8.2.min.js"></script>
 <script type="text/javascript" src="{{STATIC_URL}}js/jquery.isotope.min.js"></script>
+<script type="text/javascript" src="{{STATIC_URL}}js/jquery-ui-1.9.1.custom.min.js"></script>
 <script type="text/javascript" src="{{STATIC_URL}}js/supersized.core.3.2.1.min.js"></script>
+<script type="text/javascript" src="{{STATIC_URL}}js/museum_functions.js"></script>
+
 
 </head>
 
 <body>
 
 <header>
+	<div id="logo"><h1><a href="/">guttormsgaards arkiv</a></h1></div>
+	<div id="search"><input type="text" id="searchbox" /></div>
+	
 	<nav>	
 		{% for node in parent %}
 			{% if node.is_root_node %}
-				<a class="corner-stamp emne" href="/">{{ node.name }} </a>
+				<a class="corner-stamp emne" href="/node/{{ node.pk }}">{{ node.name }} </a>
 			{% else %}
-				<a class="corner-stamp emne" href="/node/{{ node.parent.pk }}">{{ node.name }} </a>
+				<a class="corner-stamp emne" href="/node/{{ node.pk }}">{{ node.name }} </a>
 			{% endif %}
 			
 		{% endfor %}
@@ -34,7 +45,7 @@
 			{% if current.is_root_node %}
 				<a class="corner-stamp emne" href="/">{{ current.name }} </a>
 			{% else %}
-				<a class="corner-stamp emne" href="/node/{{ current.parent.pk }}">{{ current.name }} </a>
+				<a class="corner-stamp emne" href="/node/{{ current.pk }}">{{ current.name }} </a>
 			{% endif %}
 		{% endif %}
 		{% for node in nodes %}
@@ -45,16 +56,11 @@
 	
 	<div style="margin-top: 4em;">
 		{% for item in object_list %}
-			{% if item.itemmedia_set.all.0 %}
-				<a class="emne" href="/item/{{ item.pk }}"> {{ item.itemmedia_set.all.0 }} </a>
-			{% else %}
-				<a class="emne" href="/item/{{ item.pk }}">{{ item.title }} </a>
-			{% endif %}
+			{% feature_image item current %}	
 		{% endfor %}
 	<div>
 
 <footer>
-<div id="logo"><h1><a href="/">guttormsgaards arkiv</a></h1></div>
 
 {% if bg %}
 <script type="text/javascript"><!--Kan dette legges i functions?-->
@@ -65,8 +71,8 @@
 				});
 		    });
 </script>
+{% endif %}
 
-{% endif %}   
 <script type="text/javascript" src="{{STATIC_URL}}js/functions.js"></script>
 
 </footer>

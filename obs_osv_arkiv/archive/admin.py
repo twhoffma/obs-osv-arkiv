@@ -44,7 +44,7 @@ class ItemAdmin(admin.ModelAdmin):
 			(None, { 'fields': ('published','feature_media','item_number','title','condition')}),
 			(_('Dating'), {'fields': ('dating_certainty', ('era_from', 'date_from', 'era_to', 'date_to'))
 				}),
-			(_('Location'), {'fields': ('origin_certainty', ('origin_city', 'origin_country', 'origin_continent'), 'origin_provinience')
+			(_('Origin'), {'fields': ('origin_certainty', ('origin_city', 'origin_country', 'origin_continent'), 'origin_provinience')
 				}),
 			(None, {'fields': ('artist',)
 				}),

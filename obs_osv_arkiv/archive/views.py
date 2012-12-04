@@ -19,14 +19,14 @@ class ItemListView(ListView):
 	def get_queryset(self):
 		if self.args and self.args[0]:
 			c = get_object_or_404(Category, pk=self.args[0])
-			self.parent_category = c.get_ancestors()
+			self.parent_category = c.get_ancestors().order_by('name')
 			self.current_category = c
-			self.child_categories = c.get_children()
+			self.child_categories = c.get_children().order_by('name')
 			return(c.item_set.all())
 		else:
 			self.parent_category = None
 			self.current_category = None
-			self.child_categories = Category.objects.root_nodes()
+			self.child_categories = Category.objects.root_nodes().order_by('name')
 			return(Item.objects.filter(pk=None))
 	
 	def get_context_data(self, **kwargs):
@@ -44,6 +44,40 @@ class ItemListView(ListView):
 
 class ItemDetailView(DetailView):
 	model = Item
+	
+	def get_queryset(self):
+		if self.kwargs:
+			i = Item.objects.filter(pk=self.kwargs['pk'])
+			c = get_object_or_404(Category, pk=self.kwargs['node_pk'])
+		else:
+			i = Item.objects.filter(pk=None)
+			c = get_object_or_404(Category, pk=None)
+		
+		self.parent_category = c.get_ancestors().order_by('name')
+		self.current_category = c
+		return(i)
+	
+	def get_context_data(self, **kwargs):
+		context = super(ItemDetailView, self).get_context_data(**kwargs)
+		context['parent'] = self.parent_category
+		context['current'] = self.current_category
+		context['bg'] = None
+		
+		return(context)
+
+@csrf_exempt
+def search_autocomplete(request):
+	from archive.models import Item
+	results = []
+	if request.method == "POST":
+		if request.POST.has_key(u'query'):
+			value = request.POST.get(u'query')
+			models = Item.objects.filter(title__icontains=value)
+			
+			for t in models:
+				results.append({'value': '/item/'+str(t.pk), 'label': t.title})
+	json = simplejson.dumps(results)
+	return HttpResponse(json)
 
 @csrf_exempt
 def image_details(request):

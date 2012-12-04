@@ -78,11 +78,6 @@ msgstr "EVT"
 msgid "sure"
 msgstr "sikker"
 
-#: archive/models.py:150
-#, fuzzy
-msgid "approximate/uncertain"
-msgstr "tilnærmet/usikker"
-
 #: archive/models.py:154
 msgid "Item"
 msgstr "Gjenstand"
@@ -518,3 +513,21 @@ msgstr "Materialer"
 
 msgid "Keywords"
 msgstr "Nøkkelord"
+
+msgid "title"
+msgstr "tittel"
+
+msgid "approximate/uncertain"
+msgstr "tilnærmet/usikker"
+
+msgid "Dimensions"
+msgstr "Mål"
+
+msgid "origin"
+msgstr "opphav"
+
+msgid "Origin"
+msgstr "Opphav"
+
+msgid "position"
+msgstr "posisjon"

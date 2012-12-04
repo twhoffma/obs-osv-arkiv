@@ -1,0 +1,11 @@
+{% load thumbnail %}
+{% load static %}
+
+{% for m in media %}
+	{% if forloop.counter == 1 %}
+		<img src="/media/{{m.filename}}" />
+		<br />
+	{% else %}
+		<img src="{% thumbnail m.filename "2000x100" %}" />
+	{% endif %}
+{% endfor %}	
