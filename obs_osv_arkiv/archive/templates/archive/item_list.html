@@ -33,11 +33,11 @@
 	<div id="search"><input type="text" id="searchbox" /></div>
 	
 	<nav>	
-		{% for node in parent %}
+		{% for cnode in parent %}
 			{% if node.is_root_node %}
-				<a class="corner-stamp emne" href="/">{{ node.name }} </a>
+				<a class="corner-stamp emne" href="/">{{ cnode.name }} </a>
 			{% else %}
-				<a class="corner-stamp emne" href="{% url node node_pk=node.pk  %}">{{ node.name }} </a>
+				<a class="corner-stamp emne" href="{% url node node_pk=cnode.pk  %}">{{ cnode.name }} </a>
 			{% endif %}
 			
 		{% endfor %}
@@ -48,8 +48,8 @@
 				<a class="corner-stamp emne" href="{% url node node_pk=current.pk %}">{{ current.name }} </a>
 			{% endif %}
 		{% endif %}
-		{% for node in nodes %}
-			<a class="emne" href="/node/{{ node.pk }}">{{ node.name }} </a>
+		{% for cnode in nodes %}
+			<a class="emne" href="{% url node cnode.pk %}">{{ cnode.name }} </a>
 		{% endfor %}
     	<nav>
 </header>
