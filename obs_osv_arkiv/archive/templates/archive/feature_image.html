@@ -2,8 +2,16 @@
 {% load static %}
 	
 {%if file %}
-	<a href="/node/{{ node.pk }}/item/{{ item.pk }}"><div class="thumb"><img src="{% thumbnail file "2000x200" %}" alt="{{ item }}" /></div></a>
+	{% if node %}
+		<a href="{% url node_and_item node_pk=node.pk pk=item.pk %}"><div class="thumb"><img src="{% thumbnail file "2000x200" %}" alt="{{ item }}" /></div></a>
+	{% else %}
+		<a href="{% url item pk=item.pk %}"><div class="thumb"><img src="{% thumbnail file "2000x200" %}" alt="{{ item }}" /></div></a>
+	{% endif %}
 {% else %}
-	<a href="/node/{{ node.pk }}/item/{{ item.pk }}"><div class="thumb">{{ item }}</div></a>
+	{% if node %}
+		<a href="{% url node_and_item node_pk=node.pk pk=item.pk %}"><div class="thumb">{{ item }}</div></a>
+	{% else %}
+		<a href="{% url item pk=item.pk %}"><div class="thumb">{{ item }}</div></a>
+	{% endif %}
 {% endif %}
 

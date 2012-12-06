@@ -7,6 +7,7 @@ from django.forms.models import modelformset_factory, inlineformset_factory
 from django.utils import simplejson
 from django.views.decorators.csrf import csrf_exempt
 from django.template import Template, RequestContext
+from django.core.urlresolvers import reverse
 
 from django.views.generic.list import ListView
 from django.views.generic import DetailView
@@ -17,12 +18,27 @@ class ItemListView(ListView):
 	model = Item
 	
 	def get_queryset(self):
-		if self.args and self.args[0]:
-			c = get_object_or_404(Category, pk=self.args[0])
+		if self.kwargs.get('node_pk'):
+			c = get_object_or_404(Category, pk=self.kwargs.get('node_pk'))
 			self.parent_category = c.get_ancestors().order_by('name')
 			self.current_category = c
 			self.child_categories = c.get_children().order_by('name')
 			return(c.item_set.all())
+		elif self.kwargs.get('country'):
+			self.parent_category = None
+			self.current_category = None
+			self.child_categories = None
+			return(Item.objects.filter(origin_country__iexact=self.kwargs.get('country')))
+		elif self.kwargs.get('artist'):
+			self.parent_category = None
+			self.current_category = None
+			self.child_categories = None
+			return(Item.objects.filter(artist__iexact=self.kwargs.get('artist')))
+		elif self.kwargs.get('city'):
+			self.parent_category = None
+			self.current_category = None
+			self.child_categories = None
+			return(Item.objects.filter(origin_city__iexact=self.kwargs.get('city')))
 		else:
 			self.parent_category = None
 			self.current_category = None
@@ -46,15 +62,20 @@ class ItemDetailView(DetailView):
 	model = Item
 	
 	def get_queryset(self):
-		if self.kwargs:
-			i = Item.objects.filter(pk=self.kwargs['pk'])
-			c = get_object_or_404(Category, pk=self.kwargs['node_pk'])
-		else:
-			i = Item.objects.filter(pk=None)
-			c = get_object_or_404(Category, pk=None)
+		try:	
+			i = Item.objects.filter(pk=self.kwargs.get('pk'))
+		except Item.DoesNotExist:
+			i = None
 		
-		self.parent_category = c.get_ancestors().order_by('name')
-		self.current_category = c
+		try:
+			c = Category.objects.get(pk=self.kwargs.get('node_pk'))
+			self.current_category = c
+			self.parent_category = c.get_ancestors().order_by('name')
+		except Category.DoesNotExist:
+			c = None
+			self.current_category = None
+			self.parent_category = None
+		
 		return(i)
 	
 	def get_context_data(self, **kwargs):
@@ -75,7 +96,11 @@ def search_autocomplete(request):
 			models = Item.objects.filter(title__icontains=value)
 			
 			for t in models:
-				results.append({'value': '/item/'+str(t.pk), 'label': t.title})
+				results.append({'value': reverse('item', kwargs={'pk': t.pk}), 'label': t.title})
+				#if t.category.all().count > 0:
+				#	results.append({'value': reverse('node_and_item', kwargs={'node_pk': t.category.all()[0].pk, 'pk': t.pk}), 'label': t.title})
+				#else:
+				#	results.append({'value': reverse('item', kwargs={'pk': t.pk}), 'label': t.title})
 	json = simplejson.dumps(results)
 	return HttpResponse(json)
 

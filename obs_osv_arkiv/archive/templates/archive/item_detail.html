@@ -34,9 +34,9 @@
 	<nav>	
 		{% for node in parent %}
 			{% if node.is_root_node %}
-				<a class="corner-stamp emne" href="/node/{{ node.pk }}">{{ node.name }} </a>
+				<a class="corner-stamp emne" href="/">{{ node.name }} </a>
 			{% else %}
-				<a class="corner-stamp emne" href="/node/{{ node.pk }}">{{ node.name }} </a>
+				<a class="corner-stamp emne" href="{% url node node_pk=node.pk  %}">{{ node.name }} </a>
 			{% endif %}
 			
 		{% endfor %}
@@ -44,7 +44,7 @@
 			{% if current.is_root_node %}
 				<a class="corner-stamp emne" href="/">{{ current.name }} </a>
 			{% else %}
-				<a class="corner-stamp emne" href="/node/{{ current.pk }}">{{ current.name }} </a>
+				<a class="corner-stamp emne" href="{% url node node_pk=current.pk %}">{{ current.name }} </a>
 			{% endif %}
 		{% endif %}
 		{% for node in nodes %}
@@ -60,7 +60,12 @@
 			<p><span class="header">{%trans "title" %}</span><span class="text">{{object.title}}</span>
 			{% endif %}
 			{% if object.artist %}
-			<p><span class="header">{%trans "artist" %}</span><span class="text">{{object.artist}}</span>
+				<p>
+					<span class="header">{%trans "artist" %}</span>
+					<span class="text">
+						<a href="{% url artist artist=object.artist %}">{{object.artist}}</a>
+					</span>
+				</p>
 			{% endif %}
 			{% if object.date_from or object.date_to %}
 				<p><span class="header">{%trans "dating" %}</span><span class="text">
@@ -80,10 +85,10 @@
 				<span class="header">{%trans "origin" %}</span>
 				<span class="text">
 				{% if object.origin_city %}
-					{{object.origin_city}} 
+					<a href="{% url city city=object.origin_city %}" />{{object.origin_city}}</a>
 				{% endif %} 
 				{%if object.origin_country %}
-				 {{ object.origin_country }} 
+				 <a href="{% url country country=object.origin_country %}">{{ object.origin_country  }}</a>
 				{% endif %} 
 				 {% blocktrans %}{{ object.origin_certainty}}{% endblocktrans %}</span>
 			</p>
