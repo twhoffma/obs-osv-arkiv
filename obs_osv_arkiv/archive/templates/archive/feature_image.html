@@ -3,15 +3,15 @@
 	
 {%if file %}
 	{% if node %}
-		<a href="{% url node_and_item node_pk=node.pk pk=item.pk %}"><div class="thumb"><img src="{% thumbnail file "2000x200" %}" alt="{{ item }}" /></div></a>
+		<a href="{% url 'node_and_item' node_pk=node.pk pk=item.pk %}"><div class="thumb"><img src="{% thumbnail file "2000x200" %}" alt="{{ item }}" /></div></a>
 	{% else %}
-		<a href="{% url item pk=item.pk %}"><div class="thumb"><img src="{% thumbnail file "2000x200" %}" alt="{{ item }}" /></div></a>
+		<a href="{% url 'item' pk=item.pk %}"><div class="thumb"><img src="{% thumbnail file "2000x200" %}" alt="{{ item }}" /></div></a>
 	{% endif %}
 {% else %}
 	{% if node %}
-		<a href="{% url node_and_item node_pk=node.pk pk=item.pk %}"><div class="thumb">{{ item }}</div></a>
+		<a href="{% url 'node_and_item' node_pk=node.pk pk=item.pk %}"><div class="thumb">{{ item }}</div></a>
 	{% else %}
-		<a href="{% url item pk=item.pk %}"><div class="thumb">{{ item }}</div></a>
+		<a href="{% url 'item' pk=item.pk %}"><div class="thumb">{{ item }}</div></a>
 	{% endif %}
 {% endif %}
 
