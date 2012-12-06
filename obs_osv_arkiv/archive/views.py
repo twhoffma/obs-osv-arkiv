@@ -42,7 +42,7 @@ class ItemListView(ListView):
 		else:
 			self.parent_category = None
 			self.current_category = None
-			self.child_categories = Category.objects.root_nodes().filter(id__in=[m.category.get_root().pk for m in Item.category.through.objects.all()])
+			self.child_categories = Category.objects.root_nodes().filter(id__in=[m.category.get_root().pk for m in Item.category.through.objects.filter(item__published=True)])
 			#self.child_categories = Category.objects.root_nodes().order_by('name')
 			return(Item.objects.filter(pk=None))
 	
