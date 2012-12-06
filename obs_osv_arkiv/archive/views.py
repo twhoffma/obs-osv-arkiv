@@ -22,7 +22,8 @@ class ItemListView(ListView):
 			c = get_object_or_404(Category, pk=self.kwargs.get('node_pk'))
 			self.parent_category = c.get_ancestors().order_by('name')
 			self.current_category = c
-			self.child_categories = c.get_children().order_by('name')
+			self.child_categories = c.get_children().filter(id__in=[]).order_by('name')
+			#Category.objects.get(pk=152).get_descendants().filter(id__in=[m.category.get_().pk for m in Item.category.through.objects.filter(item__published=True)])
 			return(c.item_set.all())
 		elif self.kwargs.get('country'):
 			self.parent_category = None
@@ -42,8 +43,7 @@ class ItemListView(ListView):
 		else:
 			self.parent_category = None
 			self.current_category = None
-			self.child_categories = Category.objects.root_nodes().filter(id__in=[m.category.get_root().pk for m in Item.category.through.objects.filter(item__published=True)])
-			#self.child_categories = Category.objects.root_nodes().order_by('name')
+			self.child_categories = Category.objects.root_nodes().filter(id__in=[m.category.get_root().pk for m in Item.category.through.objects.filter(item__published=True)]).order_by('name')
 			return(Item.objects.filter(pk=None))
 	
 	def get_context_data(self, **kwargs):
