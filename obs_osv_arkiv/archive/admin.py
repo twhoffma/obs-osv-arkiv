@@ -23,7 +23,7 @@ class MediaInline(admin.TabularInline):
 	template = 'admin/archive/edit_inline/media_tabular.html'
 	ordering = ['order']
 	fields = ['media', 'order']
-	
+		
 	class Media:
 		js = ('js/jquery-1.8.2.min.js', 'js/jquery-ui-1.9.1.custom.min.js', 'js/media_inline.js', 'js/jquery.ui.touch-punch.min.js')
 

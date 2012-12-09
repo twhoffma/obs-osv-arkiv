@@ -17,4 +17,5 @@ urlpatterns = patterns('',
     url(r'^location_autocomplete/$', 'archive.views.location_autocomplete'),
     url(r'^media_details/$', 'archive.views.image_details'),
     url(r'^search_autocomplete/$', 'archive.views.search_autocomplete'),
+    url(r'^filter_media/$', 'archive.views.filter_media', name='find_media'),
 )

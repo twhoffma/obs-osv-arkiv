@@ -57,6 +57,7 @@
 		  		<div class="media_details">
 					{% media_details inline_admin_form.original.media %}
 				</div>
+				<input type="button" onclick="find_media()" />
 		  	{% endif %}
 		  {% endif %}
               {% endif %}
@@ -132,7 +133,7 @@
                 reinitDateTimeShortCuts();
                 updateSelectFilter();
                 alternatingRows(row);
-		//bind_media(row);
+		row.find('input[id$=-order]').val(row.index()+1);
             })
         });
 	

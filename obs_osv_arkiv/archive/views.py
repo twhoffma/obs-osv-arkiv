@@ -88,6 +88,16 @@ class ItemDetailView(DetailView):
 		return(context)
 
 @csrf_exempt
+def filter_media(request):
+	context = {}
+	m = Media.objects.all()
+	if request.method == "GET" and request.GET.has_key("query"):
+		q = request.GET.get("query")
+		m = m.filter(filename__icontains=q)
+	context['media'] = m
+	return render_to_response('archive/filter_media.html', context,context_instance=RequestContext(request))
+
+@csrf_exempt
 def search_autocomplete(request):
 	from archive.models import Item
 	results = []
