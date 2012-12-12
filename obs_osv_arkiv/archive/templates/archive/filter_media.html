@@ -3,6 +3,6 @@
 
 <ul>
 {% for m  in media %}
-	<li> {{m}}	
+	<li> <a href="{{m.pk}}"><img src="{% thumbnail m.filename "50x50" %}" />{{m}}</a>	
 {% endfor %}
 </ul>

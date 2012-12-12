@@ -14,7 +14,7 @@ for line in open('data.csv', 'r'):
 	
 	n = n + 1 
 	
-	if n >= 2 and len(fields) == 30:
+	if n >= 1 and len(fields) == 30:
 		item_number = fields[0]
 		title = fields[1]
 		cat_root1 = fields[2]
@@ -53,15 +53,22 @@ for line in open('data.csv', 'r'):
 		item.title = title
 		
 		#Categories
-		if cat_root1 != "" and cat_child1 != "":
-			(r, created) = Category.objects.get_or_create(name=cat_root1, parent=None)
-			(c, created) = Category.objects.get_or_create(name=cat_child1, parent=r)
-			item.category.add(c)
+		item.category.clear()
+		if cat_root1.strip() != "":
+			(r, created) = Category.objects.get_or_create(name=cat_root1.strip(), parent=None)
+			if cat_child1.strip() != "":
+				(c, created) = Category.objects.get_or_create(name=cat_child1.strip(), parent=r)
+				item.category.add(c)
+			else:
+				item.category.add(r)
 		
-		if cat_root2 != "" and cat_child2 != "":
-			(r, created) = Category.objects.get_or_create(name=cat_root2, parent=None)
-			(c, created) = Category.objects.get_or_create(name=cat_child1, parent=r)
-			item.category.add(c)
+		if cat_root2.strip() != "":
+			(r, created) = Category.objects.get_or_create(name=cat_root2.strip(), parent=None)
+			if cat_child2.strip() != "":
+				(c, created) = Category.objects.get_or_create(name=cat_child2.strip(), parent=r)
+				item.category.add(c)
+			else:
+				item.category.add(r)
 		
 		if state != "":	
 			s = Condition.objects.get(condition_value=state)
@@ -155,6 +162,6 @@ for line in open('data.csv', 'r'):
 			item.ref_literature = reference_literature	
 		
 		item.save()
-		print(n)
+		print(str(n) + " " + cat_root1 + "/" + cat_child1 + " " + cat_root2 + "/" + cat_child2)
 	#import pdb
 	#pdb.set_trace()

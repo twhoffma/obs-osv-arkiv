@@ -23,7 +23,8 @@ $(document).ready(function($) {
 		});
     	}
 	
-	$('.media-inline-table').on('change', "select", function(){
+	//$('.media-inline-table').on('change', "select", function(){
+	$('.media-inline-table').on('change', 'input[id$="-media"]', function(){
 		if($(this).parent().find('div.media_details').length == 0){
 			$(this).parent().append('<div class="media_details"></div>');
 		}
@@ -41,10 +42,43 @@ $(document).ready(function($) {
 		$("div.lightbox").html('');
 		$("div.lightbox").hide();
 	});
+
+	$(".select_media").dialog({autoOpen: false});
+	
+	$(".select_media_button").on('click', function(event){
+		//alert($(this).parent().find('input[id$="-media"]').attr('id') + ' has value' + $(this).parent().find('input[id$="-media"]').val());
+		$(".select_media").find('input#target').val($(this).parent().find('input[id$="-media"]').attr('id'));
+		$(".select_media").dialog("open");
+		
+		addr = "/filter_media"
+		
+		$("div.suggested_media").load(addr);
+	});
+
+	$("#search_media").on('change', function(){
+		$("div.suggest_media").empty();
+		$("div.suggest_media").append('<img src="/images/loading.gif" />');
+		
+		addr = "/filter_media"
+		if($("#search_media").val() != ""){
+			addr = addr + '?query=' + $("#search_media").val();
+		}
+		
+		$("div.suggested_media").load(addr);
+	});
+
+	$("div.suggested_media").on('click', 'a', function(event){
+		var target = $(this).parent().parent().parent().parent().find("input#target").val();
+		$("#"+target).val($(this).attr('href'));
+		$("#"+target).trigger('change');
+		event.preventDefault();
+		$(".select_media").dialog("close");
+	});
 });
 	
 })(jQuery);
 	
+	/*
 	function find_media(){
 		$(".select_media").show();
 		addr = "/filter_media"
@@ -54,3 +88,4 @@ $(document).ready(function($) {
 		
 		$("div.suggested_media").load(addr);
 	}
+	*/

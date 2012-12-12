@@ -16,10 +16,11 @@
   <div class="lightbox">
 	
   </div>
-  <div class="select_media" style="z-index: 3200;">
+  <div class="select_media" style="max-height: 500px;">
 	<input type="text" id="search_media" />
-	
-	<div class="suggested_media" style="overflow-x: scroll;">
+	<input type="hidden" id="target" />
+	<p><a href="{% url "admin:archive_media_add" %}" target="_blank">Add new media</a></p>
+	<div class="suggested_media" style="overflow-y: scroll; overflow-x: hidden;">
 
 	</div>	
   </div>

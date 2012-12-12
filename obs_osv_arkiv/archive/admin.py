@@ -3,13 +3,13 @@ from django import forms
 from django.conf.urls import patterns
 from django.shortcuts import render_to_response, HttpResponseRedirect
 from django.template import RequestContext
-from archive.models import Item, Tag, Media, Location, Condition, Category, Materials, Keywords, Address, Area, Room, Location #,Topic
+from archive.models import Item, Tag, Media, Location, Condition, Category, Materials, Keywords, Address, Area, Room, Location, ItemMedia
 from django.core.urlresolvers import reverse
 from forms import Item_materialEditForm, ItemAdminForm, ItemSearchForm
 import autocomplete_light
 import pdb
 import mimetypes
-from django.forms.widgets import Select
+from django.forms.widgets import Select, HiddenInput
 from django.db import models 
 from django.utils.translation import ugettext_lazy as _
 
@@ -24,6 +24,10 @@ class MediaInline(admin.TabularInline):
 	ordering = ['order']
 	fields = ['media', 'order']
 		
+	formfield_overrides = {
+		models.ForeignKey: {'widget': HiddenInput},
+	}
+	
 	class Media:
 		js = ('js/jquery-1.8.2.min.js', 'js/jquery-ui-1.9.1.custom.min.js', 'js/media_inline.js', 'js/jquery.ui.touch-punch.min.js')
 
@@ -39,7 +43,7 @@ class ItemAdmin(admin.ModelAdmin):
 	actions = ['publish', 'unpublish']
 	list_display_links = ['item_number']
 	save_on_top = True
-	
+		
 	fieldsets = (
 			(None, { 'fields': ('published','feature_media','item_number','title','condition')}),
 			(_('Dating'), {'fields': ('dating_certainty', ('era_from', 'date_from', 'era_to', 'date_to'))
