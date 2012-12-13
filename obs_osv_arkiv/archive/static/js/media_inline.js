@@ -43,7 +43,7 @@ $(document).ready(function($) {
 		$("div.lightbox").hide();
 	});
 
-	$(".select_media").dialog({autoOpen: false, maxWidth: 600});
+	$(".select_media").dialog({autoOpen: false, maxWidth: 600, maxHeight: 300});
 	
 	$('.media-inline-table').on('click', '.select_media_button', function(event){
 		//alert("click");

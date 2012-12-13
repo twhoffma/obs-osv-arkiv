@@ -80,11 +80,11 @@ for line in open('data.csv', 'r'):
 			else:
 				item.dating_certainty = 'Uncertain'
 		
-		if date_from != "" and type(date_from) == int:
-			item.date_from = date_from
+		if date_from != "" and int(date_from.strip()):
+			item.date_from = int(date_from.strip())
 			
-		if date_to != "" and type(date_to) == int:
-			item.date_to = date_to
+		if date_to != "" and int(date_to.strip()):
+			item.date_to = int(date_to.strip())
 		
 		if prod_certainty != "" and prod_certainty != '?':
 			if prod_certainty.lower() == "sikker":
