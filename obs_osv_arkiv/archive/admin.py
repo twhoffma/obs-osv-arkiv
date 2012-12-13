@@ -45,7 +45,7 @@ class ItemAdmin(admin.ModelAdmin):
 	save_on_top = True
 		
 	fieldsets = (
-			(None, { 'fields': ('published','feature_media','item_number','title','condition')}),
+			(None, { 'fields': ('published','item_number','title','condition', 'condition_comment')}),
 			(_('Dating'), {'fields': ('dating_certainty', ('era_from', 'date_from', 'era_to', 'date_to'))
 				}),
 			(_('Origin'), {'fields': ('origin_certainty', ('origin_city', 'origin_country', 'origin_continent'), 'origin_provinience')
@@ -55,7 +55,7 @@ class ItemAdmin(admin.ModelAdmin):
 			(_('Dimensions'), {'fields': (('dim_height', 'dim_width', 'dim_depth', 'dim_weight'),)
 				}),
 			(_('Placement'), {'fields': (('address', 'area', 'room', 'location'), 'position')}), 
-			(None, {'fields': ('materials', 'keywords', 'ref_literature', 'loan_status', 'description')}),
+			(None, {'fields': ('materials', 'keywords', 'ref_literature', 'loan_status', 'description', 'insurance_value')}),
 		)
 	
 	def get_urls(self):

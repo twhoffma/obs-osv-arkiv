@@ -158,10 +158,11 @@ class Item(models.Model):
 		return(self.itemmedia_set.order_by('order')[:1])
 		
 	published = models.BooleanField(verbose_name=_("published"))
-	feature_media = models.ForeignKey(Media, verbose_name=_("feature image"), blank=True, null=True, related_name='feature_media_set')
+	#feature_media = models.ForeignKey(Media, verbose_name=_("feature image"), blank=True, null=True, related_name='feature_media_set')
 	item_number = models.CharField(max_length=14, unique=True, blank=False, verbose_name=_("item number"))
 	title = models.CharField(max_length=200, blank=True, verbose_name=_("title"), null=True)
 	condition = models.ForeignKey(Condition, blank=True, null=True, verbose_name=_("condition"))
+	condition_comment = models.TextField(verbose_name=_('condition details'), blank=True, null=True)
 	dating_certainty = models.CharField(max_length=20, choices=CERTAINTY_CHOICES, verbose_name=_("certainty"), blank=True, null=True) 
 	era_from = models.CharField(max_length=2, choices=ERA_CHOICES, verbose_name=_("period"), blank=True, null=True)
 	date_from = models.IntegerField(verbose_name=_("from"), blank=True, null=True)
@@ -189,6 +190,7 @@ class Item(models.Model):
 	description = models.TextField(verbose_name=_("description"), blank=True, null=True)
 	media = models.ManyToManyField(Media, verbose_name=_("media"), blank=True, through=ItemMedia)
 	category = models.ManyToManyField(Category, blank=True, null=True, verbose_name=_("categories"))
+	insurance_value = models.DecimalField(decimal_places=2, max_digits=9, verbose_name=_('insurance value'), blank=True, null=True)
 	#qr_archive = models.ImageField()
 	#qr_exhibit = models.ImageField()	
 	

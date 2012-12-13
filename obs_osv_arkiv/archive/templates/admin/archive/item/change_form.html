@@ -27,7 +27,6 @@
   
   {{ block.super }}
 		
-  <input type="hidden" id="topic_subtopic_helper" value="" />
   <div class="ui-widget">
   </div>
 {% endblock %}
@@ -58,6 +57,22 @@
 		list-style-type: none;
 	}
 
+	div.suggested_media li {
+		list-style-type: none;
+		margin-left: 0px;
+		clear: none;
+		padding-left: 0px;
+		list-style-position: inside;
+	}
+	
+	div.suggested_media ul {
+		margin-left: 0px;
+		clear: none;
+		padding-left: 0px;
+		list-style-position: inside;
+
+	}
+
 	.ui-autocomplete > li:hover {
 		color: red;
 	}
@@ -71,10 +86,7 @@
 		resize: none;
 		width: 80em;
 	}
-	
-	/* input.vTextField {
-		width: 80em;
-	}*/	
+		
 	</style>
 	
 	<link rel="stylesheet" href="{{STATIC_URL}}css/jquery-ui-1.9.1.custom.min.css" type="text/css" />

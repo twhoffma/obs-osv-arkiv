@@ -53,12 +53,12 @@
                   {{ field.field }}
 		  
 		  {% if field.field.name == "media" %}
-		  	{% if inline_admin_form.original.media %}
 		  		<div class="media_details">
+		  		{% if inline_admin_form.original.media %}	
 					{% media_details inline_admin_form.original.media %}
+		  		{% endif %}
 				</div>
 				<input type="button" class="select_media_button" value='{%trans "Select media" %}' />
-		  	{% endif %}
 		  {% endif %}
               {% endif %}
               </td>

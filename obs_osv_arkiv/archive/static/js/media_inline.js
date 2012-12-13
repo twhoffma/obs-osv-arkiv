@@ -43,9 +43,10 @@ $(document).ready(function($) {
 		$("div.lightbox").hide();
 	});
 
-	$(".select_media").dialog({autoOpen: false});
+	$(".select_media").dialog({autoOpen: false, maxWidth: 600});
 	
-	$(".select_media_button").on('click', function(event){
+	$('.media-inline-table').on('click', '.select_media_button', function(event){
+		//alert("click");
 		//alert($(this).parent().find('input[id$="-media"]').attr('id') + ' has value' + $(this).parent().find('input[id$="-media"]').val());
 		$(".select_media").find('input#target').val($(this).parent().find('input[id$="-media"]').attr('id'));
 		$(".select_media").dialog("open");
