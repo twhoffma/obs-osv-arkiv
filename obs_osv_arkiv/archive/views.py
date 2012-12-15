@@ -22,8 +22,7 @@ class ItemListView(ListView):
 			c = get_object_or_404(Category, pk=self.kwargs.get('node_pk'))
 			self.parent_category = c.get_ancestors().order_by('name')
 			self.current_category = c
-			self.child_categories = c.get_children()#.filter(id__in=[]).order_by('name')
-			#Category.objects.get(pk=152).get_descendants().filter(id__in=[m.category.get_().pk for m in Item.category.through.objects.filter(item__published=True)])
+			self.child_categories = c.get_children().filter(pk__in=Item.category.through.objects.filter(item__published=True).values_list('category__pk', flat=True).distinct().filter(category__in=c.get_descendants(include_self=True))).order_by('name')
 			return(c.item_set.all())
 		elif self.kwargs.get('country'):
 			self.parent_category = None
@@ -43,6 +42,7 @@ class ItemListView(ListView):
 		else:
 			self.parent_category = None
 			self.current_category = None
+			#self.child_categories = Category.objects.get_roots().filter(id__in=Item.category.through.objects.filter(item__published=True).values_list('category__pk', flat=True).distinct()).order_by('name')
 			self.child_categories = Category.objects.root_nodes().filter(id__in=[m.category.get_root().pk for m in Item.category.through.objects.filter(item__published=True)]).order_by('name')
 			return(Item.objects.filter(pk=None))
 	
@@ -104,7 +104,7 @@ def search_autocomplete(request):
 	if request.method == "POST":
 		if request.POST.has_key(u'query'):
 			value = request.POST.get(u'query')
-			models = Item.objects.filter(title__icontains=value)
+			models = Item.objects.filter(title__icontains=value).filter(published=True)
 			
 			for t in models:
 				results.append({'value': reverse('item', kwargs={'pk': t.pk}), 'label': t.title})

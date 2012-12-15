@@ -9,6 +9,7 @@ $(document).ready(function($) {
 	
 	$('.media-inline-table').on('click', 'input', function(ev){
 		ev.target.focus();
+		//ev.target.click();
 	});
 
 	function on_drop(event, ui) {

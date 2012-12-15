@@ -16,7 +16,7 @@ from django.utils.translation import ugettext_lazy as _
 class ItemCategoryInline(admin.TabularInline):
 	model=Item.category.through
 	extra = 1
-	template = 'admin/archive/edit_inline/media_tabular.html'
+	template = 'admin/archive/edit_inline/category_tabular.html'
 
 class MediaInline(admin.TabularInline):
 	model=Item.media.through

@@ -1,5 +1,4 @@
 {% load i18n admin_static admin_modify %}
-{% load media_details %}
 <div class="inline-group" id="{{ inline_admin_formset.formset.prefix }}-group">
   <div class="tabular inline-related {% if forloop.last %}last-related{% endif %}">
 {{ inline_admin_formset.formset.management_form }}
@@ -8,8 +7,6 @@
    {{ inline_admin_formset.formset.non_form_errors }}
    <table>
      <thead><tr>
-     <th>&nbsp;</th>
-     <th>&nbsp;</th>
      {% for field in inline_admin_formset.fields %}
        {% if not field.widget.is_hidden %}
          <th{% if forloop.first %} colspan="2"{% endif %}{% if field.required %} class="required"{% endif %}>{{ field.label|capfirst }}
@@ -20,7 +17,7 @@
      {% if inline_admin_formset.formset.can_delete %}<th>{% trans "Delete?" %}</th>{% endif %}
      </tr></thead>
      
-     <tbody class="media-inline-table">
+     <tbody>
      {% for inline_admin_form in inline_admin_formset %}
         {% if inline_admin_form.form.non_field_errors %}
         <tr><td colspan="{{ inline_admin_form|cell_count }}">{{ inline_admin_form.form.non_field_errors }}</td></tr>
@@ -53,15 +50,6 @@
               {% else %}
                   {{ field.field.errors.as_ul }}
                   {{ field.field }}
-		  
-		  {% if field.field.name == "media" %}
-		  		<div class="media_details">
-		  		{% if inline_admin_form.original.media %}	
-					{% media_details inline_admin_form.original.media %}
-		  		{% endif %}
-				</div>
-				<input type="button" class="select_media_button" value='{%trans "Select media" %}' />
-		  {% endif %}
               {% endif %}
               </td>
             {% endfor %}
@@ -135,7 +123,6 @@
                 reinitDateTimeShortCuts();
                 updateSelectFilter();
                 alternatingRows(row);
-		row.find('input[id$=-order]').val(row.index()+1);
             })
         });
 	
