@@ -6,11 +6,11 @@ $('nav').isotope({
   layoutMode : 'fitRows'
 });
 
-$('nav').isotope({
-  itemSelector: '.emne',
+$('nav #nav').isotope({
+  itemSelector: '.emne emne2',
   masonry: {
     columnWidth: 120,
-    cornerStampSelector: '.corner-stamp'
+    cornerStampSelector: '.corner-stamp .corner-stamp2'
   }
 });
 
@@ -43,3 +43,16 @@ $container.imagesLoaded( function(){
     // options...
   });
 });
+
+//Flexslider
+$(window).load(function() {
+  $('.flexslider').flexslider({
+    animation: "slide",
+	animationSpeed: 0,    
+	controlNav: "thumbnails",
+	slideshow: false,
+	touch: true,
+	video: true,
+  });
+});
+

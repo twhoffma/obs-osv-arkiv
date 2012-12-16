@@ -3,82 +3,186 @@
 
 /* Generelt stæsj */
 
-* {padding:0; margin:0; font-size:100%;}
+* {
+	padding:0; 
+	margin:0; 
+	font-size:100%;
+	}
 
 html {font-size:100%;} /*For IE*/
 
 img {border:none;}
 
-header, section, footer, aside, nav, article, figure { display: block; }/*HTML 5 support - Sets new HTML 5 tags to display:block so browsers know how to render the tags properly. */
+header, section, footer, aside, nav, article, figure {display: block;}/*HTML 5 support - Sets new HTML 5 tags to display:block so browsers know how to render the tags properly. */
 
-body { font-size:62.5%; background-color:#CCC; }
+body { 
+	font-size:62.5%; 
+	background-color:#CCC; 
+	}
 
 a {text-decoration:none;}
 
+ul {list-style:none;}
+
+video {  
+   	width:100%; 
+   	max-width:1200px; 
+   	height:auto;
+	}
+
 /* Toppmeny */
 
-nav { width:95%; margin:50px auto 0px auto; }
+nav { 
+	width:95%;
+	margin:50px auto 0px auto;
+	}
 
-.emne {color:black; background-color:white; text-transform:uppercase; display:block; font-size:1.5em; font-family: Gill Sans, 'Quattrocento Sans', arial, sans-serif; font-weight:normal; padding:2px 3px 3px 3px; float:left; margin:4px;}
+#nav {
+	width:95%; 
+	margin-top:10px; 
+	margin-left:2.5%; 
+	float:left;  
+	}
 
-.emne:hover {background-color:#000; color:white;}
+.emne {
+	color:black; 
+	background-color:white; 
+	text-transform:uppercase; 
+	display:block; 
+	font-size:1.5em; 
+	font-family: Gill Sans, 'Quattrocento Sans', arial, sans-serif; 
+	font-weight:normal; 
+	padding:2px 3px 3px 3px; 
+	float:left; 
+	margin:4px;
+	}
 
-.emne:active {color:white; background-color:#F09;}
+.emne:hover {
+	background-color:#000; 
+	color:white;
+	}
+
+.emne:active {
+	color:white; 
+	background-color:#F09;
+	}
+
+.emne2 {
+	color:white;
+	background-color:white; 
+	text-transform:uppercase; 
+	display:block; 
+	font-size:1.5em; 
+	font-family: Gill Sans, 'Quattrocento Sans', arial, sans-serif; 
+	font-weight:normal; 
+	padding:2px 3px 3px 3px; 
+	float:left; 
+	margin:4px;
+	}
+
+.emne2:hover {
+	background-color:#000; 
+	color:white;
+	}
+
+.emne2:active {
+	color:white; 
+	background-color:#F09;
+	}
 
 .corner-stamp {
-margin: 4px;
-float: left;
-background: #F09;
-color: white;
+	float:left;
+	background:#F09;
+	color:white;
+	}
+
+.corner-stamp2 {
+	float:left;
+	background:#666;
+	color:white;
 }
 
-/*#list {bottom:0px; width:100%; height:80px; background-color:#CCC;}*/
+#logo { 
+	position:absolute; 
+	top:10px; 
+	left:2.5%;  
+	}
 
-#logo { position:absolute; top:10px; left:2.5%;}
-
-#logo a { font-size:3.3em; color:white; text-transform:uppercase; font-family: Gill Sans, 'Quattrocento Sans', arial, sans-serif; font-weight:normal; display:block; /*text-shadow: 2px 2px 0px #666;*/ }
+#logo a {
+	font-size:3.3em;
+	color:white;
+	text-transform:uppercase;
+	font-family: Gill Sans, 'Quattrocento Sans', arial, sans-serif;
+	font-weight:normal;
+	display:block;
+	}
 
 #logo a:hover {color:black;}
-
-#search {position:absolute; top:17px; right:4%;}
-
-#search input {width:130px; font-size:1.5em;}
 
 /* Footer */
 
 /* Gjenstandsnivå */
 
-#item {width:95%; margin-top:20px; margin-left:2.5%; margin-right:2.5%; position:relative; float:left;}
+#item {
+	width:95%;
+	max-width:1200px;
+	margin-top:10px;
+	margin-left:2.5%;
+	margin-right:2.5%;
+	position:relative;
+	float:left;
+	overflow:hidden;
+	}
+	
+.item-img {
+	width:100%;
+	height:auto;
+	}
 
-.item-img {width:99.5%; max-width:900px; margin-left:0.4%; float:left;}
+.infoboks {
+	width:95%; 
+	max-width:900px; 
+	margin-top:15px; 
+	margin-left:2.5%; 
+	float:left; 
+	margin-bottom: 40px; 
+	font-family: Gill Sans, 'Quattrocento Sans', arial, sans-serif; 
+	font-size:1.5em; 
+	font-weight:normal; 
+	color:#666; 
+	line-height:1.5em; 
+	}
 
-#item-thumbs {width:95%; margin-top:20px; margin-left:2.5%; margin-right:2.5%; position:relative; float:left;}
+.header {
+	text-transform:uppercase; 
+	background-color:#999; 
+	color:white; 
+	margin-right:5px; 
+	float:right; 
+	padding:0px 3px 0px 3px; 
+	line-height:1.3em;
+	}
 
-.item-thumb {width:11.3%; margin-left:0.4%; margin-right:0.4%; min-width:60px; max-width:200px;}
+td {vertical-align:top;}
 
-#item-info-wrapper {width:95%; max-width:900px; margin-top:15px; margin-left:2.5%; float:left; margin-bottom: 30px;}
+#content {
+	width:95%; 
+	margin-top:5px; 
+	margin-left:2.5%;
+	float:left;
+	}
 
-/*.infoboks {/*width:95%; margin-left:3%; margin-top:20px;*/ /*font-family: Gill Sans, 'Quattrocento Sans', arial, sans-serif; background-color:white; padding: 3px 4px 4px 4px; float:left; margin:5px; max-width:400px;}*/
-
-/*.infoboks {width:46.5%; padding:1% 1% 1% 1%; margin-left:0.5%; margin-right:0.5%; float:left; font-family: Gill Sans, 'Quattrocento Sans', arial, sans-serif; line-height:2.5em;}*/
-
-.infoboks {font-family: Gill Sans, 'Quattrocento Sans', arial, sans-serif; font-size:1.7em; font-weight:normal; color:#666; line-height:1.5em;}
-
-
-.header {text-transform:uppercase; background-color:#999; color:white; margin-right:5px; float:left; padding:0px 3px 0px 3px; line-height:1.3em;}
-
-.text {font-size:1.7em; font-weight:normal; text-transform:none;}
-
-.bold {font-weight:bold;}
+.thumb {
+	width:200px; 
+	display:block; 
+	float:left; 
+	margin:5px;
+	}
+	
 
 
 /* Annet */
 
-#content {width:95%; margin:20px auto 0px auto;}
-
-.thumb {width:200px; display:block; float:left; margin:5px;}
-
-#wrapper-list {margin-bottom:80px;}
 
 /**** Isotope CSS3 transitions ****/
 

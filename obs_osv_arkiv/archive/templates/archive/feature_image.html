@@ -1,6 +1,37 @@
 {% load thumbnail %}
 {% load static %}
 	
+<div id="item">
+
+<div class="flexslider">
+
+  <ul class="slides">
+    <li data-thumb="images/bukk1.jpg">
+      <img class="item-img" src="images/bukk1.jpg" />
+    </li>
+    	<li data-thumb="images/bukk4.jpg">
+      <img class="item-img" src="images/bukk4.jpg" />
+    </li>
+        <li data-thumb="images/bukk3.jpg">
+      <img class="item-img" src="images/bukk3.jpg" />
+    </li>
+        <li data-thumb="images/bukk2.jpg">
+      <img class="item-img" src="images/bukk2.jpg" />
+    </li>
+      <li data-thumb="images/bukk5.jpg">
+    <video controls>
+    <source src="images/bukkehode.mp4" type="video/mp4">
+    <source src="images/bukkehode.ogv" type="video/ogv"/>
+    <source src="images/bukkehode.webm" type="video/webm"/>
+    </video>
+    </li>
+  
+  </ul>
+
+</div><!--END OF FLEXSLIDER-->
+
+</div><!--END OF ITEM-->
+
 {%if file %}
 	{% if node %}
 		<a href="{% url 'node_and_item' node_pk=node.pk pk=item.pk %}"><div class="thumb"><img src="{% thumbnail file "2000x200" %}" alt="{{ item }}" /></div></a>

@@ -127,26 +127,26 @@ def image_details(request):
 		context['mime'] = m.media_type
 		return render_to_response('archive/media_details.html', context,context_instance=RequestContext(request))
 
-@csrf_exempt
-def search(request):
-	return render_to_response('archive/search.html', context_instance=RequestContext(request))
-
-
-
-@csrf_exempt
-def museum(request):
-	page_items = {}
-	if request.GET.has_key('node'):
-		node_id = request.GET.get('node')
-		c = Category.objects.get(pk=node_id)
-		page_items['parent'] = c
-		page_items['nodes'] = c.get_children()
-		page_items['items'] = c.item_set.all()
-	else:
-		page_items['nodes'] = Category.objects.root_nodes()
-		#No items since all items displayed must a connection to the chosen node.
-		
-	return render_to_response('archive/museum.html', page_items, context_instance=RequestContext(request))
+#@csrf_exempt
+#def search(request):
+#	return render_to_response('archive/search.html', context_instance=RequestContext(request))
+#
+#
+#
+#@csrf_exempt
+#def museum(request):
+#	page_items = {}
+#	if request.GET.has_key('node'):
+#		node_id = request.GET.get('node')
+#		c = Category.objects.get(pk=node_id)
+#		page_items['parent'] = c
+#		page_items['nodes'] = c.get_children()
+#		page_items['items'] = c.item_set.all()
+#	else:
+#		page_items['nodes'] = Category.objects.root_nodes()
+#		#No items since all items displayed must a connection to the chosen node.
+#		
+#	return render_to_response('archive/museum.html', page_items, context_instance=RequestContext(request))
 
 #used
 @csrf_exempt
@@ -190,16 +190,16 @@ def location_autocomplete(request):
 	json = simplejson.dumps(results)
 	return HttpResponse(json)
 
-@csrf_exempt
-def tag_autocomplete(request):
-	results = []
-	if request.method == "POST":
-		if request.POST.has_key(u'query'):
-			value = request.POST.get(u'query')
-			models = Tag.objects.filter(name__icontains=value)
-			results = [t.name for t in models]
-	json = simplejson.dumps(results)
-	return HttpResponse(json) #, mimetype='application/json')
+#@csrf_exempt
+#def tag_autocomplete(request):
+#	results = []
+#	if request.method == "POST":
+#		if request.POST.has_key(u'query'):
+#			value = request.POST.get(u'query')
+#			models = Tag.objects.filter(name__icontains=value)
+#			results = [t.name for t in models]
+#	json = simplejson.dumps(results)
+#	return HttpResponse(json) #, mimetype='application/json')
 
 @csrf_exempt
 def keyword_autocomplete(request):

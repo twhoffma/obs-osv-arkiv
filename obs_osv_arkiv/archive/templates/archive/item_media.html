@@ -1,11 +1,33 @@
 {% load thumbnail %}
 {% load static %}
 
-{% for m in media %}
-	{% if forloop.counter == 1 %}
-		<img src="{% thumbnail m.filename "2000x1200" %} />
-		<br />
-	{% else %}
-		<img src="{% thumbnail m.filename "2000x100" %}" />
-	{% endif %}
-{% endfor %}	
+
+<div id="item">
+	<div class="flexslider">
+		<ul class="slides">
+			{% for m in media %}
+				<li data-thumb="{% thumbnail m.filename "2000x100" %}">
+					{% if media.mime == "Movie" %}
+    						<video controls>
+							{% for file in m.files %}
+    								<source src="images/bukkehode.mp4" type="video/mp4">
+    								<source src="images/bukkehode.ogv" type="video/ogv"/>
+    								<source src="images/bukkehode.webm" type="video/webm"/>
+							{% endfor %}
+    						</video>	
+					{% else %}
+						<img class="item-img" src="{% m.filename %}" />
+					{% endif %}
+				</li>
+				{#
+				{% if forloop.counter == 1 %}
+					<img src="{% thumbnail m.filename "2000x1200" %}" />
+					<br />
+				{% else %}
+					<img src="{% thumbnail m.filename "2000x100" %}" />
+				{% endif %}
+				#}
+			{% endfor %}	
+		</ul>
+	</div>
+</div>

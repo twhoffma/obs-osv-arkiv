@@ -19,6 +19,16 @@ class Category(MPTTModel):
 		category_path.append(self.name)
 		return('>'.join(category_path))
 
+class File(models.Model):
+	file = models.FileField(upload_to='media', verbose_name=_("file"))
+	
+	class Meta:
+		verbose_name = _("file")
+		verbose_name_plural = _("files")
+	
+	def __unicode__(self):
+		return(self.filename.name)
+
 class Media(models.Model):
 	MEDIA_TYPES = (
 		('Image', _("Picture")),
@@ -27,6 +37,8 @@ class Media(models.Model):
 		('Text', _('Text')),
 		('Misc', _('Other'))
 	)
+	
+	files = models.ManyToManyField(File, verbose_name=_("file"))
 	filename = models.FileField(upload_to='media', verbose_name=_("filename"))
 	media_type = models.CharField(max_length=10, choices=MEDIA_TYPES, verbose_name=_("filetype"))
 	

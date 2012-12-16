@@ -3,66 +3,209 @@
 
 /* Generelt stæsj */
 
-* {padding:0; margin:0; font-size:100%;}
+* {
+	padding:0; 
+	margin:0; 
+	font-size:100%;
+	}
 
 html {font-size:100%;} /*For IE*/
 
 img {border:none;}
 
-header, section, footer, aside, nav, article, figure { display: block; }/*HTML 5 support - Sets new HTML 5 tags to display:block so browsers know how to render the tags properly. */
+header, section, footer, aside, nav, article, figure {display: block;}/*HTML 5 support - Sets new HTML 5 tags to display:block so browsers know how to render the tags properly. */
 
-body { font-size:62.5%; background-color:#CCC; }
+body {
+	font-size:62.5%;
+	background-color:#CCC; 
+	}
 
 a {text-decoration:none;}
 
+video {  
+   	width:99.5%; 
+   	max-width:1200px; 
+   	height:auto;
+	}
+
 /* Toppmeny */
 
-nav { width:95%; margin:15px auto 0px auto;}
+nav {
+	width:95%; 
+	margin:5px auto 0px auto; 
+	}
 
-.emne {color:black; background-color:white; text-transform:uppercase; display:block; font-size:1.3em; font-family: Gill Sans, 'Quattrocento Sans', arial, sans-serif; font-weight:normal; padding:1px 2px 2px 2px; float:left; margin:3px;}
+#nav {
+	width:95%;
+	margin-top:10px;
+	margin-left:2.5%;
+	margin-right:2.5%;
+	float:left;
+	}
 
-.emne:hover {background-color:#000; color:white;}
+.emne {
+	color:black;
+	background-color:white;
+	text-transform:uppercase;
+	display:block;
+	font-size:1.3em;
+	font-family:Gill Sans, 'Quattrocento Sans', arial, sans-serif;
+	font-weight:normal;
+	padding:1px 2px 2px 2px;
+	float:left;
+	margin:3px;
+	}
 
-.emne:active {color:white; background-color:#F09;}
+.emne:hover {
+	background-color:#000; 
+	color:white;
+	}
+
+.emne:active {
+	color:white; 
+	background-color:#F09;
+	}
+
+.emne2 {
+	color:white;
+	background-color:white; 
+	text-transform:uppercase; 
+	display:block; font-size:1.3em; 
+	font-family:Gill Sans, 'Quattrocento Sans', arial, sans-serif; 
+	font-weight:normal; 
+	padding:1px 2px 2px 2px; 
+	float:left; 
+	margin:3px;
+	}
+
+.emne2:hover {
+	background-color:#000; 
+	color:white;
+	}
+
+.emne2:active {
+	color:white; 
+	background-color:#F09;
+	}
 
 .corner-stamp {
-margin: 4px;
-float: left;
-background: #F09;
-color: white;
-}
+	float:left;
+	background: #F09;
+	color: white;
+	}
 
-#logo { margin:5px auto 0px auto; width:95%;}
+.corner-stamp2 {
+	float:left;
+	background: #666;
+	color: white;
+	}
 
-#logo a { font-size:2.3em; color:white; text-transform:uppercase; font-family: Gill Sans, 'Quattrocento Sans', arial, sans-serif; font-weight:normal; display:block; margin-left:5px; /*text-shadow: 2px 2px 0px #666;*/ }
+#logo {
+	margin:5px auto 0px auto;
+	width:95%;
+	}
+
+#logo a {
+	font-size:2.3em;
+	color:white;
+	text-transform:uppercase;
+	font-family: Gill Sans, 'Quattrocento Sans', arial, sans-serif;
+	font-weight:normal;
+	display:block;
+	margin-left:5px;
+	}
 
 #logo a:hover {color:black;}
-
-#search {margin:10px auto 0px auto; width:95%;}
-
-#search input {width:160px; height:20px; font-size:1.5em; border:none; font-size:1em; margin-left:5px;}
 
 /*footer*/
 
 /* Gjenstandsnivå */
 
-#item {width:95%; margin-top:20px; margin-left:2.5%; margin-right:2.5%; clear:both; position:relative; float:left;}
+/*Stort bilde*/
+	
+#item {
+	width:95%;
+	max-width:1200px;
+	margin-top:10px;
+	margin-left:2.5%;
+	margin-right:2.5%;
+	position:relative;
+	float:left;
+	overflow:hidden;
+	}
 
-.item-img {width:98%; max-width:900px; margin-left:0.5%; margin-right:0.5%; margin-bottom:10px; float:left;}
+.item-img {
+	width:100%;
+	max-width:1200px;
+	float:left;
+	}
 
-#item-thumbs {width:95%; margin-top:10px; margin-left:2.5%; margin-right:2.5%; position:relative;}
+/*Thumb-stripe under stort bilde */
 
-.item-thumb {width:23%; margin:0.7%; max-width:200px;}
+#item-thumbs {
+	width:95%;
+	margin-top:10px;
+	margin-left:2.5%;
+	margin-right:2.5%;
+	float:left;
+	max-width:900px;
+	text-align:right;
+	}
 
-#datering {width:95%; margin-left:3%; margin-top:10px; float:left;}
+.item-thumb {
+	width:11.3%;
+	margin-left:0.4%;
+	margin-right:0.4%;
+	max-width:200px;
+	min-width:50px;
+	}
+
+/*Registreringstekst*/
+
+.infoboks {
+	width:95%;
+	max-width:900px;
+	margin-top:15px;
+	margin-left:2.5%;
+	float:left;
+	margin-bottom:20px;
+	font-family: Gill Sans, 'Quattrocento Sans', arial, sans-serif;
+	font-size:1.3em;
+	font-weight:normal;
+	color:#666;
+	line-height:1.5em;
+	position:relative;
+	float:left;
+	}
+
+.header {
+	text-transform:uppercase;
+	background-color:#999;
+	color:white;
+	margin-right:5px;
+	float:right;
+	padding:0px 3px 0px 3px;
+	line-height:1.3em;
+	}
+
+td {vertical-align:top;}
+
 
 /* Annet */
 
-#content {width:95%; margin:20px auto 0px auto;}
+#content {
+	width:95%;
+	margin-top:5px; 
+	margin-left:2.5%; 
+	float:left; 
+	}
 
-.thumb {width:200px; display:block; float:left; margin:5px;}
-
-#wrapper-list {margin-bottom:40px;}
+.thumb {
+	width:200px; 
+	display:block; 
+	float:left; 
+	margin:5px; 
+	}
 
 /**** Isotope CSS3 transitions ****/
 

@@ -3,7 +3,7 @@ from django import forms
 from django.conf.urls import patterns
 from django.shortcuts import render_to_response, HttpResponseRedirect
 from django.template import RequestContext
-from archive.models import Item, Tag, Media, Location, Condition, Category, Materials, Keywords, Address, Area, Room, Location, ItemMedia
+from archive.models import Item, Tag, Media, Location, Condition, Category, Materials, Keywords, Address, Area, Room, Location, ItemMedia, File
 from django.core.urlresolvers import reverse
 from forms import Item_materialEditForm, ItemAdminForm, ItemSearchForm
 import autocomplete_light
@@ -31,6 +31,10 @@ class MediaInline(admin.TabularInline):
 	
 	class Media:
 		js = ('js/jquery-1.8.2.min.js', 'js/jquery-ui-1.9.1.custom.min.js', 'js/media_inline.js', 'js/jquery.ui.touch-punch.min.js')
+
+class FileInline(admin.TabularInline):
+	model=Media.files.through
+	extra = 1
 
 #--- Main Item Admin 
 class ItemAdmin(admin.ModelAdmin):
@@ -115,7 +119,10 @@ class LocationAdmin(admin.ModelAdmin):
 #--- File and media admins
 class MediaAdmin(admin.ModelAdmin):
 	model = Media
+	inlines = [FileInline]	
+	exclude = ('files', )
 
+admin.site.register(File)
 admin.site.register(Category, CategoryAdmin)
 admin.site.register(Tag)
 admin.site.register(Media, MediaAdmin)
