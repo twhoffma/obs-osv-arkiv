@@ -1,5 +1,0 @@
-<p>
-{% for item in items %}
-<a style="display:block" href="{% url admin:archive_item_change item.pk %}">
-<img src="{% if item.feature_media  %}{{MEDIA_URL}}{{ item.feature_media }} {% else %} {{STATIC_URL}}icon_128.png {% endif %}" class="autocomplete_thumbnail"/> {{ item.item_number }}</a>
-{% endfor %}

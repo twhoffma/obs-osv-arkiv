@@ -3,15 +3,18 @@ from django import forms
 from django.conf.urls import patterns
 from django.shortcuts import render_to_response, HttpResponseRedirect
 from django.template import RequestContext
-from archive.models import Item, Tag, Media, Location, Condition, Category, Materials, Keywords, Address, Area, Room, Location, ItemMedia, File
 from django.core.urlresolvers import reverse
-from forms import Item_materialEditForm, ItemAdminForm, ItemSearchForm
-import autocomplete_light
-import pdb
-import mimetypes
 from django.forms.widgets import Select, HiddenInput
 from django.db import models 
 from django.utils.translation import ugettext_lazy as _
+
+from archive.models import Item, Tag, Media, Location, Condition, Category, Materials, Keywords, Address, Area, Room, Location, ItemMedia, File
+from forms import Item_materialEditForm, ItemAdminForm, ItemSearchForm
+from adminfiles.admin import FilePickerAdmin
+
+import pdb
+import mimetypes
+
 
 class ItemCategoryInline(admin.TabularInline):
 	model=Item.category.through
@@ -33,7 +36,7 @@ class MediaInline(admin.TabularInline):
 		js = ('js/jquery-1.8.2.min.js', 'js/jquery-ui-1.9.1.custom.min.js', 'js/media_inline.js', 'js/jquery.ui.touch-punch.min.js')
 
 class FileInline(admin.TabularInline):
-	model=Media.files.through
+	model=File
 	extra = 1
 
 #--- Main Item Admin 
@@ -98,7 +101,8 @@ class ItemAdmin(admin.ModelAdmin):
 
 #--- Category Admin for organization
 class CategoryAdmin(admin.ModelAdmin):
-	form = autocomplete_light.modelform_factory(Category)
+	model = Category
+	#form = autocomplete_light.modelform_factory(Category)
 
 #---
 
@@ -120,7 +124,7 @@ class LocationAdmin(admin.ModelAdmin):
 class MediaAdmin(admin.ModelAdmin):
 	model = Media
 	inlines = [FileInline]	
-	exclude = ('files', )
+	#exclude = ('files', )
 
 admin.site.register(File)
 admin.site.register(Category, CategoryAdmin)

@@ -1,0 +1,9 @@
+
+				{#
+				{% if forloop.counter == 1 %}
+					<img src="{% thumbnail m.filename "2000x1200" %}" />
+					<br />
+				{% else %}
+					<img src="{% thumbnail m.filename "2000x100" %}" />
+				{% endif %}
+				#}

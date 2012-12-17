@@ -6,27 +6,18 @@
 	<div class="flexslider">
 		<ul class="slides">
 			{% for m in media %}
+				{{ m.filename.content_type }}
 				<li data-thumb="{% thumbnail m.filename "2000x100" %}">
-					{% if media.mime == "Movie" %}
+					{% if m.media_type == "Movie" %}
     						<video controls>
-							{% for file in m.files %}
-    								<source src="images/bukkehode.mp4" type="video/mp4">
-    								<source src="images/bukkehode.ogv" type="video/ogv"/>
-    								<source src="images/bukkehode.webm" type="video/webm"/>
+							{% for file in m.file_set.all %}
+    								<source src="{{MEDIA_URL}}/media/{{ file }}" type="{{ file.content_type }}">
 							{% endfor %}
     						</video>	
 					{% else %}
-						<img class="item-img" src="{% m.filename %}" />
+						<img class="item-img" src="{{ MEDIA_URL}}/media/{{ m.filename }}" />
 					{% endif %}
 				</li>
-				{#
-				{% if forloop.counter == 1 %}
-					<img src="{% thumbnail m.filename "2000x1200" %}" />
-					<br />
-				{% else %}
-					<img src="{% thumbnail m.filename "2000x100" %}" />
-				{% endif %}
-				#}
 			{% endfor %}	
 		</ul>
 	</div>

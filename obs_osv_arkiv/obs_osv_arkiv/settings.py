@@ -129,6 +129,7 @@ INSTALLED_APPS = (
     #'autocomplete_light',
     #'navigation_autocomplete',
     'easy_thumbnails',
+    'adminfiles'
 )
 
 # A sample logging configuration. The only tangible logging

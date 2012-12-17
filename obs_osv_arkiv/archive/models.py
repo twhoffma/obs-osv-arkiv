@@ -21,13 +21,24 @@ class Category(MPTTModel):
 
 class File(models.Model):
 	file = models.FileField(upload_to='media', verbose_name=_("file"))
+	media = models.ForeignKey('Media')
+	order = models.IntegerField(blank=True, null=True)	
 	
 	class Meta:
 		verbose_name = _("file")
 		verbose_name_plural = _("files")
 	
+	def content_type(self):
+		import mimetypes
+		#import pdb
+		#pdb.set_trace()
+		type = mimetypes.guess_type(self.file.name)[0]
+		if type is None: #Should include a test for webm
+			type = 'video/webm'
+		return(type)
+	
 	def __unicode__(self):
-		return(self.filename.name)
+		return(self.file.name)
 
 class Media(models.Model):
 	MEDIA_TYPES = (
@@ -38,7 +49,7 @@ class Media(models.Model):
 		('Misc', _('Other'))
 	)
 	
-	files = models.ManyToManyField(File, verbose_name=_("file"))
+	#files = models.ManyToManyField(File, verbose_name=_("file"))
 	filename = models.FileField(upload_to='media', verbose_name=_("filename"))
 	media_type = models.CharField(max_length=10, choices=MEDIA_TYPES, verbose_name=_("filetype"))
 	
