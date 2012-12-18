@@ -531,3 +531,18 @@ msgstr "Opphav"
 
 msgid "position"
 msgstr "posisjon"
+
+msgid "file"
+msgstr "fil"
+
+msgid "files"
+msgstr "filer"
+
+msgid "thumbnail"
+msgstr "miniatyrbilde"
+
+msgid "condition details"
+msgstr "tilstandsnotater"
+
+msgid "insurance value"
+msgstr "forsikringsverdi"

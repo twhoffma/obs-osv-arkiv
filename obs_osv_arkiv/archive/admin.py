@@ -99,12 +99,8 @@ class ItemAdmin(admin.ModelAdmin):
 		
 #---
 
-#--- Category Admin for organization
 class CategoryAdmin(admin.ModelAdmin):
 	model = Category
-	#form = autocomplete_light.modelform_factory(Category)
-
-#---
 
 #---Item location admin interfaces
 class AddressAdmin(admin.ModelAdmin):

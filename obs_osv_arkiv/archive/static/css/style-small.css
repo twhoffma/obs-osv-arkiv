@@ -56,6 +56,14 @@ color: white;
 
 #datering {width:95%; margin-left:3%; margin-top:20px; float:left;}
 
+.infoboks a {
+	color: #666;
+}
+
+.infoboks a:hover {
+	color: #000;
+}
+
 /* Annet */
 
 #content {width:95%; margin:20px auto 0px auto;}

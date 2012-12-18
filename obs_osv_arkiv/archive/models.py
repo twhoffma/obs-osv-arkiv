@@ -50,7 +50,7 @@ class Media(models.Model):
 	)
 	
 	#files = models.ManyToManyField(File, verbose_name=_("file"))
-	filename = models.FileField(upload_to='media', verbose_name=_("filename"))
+	filename = models.FileField(upload_to='media', verbose_name=_("thumbnail"), null=True, blank=True)
 	media_type = models.CharField(max_length=10, choices=MEDIA_TYPES, verbose_name=_("filetype"))
 	
 	class Meta:

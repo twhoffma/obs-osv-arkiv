@@ -1,21 +1,26 @@
 {% load thumbnail %}
 {% load static %}
-
+{% load staticfiles %}
 
 <div id="item">
 	<div class="flexslider">
 		<ul class="slides">
 			{% for m in media %}
-				{{ m.filename.content_type }}
-				<li data-thumb="{% thumbnail m.filename "2000x100" %}">
+				<li data-thumb="{% if m.filename %}{% thumbnail m.filename "100x2000" %}{% else %}{% if m.media_type == "Image" %}{% static "images/thumb_image.jpg"%}{% elif m.media_type == "Movie" %}{% static "images/thumb_movie.jpg" %}{% elif m.media_type == "Sound" %}{% static "images/thumb_audio.jpg" %}{% elif m.media_type == "Text" %}{% static "images/thumb_text.jpg" %}{% elif m.media_type == "Misc" %}{% static "images/thumb_misc.jpg" %}{% endif %}{% endif %}">
 					{% if m.media_type == "Movie" %}
     						<video controls>
 							{% for file in m.file_set.all %}
     								<source src="{{MEDIA_URL}}/media/{{ file }}" type="{{ file.content_type }}">
 							{% endfor %}
-    						</video>	
+    						</video>
+					{% elif m.media_type == "Sound" %}
+						<audio controls>
+							{% for file in m.file_set.all %}
+    								<source src="{{MEDIA_URL}}/media/{{ file }}" type="{{ file.content_type }}">
+							{% endfor %}
+						</audio>	
 					{% else %}
-						<img class="item-img" src="{{ MEDIA_URL}}/media/{{ m.filename }}" />
+						<img class="item-img" src="{{MEDIA_URL}}/media/{{ m.filename }}" />
 					{% endif %}
 				</li>
 			{% endfor %}	

@@ -6,19 +6,18 @@ from django.db import models, connection
 from archive.models import Item, Category, Materials, Keywords, Condition, Address, Area, Room, Location
 
 
-#i = Item.objects.get_or_create(item_number="GA_test")
-
 n = 0
 num_height = 0
 num_depth = 0
 num_width = 0
 num_weight = 0
+
 for line in open('data.csv', 'r'):
 	fields = line.split("\t")
 	
 	n = n + 1 
 	
-	if n >= 1 and len(fields) >= 18:
+	if n >= 1 and len(fields) >= 30:
 		item_number = fields[0]
 		title = fields[1]
 		cat_root1 = fields[2]
@@ -38,19 +37,18 @@ for line in open('data.csv', 'r'):
 		height = fields[16]
 		depth = fields[17]
 		weight = fields[18]
-		#material = fields[19]
-		#prod_place = fields[20]
-		##address = fields[21]
-		#area = fields[21]
-		#room = fields[22]
-		#location = fields[23]
-		#position = fields[24]
-		#position_alt = fields[25]
-		#on_loan  = fields[26]
-		#description = fields[27]
-		#keywords = fields[28]
-		#reference_literature = fields[29]
-		print(item_number)
+		material = fields[19]
+		prod_place = fields[20]
+		#address = fields[21]
+		area = fields[21]
+		room = fields[22]
+		location = fields[23]
+		position = fields[24]
+		position_alt = fields[25]
+		on_loan  = fields[26]
+		description = fields[27]
+		keywords = fields[28]
+		reference_literature = fields[29]
 	
 		##Get or create item	
 		(item, created) = Item.objects.get_or_create(item_number=item_number)
@@ -170,8 +168,7 @@ for line in open('data.csv', 'r'):
 	#		item.ref_literature = reference_literature	
 	#	
 		item.save()
-		print(str(n))
 	#	print(str(n) + " " + cat_root1 + "/" + cat_child1 + " " + cat_root2 + "/" + cat_child2)
-	##import pdb
-	#pdb.set_trace()
+	else:
+		print("line " + str(n) + ", " + item_number + " skipped. Only " + str(len(fields)) + " fields")
 print("height/width/depth/weight: " + str(num_height) + "/" + str(num_width) + "/" + str(num_depth) + "/" + str(num_weight))
