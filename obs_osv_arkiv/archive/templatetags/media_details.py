@@ -11,5 +11,5 @@ def media_details(media):
 	else:
 		file = media.filename
 		filename = media.filename.name
-		mime_type = media.media_type		
-	return({'filename': filename, 'mime': mime_type, 'file': file})
+		mime_type = media.media_type	
+	return({'filename': filename, 'mime': mime_type, 'file': file, 'm': media})

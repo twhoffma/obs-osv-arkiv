@@ -35,59 +35,6 @@
 	{{ block.super }}
 	
 	<link rel="stylesheet" href="{{ STATIC_URL }}css/autocomplete.css" />	
-	
-	<style>
-	.aligned label:not(.inline){
-		width: 15em;
-	}
-	
-	.aligned label.inline {
-		width: auto;
-	}
-	
-	.ui-autocomplete {
-		background-color: #F6F6F6;
-		max-height: 10em;
-		overflow-y: auto;
-		overflow-x: hidden;
-		width: 200px;
-	}
-	
-	.ui-autocomplete > li {
-		list-style-type: none;
-	}
-
-	div.suggested_media li {
-		list-style-type: none;
-		margin-left: 0px;
-		clear: none;
-		padding-left: 0px;
-		list-style-position: inside;
-	}
-	
-	div.suggested_media ul {
-		margin-left: 0px;
-		clear: none;
-		padding-left: 0px;
-		list-style-position: inside;
-
-	}
-
-	.ui-autocomplete > li:hover {
-		color: red;
-	}
-	
-	#id_address, #id_area, #id_location, #id_room {
-		min-width: 90%;
-		width: 90%;
-	}
-
-	textarea {
-		resize: none;
-		width: 80em;
-	}
-		
-	</style>
-	
+	<link rel="stylesheet" href="{{ STATIC_URL }}css/item_admin.css" />	
 	<link rel="stylesheet" href="{{STATIC_URL}}css/jquery-ui-1.9.1.custom.min.css" type="text/css" />
 {% endblock %}

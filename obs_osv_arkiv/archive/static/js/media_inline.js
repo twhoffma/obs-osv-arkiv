@@ -29,7 +29,7 @@ $(document).ready(function($) {
 		if($(this).parent().find('div.media_details').length == 0){
 			$(this).parent().append('<div class="media_details"></div>');
 		}
-	
+			
 		$(this).parent().find("div.media_details").load("/media_details?media_pk="+$(this).val());
 	});
 	

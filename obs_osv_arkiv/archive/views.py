@@ -125,6 +125,7 @@ def image_details(request):
 		context['filename'] = m.filename.name 
 		context['file'] = m.filename
 		context['mime'] = m.media_type
+		context['m'] = m
 		return render_to_response('archive/media_details.html', context,context_instance=RequestContext(request))
 
 #@csrf_exempt

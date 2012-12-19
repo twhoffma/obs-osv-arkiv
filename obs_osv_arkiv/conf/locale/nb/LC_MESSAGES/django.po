@@ -546,3 +546,6 @@ msgstr "tilstandsnotater"
 
 msgid "insurance value"
 msgstr "forsikringsverdi"
+
+msgid "Movie"
+msgstr "Film"

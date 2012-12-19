@@ -43,7 +43,6 @@ class ItemAdminForm(forms.ModelForm):
 				materials.append(m)
 			except:
 				continue
-		
 		for keyword in self.cleaned_data['keywords'].split(','):
 			try:
 				(k, created) = Keywords.objects.get_or_create(name=keyword)

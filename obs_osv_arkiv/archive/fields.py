@@ -1,4 +1,4 @@
-from django.forms import MultiValueField, CharField, ChoiceField
+#from django.forms import MultiValueField, CharField, ChoiceField
 #from archive.widgets import TopicWidget, LocationWidget#, SelectLocationWidget
 #
 #class TopicField(MultiValueField):

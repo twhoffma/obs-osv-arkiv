@@ -121,7 +121,6 @@ class KeywordWidget(widgets.Widget):
 		final_attrs = self.build_attrs(attrs, name=name)
 		objects = []
 		val = ''
-
 		if value:	
 			for each in value:
 				try:
@@ -131,12 +130,13 @@ class KeywordWidget(widgets.Widget):
 					continue
 			
 			values = []
+			
 			for each in objects:
 				values.append(str(each))
 			value = ','.join(values)
 			
 			if value:
-				val = ''
+				val = value
 				#final_attrs['value'] = value
 		else:
 			final_attrs['value'] = ''
