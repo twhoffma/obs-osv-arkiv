@@ -119,17 +119,13 @@ INSTALLED_APPS = (
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
-    #'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.admin',
     'south',
     'archive',
     'mptt', 
-    #'autocomplete_light',
-    #'navigation_autocomplete',
     'easy_thumbnails',
-    'adminfiles'
 )
 
 # A sample logging configuration. The only tangible logging

@@ -120,8 +120,6 @@ INSTALLED_APPS = (
     'south',
     'archive',
     'mptt', 
-    'autocomplete_light',
-    'navigation_autocomplete',
     'easy_thumbnails'
 )
 

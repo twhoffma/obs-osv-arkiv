@@ -12,6 +12,9 @@ num_depth = 0
 num_width = 0
 num_weight = 0
 
+num_ok = 0
+num_updated = 0
+
 for line in open('data.csv', 'r'):
 	fields = line.split("\t")
 	
@@ -77,11 +80,16 @@ for line in open('data.csv', 'r'):
 		#	s = Condition.objects.get(condition_value=state)
 		#	item.condition = s
 		#
-		#if date_certainty != "":
-		#	if date_certainty.lower() == "sikker":
-		#		item.dating_certainty = 'Certain'
-		#	else:
-		#		item.dating_certainty = 'Uncertain'
+		if date_certainty != "": 
+			if item.dating_certainty is None:
+				if date_certainty.lower() == "sikker":
+					item.dating_certainty = 'sure'
+					num_updated = num_updated + 1
+				elif date_certainty.lower() == "usikker":
+					item.dating_certainty = 'uncertain'
+					num_updated = num_updated + 1
+			else: 
+				num_ok = num_ok + 1	
 		#
 		#if date_from != "" and int(date_from.strip()):
 		#	item.date_from = date_from
@@ -107,21 +115,21 @@ for line in open('data.csv', 'r'):
 		#if artist != "":
 		#	item.artist = artist
 		#
-		if height != "":
-			item.dim_height = float(height.strip())
-			num_height = num_height + 1
-
-		if weight != "":
-			item.dim_weight = float(weight.strip())
-			num_weight = num_weight + 1
-		 
-		if width != "":
-			item.dim_width = float(width.strip())
-			num_width = num_width + 1
-		
-		if depth != "":
-			item.dim_depth = float(depth.strip())
-			num_depth = num_depth + 1
+		#if height != "":
+		#	item.dim_height = float(height.strip())
+		#	num_height = num_height + 1
+		#
+		#if weight != "":
+		#	item.dim_weight = float(weight.strip())
+		#	num_weight = num_weight + 1
+		# 
+		#if width != "":
+		#	item.dim_width = float(width.strip())
+		#	num_width = num_width + 1
+		#
+		#if depth != "":
+		#	item.dim_depth = float(depth.strip())
+		#	num_depth = num_depth + 1
 		#if material != "":
 		#	(m, created) = Materials.objects.get_or_create(name=material)
 		#	item.materials.add(m)
@@ -172,3 +180,4 @@ for line in open('data.csv', 'r'):
 	else:
 		print("line " + str(n) + ", " + item_number + " skipped. Only " + str(len(fields)) + " fields")
 print("height/width/depth/weight: " + str(num_height) + "/" + str(num_width) + "/" + str(num_depth) + "/" + str(num_weight))
+print("updated: " + str(num_updated) + ", already ok: " + str(num_ok))

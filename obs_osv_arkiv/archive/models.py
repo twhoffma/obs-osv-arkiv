@@ -30,8 +30,6 @@ class File(models.Model):
 	
 	def content_type(self):
 		import mimetypes
-		#import pdb
-		#pdb.set_trace()
 		type = mimetypes.guess_type(self.file.name)[0]
 		if type is None: #Should include a test for webm
 			type = 'video/webm'
@@ -185,7 +183,6 @@ class Item(models.Model):
 		return(self.itemmedia_set.order_by('order')[:1])
 		
 	published = models.BooleanField(verbose_name=_("published"))
-	#feature_media = models.ForeignKey(Media, verbose_name=_("feature image"), blank=True, null=True, related_name='feature_media_set')
 	item_number = models.CharField(max_length=14, unique=True, blank=False, verbose_name=_("item number"))
 	title = models.CharField(max_length=200, blank=True, verbose_name=_("title"), null=True)
 	condition = models.ForeignKey(Condition, blank=True, null=True, verbose_name=_("condition"))
@@ -218,8 +215,6 @@ class Item(models.Model):
 	media = models.ManyToManyField(Media, verbose_name=_("media"), blank=True, through=ItemMedia)
 	category = models.ManyToManyField(Category, blank=True, null=True, verbose_name=_("categories"))
 	insurance_value = models.DecimalField(decimal_places=2, max_digits=9, verbose_name=_('insurance value'), blank=True, null=True)
-	#qr_archive = models.ImageField()
-	#qr_exhibit = models.ImageField()	
 	
 	def __unicode__(self):
 		return(self.item_number)

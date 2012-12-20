@@ -9,8 +9,7 @@ from django.db import models
 from django.utils.translation import ugettext_lazy as _
 
 from archive.models import Item, Tag, Media, Location, Condition, Category, Materials, Keywords, Address, Area, Room, Location, ItemMedia, File
-from forms import Item_materialEditForm, ItemAdminForm, ItemSearchForm
-from adminfiles.admin import FilePickerAdmin
+from forms import ItemAdminForm, ItemSearchForm
 
 import pdb
 import mimetypes

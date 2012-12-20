@@ -1,9 +1,8 @@
 import pdb
 from django import forms
 from django.forms import widgets
-from archive.models import Item, Condition, Tag, Location, Keywords, Materials #,Topic
-from archive.widgets import TagWidget, KeywordWidget, MaterialWidget #TopicWidget, , SelectLocationWidget
-#from archive.fields import TopicField #, LocationField
+from archive.models import Item, Condition, Tag, Location, Keywords, Materials
+from archive.widgets import KeywordWidget, MaterialWidget, ManyToManyTextWidget
 
 from django.forms.util import flatatt
 from django.utils.safestring import mark_safe
@@ -22,8 +21,10 @@ class ItemSearchForm(forms.Form):
 	title_choices = forms.ChoiceField(choices=TEXT_CHOICES)
 	
 class ItemAdminForm(forms.ModelForm):
-	materials = forms.CharField(widget=MaterialWidget(attrs={'rows': 3}), required=False, label=_("Materials"))
-	keywords = forms.CharField(widget=KeywordWidget(attrs={'rows': 3}), required=False, label=_("Keywords"))
+	#materials = forms.CharField(widget=MaterialWidget(attrs={'rows': 3}), required=False, label=_("Materials"))
+	#keywords = forms.CharField(widget=KeywordWidget(attrs={'rows': 3}), required=False, label=_("Keywords"))
+	materials = forms.CharField(widget=ManyToManyTextWidget(attrs={'rows': 3, 'cls': Materials}), required=False, label=_("Materials"))
+	keywords = forms.CharField(widget=ManyToManyTextWidget(attrs={'rows': 3, 'cls': Keywords}), required=False, label=_("Keywords"))
 		
 	class Meta:
 		model = Item
@@ -55,13 +56,13 @@ class ItemAdminForm(forms.ModelForm):
 		
 		return(self.cleaned_data)
 
-class Item_materialEditForm(forms.ModelForm):
-	class Meta:
-		model = Item.materials.through
-		widgets = {'tag': TagWidget}
-	
-
-
+#class Item_materialEditForm(forms.ModelForm):
+#	class Meta:
+#		model = Item.materials.through
+#		widgets = {'tag': TagWidget}
+#	
+#
+#
 #class Item_topicEditForm(forms.ModelForm)V:
 #	topic = TopicField(required=False)
 #	
@@ -90,11 +91,11 @@ class Item_materialEditForm(forms.ModelForm):
 #			super(TopicEditForm, self).__init__(*args, **kwargs)
 #			self.fields['topic'].widget.attrs['class'] = 'dobbel'
 #			self.fields['subtopic'].widget.attrs['class'] = 'dobbel'
-
-class LocationEditForm(forms.ModelForm):
-	class Meta:
-		model = Location
-
+#
+#class LocationEditForm(forms.ModelForm):
+#	class Meta:
+#		model = Location
+#
 #class LocationSelectForm(forms.Form):
 #	area = forms.ChoiceField(choices=[(l.area, l.area) for l in Location.objects.all()])
 #	room = forms.ChoiceField(choices=[])
