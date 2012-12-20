@@ -39,17 +39,20 @@ class ItemAdminForm(forms.ModelForm):
 		materials = []
 		keywords = []
 		for material in self.cleaned_data['materials'].split(','):
-			try:
-				(m, created) = Materials.objects.get_or_create(name=material)
-				materials.append(m)
-			except:
-				continue
+			if len(material.strip()) > 0:
+				try:
+					(m, created) = Materials.objects.get_or_create(name=material)
+					materials.append(m)
+				except:
+					continue
+		
 		for keyword in self.cleaned_data['keywords'].split(','):
-			try:
-				(k, created) = Keywords.objects.get_or_create(name=keyword)
-				keywords.append(k)
-			except:
-				continue
+			if len(keyword.strip()) > 0:
+				try:
+					(k, created) = Keywords.objects.get_or_create(name=keyword)
+					keywords.append(k)
+				except:
+					continue
 		
 		self.cleaned_data['materials'] = materials
 		self.cleaned_data['keywords'] = keywords

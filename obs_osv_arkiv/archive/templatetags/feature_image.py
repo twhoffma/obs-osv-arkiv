@@ -17,4 +17,5 @@ def feature_image(item, node):
 		else:
 			filename = None
 			file = None
-	return({'filename': filename, 'file': file, 'item': item, 'node': node})
+			media = None
+	return({'filename': filename, 'file': file, 'item': item, 'node': node, 'm': media})

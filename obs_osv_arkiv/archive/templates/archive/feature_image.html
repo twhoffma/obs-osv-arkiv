@@ -1,48 +1,17 @@
 {% load thumbnail %}
 {% load static %}
 	
-<div id="item">
-
-<div class="flexslider">
-
-  <ul class="slides">
-    <li data-thumb="images/bukk1.jpg">
-      <img class="item-img" src="images/bukk1.jpg" />
-    </li>
-    	<li data-thumb="images/bukk4.jpg">
-      <img class="item-img" src="images/bukk4.jpg" />
-    </li>
-        <li data-thumb="images/bukk3.jpg">
-      <img class="item-img" src="images/bukk3.jpg" />
-    </li>
-        <li data-thumb="images/bukk2.jpg">
-      <img class="item-img" src="images/bukk2.jpg" />
-    </li>
-      <li data-thumb="images/bukk5.jpg">
-    <video controls>
-    <source src="images/bukkehode.mp4" type="video/mp4">
-    <source src="images/bukkehode.ogv" type="video/ogv"/>
-    <source src="images/bukkehode.webm" type="video/webm"/>
-    </video>
-    </li>
-  
-  </ul>
-
-</div><!--END OF FLEXSLIDER-->
-
-</div><!--END OF ITEM-->
-
-{%if file %}
-	{% if node %}
-		<a href="{% url 'node_and_item' node_pk=node.pk pk=item.pk %}"><div class="thumb"><img src="{% thumbnail file "2000x200" %}" alt="{{ item }}" /></div></a>
-	{% else %}
-		<a href="{% url 'item' pk=item.pk %}"><div class="thumb"><img src="{% thumbnail file "2000x200" %}" alt="{{ item }}" /></div></a>
-	{% endif %}
+{%if m %}
+	<a href="{% if node %}{% url 'node_and_item' node_pk=node.pk pk=item.pk %}{% else %}{% url 'item' pk=item.pk %}{% endif %}">
+		<div class="thumb">
+			<img src="{% if m.filename %}{% thumbnail m.filename "2000x200" %}{% else %}{% if m.media_type == "Image" %}{% static "images/thumb_image.jpg"%}{% elif m.media_type == "Movie" %}{% static "images/thumb_movie.jpg" %}{% elif m.media_type == "Sound" %}{% static "images/thumb_audio.jpg" %}{% elif m.media_type == "Text" %}{% static "images/thumb_text.jpg" %}{% elif m.media_type == "Misc" %}{% static "images/thumb_misc.jpg" %}{% endif %}{% endif %}" alt="{{ m }}" />
+		</div>
+	</a>
 {% else %}
-	{% if node %}
-		<a href="{% url 'node_and_item' node_pk=node.pk pk=item.pk %}"><div class="thumb">{{ item }}</div></a>
-	{% else %}
-		<a href="{% url 'item' pk=item.pk %}"><div class="thumb">{{ item }}</div></a>
-	{% endif %}
+	<a href="{% if node %}{% url 'node_and_item' node_pk=node.pk pk=item.pk %}{% else %}{% url 'item' pk=item.pk %}{% endif %}">
+		<div class="thumb">
+			<img src="{% static "images/thumb_item.jpg" %}" alt="{{ item }}" />
+			<p>{{ item }}</p>
+		</div>
+	</a>
 {% endif %}
-
