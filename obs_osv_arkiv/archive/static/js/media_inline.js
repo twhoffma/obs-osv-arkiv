@@ -44,12 +44,18 @@ $(document).ready(function($) {
 		$("div.lightbox").hide();
 	});
 
-	$(".select_media").dialog({autoOpen: false, maxWidth: 600, maxHeight: 300});
+	$(".select_media").dialog({
+		autoOpen: false 
+	});
 	
 	$('.media-inline-table').on('click', '.select_media_button', function(event){
-		//alert("click");
-		//alert($(this).parent().find('input[id$="-media"]').attr('id') + ' has value' + $(this).parent().find('input[id$="-media"]').val());
 		$(".select_media").find('input#target').val($(this).parent().find('input[id$="-media"]').attr('id'));
+		
+		var w = 0.6*$(window).width();
+		var h = 0.5*$(window).height();		
+
+		$(".select_media").dialog("option", "width", w);
+		$(".select_media").dialog("option", "height", h);
 		$(".select_media").dialog("open");
 		
 		addr = "/filter_media"

@@ -132,6 +132,7 @@ function add_suggestion(event, ui){
 	return(false);
 }
 
+/*
 function add_topic_select(event, ui){
 	$('#topic_subtopic_helper').val(ui.item.label);
 	//alert($('#topic_subtopic_helper').val());
@@ -193,6 +194,7 @@ function complete_tag(request, response){
 			}
 	});
 }
+*/
 
 function complete_material(request, response){
 	terms = request.term.split(",");
@@ -234,6 +236,7 @@ function complete_keyword(request, response){
 	});
 }
 
+/*
 function delete_topic(){
 	var total = $("#id_form-TOTAL_FORMS").val();
 	total--;
@@ -284,3 +287,4 @@ function add_location(){
 		modal: true
 	});
 }
+*/

@@ -1,9 +1,11 @@
 {% load thumbnail %}
 {% load static %}
 {% load i18n %}
+{% load media_thumb %}
+
 <div style="clear: none; float: left; background-color: #F6F6F6; padding: 2px;">
 <a href="{% get_media_prefix %}{{ m.filename }}" rel="popshowit" style="clear: none;">
-			<img src="{% if m.filename %}{% thumbnail m.filename "50x50" %}{% else %}{% if m.media_type == "Image" %}{% static "images/thumb_image.jpg"%}{% elif m.media_type == "Movie" %}{% static "images/thumb_movie.jpg" %}{% elif m.media_type == "Sound" %}{% static "images/thumb_audio.jpg" %}{% elif m.media_type == "Text" %}{% static "images/thumb_text.jpg" %}{% elif m.media_type == "Misc" %}{% static "images/thumb_misc.jpg" %}{% endif %}{% endif %}" style="height: 50px; width: 50px; clear: none; display: inline;" />
+			<img src="{% media_thumb m 50 50 %}" style="height: 50px; width: 50px; clear: none; display: inline;" />
 </a>
 </div>
 <div style="display: inline; margin-right: 5em; float: left; ">

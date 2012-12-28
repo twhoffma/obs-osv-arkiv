@@ -14,6 +14,7 @@ from forms import ItemAdminForm, ItemSearchForm
 import pdb
 import mimetypes
 
+#Category.objects.all().annotate(cnt=Count('item')).exclude(cnt=0)
 
 class ItemCategoryInline(admin.TabularInline):
 	model=Item.category.through

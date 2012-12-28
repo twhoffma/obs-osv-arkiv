@@ -42,8 +42,8 @@ class ItemListView(ListView):
 		else:
 			self.parent_category = None
 			self.current_category = None
-			#self.child_categories = Category.objects.get_roots().filter(id__in=Item.category.through.objects.filter(item__published=True).values_list('category__pk', flat=True).distinct()).order_by('name')
-			self.child_categories = Category.objects.root_nodes().filter(id__in=[m.category.get_root().pk for m in Item.category.through.objects.filter(item__published=True)]).order_by('name')
+			#self.child_categories = Category.objects.root_nodes().filter(id__in=[m.category.get_root().pk for m in Item.category.through.objects.filter(item__published=True)]).order_by('name')
+			self.child_categories = Category.objects.root_nodes().filter(tree_id__in=Item.category.through.objects.filter(item__published=True).values_list('category__tree_id').distinct()).order_by('name')
 			return(Item.objects.filter(pk=None))
 	
 	def get_context_data(self, **kwargs):

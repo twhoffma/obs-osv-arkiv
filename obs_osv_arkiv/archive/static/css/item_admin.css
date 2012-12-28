@@ -54,3 +54,14 @@ textarea {
 .field-media > .add-another {
 	display: none;
 }
+
+ul.media_suggestion_matrix {
+	padding-left: 0px;
+}
+
+ul.media_suggestion_matrix > li {
+	float: left;
+	list-style: none;
+	margin: 1px;
+	padding: 2px 5px;
+}
