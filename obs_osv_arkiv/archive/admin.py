@@ -85,13 +85,19 @@ class ItemAdmin(admin.ModelAdmin):
 			obj.save()
 	
 	def search(self, request):
-		if request.method == 'GET' and len(request.GET) > 0:
+		if request.method == 'POST' and len(request.POST) > 0:
 			redirect_url = '/admin/archive/item/?'
-			for field in request.GET.lists():
-				if field[1][0]:
+			for field in request.POST.lists():
+				if field[1][0] and '_choices' not in field[0] and field[0] != 'csrfmiddlewaretoken':
 					if not redirect_url[-1] == '?':
 						redirect_url = redirect_url + '&'
-					redirect_url = redirect_url + field[0] + '__icontains=' + field[1][0]
+					
+					redirect_url = redirect_url + field[0]
+					
+					if request.POST.get(field[0] + '_choices') and request.POST.get(field[0] + '_choices') != 'EQ':
+						redirect_url = redirect_url + '__' + request.POST.get(field[0] + '_choices').lower()
+					
+					redirect_url = redirect_url + '=' + field[1][0]
 			return HttpResponseRedirect(redirect_url)	
 		page_items = {}
 		page_items['search_form'] = ItemSearchForm()
