@@ -48,7 +48,7 @@ class Media(models.Model):
 	)
 	
 	#files = models.ManyToManyField(File, verbose_name=_("file"))
-	shortname = models.CharField(max_length=100, verbose_name=_("navn"), null=True)
+	#shortname = models.CharField(max_length=100, verbose_name=_("navn"), null=True)
 	filename = models.FileField(upload_to='media', verbose_name=_("thumbnail"), blank=True)
 	media_type = models.CharField(max_length=10, choices=MEDIA_TYPES, verbose_name=_("filetype"))
 	
@@ -57,10 +57,19 @@ class Media(models.Model):
 		verbose_name_plural = _("media")
 		
 	def __unicode__(self):
-		if self.shortname is None:
-			return(u'noname')
+		from os.path import basename
+		if self.filename:
+			if self.file_set.all().count() > 0:
+				if self.file_set.all().count() > 2:
+					return(basename(self.filename.name) + u' (' + unicode(self.file_set.all().count()) + u' ' + 'files' + ')')
+				else:
+					return(basename(self.filename.name) + ' (' + ', '.join([basename(f.file.name) for f in self.file_set.all()]) + ')')
+			else:
+				return(basename(self.filename.name))
+		elif self.file_set.count() > 0:
+			return(basename(self.file_set.all()[0].file.name))
 		else:
-			return(self.shortname)
+			return(_('media') + u' ' + str(self.pk))
 
 class ItemMedia(models.Model):
 	item = models.ForeignKey('Item', verbose_name=_("item"))

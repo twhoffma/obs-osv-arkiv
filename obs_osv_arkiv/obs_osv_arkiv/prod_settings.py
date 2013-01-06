@@ -121,7 +121,7 @@ INSTALLED_APPS = (
     'archive',
     'mptt', 
     'easy_thumbnails',
-    'django_thumbnails'
+    'django_filters'
 )
 
 # A sample logging configuration. The only tangible logging

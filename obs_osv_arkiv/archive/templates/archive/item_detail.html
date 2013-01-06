@@ -70,14 +70,16 @@
 				<td><p class="header">{%trans "dating" %}</p></td>
 				<td><p class="text">
 					{% if object.date_from %}
-						{%trans "from" %} {{ object.date_from }}. 
+						{% if object.dating_certainty %}
+							<span style="text-transform: capitalize;">{%trans "from" %}{% if object.dating_certainty != "sure" %}</span> {%trans "approx" %}. {% endif %} {{ object.date_from }} 
+						{% endif%}
 					{% endif %}
-					{% if object.date_to %}{% if objects.date_from %} - {% endif %}
-						{%trans "to" %} {{ object.date_to }}.
+					{% if object.date_to %}
+						{% if object.date_from %} {%trans "to" %} {{ object.date_to }}
+						{% else %}
+							<span style="text-transform: capitalize;">{%trans "to" %}</span> {{ object.date_to }}
+						{% endif %}
 					{% endif %}
-					{% if object.dating_certainty %}
-						{% blocktrans %}{{ object.dating_certainty }}{%endblocktrans%}
-					{% endif %} 
 				</p></td>
 			</tr>
 			{% endif %}
@@ -89,7 +91,8 @@
 					<a href="{% url 'city' city=object.origin_city %}" />{{object.origin_city}}</a>
 				{% endif %} 
 				{%if object.origin_country %}
-				 <a href="{% url 'country' country=object.origin_country %}">{{ object.origin_country  }}</a>
+				{%if object.origin_city %}, {%endif%}
+				<a href="{% url 'country' country=object.origin_country %}">{{ object.origin_country  }}</a>
 				{% endif %} 
 				 {% blocktrans %}{{ object.origin_certainty}}{% endblocktrans %}
 				</p></td>
@@ -100,16 +103,16 @@
 				<td><p class="header">{%trans "dimensions" %}</p></td>
 				<td><p class="text">
 					{% if object.dim_width %}
-						{% trans "width" %}: {{object.dim_width}} cm
+						<span style="text-transform: capitalize;">{% trans "width" %}</span>: {{object.dim_width}} cm.
 					{% endif %}
 					{% if object.dim_height %}
-						{% trans "height" %}: {{object.dim_height}} cm
+						<span style="text-transform: capitalize;">{% trans "height" %}</span>: {{object.dim_height}} cm.
 					{% endif %}
 					{% if object.dim_depth %}
-						{% trans "depth" %}: {{object.dim_depth }} cm
+						<span style="text-transform: capitalize;">{% trans "depth" %}</span>: {{object.dim_depth }} cm.
 					{% endif %}
 					{% if object.dim_weight %}
-						{% trans "weight" %}: {{object.dim_weight }} cm
+						<span style="text-transform: capitalize;">{% trans "weight" %}</span>: {{object.dim_weight }} cm.
 					{% endif %}
 				</p></td>
 			</tr>

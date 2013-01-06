@@ -21,10 +21,6 @@ msgstr ""
 msgid "Dating"
 msgstr "Datering"
 
-#: archive/admin.py:51
-#, fuzzy
-msgid "dimensions"
-msgstr "mål"
 
 #: archive/models.py:14
 msgid "Category"
@@ -549,3 +545,24 @@ msgstr "forsikringsverdi"
 
 msgid "Movie"
 msgstr "Film"
+
+msgid "dating"
+msgstr "datering"
+
+msgid "dimensions"
+msgstr "dimensjoner"
+
+msgid "approx"
+msgstr "ca"
+
+msgid "height"
+msgstr "høyde"
+
+msgid "width"
+msgstr "bredde"
+
+msgid "depth"
+msgstr "dybde"
+
+msgid "weight"
+msgstr "vekt"

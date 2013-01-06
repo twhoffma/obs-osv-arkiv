@@ -51,9 +51,11 @@ textarea {
 	float: right;
 }
 
+/*
 .field-media > .add-another {
 	display: none;
 }
+*/
 
 ul.media_suggestion_matrix {
 	padding-left: 0px;

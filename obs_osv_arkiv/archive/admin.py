@@ -130,7 +130,7 @@ class LocationAdmin(admin.ModelAdmin):
 class MediaAdmin(admin.ModelAdmin):
 	model = Media
 	inlines = [FileInline]	
-	#exclude = ('files', )
+	search_fields = ['filename', 'file__file', 'pk']
 
 admin.site.register(File)
 admin.site.register(Category, CategoryAdmin)
