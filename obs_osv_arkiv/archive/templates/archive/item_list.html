@@ -22,7 +22,15 @@
 <script type="text/javascript" src="{{STATIC_URL}}js/jquery-ui-1.9.1.custom.min.js"></script>
 <script type="text/javascript" src="{{STATIC_URL}}js/supersized.core.3.2.1.min.js"></script>
 <script type="text/javascript" src="{{STATIC_URL}}js/museum_functions.js"></script>
-
+<script type="text/javascript" src="{{STATIC_URL}}js/jquery.flexslider-min.js"></script>
+<script type="text/javascript">
+	$(document).ready(function(){
+		$('#content').isotope({
+			itemSelector: '.thumb',
+			layoutMode: 'masonry'
+		});
+	});
+</script>
 
 </head>
 
@@ -35,30 +43,50 @@
 	<nav>	
 		{% for cnode in parent %}
 			{% if node.is_root_node %}
-				<a class="corner-stamp emne" href="/">{{ cnode.name }} </a>
+				{% if object_list.count == 0 %}
+					<a class="corner-stamp emne" href="/">{{ cnode.name }} </a>
+				{% else %}
+					<a class="corner-stamp2 emne" href="/">{{ cnode.name }} </a>
+				{% endif %}
 			{% else %}
-				<a class="corner-stamp emne" href="{% url 'node' node_pk=cnode.pk  %}">{{ cnode.name }} </a>
+				{% if object_list.count == 0 %}
+					<a class="corner-stamp emne" href="{% url 'node' node_pk=cnode.pk  %}">{{ cnode.name }} </a>
+				{% else %}
+					<a class="corner-stamp2 emne" href="{% url 'node' node_pk=cnode.pk  %}">{{ cnode.name }} </a>
+				{% endif %}
 			{% endif %}
 			
 		{% endfor %}
 		{% if current %}
 			{% if current.is_root_node %}
-				<a class="corner-stamp emne" href="/">{{ current.name }} </a>
+				{% if object_list.count == 0 %}
+					<a class="corner-stamp emne" href="/">{{ current.name }} </a>
+				{% else %}
+					<a class="corner-stamp2 emne" href="/">{{ current.name }} </a>
+				{% endif %}
 			{% else %}
-				<a class="corner-stamp emne" href="{% url 'node' node_pk=current.pk %}">{{ current.name }} </a>
+				{% if object_list.count == 0 %}
+					<a class="corner-stamp emne" href="{% url 'node' node_pk=current.pk %}">{{ current.name }} </a>
+				{% else %}
+					<a class="corner-stamp2 emne" href="{% url 'node' node_pk=current.pk %}">{{ current.name }} </a>
+				{% endif %}
 			{% endif %}
 		{% endif %}
 		{% for cnode in nodes %}
-			<a class="emne" href="{% url 'node' node_pk=cnode.pk %}">{{ cnode.name }} </a>
+				{% if object_list.count == 0 %}
+					<a class="emne" href="{% url 'node' node_pk=cnode.pk %}">{{ cnode.name }} </a>
+				{% else %}
+					<a class="corner-stamp2 emne" href="{% url 'node' node_pk=cnode.pk %}">{{ cnode.name }} </a>
+				{% endif %}
 		{% endfor %}
-    	<nav>
+    	</nav>
 </header>
 	
-	<div style="margin-top: 4em;">
+	<div id="content">
 		{% for item in object_list %}
 			{% feature_image item current %}	
 		{% endfor %}
-	<div>
+	</div>
 
 <footer>
 

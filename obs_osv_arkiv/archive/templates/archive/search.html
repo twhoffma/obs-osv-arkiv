@@ -46,6 +46,13 @@
 	<input type="submit" />
 	</form>
 	
-	
+	<form action="" method="POST">
+		{{ filter.form.as_p }}
+		{% csrf_token %}
+		<input type="submit" />
+	</form>
+	{% for obj in filter %}
+        	{{ obj.item_number }} - {{ obj.title }}<br />
+    	{% endfor %}
 {% endblock %}
 

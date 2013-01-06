@@ -84,7 +84,7 @@
 			{% if object.origin_city or object.origin_country %}
 			<tr>
 				<td><p class="header">{%trans "origin" %}</p></td>
-				<td><p class="text">Kina.
+				<td><p class="text">
 				{% if object.origin_city %}
 					<a href="{% url 'city' city=object.origin_city %}" />{{object.origin_city}}</a>
 				{% endif %} 
