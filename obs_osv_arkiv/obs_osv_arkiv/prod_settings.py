@@ -120,7 +120,8 @@ INSTALLED_APPS = (
     'south',
     'archive',
     'mptt', 
-    'easy_thumbnails'
+    'easy_thumbnails',
+    'django_thumbnails'
 )
 
 # A sample logging configuration. The only tangible logging
