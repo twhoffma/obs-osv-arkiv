@@ -23,28 +23,28 @@ class ItemListView(ListView):
 			self.parent_category = c.get_ancestors().order_by('name')
 			self.current_category = c
 			self.child_categories = c.get_children().filter(pk__in=Item.category.through.objects.filter(item__published=True).values_list('category__pk', flat=True).distinct().filter(category__in=c.get_descendants(include_self=True))).order_by('name')
-			return(c.item_set.all())
+			return(c.item_set.filter(published=True))
 		elif self.kwargs.get('country'):
 			self.parent_category = None
 			self.current_category = None
 			self.child_categories = None
-			return(Item.objects.filter(origin_country__iexact=self.kwargs.get('country')))
+			return(Item.objects.filter(origin_country__iexact=self.kwargs.get('country')).filter(published=True))
 		elif self.kwargs.get('artist'):
 			self.parent_category = None
 			self.current_category = None
 			self.child_categories = None
-			return(Item.objects.filter(artist__iexact=self.kwargs.get('artist')))
+			return(Item.objects.filter(artist__iexact=self.kwargs.get('artist')).filter(published=True))
 		elif self.kwargs.get('city'):
 			self.parent_category = None
 			self.current_category = None
 			self.child_categories = None
-			return(Item.objects.filter(origin_city__iexact=self.kwargs.get('city')))
+			return(Item.objects.filter(origin_city__iexact=self.kwargs.get('city')).filter(published=True))
 		else:
 			self.parent_category = None
 			self.current_category = None
 			#self.child_categories = Category.objects.root_nodes().filter(id__in=[m.category.get_root().pk for m in Item.category.through.objects.filter(item__published=True)]).order_by('name')
 			self.child_categories = Category.objects.root_nodes().filter(tree_id__in=Item.category.through.objects.filter(item__published=True).values_list('category__tree_id').distinct()).order_by('name')
-			return(Item.objects.filter(pk=None))
+			return(Item.objects.filter(pk=None).filter(published=True))
 	
 	def get_context_data(self, **kwargs):
 		context = super(ItemListView, self).get_context_data(**kwargs)
