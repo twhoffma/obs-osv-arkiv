@@ -9,7 +9,7 @@ from archive.models import Item, Category, Materials, Keywords, Condition, Addre
 from django.core import serializers
 
 
-obj = list(Category.objects.all()) + list(Materials.objects.all()) + list(Keywords.objects.all()) + list(Condition.objects.all()) + list(Address.objects.all()) + list(Area.objects.all()) + list(Room.objects.all()) + list(Location.objects.all()) + list(File.objects.all()) + list(Media.objects.all()) + list(Item.objects.all()) + list(ItemMedia.objects.all()) + list(Tag.objects.all())
+obj = list(Category.objects.all()) + list(Materials.objects.all()) + list(Keywords.objects.all()) + list(Condition.objects.all()) + list(Address.objects.all()) + list(Area.objects.all()) + list(Room.objects.all()) + list(Location.objects.all()) + list(Media.objects.all()) + list(File.objects.all()) + list(Item.objects.all()) + list(ItemMedia.objects.all()) + list(Tag.objects.all())
 
 file = open('backup.xml', 'w')
 #data = serializers.serialize("xml", list(Item.objects.all()))
