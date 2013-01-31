@@ -85,23 +85,14 @@ class ItemAdmin(admin.ModelAdmin):
 			obj.published = False
 			obj.save()
 	
+	def changelist_view(self, request, extra_context=None):
+		extra_context = extra_context or {}
+		extra_context['filter'] = ItemFilter(request.POST, queryset=Item.objects.all())
+		return super(ItemAdmin, self).changelist_view(request, extra_context)
+	
 	def search(self, request):
 		f = ItemFilter(request.POST, queryset=Item.objects.all())
 		
-		#if request.method == 'POST' and len(request.POST) > 0:
-		#	redirect_url = '/admin/archive/item/?'
-		#	for field in request.POST.lists():
-		#		if field[1][0] and '_choices' not in field[0] and field[0] != 'csrfmiddlewaretoken':
-		#			if not redirect_url[-1] == '?':
-		#				redirect_url = redirect_url + '&'
-		#			
-		#			redirect_url = redirect_url + field[0]
-		#			
-		#			if request.POST.get(field[0] + '_choices') and request.POST.get(field[0] + '_choices') != 'EQ':
-		#				redirect_url = redirect_url + '__' + request.POST.get(field[0] + '_choices').lower()
-		#			
-		#			redirect_url = redirect_url + '=' + field[1][0]
-		#	return HttpResponseRedirect(redirect_url)	
 		page_items = {}
 		page_items['search_form'] = ItemSearchForm()
 		page_items['filter'] = f

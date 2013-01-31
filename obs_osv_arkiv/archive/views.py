@@ -128,28 +128,6 @@ def image_details(request):
 		context['m'] = m
 		return render_to_response('archive/media_details.html', context,context_instance=RequestContext(request))
 
-#@csrf_exempt
-#def search(request):
-#	return render_to_response('archive/search.html', context_instance=RequestContext(request))
-#
-#
-#
-#@csrf_exempt
-#def museum(request):
-#	page_items = {}
-#	if request.GET.has_key('node'):
-#		node_id = request.GET.get('node')
-#		c = Category.objects.get(pk=node_id)
-#		page_items['parent'] = c
-#		page_items['nodes'] = c.get_children()
-#		page_items['items'] = c.item_set.all()
-#	else:
-#		page_items['nodes'] = Category.objects.root_nodes()
-#		#No items since all items displayed must a connection to the chosen node.
-#		
-#	return render_to_response('archive/museum.html', page_items, context_instance=RequestContext(request))
-
-#used
 @csrf_exempt
 def area_autocomplete(request):
 	results = []
@@ -163,7 +141,6 @@ def area_autocomplete(request):
 	json = simplejson.dumps(results)
 	return HttpResponse(json)
 
-#used
 @csrf_exempt
 def room_autocomplete(request):
 	results = []
@@ -177,7 +154,6 @@ def room_autocomplete(request):
 	json = simplejson.dumps(results)
 	return HttpResponse(json)
 
-#used
 @csrf_exempt
 def location_autocomplete(request):
 	results = []
@@ -190,17 +166,6 @@ def location_autocomplete(request):
 				results = [(t.pk, t.name) for t in models]
 	json = simplejson.dumps(results)
 	return HttpResponse(json)
-
-#@csrf_exempt
-#def tag_autocomplete(request):
-#	results = []
-#	if request.method == "POST":
-#		if request.POST.has_key(u'query'):
-#			value = request.POST.get(u'query')
-#			models = Tag.objects.filter(name__icontains=value)
-#			results = [t.name for t in models]
-#	json = simplejson.dumps(results)
-#	return HttpResponse(json) #, mimetype='application/json')
 
 @csrf_exempt
 def keyword_autocomplete(request):
@@ -225,57 +190,3 @@ def material_autocomplete(request):
 			results = [t.name for t in models]
 	json = simplejson.dumps(results)
 	return HttpResponse(json)
-
-#@csrf_exempt
-#def topic_autocomplete(request):
-#	results = []
-#	if request.method == "POST":
-#		if request.POST.has_key(u'topic'):
-#			value = request.POST.get(u'topic')
-#			models = Topic.objects.filter(topic__icontains=value)
-#			results = [t.topic for t in models]
-#	json = simplejson.dumps(results)
-#	return HttpResponse(json)
-#
-#
-#@csrf_exempt
-#def room_autocomplete(request):
-#	results = []
-#	if request.method == "POST":
-#		if request.POST.has_key(u'area'):
-#			value = request.POST.get(u'area')
-#			models = Location.objects.filter(area__iexact=value)
-#			results = [t.room for t in models]
-#	json = simplejson.dumps(results)
-#	return HttpResponse(json)
-#
-#@csrf_exempt
-#def subtopic_autocomplete(request):
-#	results = []
-#	if request.method == "POST":
-#		if request.POST.has_key(u'topic') and request.POST.has_key(u'subtopic'):
-#			topic = request.POST.get(u'topic')
-#			subtopic = request.POST.get(u'subtopic')
-#			models = Topic.objects.filter(topic__iexact=topic).filter(subtopic__icontains=subtopic)
-#			results = [t.subtopic for t in models]
-#	json = simplejson.dumps(results)
-#	return HttpResponse(json)
-#
-#def add_location(request):
-#	response = HttpResponse()
-#	response['Content-Type'] = 'application/json'
-#	
-#	if request.method == "POST":
-#		form = LocationEditForm(request.POST)
-#		if form.is_valid():
-#			form.save()
-#			
-#			response.write(simplejson.dumps("OK"))
-#		else:
-#			response.write(simplejson.dumps("FAIL: " + "\n" + "\n".join(form.errors.keys())))
-#	else:
-#		response.write("Not a POST")
-#		#return HttpResponse("FAIL")
-#	
-#	return(response)
-

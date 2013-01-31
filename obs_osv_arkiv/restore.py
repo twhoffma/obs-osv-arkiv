@@ -5,7 +5,7 @@ import pdb
 
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "obs_osv_arkiv.settings")
 from django.db import models, connection
-from archive.models import Item, Category, Materials, Keywords, Condition, Address, Area, Room, Location
+from archive.models import Item, Category, Materials, Keywords, Condition, Address, Area, Room, Location, Media, File
 from django.core import serializers
 
 
