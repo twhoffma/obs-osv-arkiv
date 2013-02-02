@@ -1,5 +1,7 @@
 {% extends "admin/archive/change_form_base.html" %}
 {% load thumbnail %}
+{% load admin_urls %}
+{% load url from future %}
 
 {% block extrahead %}
 	{{ block.super }}
@@ -56,7 +58,7 @@
   <div class="select_media">
 	<input type="text" id="search_media" />
 	<input type="hidden" id="target" />
-	<p><a href="{% url "admin:archive_media_add" %}" target="_blank">Add new media</a></p>
+	<p><a href="{% url opts|admin_urlname:'add' %}" target="_blank">Add new media</a></p>
 	<div class="suggested_media" style="overflow-y: scroll; overflow-x: hidden; max-height: 300px;">
 
 	</div>	

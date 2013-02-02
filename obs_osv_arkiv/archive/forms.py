@@ -67,8 +67,6 @@ class ItemSearchForm(forms.Form):
 	#insurance_value = models.DecimalField(decimal_places=2, max_digits=9, verbose_name=_('insurance value'), blank=True, null=True)
 	
 class ItemAdminForm(forms.ModelForm):
-	#materials = forms.CharField(widget=MaterialWidget(attrs={'rows': 3}), required=False, label=_("Materials"))
-	#keywords = forms.CharField(widget=KeywordWidget(attrs={'rows': 3}), required=False, label=_("Keywords"))
 	materials = forms.CharField(widget=ManyToManyTextWidget(attrs={'rows': 3, 'cls': Materials}), required=False, label=_("Materials"))
 	keywords = forms.CharField(widget=ManyToManyTextWidget(attrs={'rows': 3, 'cls': Keywords}), required=False, label=_("Keywords"))
 		
@@ -77,7 +75,6 @@ class ItemAdminForm(forms.ModelForm):
 	
 	def __init__(self, *args, **kwargs):
 		super(ItemAdminForm, self).__init__(*args, **kwargs)
-		#self.fields['location'].widget = SelectLocationWidget()
 	
 	def clean(self):
 		self.cleaned_data = super(ItemAdminForm, self).clean()
