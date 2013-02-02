@@ -10,6 +10,10 @@ from django.utils.encoding import force_unicode
 from itertools import chain
 from django.utils.translation import ugettext_lazy as _
 
+class ItemAdminListFilterForm(forms.ModelForm):
+	class Meta:
+		model = Item
+		fields = ('address', 'area', 'room', 'location')
 
 class ItemSearchForm(forms.Form):
 	TEXT_CHOICES = (('ICONTAINS',_('contains')), ('ISTARTSWITH',_('starts with')), ('IENDSWITH', _('ends with')))

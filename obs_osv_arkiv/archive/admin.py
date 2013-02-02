@@ -9,13 +9,12 @@ from django.db import models
 from django.utils.translation import ugettext_lazy as _
 
 from archive.models import Item, Tag, Media, Location, Condition, Category, Materials, Keywords, Address, Area, Room, Location, ItemMedia, File
-from forms import ItemAdminForm, ItemSearchForm
+from forms import ItemAdminForm, ItemSearchForm,ItemAdminListFilterForm
 from filters import ItemFilter
+from django.contrib.admin import SimpleListFilter, FieldListFilter, BooleanFieldListFilter, ChoicesFieldListFilter, RelatedFieldListFilter
 
 import pdb
 import mimetypes
-
-#Category.objects.all().annotate(cnt=Count('item')).exclude(cnt=0)
 
 class ItemCategoryInline(admin.TabularInline):
 	model=Item.category.through
@@ -40,6 +39,9 @@ class FileInline(admin.TabularInline):
 	model=File
 	extra = 1
 
+class FilterWithCustomTemplate(RelatedFieldListFilter):
+	template = "archive/custom_filter.html"
+
 #--- Main Item Admin 
 class ItemAdmin(admin.ModelAdmin):
 	model = Item
@@ -52,7 +54,10 @@ class ItemAdmin(admin.ModelAdmin):
 	actions = ['publish', 'unpublish']
 	list_display_links = ['item_number']
 	save_on_top = True
-		
+	#filter_horizontal = ('address', 'area', 'room', 'location')
+	#list_filter = ('area', 'room', 'location')
+	list_filter = (('address', FilterWithCustomTemplate),('area', FilterWithCustomTemplate),('room', FilterWithCustomTemplate),('location', FilterWithCustomTemplate),)
+	
 	fieldsets = (
 			(None, { 'fields': ('published','item_number','title','condition', 'condition_comment')}),
 			(_('Dating'), {'fields': ('dating_certainty', ('era_from', 'date_from', 'era_to', 'date_to'))
@@ -88,8 +93,23 @@ class ItemAdmin(admin.ModelAdmin):
 	def changelist_view(self, request, extra_context=None):
 		extra_context = extra_context or {}
 		extra_context['filter'] = ItemFilter(request.POST, queryset=Item.objects.all())
+		extra_context['listfilter'] = ItemAdminListFilterForm(request.POST)
+		#pdb.set_trace()
 		return super(ItemAdmin, self).changelist_view(request, extra_context)
 	
+	def formfield_for_foreignkey(self, db_field, request, **kwargs):
+		if db_field.name == 'area' and request.GET.get('area'):
+			pdb.set_trace()
+			kwargs['queryset'] = kwargs['queryset'].filter(area=request.GET.get('area'))
+	
+	def queryset(self, request):
+		qs = super(ItemAdmin, self).queryset(request)
+		#pdb.set_trace()
+		if request.GET.get('area'):
+			qs = qs.filter(area=request.GET.get('area'))
+		#pdb.set_trace()
+		return(qs)
+		
 	def search(self, request):
 		f = ItemFilter(request.POST, queryset=Item.objects.all())
 		
@@ -98,6 +118,7 @@ class ItemAdmin(admin.ModelAdmin):
 		page_items['filter'] = f
 		return render_to_response('archive/search.html', page_items, context_instance=RequestContext(request))
 		
+
 #---
 
 class CategoryAdmin(admin.ModelAdmin):
