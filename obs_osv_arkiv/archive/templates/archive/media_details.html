@@ -12,6 +12,10 @@
 <ul style="display: inline; clear: none;">
 	<li style="list-style-type: none; list-style: none;"> Bilde: {{ m.filename }}
 	<li style="list-style-type: none; list-style: none;"> Type: {{ m.media_type }}
+	
+	{% if msg %}
+	<li style="list-style-type: none; list-style: none; color: red;"> Warning! File attachment not found!
+	{% endif %}
 </ul>
 </div>
 {% if m.file_set.count != 0 %}

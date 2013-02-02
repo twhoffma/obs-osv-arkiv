@@ -5,60 +5,60 @@ from django.forms.util import flatatt
 from django.utils.safestring import mark_safe
 import pdb
 
-class MaterialWidget(widgets.Widget):
-	def render(self, name, value, attrs=None):
-		from archive.models import Materials
-		#final_attrs = self.build_attrs(attrs, type='text', name=name)
-		final_attrs = self.build_attrs(attrs, name=name)
-		objects = []
-		val = ''
-		
-		if value:	
-			for each in value:
-				try:
-					tag = Materials.objects.get(pk=each)
-					objects.append(tag)
-				except:
-					continue
-			
-			values = []
-			for each in objects:
-				values.append(str(each))
-			value = ','.join(values)
-			
-			if value:
-				val = value
-				#final_attrs['value'] = value
-		else:
-			final_attrs['value'] = ''
-		return mark_safe(u'<textarea %s >%s</textarea>' % (flatatt(final_attrs), val.decode('utf-8')))
-
-class KeywordWidget(widgets.Widget):
-	def render(self, name, value, attrs=None):
-		from archive.models import Keywords
-		final_attrs = self.build_attrs(attrs, name=name)
-		objects = []
-		val = ''
-		if value:	
-			for each in value:
-				try:
-					tag = Keywords.objects.get(pk=each)
-					objects.append(tag)
-				except:
-					continue
-			
-			values = []
-			
-			for each in objects:
-				values.append(str(each))
-			value = ','.join(values)
-			
-			if value:
-				val = value
-				#final_attrs['value'] = value
-		else:
-			final_attrs['value'] = ''
-		return mark_safe(u'<textarea %s >%s</textarea>' % (flatatt(final_attrs), val.decode('utf-8')))
+#class MaterialWidget(widgets.Widget):
+#	def render(self, name, value, attrs=None):
+#		from archive.models import Materials
+#		#final_attrs = self.build_attrs(attrs, type='text', name=name)
+#		final_attrs = self.build_attrs(attrs, name=name)
+#		objects = []
+#		val = ''
+#		
+#		if value:	
+#			for each in value:
+#				try:
+#					tag = Materials.objects.get(pk=each)
+#					objects.append(tag)
+#				except:
+#					continue
+#			
+#			values = []
+#			for each in objects:
+#				values.append(str(each))
+#			value = ','.join(values)
+#			
+#			if value:
+#				val = value
+#				#final_attrs['value'] = value
+#		else:
+#			final_attrs['value'] = ''
+#		return mark_safe(u'<textarea %s >%s</textarea>' % (flatatt(final_attrs), val.decode('utf-8')))
+#
+#class KeywordWidget(widgets.Widget):
+#	def render(self, name, value, attrs=None):
+#		from archive.models import Keywords
+#		final_attrs = self.build_attrs(attrs, name=name)
+#		objects = []
+#		val = ''
+#		if value:	
+#			for each in value:
+#				try:
+#					tag = Keywords.objects.get(pk=each)
+#					objects.append(tag)
+#				except:
+#					continue
+#			
+#			values = []
+#			
+#			for each in objects:
+#				values.append(str(each))
+#			value = ','.join(values)
+#			
+#			if value:
+#				val = value
+#				#final_attrs['value'] = value
+#		else:
+#			final_attrs['value'] = ''
+#		return mark_safe(u'<textarea %s >%s</textarea>' % (flatatt(final_attrs), val.decode('utf-8')))
 
 class ManyToManyTextWidget(widgets.Widget):
 	def render(self, name, value, attrs=None):

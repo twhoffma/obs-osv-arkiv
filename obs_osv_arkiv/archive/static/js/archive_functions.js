@@ -35,6 +35,7 @@ $(document).ready(
 		});
 		*/
 		
+		/*	
 		/* IN USE */
 		$('#id_feature_media').bind('change', function(){
 			var selection = $('option:selected', this).text();
@@ -121,6 +122,7 @@ $(document).ready(
 				}
 			});
 		});
+		*/
 	}
 );
 

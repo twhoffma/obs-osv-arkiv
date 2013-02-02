@@ -1,5 +1,8 @@
 {% load i18n admin_static admin_modify %}
 {% load media_details %}
+{% load admin_urls %}
+{% load url from future %}
+
 <div class="inline-group" id="{{ inline_admin_formset.formset.prefix }}-group">
   <div class="tabular inline-related {% if forloop.last %}last-related{% endif %}">
 {{ inline_admin_formset.formset.management_form }}
@@ -61,6 +64,8 @@
 		  		{% endif %}
 				</div>
 				<input type="button" class="select_media_button" value='{%trans "Select media" %}' />
+				<a href="{% url opts|admin_urlname:'add' %}" target="true">[Add media]</a>
+				<a href="">[Select existing media]</a>
 		  {% endif %}
               {% endif %}
               </td>

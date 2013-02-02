@@ -9,8 +9,8 @@ from django.db import models
 from django.utils.translation import ugettext_lazy as _
 
 from archive.models import Item, Tag, Media, Location, Condition, Category, Materials, Keywords, Address, Area, Room, Location, ItemMedia, File
-from forms import ItemAdminForm, ItemSearchForm,ItemAdminListFilterForm
-from filters import ItemFilter
+from forms import ItemAdminForm #, ItemSearchForm,ItemAdminListFilterForm
+#from filters import ItemFilter
 from django.contrib.admin import RelatedFieldListFilter
 
 import pdb
@@ -73,8 +73,7 @@ class ItemAdmin(admin.ModelAdmin):
 	def get_urls(self):
 		urls = super(ItemAdmin, self).get_urls()
 		extra_urls = patterns('',
-			(r'^search/$', self.admin_site.admin_view(self.search)),
-			#(r'^adv_search/$', self.admin_site.admin_view(self.adv_search)),
+			#(r'^search/$', self.admin_site.admin_view(self.search)),
 		)
 		return(extra_urls+urls)
 
@@ -90,8 +89,8 @@ class ItemAdmin(admin.ModelAdmin):
 	
 	def changelist_view(self, request, extra_context=None):
 		extra_context = extra_context or {}
-		extra_context['filter'] = ItemFilter(request.POST, queryset=Item.objects.all())
-		extra_context['listfilter'] = ItemAdminListFilterForm(request.POST)
+		#extra_context['filter'] = ItemFilter(request.POST, queryset=Item.objects.all())
+		#extra_context['listfilter'] = ItemAdminListFilterForm(request.POST)
 		#pdb.set_trace()
 		return super(ItemAdmin, self).changelist_view(request, extra_context)
 	
@@ -102,14 +101,14 @@ class ItemAdmin(admin.ModelAdmin):
 	#		qs = qs.filter(area=request.GET.get('area'))
 	#	#pdb.set_trace()
 	#	return(qs)
-		
-	def search(self, request):
-		f = ItemFilter(request.POST, queryset=Item.objects.all())
-		
-		page_items = {}
-		#page_items['search_form'] = ItemSearchForm()
-		page_items['filter'] = f
-		return render_to_response('archive/search.html', page_items, context_instance=RequestContext(request))
+	#	
+	#def search(self, request):
+	#	f = ItemFilter(request.POST, queryset=Item.objects.all())
+	#	
+	#	page_items = {}
+	#	#page_items['search_form'] = ItemSearchForm()
+	#	page_items['filter'] = f
+	#	return render_to_response('archive/search.html', page_items, context_instance=RequestContext(request))
 		
 
 #---

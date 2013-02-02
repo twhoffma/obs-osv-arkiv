@@ -1,6 +1,7 @@
 from django.template import Library
 from django.conf import settings
 from easy_thumbnails.files import get_thumbnailer
+import os.path
 
 import pdb
 
@@ -8,7 +9,7 @@ register = Library()
 
 @register.simple_tag
 def media_thumb(media, width, height):
-	if media.filename:
+	if media.filename and os.path.exists(media.filename.path):
 		thumbnailer = get_thumbnailer(media.filename)
 		thumb = thumbnailer.get_thumbnail({'size': (width, height)})
 		thumb_url = thumb.url
