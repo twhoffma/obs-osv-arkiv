@@ -13,13 +13,15 @@ $(document).ready(
 		$("#id_keywords").autocomplete({
 			source: complete_keyword,
 			minLength: 0,
-			select: add_suggestion
+			select: add_suggestion,
+			focus: function(event, ui){ return(false); }
 		});
 		
 		$("#id_materials").autocomplete({
 			source: complete_material,
 			minLength: 0,
-			select: add_suggestion
+			select: add_suggestion,
+			focus: function(event, ui){ return(false); }
 		});
 	}
 );

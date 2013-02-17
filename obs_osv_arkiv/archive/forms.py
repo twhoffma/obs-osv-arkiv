@@ -80,21 +80,40 @@ class ItemAdminForm(forms.ModelForm):
 		#lookup and link materials
 		materials = []
 		keywords = []
+		
+		
 		for material in self.cleaned_data['materials'].split(','):
 			if len(material.strip()) > 0:
-				try:
-					(m, created) = Materials.objects.get_or_create(name=material.strip())
-					materials.append(m)
-				except:
-					continue
+				if Materials.objects.filter(name=material.strip()).count() > 0:
+					m = Materials.objects.filter(name=material.strip())[0]
+				else:
+					m = Materials(name=material.strip())
+					m.save()
+				
+				materials.append(m)
+				
+				#try:
+				#	(m, created) = Materials.objects.get_or_create(name=material.strip())
+				#	materials.append(m)
+				#except:
+				#	continue
 		
 		for keyword in self.cleaned_data['keywords'].split(','):
 			if len(keyword.strip()) > 0:
-				try:
-					(k, created) = Keywords.objects.get_or_create(name=keyword.strip())
-					keywords.append(k)
-				except:
-					continue
+				if Keywords.objects.filter(name=keyword.strip()).count() > 0:
+					k = Keywords.objects.filter(name=keyword.strip())[0]
+				else:
+					k = Keywords(name=keyword.strip())
+					k.save()
+				
+				keywords.append(k)
+				
+				#try:
+				#	(k, created) = Keywords.objects.get_or_create(name=keyword.strip())
+				#	keywords.append(k)
+				#except:
+				#	k = Keywords.objects.filter(name=keyword.strip())
+				#	continue
 		
 		self.cleaned_data['materials'] = materials
 		self.cleaned_data['keywords'] = keywords

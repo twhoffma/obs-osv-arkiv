@@ -11,7 +11,7 @@ from django.utils.translation import ugettext_lazy as _
 from archive.models import Item, Tag, Media, Location, Condition, Category, Materials, Keywords, Address, Area, Room, Location, ItemMedia, File, ItemHistory
 from forms import ItemAdminForm #, ItemSearchForm,ItemAdminListFilterForm
 #from filters import ItemFilter
-from django.contrib.admin import RelatedFieldListFilter
+from django.contrib.admin import RelatedFieldListFilter, SimpleListFilter, FieldListFilter
 
 import pdb
 import mimetypes
@@ -42,6 +42,34 @@ class FileInline(admin.TabularInline):
 class FilterWithCustomTemplate(RelatedFieldListFilter):
 	template = "archive/custom_filter.html"
 
+class FilterFromDate(SimpleListFilter):
+	template = "archive/year_filter.html"
+	title = 'from_date'
+	parameter_name = 'from_date'
+	
+	def lookups(self, request, model_admin):
+		return((self.value(),self.value()),)
+		
+	def queryset(self, request, queryset):
+		if self.value():
+			return queryset.filter(date_from__gte=self.value())
+		else:
+			return queryset
+	
+class FilterToDate(SimpleListFilter):
+	template = "archive/year_filter.html"
+	title = 'to_date'
+	parameter_name = 'to_date'
+	
+	def lookups(self, request, model_admin):
+		return((self.value(),self.value()),)
+		
+	def queryset(self, request, queryset):
+		if self.value():
+			return queryset.filter(date_to__lte=self.value())
+		else:
+			return queryset
+	
 #--- Main Item Admin 
 class ItemAdmin(admin.ModelAdmin):
 	model = Item
@@ -54,7 +82,7 @@ class ItemAdmin(admin.ModelAdmin):
 	actions = ['publish', 'unpublish']
 	list_display_links = ['item_number']
 	save_on_top = True
-	list_filter = (('address', FilterWithCustomTemplate),('area', FilterWithCustomTemplate),('room', FilterWithCustomTemplate),('location', FilterWithCustomTemplate),)
+	list_filter = (('address', FilterWithCustomTemplate), ('area', FilterWithCustomTemplate), ('room', FilterWithCustomTemplate), ('location', FilterWithCustomTemplate),) #FilterFromDate, FilterToDate,)
 	
 	fieldsets = (
 			(None, { 'fields': ('published','item_number','title', 'condition', 'condition_comment')}),
@@ -137,6 +165,14 @@ class MediaAdmin(admin.ModelAdmin):
 	inlines = [FileInline]	
 	search_fields = ['filename', 'file__file', 'pk']
 
+class MaterialAdmin(admin.ModelAdmin):
+	model = Materials
+	search_fields = ['name']
+
+class KeywordAdmin(admin.ModelAdmin):
+	model = Keywords
+	search_fields = ['name']
+
 admin.site.register(File)
 admin.site.register(Category, CategoryAdmin)
 admin.site.register(Tag)
@@ -147,3 +183,5 @@ admin.site.register(Address)
 admin.site.register(Area)
 admin.site.register(Room)
 admin.site.register(Location)
+admin.site.register(Materials, MaterialAdmin)
+admin.site.register(Keywords, KeywordAdmin)
