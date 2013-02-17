@@ -45,7 +45,7 @@ $container.imagesLoaded( function(){
 });
 
 //Flexslider
-$(window).load(function() {
+/*$(window).load(function() {
   $('.flexslider').flexslider({
     animation: "slide",
 	animationSpeed: 0,    
@@ -55,4 +55,4 @@ $(window).load(function() {
 	video: true,
   });
 });
-
+*/
