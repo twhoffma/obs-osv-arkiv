@@ -17,7 +17,7 @@ header, section, footer, aside, nav, article, figure {display: block;}/*HTML 5 s
 
 body {
 	font-size:62.5%;
-	background-color:#CCC; 
+	background-color:#6f7072; 
 	}
 
 a {text-decoration:none;}
@@ -63,7 +63,7 @@ nav {
 
 .emne:active {
 	color:white; 
-	background-color:#F09;
+	background-color:#53a1f1;
 	}
 
 .emne2 {
@@ -85,18 +85,18 @@ nav {
 
 .emne2:active {
 	color:white; 
-	background-color:#F09;
+	background-color:#53a1f1;
 	}
 
 .corner-stamp {
 	float:left;
-	background: #F09;
+	background: #aaaaaa;
 	color: white;
 	}
 
 .corner-stamp2 {
 	float:left;
-	background: #666;
+	background: #aaaaaa;
 	color: white;
 	}
 
