@@ -8,7 +8,7 @@ from django.forms.widgets import Select, HiddenInput
 from django.db import models 
 from django.utils.translation import ugettext_lazy as _
 
-from archive.models import Item, Tag, Media, Location, Condition, Category, Materials, Keywords, Address, Area, Room, Location, ItemMedia, File
+from archive.models import Item, Tag, Media, Location, Condition, Category, Materials, Keywords, Address, Area, Room, Location, ItemMedia, File, ItemHistory
 from forms import ItemAdminForm #, ItemSearchForm,ItemAdminListFilterForm
 #from filters import ItemFilter
 from django.contrib.admin import RelatedFieldListFilter
@@ -73,7 +73,8 @@ class ItemAdmin(admin.ModelAdmin):
 	def get_urls(self):
 		urls = super(ItemAdmin, self).get_urls()
 		extra_urls = patterns('',
-			#(r'^search/$', self.admin_site.admin_view(self.search)),
+			#(r'^change_history/$', self.admin_site.admin_view(self.change_history)),
+    			(r'^(?P<item_pk>.*)/change_history/(?P<field>.*)$', self.admin_site.admin_view(self.change_history)), 
 		)
 		return(extra_urls+urls)
 
@@ -87,31 +88,31 @@ class ItemAdmin(admin.ModelAdmin):
 			obj.published = False
 			obj.save()
 	
+	def change_history(self, request, item_pk, field):
+		page_items = {}
+		if item_pk  and field:
+			#f = request.GET.get('field')
+			#item_pk = request.GET.get('item_pk')
+			page_items['object'] = Item.objects.get(pk=item_pk)
+			page_items['action_list'] = ItemHistory.objects.filter(field=field).filter(item__pk=item_pk).order_by('-action_time')
+		return render_to_response('admin/archive/item/change_history.html', page_items, context_instance=RequestContext(request))
+	
 	def changelist_view(self, request, extra_context=None):
 		extra_context = extra_context or {}
 		#extra_context['filter'] = ItemFilter(request.POST, queryset=Item.objects.all())
 		#extra_context['listfilter'] = ItemAdminListFilterForm(request.POST)
 		#pdb.set_trace()
 		return super(ItemAdmin, self).changelist_view(request, extra_context)
-	
-	#def queryset(self, request):
-	#	qs = super(ItemAdmin, self).queryset(request)
-	#	#pdb.set_trace()
-	#	if request.GET.get('area'):
-	#		qs = qs.filter(area=request.GET.get('area'))
-	#	#pdb.set_trace()
-	#	return(qs)
-	#	
-	#def search(self, request):
-	#	f = ItemFilter(request.POST, queryset=Item.objects.all())
-	#	
-	#	page_items = {}
-	#	#page_items['search_form'] = ItemSearchForm()
-	#	page_items['filter'] = f
-	#	return render_to_response('archive/search.html', page_items, context_instance=RequestContext(request))
 		
-
-#---
+	def save_model(self, request, obj, form, change):
+		super(ItemAdmin, self).save_model(request, obj, form, change)
+		
+		log = ItemHistory.objects.filter(item=obj).filter(field='loan_status').order_by('-action_time')	
+		
+		if 'loan_status' in form.changed_data:
+			new_log = ItemHistory(user=request.user, item=obj, field='loan_status', value=obj.loan_status)
+			new_log.save()
+		
 
 class CategoryAdmin(admin.ModelAdmin):
 	model = Category

@@ -3,8 +3,15 @@
 from django.db import models
 from mptt.models import MPTTModel, TreeForeignKey
 from django.utils.translation import ugettext_lazy as _
+from django.contrib.auth.models import User
 
-# Create your models here.
+class ItemHistory(models.Model):
+	action_time = models.DateTimeField(_('action time'), auto_now=True) 
+	user = models.ForeignKey(User)
+	item = models.ForeignKey('Item')
+	field = models.CharField(max_length=50, verbose_name=_("field"))
+	value = models.CharField(max_length=200, verbose_name=_("value"))
+
 class Category(MPTTModel):
 	name = models.CharField(max_length=50, verbose_name=_("name"))
 	parent = TreeForeignKey('self', null=True, blank=True, related_name='children', verbose_name=_("parent"))
