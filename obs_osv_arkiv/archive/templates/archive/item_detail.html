@@ -24,6 +24,65 @@
 <script type="text/javascript" src="{{STATIC_URL}}js/museum_functions.js"></script>
 <script type="text/javascript" src="{{STATIC_URL}}js/jquery.flexslider-min.js"></script>
 
+
+<style type="text/css">
+   @import url({{STATIC_URL}}css/dimin_simple.css);
+   @import url({{STATIC_URL}}css/panojs.css);      
+</style>
+
+<script type="text/javascript" src="{{STATIC_URL}}js/extjs/ext-core.js"></script>    
+    
+<script type="text/javascript" src="{{STATIC_URL}}js/panojs/utils.js"></script>    
+<script type="text/javascript" src="{{STATIC_URL}}js/panojs/PanoJS.js"></script>
+<script type="text/javascript" src="{{STATIC_URL}}js/panojs/controls.js"></script>
+<script type="text/javascript" src="{{STATIC_URL}}js/panojs/pyramid_imgcnv.js"></script>
+<script type="text/javascript" src="{{STATIC_URL}}js/panojs/control_thumbnail.js"></script>
+<script type="text/javascript" src="{{STATIC_URL}}js/panojs/control_info.js"></script>
+<script type="text/javascript" src="{{STATIC_URL}}js/panojs/control_svg.js"></script>
+
+<script type="text/javascript">
+	PanoJS.MSG_BEYOND_MIN_ZOOM = null;
+	PanoJS.MSG_BEYOND_MAX_ZOOM = null;
+	var viewer1 = null;
+	var viewer2 = null;
+	var viewer3 = null;
+	var viewer4 = null;
+
+	function createViewer( viewer, dom_id, url, prefix, w, h ) {
+	    if (viewer) return;
+	  
+	    var MY_URL      = url;
+	    var MY_PREFIX   = prefix;
+	    var MY_TILESIZE = 256;
+	    var MY_WIDTH    = w;
+	    var MY_HEIGHT   = h;
+	    var myPyramid = new ImgcnvPyramid( MY_WIDTH, MY_HEIGHT, MY_TILESIZE);
+	    
+	    var myProvider = new PanoJS.TileUrlProvider('','','');
+	    myProvider.assembleUrl = function(xIndex, yIndex, zoom) {
+		return MY_URL + '/' + MY_PREFIX + myPyramid.tile_filename( zoom, xIndex, yIndex );
+	    }    
+	    
+	    viewer = new PanoJS(dom_id, {
+		tileUrlProvider : myProvider,
+		tileSize        : myPyramid.tilesize,
+		maxZoom         : myPyramid.getMaxLevel(),
+		imageWidth      : myPyramid.width,
+		imageHeight     : myPyramid.height,
+		blankTile       : 'images/blank.gif',
+		loadingTile     : 'images/progress.gif'
+	    });
+
+	    Ext.EventManager.addListener( window, 'resize', callback(viewer, viewer.resize) );
+		    viewer.init();
+	};
+
+	function initViewers() {
+	  createViewer( viewer, 'viewer', '/media/{{ object.tile_dir }}', '', 7658,  4178 );
+	}
+	  
+	Ext.onReady(initViewers);
+</script>
 </head>
 
 <body>
@@ -50,6 +109,11 @@
 	</header>
 	
 	{% item_media object %}
+	
+	<div style="width: 100%; height: 400px;">
+      		<div id="viewer" class="viewer" style="width: 100%; height: 100%;" ></div>
+  	</div>
+	 
 	<div class="infoboks">
 		<table border="0">
 			{% if object.title %}

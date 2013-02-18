@@ -4,6 +4,11 @@ from django.db import models
 from mptt.models import MPTTModel, TreeForeignKey
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth.models import User
+from archive import tilemaker
+from os.path import split, splitext
+
+import pdb 
+
 
 class ItemHistory(models.Model):
 	action_time = models.DateTimeField(_('action time'), auto_now=True) 
@@ -44,6 +49,29 @@ class File(models.Model):
 	
 	def __unicode__(self):
 		return(self.file.name)
+	
+	def save(self, *args, **kwargs):
+		super(File, self).save(*args, **kwargs)
+		
+		from django.conf import settings	
+		if 'image' in self.content_type():
+			filename = settings.MEDIA_ROOT + '/' + self.file.name
+			
+
+			fname, extension = splitext(split(filename)[1])
+		        template = fname + '-%d-%d-%d' + extension
+			
+			save_dir = settings.MEDIA_ROOT + '/' + fname
+			
+			img = tilemaker.prepare(filename)
+			import os
+			
+			if not os.path.exists(save_dir):
+				os.mkdir(save_dir)
+			
+			os.chdir(save_dir)
+				
+			tilemaker.subdivide(img, size=(256, 256), filename = save_dir + '/' + template)
 
 class Media(models.Model):
 	MEDIA_TYPES = (
@@ -232,6 +260,19 @@ class Item(models.Model):
 	category = models.ManyToManyField(Category, blank=True, null=True, verbose_name=_("categories"))
 	insurance_value = models.DecimalField(decimal_places=2, max_digits=9, verbose_name=_('insurance value'), blank=True, null=True)
 	
+	def tile_dir(self):
+		from django.conf import settings
+		
+		save_dir = ''
+		if self.media.all().count() > 0 and self.media.all()[0].file_set.all().count() >0:	
+			file = self.media.all()[0].file_set.all()[0]
+			fname, extension = splitext(split(file.file.name)[1])
+			template = fname + '-%d-%d-%d' + extension
+				
+			#save_dir = settings.MEDIA_URL + '/' + fname
+			save_dir = fname
+		return(save_dir)
+		
 	def __unicode__(self):
 		return(self.item_number)
 

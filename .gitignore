@@ -11,3 +11,4 @@ migrations/
 \.swp
 .pyc
 *.mo
+django-trunk/

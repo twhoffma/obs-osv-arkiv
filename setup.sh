@@ -11,7 +11,7 @@ $HOME/bin/virtualenv ./deps
 
 . ./deps/bin/activate
 
-pip install Django
+pip install django-trunk
 pip install south
 pip install PIL
 pip install MySQL-python

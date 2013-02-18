@@ -38,7 +38,7 @@ class MediaInline(admin.TabularInline):
 class FileInline(admin.TabularInline):
 	model=File
 	extra = 1
-
+			
 class FilterWithCustomTemplate(RelatedFieldListFilter):
 	template = "archive/custom_filter.html"
 
