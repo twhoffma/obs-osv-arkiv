@@ -60,7 +60,10 @@
 	    
 	    var myProvider = new PanoJS.TileUrlProvider('','','');
 	    myProvider.assembleUrl = function(xIndex, yIndex, zoom) {
-		return MY_URL + '/' + MY_PREFIX + myPyramid.tile_filename( zoom, xIndex, yIndex );
+		//alert(''+zoom);
+		//alert(''+xIndex);
+		//alert(''+yIndex);
+		return MY_URL + '/' + MY_PREFIX + '-' + zoom + '-' + xIndex + '-' + yIndex + '.jpg'; //myPyramid.tile_filename( zoom, xIndex, yIndex );
 	    }    
 	    
 	    viewer = new PanoJS(dom_id, {
@@ -76,12 +79,14 @@
 	    Ext.EventManager.addListener( window, 'resize', callback(viewer, viewer.resize) );
 		    viewer.init();
 	};
-
-	function initViewers() {
-	  createViewer( viewer, 'viewer', '/media/{{ object.tile_dir }}', '', 7658,  4178 );
-	}
-	  
-	Ext.onReady(initViewers);
+	
+	$(document).ready(function() {
+			var viewer = null;
+	  		createViewer( viewer, 'viewer', '/media/{{ object.tile_dir }}', '{{ object.tile_dir }}', 12800,  8000 );
+		}
+	);
+	//Alternative http://kineticjs.com/
+	//http://mike.teczno.com/giant/pan/ 
 </script>
 </head>
 
@@ -110,7 +115,7 @@
 	
 	{% item_media object %}
 	
-	<div style="width: 100%; height: 400px;">
+	<div style="width: 100%; height: 400px; clear: both;">
       		<div id="viewer" class="viewer" style="width: 100%; height: 100%;" ></div>
   	</div>
 	 
