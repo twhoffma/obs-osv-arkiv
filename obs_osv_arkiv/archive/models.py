@@ -59,7 +59,7 @@ class File(models.Model):
 			
 
 			fname, extension = splitext(split(filename)[1])
-		        template = fname + '-%d-%d-%d' + extension
+		        template = fname + '-00%d_00%d_00%d' + extension
 			
 			save_dir = settings.MEDIA_ROOT + '/' + fname
 			

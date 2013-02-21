@@ -26,7 +26,6 @@
 
 
 <style type="text/css">
-   @import url({{STATIC_URL}}css/dimin_simple.css);
    @import url({{STATIC_URL}}css/panojs.css);      
 </style>
 
@@ -47,6 +46,7 @@
 	var viewer2 = null;
 	var viewer3 = null;
 	var viewer4 = null;
+	var viewer = null;
 
 	function createViewer( viewer, dom_id, url, prefix, w, h ) {
 	    if (viewer) return;
@@ -60,10 +60,9 @@
 	    
 	    var myProvider = new PanoJS.TileUrlProvider('','','');
 	    myProvider.assembleUrl = function(xIndex, yIndex, zoom) {
-		//alert(''+zoom);
-		//alert(''+xIndex);
-		//alert(''+yIndex);
-		return MY_URL + '/' + MY_PREFIX + '-' + zoom + '-' + xIndex + '-' + yIndex + '.jpg'; //myPyramid.tile_filename( zoom, xIndex, yIndex );
+		//return MY_URL + '/' + MY_PREFIX + '-' + zoom + '-' + xIndex + '-' + yIndex + '.jpg'; //myPyramid.tile_filename( zoom, xIndex, yIndex );
+		//return MY_URL + '/' + MY_PREFIX + '-' + myPyramid.tile_filename( zoom, xIndex, yIndex );
+		return MY_URL + '/' + MY_PREFIX + '-' + myPyramid.tile_filename( zoom, xIndex, yIndex );
 	    }    
 	    
 	    viewer = new PanoJS(dom_id, {
@@ -75,16 +74,24 @@
 		blankTile       : 'images/blank.gif',
 		loadingTile     : 'images/progress.gif'
 	    });
-
-	    Ext.EventManager.addListener( window, 'resize', callback(viewer, viewer.resize) );
-		    viewer.init();
-	};
+	  
+	    //Ext.EventManager.addListener( window, 'resize', callback(viewer, viewer.resize) );
+	    
+	    viewer.init();
+	}
 	
+	function initViewer(){
+		createViewer( viewer, 'viewer', '/media/{{ object.tile_dir }}', '{{ object.tile_dir }}', 1280,  800 );
+	}
+	
+	Ext.onReady(initViewer);
+	
+	/*
 	$(document).ready(function() {
-			var viewer = null;
-	  		createViewer( viewer, 'viewer', '/media/{{ object.tile_dir }}', '{{ object.tile_dir }}', 12800,  8000 );
+	  		createViewer( viewer, 'viewer', '/media/{{ object.tile_dir }}', '{{ object.tile_dir }}', 1280,  800 );
 		}
 	);
+	*/
 	//Alternative http://kineticjs.com/
 	//http://mike.teczno.com/giant/pan/ 
 </script>
@@ -115,7 +122,7 @@
 	
 	{% item_media object %}
 	
-	<div style="width: 100%; height: 400px; clear: both;">
+	<div style="width: 100%; height: 400px; clear: both; border: 1px solid yellow;">
       		<div id="viewer" class="viewer" style="width: 100%; height: 100%;" ></div>
   	</div>
 	 
