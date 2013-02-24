@@ -1,7 +1,7 @@
 @charset "UTF-8";
 /* CSS Document */
 
-/* Generelt stæsj */
+/* Globale */
 
 * {
 	padding:0; 
@@ -17,8 +17,12 @@ header, section, footer, aside, nav, article, figure {display: block;}/*HTML 5 s
 
 body { 
 	font-size:62.5%; 
-	background-color:#6f7072; 
+	background-color:#6f7072;
 	}
+
+html,body {
+	height:100%;
+}
 
 a {text-decoration:none;}
 
@@ -33,7 +37,7 @@ video {
 audio {
 	width:100%; margin-top:300px;}
 
-/* Toppmeny */
+/* Navigering */
 
 nav { 
 	width:95%;
@@ -116,11 +120,9 @@ nav {
 
 #logo a:hover {color:black;}
 
-/* Footer */
-
 /* Gjenstandsnivå */
 
-#item {
+/*#item {
 	width:95%;
 	max-width:900px;
 	margin-top:10px;
@@ -139,6 +141,68 @@ nav {
 .item-img-portrait {
 	max-height:900px;
 	width:auto;
+}*/
+
+section {
+	overflow:hidden;
+	width:100%;
+	height:100%;
+	background-color:#272727;
+}
+
+aside {
+	position:absolute;
+	right:0;
+	top:0;
+	height:100%;
+	width:130px;
+	z-index:1000;
+	background-color:#6f7072;
+}
+
+aside a.cat-lvl-3 {
+	width:94px;
+	padding:4px;
+	text-align:center;
+	margin:10px 0px 0px 14px;
+	float:left;
+}
+
+#thumb-slider {
+	position:relative;
+	width:102px;
+	float:left;
+	margin:15px 0px 5px 14px;
+}
+
+#thumb-slider img {
+	max-width:102px;
+	max-height:68px;
+	background-color:#aaaaaa;
+	float:left;
+	margin-top:7px;
+}
+
+#slider-arrow-frw {
+	width:102px;
+	height:17px;
+	background-color:#aaaaaa;
+	float:left;
+	display:block;
+}
+
+#slider-arrow-back {
+	width:102px;
+	height:17px;
+	background-color:#aaaaaa;
+	float:left;
+	display:block;
+	margin-top:7px;
+}
+
+#slider-arrow-back:hover, #slider-arrow-frw:hover {
+	background-color:#000;
+	
 }
 
 .infoboks {
@@ -148,7 +212,7 @@ nav {
 	margin-left:2.5%; 
 	float:left; 
 	margin-bottom: 40px; 
-	font-family: Gill Sans, 'Quattrocento Sans', arial, sans-serif; 
+	font-family:Gill Sans, 'Quattrocento Sans', arial, sans-serif; 
 	font-size:1.5em; 
 	font-weight:normal; 
 	color:#666; 
@@ -186,7 +250,7 @@ td {vertical-align:top;}
 	}
 
 
-/* Search page */
+/* Søkeside */
 
 .searchbox {
 	background-color:#ccc;

@@ -1,7 +1,7 @@
 @charset "UTF-8";
 /* CSS Document */
 
-/* Generelt stæsj */
+/* Globale */
 
 * {
 	padding:0; 
@@ -31,7 +31,7 @@ video {
 audio {
 	width:100%; margin-top:15px;}
 
-/* Toppmeny */
+/* Navigering */
 
 nav {
 	width:95%; 
@@ -114,13 +114,9 @@ nav {
 
 #logo a:hover {color:black;}
 
-/*footer*/
-
 /* Gjenstandsnivå */
-
-/*Stort bilde*/
 	
-#item {
+/*#item {
 	width:95%;
 	max-width:1200px;
 	margin-top:10px;
@@ -135,29 +131,7 @@ nav {
 	width:100%;
 	max-width:1200px;
 	float:left;
-	}
-
-/*Thumb-stripe under stort bilde */
-
-#item-thumbs {
-	width:95%;
-	margin-top:10px;
-	margin-left:2.5%;
-	margin-right:2.5%;
-	float:left;
-	max-width:900px;
-	text-align:right;
-	}
-
-.item-thumb {
-	width:11.3%;
-	margin-left:0.4%;
-	margin-right:0.4%;
-	max-width:200px;
-	min-width:50px;
-	}
-
-/*Registreringstekst*/
+	}*/
 
 .infoboks {
 	width:95%;
@@ -208,7 +182,7 @@ td {vertical-align:top;}
 	margin:5px; 
 	}
 	
-	/* Search page */
+/* Søkeside */
 
 .searchbox {
 	background-color:#ccc;
