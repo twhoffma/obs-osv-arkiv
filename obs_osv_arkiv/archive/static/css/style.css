@@ -13,7 +13,9 @@ html {font-size:100%;} /*For IE*/
 
 img {border:none;}
 
-header, section, footer, aside, nav, article, figure {display: block;}/*HTML 5 support - Sets new HTML 5 tags to display:block so browsers know how to render the tags properly. */
+header, section, footer, aside, nav, article, figure {
+	display: block;
+}/*HTML 5 support - Sets new HTML 5 tags to display:block so browsers know how to render the tags properly. */
 
 body { 
 	font-size:62.5%; 
@@ -42,14 +44,14 @@ audio {
 nav { 
 	width:95%;
 	margin:50px auto 0px auto;
-	}
+}
 
 #nav {
 	width:95%; 
 	margin-top:10px; 
 	margin-left:2.5%; 
 	float:left;  
-	}
+}
 
 .cat {
 	color:#000; 
@@ -62,7 +64,8 @@ nav {
 	padding:2px 3px 3px 3px; 
 	float:left; 
 	margin:4px;
-	}
+	height: 1em;
+}
 
 .cat:hover {
 	color:#FFF;
@@ -85,7 +88,8 @@ nav {
 	padding:2px 3px 3px 3px; 
 	float:left; 
 	margin:4px;
-	}
+	height: 20px;
+}
 
 .cat-lvl-3:hover {
 	background-color:#000; 
@@ -255,7 +259,7 @@ td {vertical-align:top;}
 .searchbox {
 	background-color:#ccc;
 	width:550px;
-	height:330px;
+	/* height:330px;*/
 	margin:82px auto;
 	padding:5px 10px 20px 10px;
 }

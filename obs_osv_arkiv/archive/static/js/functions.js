@@ -2,12 +2,12 @@
 
 $('nav').isotope({
   // options
-  itemSelector : '.emne',
+  itemSelector : '.cat',
   layoutMode : 'fitRows'
 });
 
 $('nav #nav').isotope({
-  itemSelector: '.emne emne2',
+  itemSelector: '.cat cat-lvl-3',
   masonry: {
     columnWidth: 120,
     cornerStampSelector: '.corner-stamp .corner-stamp2'

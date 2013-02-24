@@ -1,18 +1,24 @@
-from archive.models import Media, Tag, Condition,Item, Category, Address, Area, Room, Location #,Topic
+from archive.models import Media, Tag, Condition, Item, Category, Address, Area, Room, Location
 from django.shortcuts import render_to_response, get_object_or_404
+from archive.forms import ItemSearchForm
 from django.http import HttpResponse, Http404
 from django.core.context_processors import csrf
-from django.forms.formsets import formset_factory
-from django.forms.models import modelformset_factory, inlineformset_factory
+#from django.forms.formsets import formset_factory
+#from django.forms.models import modelformset_factory, inlineformset_factory
 from django.utils import simplejson
+import json
 from django.views.decorators.csrf import csrf_exempt
 from django.template import Template, RequestContext
 from django.core.urlresolvers import reverse
 
 from django.views.generic.list import ListView
 from django.views.generic import DetailView
+from django.views.generic.edit import FormView
 import pdb
 
+class ItemSearchView(FormView):
+	template_name = 'archive/search.html'
+	form_class = ItemSearchForm
 
 class ItemListView(ListView):
 	model = Item
@@ -45,6 +51,37 @@ class ItemListView(ListView):
 			#self.child_categories = Category.objects.root_nodes().filter(id__in=[m.category.get_root().pk for m in Item.category.through.objects.filter(item__published=True)]).order_by('name')
 			self.child_categories = Category.objects.root_nodes().filter(tree_id__in=Item.category.through.objects.filter(item__published=True).values_list('category__tree_id').distinct()).order_by('name')
 			return(Item.objects.filter(pk=None).filter(published=True))
+	
+	def post(self, request, *args, **kwargs):
+		frm = ItemSearchForm(request.POST)
+		self.object_list = Item.objects.filter(published=True)
+		
+		if frm.is_valid():
+			cleaned_data = frm.clean()
+			if cleaned_data['category']:
+				self.object_list = self.object_list.filter(category__name__icontains=cleaned_data['category'])
+			if cleaned_data['title']:
+				self.object_list = self.object_list.filter(title__icontains=cleaned_data['title'])
+			if cleaned_data['artist']:
+				self.object_list = self.object_list.filter(artist__icontains=cleaned_data['artist'])
+			if cleaned_data['date_from']:
+				self.object_list = self.object_list.filter(date_from__gte=cleaned_data['date_from'])
+			if cleaned_data['date_to']:
+				self.object_list = self.object_list.filter(date_to__lte=cleaned_data['date_to'])
+			if cleaned_data['city']:
+				self.object_list = self.object_list.filter(origin_city__iequals=cleaned_data['date_to'])
+			if cleaned_data['country']:
+				self.object_list = self.object_list.filter(origin_country__iequals=cleaned_data['date_to'])
+			if cleaned_data['material']:
+				self.object_list = self.object_list.filter(materials__name__iequals=cleaned_data['material'])
+			if cleaned_data['checkmovie']:
+				self.object_list = self.object_list.filter(media__media_type='Movie')
+		self.parent_category = None
+		self.current_category = None
+		self.child_categories = None
+		context = self.get_context_data(object_list=self.object_list)
+		return(self.render_to_response(context))	
+		
 	
 	def get_context_data(self, **kwargs):
 		context = super(ItemListView, self).get_context_data(**kwargs)
@@ -112,8 +149,9 @@ def search_autocomplete(request):
 				#	results.append({'value': reverse('node_and_item', kwargs={'node_pk': t.category.all()[0].pk, 'pk': t.pk}), 'label': t.title})
 				#else:
 				#	results.append({'value': reverse('item', kwargs={'pk': t.pk}), 'label': t.title})
-	json = simplejson.dumps(results)
-	return HttpResponse(json)
+	#json = simplejson.dumps(results)
+	json_out = json.dumps(results)
+	return HttpResponse(json_out)
 
 @csrf_exempt
 def image_details(request):
@@ -138,8 +176,9 @@ def area_autocomplete(request):
 				addr = Address.objects.filter(pk=value)
 				models = Area.objects.filter(address=addr)
 				results = [(t.pk, t.name) for t in models]
-	json = simplejson.dumps(results)
-	return HttpResponse(json)
+	#json = simplejson.dumps(results)
+	json_out = json.dumps(results)
+	return HttpResponse(json_out)
 
 @csrf_exempt
 def room_autocomplete(request):
@@ -151,8 +190,9 @@ def room_autocomplete(request):
 				area = Area.objects.get(pk=value)
 				models = Room.objects.filter(area=area)
 				results = [(t.pk, t.name) for t in models]
-	json = simplejson.dumps(results)
-	return HttpResponse(json)
+	#json = simplejson.dumps(results)
+	json_out = json.dumps(results)
+	return HttpResponse(json_out)
 
 @csrf_exempt
 def location_autocomplete(request):
@@ -164,8 +204,9 @@ def location_autocomplete(request):
 				room = Room.objects.get(pk=value)
 				models = Location.objects.filter(room=room)
 				results = [(t.pk, t.name) for t in models]
-	json = simplejson.dumps(results)
-	return HttpResponse(json)
+	#json = simplejson.dumps(results)
+	json_out = json.dumps(results)
+	return HttpResponse(json_out)
 
 @csrf_exempt
 def keyword_autocomplete(request):
@@ -176,8 +217,8 @@ def keyword_autocomplete(request):
 			value = request.POST.get(u'query')
 			models = Keywords.objects.filter(name__icontains=value)
 			results = [t.name for t in models]
-	json = simplejson.dumps(results)
-	return HttpResponse(json)
+	json_out = json.dumps(results)
+	return HttpResponse(json_out)
 
 @csrf_exempt
 def material_autocomplete(request):
@@ -188,5 +229,17 @@ def material_autocomplete(request):
 			value = request.POST.get(u'query')
 			models = Materials.objects.filter(name__icontains=value)
 			results = [t.name for t in models]
-	json = simplejson.dumps(results)
-	return HttpResponse(json)
+	json_out = json.dumps(results)
+	return HttpResponse(json_out)
+
+@csrf_exempt
+def title_autocomplete(request):
+	results = []
+	if request.method == "POST":
+		if request.POST.has_key(u'query'):
+			value = request.POST.get(u'query')
+			models = Item.objects.filter(title__icontains=value)
+			#results = models.values_list('title')
+			results = [t.title for t in models]
+	json_out = json.dumps(results)
+	return HttpResponse(json_out)

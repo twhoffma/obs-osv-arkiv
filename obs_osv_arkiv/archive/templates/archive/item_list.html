@@ -25,6 +25,7 @@
 <script type="text/javascript" src="{{STATIC_URL}}js/supersized.core.3.2.1.min.js"></script>
 
 <script type="text/javascript" src="{{STATIC_URL}}js/museum_functions.js"></script>
+
 <script type="text/javascript">
 	$(document).ready(function(){
 		$('#content').isotope({
@@ -42,7 +43,7 @@
 	<div id="logo"><h1><a href="/">guttormsgaards arkiv</a></h1></div>
 	<!-- <div id="search"><input type="text" id="searchbox" /></div> -->
 	
-	<nav>	
+	<nav style="overflow: visible;">	
 		{% for cnode in parent %}
 			{% if node.is_root_node %}
 				{% if object_list.count == 0 %}
