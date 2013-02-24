@@ -29,6 +29,9 @@ video {
    	max-width:1200px; 
    	height:auto;
 	}
+	
+audio {
+	width:100%; margin-top:300px;}
 
 /* Toppmeny */
 
@@ -44,9 +47,9 @@ nav {
 	float:left;  
 	}
 
-.emne {
-	color:black; 
-	background-color:white; 
+.cat {
+	color:#000; 
+	background-color:#FFF; 
 	text-transform:uppercase; 
 	display:block; 
 	font-size:1.5em; 
@@ -57,19 +60,19 @@ nav {
 	margin:4px;
 	}
 
-.emne:hover {
+.cat:hover {
+	color:#FFF;
 	background-color:#000; 
-	color:white;
 	}
 
-.emne:active {
-	color:white; 
+.cat:active {
+	color:#FFF; 
 	background-color:#53a1f1;
 	}
 
-.emne2 {
-	color:white;
-	background-color:white; 
+.cat-lvl-3 {
+	color:#FFF;
+	background-color:#aaaaaa; 
 	text-transform:uppercase; 
 	display:block; 
 	font-size:1.5em; 
@@ -80,27 +83,21 @@ nav {
 	margin:4px;
 	}
 
-.emne2:hover {
+.cat-lvl-3:hover {
 	background-color:#000; 
 	color:white;
 	}
 
-.emne2:active {
-	color:white; 
+.cat-lvl-3:active {
 	background-color:#53a1f1;
+	color:white; 
 	}
 
 .corner-stamp {
 	float:left;
 	background:#aaaaaa;
-	color:white;
+	color:#FFF;
 	}
-
-.corner-stamp2 {
-	float:left;
-	background:#aaaaaa;
-	color:white;
-}
 
 #logo { 
 	position:absolute; 
@@ -125,19 +122,24 @@ nav {
 
 #item {
 	width:95%;
-	max-width:1200px;
+	max-width:900px;
 	margin-top:10px;
 	margin-left:2.5%;
-	margin-right:2.5%;
+	padding-left:4px;
 	position:relative;
 	float:left;
 	overflow:hidden;
 	}
 	
-.item-img {
-	width:100%;
+.item-img-landscape {
+	max-width:100%;
 	height:auto;
 	}
+	
+.item-img-portrait {
+	max-height:900px;
+	width:auto;
+}
 
 .infoboks {
 	width:95%; 
@@ -152,15 +154,10 @@ nav {
 	color:#666; 
 	line-height:1.5em; 
 	}
+	
+.infoboks a {color:#666;}
 
-.infoboks a {
-	color: #666;
-}
-
-.infoboks a:hover {
-	color: #000;
-}
-
+.infoboks a:hover {color:#000;}
 
 .header {
 	text-transform:uppercase; 
@@ -187,10 +184,99 @@ td {vertical-align:top;}
 	float:left; 
 	margin:5px;
 	}
-	
 
 
-/* Annet */
+/* Search page */
+
+.searchbox {
+	background-color:#ccc;
+	width:550px;
+	height:330px;
+	margin:82px auto;
+	padding:5px 10px 20px 10px;
+}
+
+.searchbox a {
+	margin:0px;
+	position:relative;
+	top:-35px;
+	left:-10px;
+}
+
+.searchbox h1 {
+	font-size:3.3em;
+	color:#6f7072;
+	text-transform:uppercase;
+	font-family: Gill Sans, 'Quattrocento Sans', arial, sans-serif;
+	font-weight:normal;
+	position:relative;
+	left:127px;
+	float:left;
+}
+
+.searchbox form {
+	font-family: Gill Sans, 'Quattrocento Sans', arial, sans-serif;
+	text-transform:uppercase;
+	font-size:1.5em;
+	color:#000;
+}
+
+.searchbox form label {
+	float:right;
+	position:relative;
+	right:365px;
+	padding:5px;
+	margin-top:5px;
+	clear:both;
+}
+
+#filmgjenstander {
+	position:relative;
+	right:110px;
+	margin-top:0px;
+}
+
+input {
+	font-family: Gill Sans, 'Quattrocento Sans', arial, sans-serif;
+	border:none;
+	position:relative;
+	left:185px;
+	margin:5px 0px 5px 5px;
+}
+
+input[type="text"] {
+	width:270px;
+	height:20px;
+	padding:4px;
+}
+
+input[type="submit"] {
+	padding:0px 10px;
+	text-transform:uppercase;
+	color:#FFF;
+	background-color:#6f7072;
+	margin:0px;
+	height:28px;
+}
+
+input[type="submit"]:hover {
+	background-color:#000;
+}
+
+input[type="submit"]:active {
+	background-color:#53a1f1;
+}
+
+input[type="text"].value-text {
+	color:#999;
+	width:127px;
+}
+
+input[type="checkbox"] {
+	position:relative;
+	left:440px;
+	top:2px;
+}
 
 
 /**** Isotope CSS3 transitions ****/
