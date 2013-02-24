@@ -46,15 +46,15 @@
 		{% for cnode in parent %}
 			{% if node.is_root_node %}
 				{% if object_list.count == 0 %}
-					<a class="corner-stamp emne" href="/">{{ cnode.name }} </a>
+					<a class="corner-stamp cat" href="/">{{ cnode.name }} </a>
 				{% else %}
-					<a class="corner-stamp2 emne" href="/">{{ cnode.name }} </a>
+					<a class="corner-stamp cat-lvl-3" href="/">{{ cnode.name }} </a>
 				{% endif %}
 			{% else %}
 				{% if object_list.count == 0 %}
-					<a class="corner-stamp emne" href="{% url 'node' node_pk=cnode.pk  %}">{{ cnode.name }} </a>
+					<a class="corner-stamp cat" href="{% url 'node' node_pk=cnode.pk  %}">{{ cnode.name }} </a>
 				{% else %}
-					<a class="corner-stamp2 emne" href="{% url 'node' node_pk=cnode.pk  %}">{{ cnode.name }} </a>
+					<a class="corner-stamp cat-lvl-3" href="{% url 'node' node_pk=cnode.pk  %}">{{ cnode.name }} </a>
 				{% endif %}
 			{% endif %}
 			
@@ -62,23 +62,23 @@
 		{% if current %}
 			{% if current.is_root_node %}
 				{% if object_list.count == 0 %}
-					<a class="corner-stamp emne" href="/">{{ current.name }} </a>
+					<a class="corner-stamp cat" href="/">{{ current.name }} </a>
 				{% else %}
-					<a class="corner-stamp2 emne" href="/">{{ current.name }} </a>
+					<a class="corner-stamp cat-lvl-3" href="/">{{ current.name }} </a>
 				{% endif %}
 			{% else %}
 				{% if object_list.count == 0 %}
-					<a class="corner-stamp emne" href="{% url 'node' node_pk=current.pk %}">{{ current.name }} </a>
+					<a class="corner-stamp cat" href="{% url 'node' node_pk=current.pk %}">{{ current.name }} </a>
 				{% else %}
-					<a class="corner-stamp2 emne" href="{% url 'node' node_pk=current.pk %}">{{ current.name }} </a>
+					<a class="corner-stamp cat-lvl-3" href="{% url 'node' node_pk=current.pk %}">{{ current.name }} </a>
 				{% endif %}
 			{% endif %}
 		{% endif %}
 		{% for cnode in nodes %}
 				{% if object_list.count == 0 %}
-					<a class="emne" href="{% url 'node' node_pk=cnode.pk %}">{{ cnode.name }} </a>
+					<a class="cat" href="{% url 'node' node_pk=cnode.pk %}">{{ cnode.name }} </a>
 				{% else %}
-					<a class="corner-stamp2 emne" href="{% url 'node' node_pk=cnode.pk %}">{{ cnode.name }} </a>
+					<a class="corner-stamp cat-lvl-3" href="{% url 'node' node_pk=cnode.pk %}">{{ cnode.name }} </a>
 				{% endif %}
 		{% endfor %}
     	</nav>

@@ -102,20 +102,20 @@
 	<header>
 		
 		<div id="nav">	
-			<a class="corner-stamp2 emne2" href="/">Guttormsgaards arkiv</a>
+			<a class="corner-stamp cat-lvl-3" href="/">Guttormsgaards arkiv</a>
 			
 			{% for node in parent %}
-				<a class="corner-stamp2 emne2" href="{% url 'node' node_pk=node.pk  %}">{{ node.name }} </a>
+				<a class="corner-stamp cat-lvl-3" href="{% url 'node' node_pk=node.pk  %}">{{ node.name }} </a>
 			{% endfor %}
 			{% if current %}
 				{% if current.is_root_node %}
-					<a class="corner-stamp2 emne2" href="/">{{ current.name }} </a>
+					<a class="corner-stamp cat-lvl-3" href="/">{{ current.name }} </a>
 				{% else %}
-					<a class="corner-stamp2 emne2" href="{% url 'node' node_pk=current.pk %}">{{ current.name }} </a>
+					<a class="corner-stamp cat-lvl-3" href="{% url 'node' node_pk=current.pk %}">{{ current.name }} </a>
 				{% endif %}
 			{% endif %}
 			{% for node in nodes %}
-				<a class="emne2" href="{% url 'node' pk=node.pk %}">{{ node.name }} </a>
+				<a class="cat-lvl-3" href="{% url 'node' pk=node.pk %}">{{ node.name }} </a>
 			{% endfor %}
     		</div>
 	</header>
