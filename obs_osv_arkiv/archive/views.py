@@ -1,4 +1,4 @@
-from archive.models import Media, Tag, Condition, Item, Category, Address, Area, Room, Location
+from archive.models import Media, Tag, Condition, Item, Category, Address, Area, Room, Location, Materials
 from django.shortcuts import render_to_response, get_object_or_404
 from archive.forms import ItemSearchForm
 from django.http import HttpResponse, Http404
@@ -69,12 +69,14 @@ class ItemListView(ListView):
 			if cleaned_data['date_to']:
 				self.object_list = self.object_list.filter(date_to__lte=cleaned_data['date_to'])
 			if cleaned_data['city']:
-				self.object_list = self.object_list.filter(origin_city__iequals=cleaned_data['date_to'])
+				self.object_list = self.object_list.filter(origin_city__iexact=cleaned_data['date_to'])
 			if cleaned_data['country']:
-				self.object_list = self.object_list.filter(origin_country__iequals=cleaned_data['date_to'])
+				self.object_list = self.object_list.filter(origin_country__iexact=cleaned_data['date_to'])
 			if cleaned_data['material']:
-				self.object_list = self.object_list.filter(materials__name__iequals=cleaned_data['material'])
+				m = Materials.objects.filter(name__iexact=cleaned_data['material'])
+				self.object_list = self.object_list.filter(materials__in=m)
 			if cleaned_data['checkmovie']:
+				pdb.set_trace()
 				self.object_list = self.object_list.filter(media__media_type='Movie')
 		self.parent_category = None
 		self.current_category = None
@@ -241,5 +243,60 @@ def title_autocomplete(request):
 			models = Item.objects.filter(title__icontains=value)
 			#results = models.values_list('title')
 			results = [t.title for t in models]
+	json_out = json.dumps(results)
+	return HttpResponse(json_out)
+
+@csrf_exempt
+def artist_autocomplete(request):
+	results = []
+	if request.method == "POST":
+		if request.POST.has_key(u'query'):
+			value = request.POST.get(u'query')
+			models = Item.objects.filter(artist__icontains=value)
+			results = list(models.values_list('artist', flat=True).distinct())
+	json_out = json.dumps(results)
+	return HttpResponse(json_out)
+
+@csrf_exempt
+def city_autocomplete(request):
+	results = []
+	if request.method == "POST":
+		if request.POST.has_key(u'query'):
+			value = request.POST.get(u'query')
+			models = Item.objects.filter(origin_city__icontains=value).order_by('origin_city')
+			results = list(models.values_list('origin_city', flat=True).distinct())
+	json_out = json.dumps(results)
+	return HttpResponse(json_out)
+
+@csrf_exempt
+def country_autocomplete(request):
+	results = []
+	if request.method == "POST":
+		if request.POST.has_key(u'query'):
+			value = request.POST.get(u'query')
+			models = Item.objects.filter(origin_country__icontains=value).order_by('origin_country')
+			results = list(models.values_list('origin_country', flat=True).distinct())
+	json_out = json.dumps(results)
+	return HttpResponse(json_out)
+
+@csrf_exempt
+def materials_autocomplete(request):
+	results = []
+	if request.method == "POST":
+		if request.POST.has_key(u'query'):
+			value = request.POST.get(u'query')
+			models = Materials.objects.filter(pk__in=Item.materials.through.objects.values_list('materials__pk', flat=True)).distinct().order_by('name')
+			results = list(models.filter(name__icontains=value).values_list('name', flat=True).distinct())
+	json_out = json.dumps(results)
+	return HttpResponse(json_out)
+
+@csrf_exempt
+def category_autocomplete(request):
+	results = []
+	if request.method == "POST":
+		if request.POST.has_key(u'query'):
+			value = request.POST.get(u'query')
+			models = Category.objects.filter(pk__in=Item.category.through.objects.filter(item__published=True).values_list('category__pk', flat=True).distinct()).order_by('name')
+			results = list(models.filter(name__icontains=value).values_list('name', flat=True).distinct().order_by('name'))
 	json_out = json.dumps(results)
 	return HttpResponse(json_out)
