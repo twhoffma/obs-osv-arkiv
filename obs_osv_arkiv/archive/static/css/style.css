@@ -306,7 +306,6 @@ td {vertical-align:top;}
 .searchbox {
 	background-color:#ccc;
 	width:550px;
-	height:330px;
 	margin:82px auto;
 	padding:5px 10px 20px 10px;
 }
@@ -361,7 +360,6 @@ input {
 
 input[type="text"] {
 	width:270px;
-	height:20px;
 	padding:4px;
 }
 
@@ -371,7 +369,7 @@ input[type="submit"] {
 	color:#FFF;
 	background-color:#6f7072;
 	margin:0px;
-	height:28px;
+	height:26px;
 }
 
 input[type="submit"]:hover {
