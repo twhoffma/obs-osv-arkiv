@@ -9,22 +9,15 @@
 	font-size:100%;
 	}
 
-html {font-size:100%;} /*For IE*/
+html {font-size:100%; background-color:#6f7072;}/*font-size for IE*/
 
 img {border:none;}
 
-header, section, footer, aside, nav, article, figure {
-	display: block;
-}/*HTML 5 support - Sets new HTML 5 tags to display:block so browsers know how to render the tags properly. */
+header, section, footer, aside, nav, article, figure {display: block;}/*HTML 5 support - Sets new HTML 5 tags to display:block so browsers know how to render the tags properly. */
 
 body { 
-	font-size:62.5%; 
-	background-color:#6f7072;
+	font-size:62.5%;
 	}
-
-html,body {
-	height:100%;
-}
 
 a {text-decoration:none;}
 
@@ -38,20 +31,41 @@ video {
 	
 audio {
 	width:100%; margin-top:300px;}
+	
+@font-face {
+	font-family: 'icomoon';
+	src:url('../fonts/icomoon.eot');
+	src:url('../fonts/icomoon.eot?#iefix') format('embedded-opentype'),
+		url('../fonts/icomoon.woff') format('woff'),
+		url('../fonts/icomoon.ttf') format('truetype'),
+		url('../fonts/icomoon.svg#icomoon') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+
+/* Use the following CSS code if you want to use data attributes for inserting your icons */
+[data-icon]:before {
+	font-family: 'icomoon';
+	content: attr(data-icon);
+	speak: none;
+	font-weight: normal;
+	line-height: 1;
+	-webkit-font-smoothing: antialiased;
+}
 
 /* Navigering */
 
 nav { 
 	width:95%;
 	margin:50px auto 0px auto;
-}
+	}
 
 #nav {
 	width:95%; 
 	margin-top:10px; 
 	margin-left:2.5%; 
 	float:left;  
-}
+	}
 
 .cat {
 	color:#000; 
@@ -59,13 +73,12 @@ nav {
 	text-transform:uppercase; 
 	display:block; 
 	font-size:1.5em; 
-	font-family: Gill Sans, 'Quattrocento Sans', arial, sans-serif; 
+	font-family: 'Gill Sans', 'Quattrocento Sans', arial, sans-serif; 
 	font-weight:normal; 
 	padding:2px 3px 3px 3px; 
 	float:left; 
 	margin:4px;
-	height: 1em;
-}
+	}
 
 .cat:hover {
 	color:#FFF;
@@ -83,13 +96,12 @@ nav {
 	text-transform:uppercase; 
 	display:block; 
 	font-size:1.5em; 
-	font-family: Gill Sans, 'Quattrocento Sans', arial, sans-serif; 
+	font-family: 'Gill Sans', 'Quattrocento Sans', arial, sans-serif; 
 	font-weight:normal; 
 	padding:2px 3px 3px 3px; 
 	float:left; 
 	margin:4px;
-	height: 20px;
-}
+	}
 
 .cat-lvl-3:hover {
 	background-color:#000; 
@@ -117,7 +129,7 @@ nav {
 	font-size:3.3em;
 	color:white;
 	text-transform:uppercase;
-	font-family: Gill Sans, 'Quattrocento Sans', arial, sans-serif;
+	font-family: 'Gill Sans', 'Quattrocento Sans', arial, sans-serif;
 	font-weight:normal;
 	display:block;
 	}
@@ -126,42 +138,23 @@ nav {
 
 /* Gjenstandsnivå */
 
-/*#item {
-	width:95%;
-	max-width:900px;
-	margin-top:10px;
-	margin-left:2.5%;
-	padding-left:4px;
-	position:relative;
-	float:left;
-	overflow:hidden;
-	}
-	
-.item-img-landscape {
-	max-width:100%;
-	height:auto;
-	}
-	
-.item-img-portrait {
-	max-height:900px;
-	width:auto;
-}*/
-
 section {
 	overflow:hidden;
 	width:100%;
 	height:100%;
 	background-color:#272727;
+	position:fixed;
 }
 
 aside {
 	position:absolute;
 	right:0;
 	top:0;
-	height:100%;
+	min-height:100%;
 	width:130px;
-	z-index:1000;
+	z-index:100;
 	background-color:#6f7072;
+	/*border-left:1px solid #000;*/
 }
 
 aside a.cat-lvl-3 {
@@ -177,6 +170,7 @@ aside a.cat-lvl-3 {
 	width:102px;
 	float:left;
 	margin:15px 0px 5px 14px;
+	text-align:center;
 }
 
 #thumb-slider img {
@@ -184,60 +178,113 @@ aside a.cat-lvl-3 {
 	max-height:68px;
 	background-color:#aaaaaa;
 	float:left;
-	margin-top:7px;
+	margin-top:4px;
+	margin-bottom:4px;
+	clear:both;
 }
 
-#slider-arrow-frw {
+#thumb-slider img:hover {
+   	zoom: 1;
+   	filter: alpha(opacity=50);
+   	opacity: 0.5;
+}
+
+.slider-arrow {
 	width:102px;
-	height:17px;
 	background-color:#aaaaaa;
+	color:#000;
 	float:left;
 	display:block;
+	text-align:center;
+	font-size:1.2em;
+	padding-top:1px;
+	padding-bottom:1px;
+	line-height:0.5;
 }
 
-#slider-arrow-back {
-	width:102px;
-	height:17px;
-	background-color:#aaaaaa;
-	float:left;
-	display:block;
-	margin-top:7px;
-}
-
-#slider-arrow-back:hover, #slider-arrow-frw:hover {
+.slider-arrow:hover {
 	background-color:#000;
-	
+	color:#FFF;
+}
+
+.slider-arrow:active {
+	background-color:#53a1f1;
+	color:#000;
+}
+
+#mini-map {
+	float:left;
+	margin-top:10px;
+	padding:10px 0px 15px 10px;
+	/*border-top:5px solid #aaaaaa;*/
+	/*background-color:#000;*/
+	/*position:absolute;
+	bottom:0;
+	right:0;*/
+}
+
+#mini-map img {
+	max-width:102px;
+	margin-bottom:5px;
+	padding-left:4px;
+}
+
+#mini-map a {
+	color:#FFF;
+	padding:5px 10px 0px 10px;
+	font-size:1.5em;
+}
+
+#mini-map a:hover {
+	color:#000;	
+}
+
+#mini-map a:active {
+	color:#53a1f1;	
 }
 
 .infoboks {
-	width:95%; 
-	max-width:900px; 
-	margin-top:15px; 
-	margin-left:2.5%; 
-	float:left; 
-	margin-bottom: 40px; 
-	font-family:Gill Sans, 'Quattrocento Sans', arial, sans-serif; 
+	font-family: 'Gill Sans', 'Quattrocento Sans', arial, sans-serif; 
 	font-size:1.5em; 
 	font-weight:normal; 
-	color:#666; 
-	line-height:1.5em; 
+	color:#ccc;
+	background-color:#6f7072;
+	line-height:1.5em;
+	width:500px; 
+	padding:15px 145px 15px 15px;
+	position:absolute;
+	right:0px;
+	bottom:0px;
 	}
 	
 .infoboks a {color:#666;}
 
-.infoboks a:hover {color:#000;}
+.infoboks a:hover {color:#aaaaaa;}
+
+.infoboks a:active {color:#53a1f1;}
 
 .header {
 	text-transform:uppercase; 
-	background-color:#999; 
-	color:white; 
+	color:#000; 
 	margin-right:5px; 
 	float:right; 
 	padding:0px 3px 0px 3px; 
-	line-height:1.3em;
+	line-height:1.5em;
 	}
 
 td {vertical-align:top;}
+
+.gradient-bg {
+   background-color: #6f7072; 
+   /*background-image: url(images/fallback-gradient.png); */
+  /* background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#272727), to(#6f7072));*/
+   background-image: -webkit-linear-gradient(right, #646567, #6f7072); 
+   background-image:    -moz-linear-gradient(right, #646567, #6f7072);
+   background-image:     -ms-linear-gradient(right, #646567, #6f7072);
+   background-image:      -o-linear-gradient(right, #646567, #6f7072);
+}
+
+/* søkeresultat og level 3-ting */
 
 #content {
 	width:95%; 
@@ -259,7 +306,7 @@ td {vertical-align:top;}
 .searchbox {
 	background-color:#ccc;
 	width:550px;
-	/* height:330px;*/
+	height:330px;
 	margin:82px auto;
 	padding:5px 10px 20px 10px;
 }
@@ -275,7 +322,7 @@ td {vertical-align:top;}
 	font-size:3.3em;
 	color:#6f7072;
 	text-transform:uppercase;
-	font-family: Gill Sans, 'Quattrocento Sans', arial, sans-serif;
+	font-family: 'Gill Sans', 'Quattrocento Sans', arial, sans-serif;
 	font-weight:normal;
 	position:relative;
 	left:127px;
@@ -283,7 +330,7 @@ td {vertical-align:top;}
 }
 
 .searchbox form {
-	font-family: Gill Sans, 'Quattrocento Sans', arial, sans-serif;
+	font-family: 'Gill Sans', 'Quattrocento Sans', arial, sans-serif;
 	text-transform:uppercase;
 	font-size:1.5em;
 	color:#000;
@@ -305,7 +352,7 @@ td {vertical-align:top;}
 }
 
 input {
-	font-family: Gill Sans, 'Quattrocento Sans', arial, sans-serif;
+	font-family: 'Gill Sans', 'Quattrocento Sans', arial, sans-serif;
 	border:none;
 	position:relative;
 	left:185px;
