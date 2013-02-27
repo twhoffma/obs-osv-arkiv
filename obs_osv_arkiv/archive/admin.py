@@ -10,7 +10,6 @@ from django.utils.translation import ugettext_lazy as _
 
 from archive.models import Item, Tag, Media, Location, Condition, Category, Materials, Keywords, Address, Area, Room, Location, ItemMedia, File, ItemHistory
 from forms import ItemAdminForm #, ItemSearchForm,ItemAdminListFilterForm
-#from filters import ItemFilter
 from django.contrib.admin import RelatedFieldListFilter, SimpleListFilter, FieldListFilter
 
 import pdb
@@ -39,8 +38,8 @@ class FileInline(admin.TabularInline):
 	model=File
 	extra = 1
 			
-class FilterWithCustomTemplate(RelatedFieldListFilter):
-	template = "archive/custom_filter.html"
+class FilterLocation(RelatedFieldListFilter):
+	template = "archive/location_filter.html"
 
 class FilterFromDate(SimpleListFilter):
 	template = "archive/year_filter.html"
@@ -82,7 +81,7 @@ class ItemAdmin(admin.ModelAdmin):
 	actions = ['publish', 'unpublish']
 	list_display_links = ['item_number']
 	save_on_top = True
-	list_filter = (('address', FilterWithCustomTemplate), ('area', FilterWithCustomTemplate), ('room', FilterWithCustomTemplate), ('location', FilterWithCustomTemplate),) #FilterFromDate, FilterToDate,)
+	list_filter = (('address', FilterLocation), ('area', FilterLocation), ('room', FilterLocation), ('location', FilterLocation),)
 	
 	fieldsets = (
 			(None, { 'fields': ('published','item_number','title', 'condition', 'condition_comment')}),
@@ -145,7 +144,6 @@ class ItemAdmin(admin.ModelAdmin):
 class CategoryAdmin(admin.ModelAdmin):
 	model = Category
 
-#---Item location admin interfaces
 class AddressAdmin(admin.ModelAdmin):
 	model = Address
 
@@ -157,9 +155,7 @@ class RoomAdmin(admin.ModelAdmin):
 
 class LocationAdmin(admin.ModelAdmin):
 	model = Location
-#---
 
-#--- File and media admins
 class MediaAdmin(admin.ModelAdmin):
 	model = Media
 	inlines = [FileInline]	

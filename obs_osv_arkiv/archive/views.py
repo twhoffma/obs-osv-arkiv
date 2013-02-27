@@ -19,7 +19,7 @@ import pdb
 class ItemSearchView(FormView):
 	template_name = 'archive/search.html'
 	form_class = ItemSearchForm
-
+	
 class ItemListView(ListView):
 	model = Item
 	
