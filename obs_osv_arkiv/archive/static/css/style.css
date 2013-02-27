@@ -137,6 +137,8 @@ nav {
 
 #logo a:hover {color:black;}
 
+#button {float:left; margin-left:2.5%;}
+
 .button {
 	color:#FFF; 
 	background-color:#000; 
@@ -147,7 +149,6 @@ nav {
 	padding:2px 3px 3px 3px; 
 	float:left; 
 	margin:4px;
-	margin-left:3%;
 	display:block; 
 	}
 	
