@@ -9,7 +9,7 @@
 	font-size:100%;
 	}
 
-html {font-size:100%; background-color:#6f7072;}/*font-size for IE*/
+html {font-size:100%; }/*font-size for IE*/
 
 img {border:none;}
 
@@ -136,6 +136,30 @@ nav {
 
 #logo a:hover {color:black;}
 
+.button {
+	color:#FFF; 
+	background-color:#000; 
+	text-transform:uppercase; 
+	font-size:1.3em; 
+	font-family: 'Gill Sans', 'Quattrocento Sans', arial, sans-serif; 
+	font-weight:normal; 
+	padding:1px 2px 2px 2px;
+	float:left; 
+	margin:3px;
+	margin-left:3%;
+	display:block; 
+	}
+	
+.button:hover {
+	color:#000;
+	background-color:#FFF;
+}
+
+.button:active {
+	color:#FFF;
+	background-color:#53a1f1;
+}
+
 /* Gjenstandsnivå */
 
 section {
@@ -169,18 +193,20 @@ aside a.cat-lvl-3 {
 	position:relative;
 	width:102px;
 	float:left;
-	margin:15px 0px 5px 14px;
+	margin:10px 0px 0px 14px;
 	text-align:center;
+}
+
+#thumb-slider a {
+	display:block;
 }
 
 #thumb-slider img {
 	max-width:102px;
 	max-height:68px;
-	background-color:#aaaaaa;
-	float:left;
-	margin-top:4px;
-	margin-bottom:4px;
-	clear:both;
+	margin-top:3px;
+	margin-bottom:3px;
+	/*clear:both;*/	
 }
 
 #thumb-slider img:hover {
@@ -214,9 +240,12 @@ aside a.cat-lvl-3 {
 
 #mini-map {
 	float:left;
+	position:relative;
+	width:102px;
 	margin-top:10px;
-	padding:10px 0px 15px 10px;
-	/*border-top:5px solid #aaaaaa;*/
+	margin-left:14px;
+	padding-bottom:5px;
+	text-align:center;
 	/*background-color:#000;*/
 	/*position:absolute;
 	bottom:0;
@@ -225,22 +254,21 @@ aside a.cat-lvl-3 {
 
 #mini-map img {
 	max-width:102px;
-	max-height:138px;
-	margin-bottom:5px;
-	padding-left:4px;
+	max-height:80px;
+	margin-bottom:10px;	
 }
 
-#mini-map a {
-	color:#FFF;
-	padding:5px 10px 0px 10px;
+#controls a {
+	color:#aaaaaa;
+	padding:8px;
 	font-size:1.5em;
 }
 
-#mini-map a:hover {
+#controls a:hover {
 	color:#000;	
 }
 
-#mini-map a:active {
+#controls a:active {
 	color:#53a1f1;	
 }
 
