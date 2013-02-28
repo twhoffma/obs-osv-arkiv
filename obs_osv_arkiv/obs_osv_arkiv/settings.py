@@ -1,7 +1,6 @@
 # Django settings for obs_osv_arkiv project.
-import socket
 
-DEBUG = True
+DEBUG = False
 TEMPLATE_DEBUG = DEBUG
 THUMBNAIL_DEBUG = False
 
@@ -10,17 +9,6 @@ ADMINS = (
 )
 
 MANAGERS = ADMINS
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': 'guttormsg',                      # Or path to database file if using sqlite3.
-        'USER': 'guttormsg',                      # Not used with sqlite3.
-        'PASSWORD': 'nf7vTFSbjjGQ',                  # Not used with sqlite3.
-        'HOST': '',                      # Set to empty string for localhost. Not used with sqlite3.
-        'PORT': '',                      # Set to empty string for default. Not used with sqlite3.
-    }
-}
 
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
@@ -45,41 +33,44 @@ USE_L10N = True
 # If you set this to False, Django will not use timezone-aware datetimes.
 USE_TZ = True
 
-# Absolute filesystem path to the directory that will hold user-uploaded files.
-# Example: "/home/media/media.lawrence.com/media/"
+#########
+# PATHS #
+#########
 
-if socket.gethostname() == 'server11.subsys.no':
-	MEDIA_ROOT = '/home/users/guttormsg/www/media'
-else:
-	MEDIA_ROOT = '/home/toby/projects/www/obs_osv_arkiv/media'
+import os
+import sys
 
+# Full filesystem path to the project.
+PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
+#sys.path.append(PROJECT_ROOT)
 
-# URL that handles the media served from MEDIA_ROOT. Make sure to use a
-# trailing slash.
-# Examples: "http://media.lawrence.com/media/", "http://example.com/media/"
-MEDIA_URL = '/media/'
-#MEDIA_URL = ''
+# Name of the directory for the project.
+PROJECT_DIRNAME = PROJECT_ROOT.split(os.sep)[-1]
+
+# URL prefix for static files.
+# Example: "http://media.lawrence.com/static/"
+STATIC_URL = "/static/"
 
 # Absolute path to the directory static files should be collected to.
 # Don't put anything in this directory yourself; store your static files
 # in apps' "static/" subdirectories and in STATICFILES_DIRS.
 # Example: "/home/media/media.lawrence.com/static/"
+STATIC_ROOT = os.path.join(PROJECT_ROOT, STATIC_URL.strip("/"))
 
-if socket.gethostname() == 'server11.subsys.no':
-	STATIC_ROOT = '/home/users/guttormsg/www/static'
-else:
-	STATIC_ROOT = '/home/toby/projects/www/obs_osv_arkiv/static'
+# URL that handles the media served from MEDIA_ROOT. Make sure to use a
+# trailing slash.
+# Examples: "http://media.lawrence.com/media/", "http://example.com/media/"
+MEDIA_URL = STATIC_URL + "media/"
 
-# URL prefix for static files.
-# Example: "http://media.lawrence.com/static/"
-STATIC_URL = '/static/'
+# Absolute filesystem path to the directory that will hold user-uploaded files.
+# Example: "/home/media/media.lawrence.com/media/"
+MEDIA_ROOT = os.path.join(PROJECT_ROOT, *MEDIA_URL.strip("/").split("/"))
 
-# Additional locations of static files
-STATICFILES_DIRS = (
-    # Put strings here, like "/home/html/static" or "C:/www/django/static".
-    # Always use forward slashes, even on Windows.
-    # Don't forget to use absolute paths, not relative paths.
-)
+# Put strings here, like "/home/html/django_templates"
+# or "C:/www/django/templates".
+# Always use forward slashes, even on Windows.
+# Don't forget to use absolute paths, not relative paths.
+TEMPLATE_DIRS = (os.path.join(PROJECT_ROOT, "templates"),)
 
 # List of finder classes that know how to find static files in
 # various locations.
@@ -110,18 +101,10 @@ MIDDLEWARE_CLASSES = (
     # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
 
-ROOT_URLCONF = 'obs_osv_arkiv.urls'
+ROOT_URLCONF = "%s.urls" % PROJECT_DIRNAME
 
 # Python dotted path to the WSGI application used by Django's runserver.
-WSGI_APPLICATION = 'obs_osv_arkiv.wsgi.application'
-
-import os
-TEMPLATE_DIRS = (
-    # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
-    # Always use forward slashes, even on Windows.
-    # Don't forget to use absolute paths, not relative paths.
-    '/home/toby/projects/obs-osv-arkiv.com/obs_osv_arkiv/templates',
-)
+WSGI_APPLICATION = '%s.wsgi.application' % PROJECT_DIRNAME
 
 INSTALLED_APPS = (
     'django.contrib.auth',
@@ -167,5 +150,13 @@ LOGGING = {
 }
 
 LOCALE_PATHS = (
-	'/home/toby/projects/obs-osv-arkiv.com/obs_osv_arkiv/conf/locale',
+	os.path.join(PROJECT_ROOT, 'conf', 'locale'),
 )
+
+# Import site-specific and user defined settings, i.e. for
+# databases and debugging.
+
+try:
+    from local_settings import *
+except ImportError:
+    pass
