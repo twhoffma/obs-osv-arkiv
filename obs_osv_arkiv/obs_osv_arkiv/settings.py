@@ -41,10 +41,12 @@ import os
 import sys
 
 # Full filesystem path to the project.
-PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
-#sys.path.append(PROJECT_ROOT)
+SETTINGS_ROOT = os.path.dirname(os.path.abspath(__file__))
+PROJECT_ROOT = os.path.abspath(os.path.join(SETTINGS_ROOT, '..'))
+sys.path.append(SETTINGS_ROOT)
 
 # Name of the directory for the project.
+SETTINGS_DIRNAME = SETTINGS_ROOT.split(os.sep)[-1]
 PROJECT_DIRNAME = PROJECT_ROOT.split(os.sep)[-1]
 
 # URL prefix for static files.
@@ -60,7 +62,7 @@ STATIC_ROOT = os.path.join(PROJECT_ROOT, STATIC_URL.strip("/"))
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash.
 # Examples: "http://media.lawrence.com/media/", "http://example.com/media/"
-MEDIA_URL = STATIC_URL + "media/"
+MEDIA_URL = "/media/"
 
 # Absolute filesystem path to the directory that will hold user-uploaded files.
 # Example: "/home/media/media.lawrence.com/media/"
