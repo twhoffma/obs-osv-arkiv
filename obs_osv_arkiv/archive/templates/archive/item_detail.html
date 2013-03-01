@@ -12,17 +12,15 @@
 <link rel="stylesheet" media='screen and (min-width: 600px) and (max-width: 2500px)' href="{{STATIC_URL}}css/style.css" type="text/css">
 <link rel="stylesheet" media='screen and (min-width: 300px) and (max-width: 599px)' href='{{STATIC_URL}}css/style-smaller.css' />
 <link rel="stylesheet" href="{{STATIC_URL}}css/jquery-ui-1.9.1.custom.min.css" type="text/css" />
-<link rel="stylesheet" type="text/css" href="{{STATIC_URL}}css/flexslider.css" />
+<link rel="stylesheet" type="text/css" href="{{STATIC_URL}}css/mediaview.css" />
 
 <!--[if lt IE 9]>
 <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
 <![endif]-->
 
 <script type="text/javascript" src="{{STATIC_URL}}js/jquery-1.8.2.min.js"></script>
-<script type="text/javascript" src="{{STATIC_URL}}js/jquery.isotope.min.js"></script>
 <script type="text/javascript" src="{{STATIC_URL}}js/jquery-ui-1.9.1.custom.min.js"></script>
 <script type="text/javascript" src="{{STATIC_URL}}js/museum_functions.js"></script>
-<script type="text/javascript" src="{{STATIC_URL}}js/jquery.flexslider-min.js"></script>
 
 
 <style type="text/css">
@@ -31,188 +29,120 @@
 
 <script type="text/javascript" src="{{STATIC_URL}}js/extjs/ext-core.js"></script>    
     
-<script type="text/javascript" src="{{STATIC_URL}}js/panojs/utils.js"></script>    
-<script type="text/javascript" src="{{STATIC_URL}}js/panojs/PanoJS.js"></script>
-<script type="text/javascript" src="{{STATIC_URL}}js/panojs/controls.js"></script>
-<script type="text/javascript" src="{{STATIC_URL}}js/panojs/pyramid_imgcnv.js"></script>
-<script type="text/javascript" src="{{STATIC_URL}}js/panojs/control_thumbnail.js"></script>
-<script type="text/javascript" src="{{STATIC_URL}}js/panojs/control_info.js"></script>
-<script type="text/javascript" src="{{STATIC_URL}}js/panojs/control_svg.js"></script>
-
+<script type="text/javascript" src="{{STATIC_URL}}js/mediaview/jquery.mediaview.js"></script>    
 <script type="text/javascript">
-	PanoJS.MSG_BEYOND_MIN_ZOOM = null;
-	PanoJS.MSG_BEYOND_MAX_ZOOM = null;
-	var viewer1 = null;
-	var viewer2 = null;
-	var viewer3 = null;
-	var viewer4 = null;
-	var viewer = null;
 
-	function createViewer( viewer, dom_id, url, prefix, w, h ) {
-	    if (viewer) return;
-	  
-	    var MY_URL      = url;
-	    var MY_PREFIX   = prefix;
-	    var MY_TILESIZE = 256;
-	    var MY_WIDTH    = w;
-	    var MY_HEIGHT   = h;
-	    var myPyramid = new ImgcnvPyramid( MY_WIDTH, MY_HEIGHT, MY_TILESIZE);
-	    
-	    var myProvider = new PanoJS.TileUrlProvider('','','');
-	    myProvider.assembleUrl = function(xIndex, yIndex, zoom) {
-		//return MY_URL + '/' + MY_PREFIX + '-' + zoom + '-' + xIndex + '-' + yIndex + '.jpg'; //myPyramid.tile_filename( zoom, xIndex, yIndex );
-		//return MY_URL + '/' + MY_PREFIX + '-' + myPyramid.tile_filename( zoom, xIndex, yIndex );
-		return MY_URL + '/' + MY_PREFIX + '-' + myPyramid.tile_filename( zoom, xIndex, yIndex );
-	    }    
-	    
-	    viewer = new PanoJS(dom_id, {
-		tileUrlProvider : myProvider,
-		tileSize        : myPyramid.tilesize,
-		maxZoom         : myPyramid.getMaxLevel(),
-		imageWidth      : myPyramid.width,
-		imageHeight     : myPyramid.height,
-		blankTile       : 'images/blank.gif',
-		loadingTile     : 'images/progress.gif'
-	    });
-	  
-	    //Ext.EventManager.addListener( window, 'resize', callback(viewer, viewer.resize) );
-	    
-	    viewer.init();
-	}
-	
-	function initViewer(){
-		createViewer( viewer, 'viewer', '/media/{{ object.tile_dir }}', '{{ object.tile_dir }}', 1280,  800 );
-	}
-	
-	Ext.onReady(initViewer);
-	
-	/*
 	$(document).ready(function() {
-	  		createViewer( viewer, 'viewer', '/media/{{ object.tile_dir }}', '{{ object.tile_dir }}', 1280,  800 );
-		}
-	);
-	*/
-	//Alternative http://kineticjs.com/
-	//http://mike.teczno.com/giant/pan/ 
-</script>
+		$('#mediaview').mediaview();
+	});
+
+</script>    
+
 </head>
 
 <body>
 
-	<header>
-		
-		<div id="nav">	
-			<a class="corner-stamp cat-lvl-3" href="/">Guttormsgaards arkiv</a>
-			
-			{% for node in parent %}
-				<a class="corner-stamp cat-lvl-3" href="{% url 'node' node_pk=node.pk  %}">{{ node.name }} </a>
-			{% endfor %}
-			{% if current %}
-				{% if current.is_root_node %}
-					<a class="corner-stamp cat-lvl-3" href="/">{{ current.name }} </a>
-				{% else %}
-					<a class="corner-stamp cat-lvl-3" href="{% url 'node' node_pk=current.pk %}">{{ current.name }} </a>
-				{% endif %}
-			{% endif %}
-			{% for node in nodes %}
-				<a class="cat-lvl-3" href="{% url 'node' pk=node.pk %}">{{ node.name }} </a>
-			{% endfor %}
-    		</div>
-	</header>
+	<div id="mediaview">
+
+		<nav id="sidebar">	
+
+			<a class="corner-stamp cat-lvl-3" href="{% url 'node' node_pk=current.pk %}">Tilbake</a>
+
+			<div class="thumb-selector"></div>
+
+			<div class="infoboks">
+				<table border="0">
+					{% if object.title %}
+					<tr>
+						<td><p class="header">{%trans "title" %}</p></td>
+						<td><p class="text">{{object.title}}</p></td>
+					</tr>
+					{% endif %}
+					{% if object.artist %}
+					<tr>
+						<td><p class="header">{%trans "artist" %}</p></td>
+						<td><p class="text"><a href="{% url 'artist' artist=object.artist %}">{{object.artist}}</a></p></td>
+					</tr>
+					{% endif %}
+					{% if object.date_from or object.date_to %}
+					<tr>
+						<td><p class="header">{%trans "dating" %}</p></td>
+						<td><p class="text">
+							{% if object.date_from %}
+								{% if object.dating_certainty %}
+									<span style="text-transform: capitalize;">{%trans "from" %}{% if object.dating_certainty != "sure" %}</span> {%trans "approx" %}. {% endif %} {{ object.date_from }} 
+								{% endif%}
+							{% endif %}
+							{% if object.date_to %}
+								{% if object.date_from %} {%trans "to" %} {{ object.date_to }}
+								{% else %}
+									<span style="text-transform: capitalize;">{%trans "to" %}</span> {{ object.date_to }}
+								{% endif %}
+							{% endif %}
+						</p></td>
+					</tr>
+					{% endif %}
+					{% if object.origin_city or object.origin_country %}
+					<tr>
+						<td><p class="header">{%trans "origin" %}</p></td>
+						<td><p class="text">
+						{% if object.origin_city %}
+							<a href="{% url 'city' city=object.origin_city %}" />{{object.origin_city}}</a>
+						{% endif %} 
+						{%if object.origin_country %}
+						{%if object.origin_city %}, {%endif%}
+						<a href="{% url 'country' country=object.origin_country %}">{{ object.origin_country  }}</a>
+						{% endif %} 
+						 {% blocktrans %}{{ object.origin_certainty}}{% endblocktrans %}
+						</p></td>
+					</tr>
+					{% endif %}
+					{% if object.dim_height or object.dim_width or object.dim_depth or object.dim_weight %}
+					<tr>
+						<td><p class="header">{%trans "dimensions" %}</p></td>
+						<td><p class="text">
+							{% if object.dim_width %}
+								<span style="text-transform: capitalize;">{% trans "width" %}</span>: {{object.dim_width}} cm.
+							{% endif %}
+							{% if object.dim_height %}
+								<span style="text-transform: capitalize;">{% trans "height" %}</span>: {{object.dim_height}} cm.
+							{% endif %}
+							{% if object.dim_depth %}
+								<span style="text-transform: capitalize;">{% trans "depth" %}</span>: {{object.dim_depth }} cm.
+							{% endif %}
+							{% if object.dim_weight %}
+								<span style="text-transform: capitalize;">{% trans "weight" %}</span>: {{object.dim_weight }} cm.
+							{% endif %}
+						</p></td>
+					</tr>
+					{% endif %}
+					{% if object.materials.count > 0 %}
+					<tr>
+						<td><p class="header">MATERIALE/TEKNIKK</p></td>
+						<td><p class="text">{% for m in object.materials.all %}{{m}}{% if not forloop.last %},  {% endif%}{% endfor%}</p></td>
+					</tr>
+					{% endif %}
+					{%if object.description %}
+					<tr>
+						<td><p class="header">{%trans "description" %}</p></td>
+						<td><p class="text">{{object.description}}</p></td>
+					</tr>
+					{% endif %}
+				</table>
+			<div>
+
+		</nav>
 	
-	{% item_media object %}
+		<div id="container">
+
+			<ul>{% item_media object %}</ul>
+
+		</div>
+
+	</div>
 	
-	<div style="width: 100%; height: 400px; clear: both; border: 1px solid yellow;">
-      		<div id="viewer" class="viewer" style="width: 100%; height: 100%;" ></div>
-  	</div>
-	 
-	<div class="infoboks">
-		<table border="0">
-			{% if object.title %}
-			<tr>
-				<td><p class="header">{%trans "title" %}</p></td>
-				<td><p class="text">{{object.title}}</p></td>
-			</tr>
-			{% endif %}
-			{% if object.artist %}
-			<tr>
-				<td><p class="header">{%trans "artist" %}</p></td>
-				<td><p class="text"><a href="{% url 'artist' artist=object.artist %}">{{object.artist}}</a></p></td>
-			</tr>
-			{% endif %}
-			{% if object.date_from or object.date_to %}
-			<tr>
-				<td><p class="header">{%trans "dating" %}</p></td>
-				<td><p class="text">
-					{% if object.date_from %}
-						{% if object.dating_certainty %}
-							<span style="text-transform: capitalize;">{%trans "from" %}{% if object.dating_certainty != "sure" %}</span> {%trans "approx" %}. {% endif %} {{ object.date_from }} 
-						{% endif%}
-					{% endif %}
-					{% if object.date_to %}
-						{% if object.date_from %} {%trans "to" %} {{ object.date_to }}
-						{% else %}
-							<span style="text-transform: capitalize;">{%trans "to" %}</span> {{ object.date_to }}
-						{% endif %}
-					{% endif %}
-				</p></td>
-			</tr>
-			{% endif %}
-			{% if object.origin_city or object.origin_country %}
-			<tr>
-				<td><p class="header">{%trans "origin" %}</p></td>
-				<td><p class="text">
-				{% if object.origin_city %}
-					<a href="{% url 'city' city=object.origin_city %}" />{{object.origin_city}}</a>
-				{% endif %} 
-				{%if object.origin_country %}
-				{%if object.origin_city %}, {%endif%}
-				<a href="{% url 'country' country=object.origin_country %}">{{ object.origin_country  }}</a>
-				{% endif %} 
-				 {% blocktrans %}{{ object.origin_certainty}}{% endblocktrans %}
-				</p></td>
-			</tr>
-			{% endif %}
-			{% if object.dim_height or object.dim_width or object.dim_depth or object.dim_weight %}
-			<tr>
-				<td><p class="header">{%trans "dimensions" %}</p></td>
-				<td><p class="text">
-					{% if object.dim_width %}
-						<span style="text-transform: capitalize;">{% trans "width" %}</span>: {{object.dim_width}} cm.
-					{% endif %}
-					{% if object.dim_height %}
-						<span style="text-transform: capitalize;">{% trans "height" %}</span>: {{object.dim_height}} cm.
-					{% endif %}
-					{% if object.dim_depth %}
-						<span style="text-transform: capitalize;">{% trans "depth" %}</span>: {{object.dim_depth }} cm.
-					{% endif %}
-					{% if object.dim_weight %}
-						<span style="text-transform: capitalize;">{% trans "weight" %}</span>: {{object.dim_weight }} cm.
-					{% endif %}
-				</p></td>
-			</tr>
-			{% endif %}
-			{% if object.materials.count > 0 %}
-			<tr>
-				<td><p class="header">MATERIALE/TEKNIKK</p></td>
-				<td><p class="text">{% for m in object.materials.all %}{{m}}{% if not forloop.last %},  {% endif%}{% endfor%}</p></td>
-			</tr>
-			{% endif %}
-			{%if object.description %}
-			<tr>
-				<td><p class="header">{%trans "description" %}</p></td>
-				<td><p class="text">{{object.description}}</p></td>
-			</tr>
-			{% endif %}
-		</table>
-	<div>
-
-<footer>
-
-<script type="text/javascript" src="{{STATIC_URL}}js/functions.js"></script>
-
-</footer>
-
 </body>
 
 </html>
+
+{# vi: se ft=htmldjango noet: #}

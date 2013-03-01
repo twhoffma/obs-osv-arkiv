@@ -1,0 +1,70 @@
+/**
+ * MediaView plugin CSS
+ *
+ * @author: Kim Tore Jensen <kim@incendio.no>
+ */
+
+#mediaview {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    overflow: hidden;
+    background: #232323;
+}
+
+#mediaview ul {
+    position: absolute;
+    overflow: hidden;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 180px;
+}
+
+#mediaview ul li {
+    display: none;
+}
+
+#sidebar {
+    position: absolute;
+    margin: 0;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    width: 140px;
+    padding: 3em 20px 0;
+    background: #707172;
+}
+
+#sidebar .nav-window {
+    background: black;
+}
+
+#sidebar .thumb-selector {
+    clear: both;
+}
+
+#sidebar .thumb-selector img {
+    display: block;
+    margin: 1em 0;
+    cursor: pointer;
+    opacity: 0.6;
+}
+
+#sidebar .thumb-selector img.active {
+    opacity: 1.0;
+}
+
+#sidebar .thumb-selector img:hover {
+    opacity: 1.0;
+    -moz-transition: all 0.2s ease-in-out;
+    -webkit-transition: all 0.2s ease-in-out;
+    -o-transition: all 0.2s ease-in-out;
+    transition: all 0.2s ease-in-out;
+}
+
+.infoboks {
+    display: none;
+}
