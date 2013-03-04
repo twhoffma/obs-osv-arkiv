@@ -18,7 +18,7 @@
 				{% endfor %}
 			</audio>	
 		{% else %}
-			<img class="item-img" src="{{MEDIA_URL}}/media/{{ m.filename }}" />
+			<canvas data-image="{{MEDIA_URL}}/media/{{ m.filename }}"></canvas>
 		{% endif %}
 	</li>
 {% endfor %}	

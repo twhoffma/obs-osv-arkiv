@@ -27,6 +27,10 @@
     display: none;
 }
 
+#mediaview canvas {
+    cursor: move;
+}
+
 #sidebar {
     position: absolute;
     margin: 0;
