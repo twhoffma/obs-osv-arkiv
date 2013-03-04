@@ -1,5 +1,5 @@
 from django.conf.urls import patterns, include, url
-import archive
+import archive.views
 
 urlpatterns = patterns('',
     url(r'^$', archive.views.ItemListView.as_view()), 

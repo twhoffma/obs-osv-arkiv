@@ -123,7 +123,7 @@
                             ctx.drawImage(image[0], settings.pan[0], settings.pan[1]);
                         };
 
-                        var mouse_event = function(mode, deltaX, deltaY) {
+                        var mouse_event = function(ev, mode, deltaX, deltaY) {
 
                             if (mode == 'pan') {
 
@@ -144,12 +144,8 @@
 
                                 if (deltaY < 0) {
                                     settings.zoom = settings.zoom / SCROLL_FACTOR;
-                                    settings.pan[0] *= SCROLL_FACTOR;
-                                    settings.pan[1] *= SCROLL_FACTOR;
                                 } else if (deltaY > 0 && settings.zoom < 1) {
                                     settings.zoom = settings.zoom * SCROLL_FACTOR;
-                                    settings.pan[0] /= SCROLL_FACTOR;
-                                    settings.pan[1] /= SCROLL_FACTOR;
                                 }
 
                             }
@@ -159,8 +155,8 @@
                         };
 
                         /* Bind zoom event */
-                        canvas.mousewheel(function(e, delta, deltaX, deltaY) {
-                            mouse_event('zoom', deltaX, deltaY);
+                        canvas.mousewheel(function(ev, delta, deltaX, deltaY) {
+                            mouse_event(ev, 'zoom', deltaX, deltaY);
                         });
 
                         /* Panning requires several events */
@@ -187,7 +183,7 @@
                                 return;
                             }
                             var delta = [ ev.pageX - settings.last_mouse[0], ev.pageY - settings.last_mouse[1] ];
-                            mouse_event(settings.mousemode, delta[0], delta[1]);
+                            mouse_event(ev, settings.mousemode, delta[0], delta[1]);
                             settings.last_mouse = [ev.pageX, ev.pageY];
                         });
 
@@ -215,7 +211,6 @@
                 if (image.length == 0) {
                     /* Bootstrap */
                     var image = $('<img/>').attr('src', canvas.attr('data-image'));
-                    canvas.data('initialized', false);
                     image.load(callback);
                 } else {
                     callback();
