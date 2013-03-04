@@ -81,36 +81,39 @@
 
                 /* Callback for image load */
                 var callback = function() {
-                    image = $(this);
                     canvas[0].width = image[0].width;
                     canvas[0].height = image[0].height;
                     image.hide().insertAfter(canvas);
                     ctx = canvas[0].getContext('2d');
 
-                    /* Bind zoom event */
-                    canvas.mousewheel(function(e, delta, deltaX, deltaY) {
-                        var zoom = canvas.data('zoom');
-                        var pan = canvas.data('pan');
-                        if (deltaY < 0) {
-                            zoom = zoom / 1.15;
-                        } else if (deltaY > 0 && zoom < 1) {
-                            zoom = zoom * 1.15;
-                        }
-                        canvas.data('zoom', zoom);
-                        ctx.setTransform(1, 0, 0, 1, 0, 0);
-                        ctx.clearRect(0, 0, canvas[0].width, canvas[0].height);
-                        ctx.scale(zoom, zoom);
-                        ctx.drawImage(image[0], pan[0], pan[1]);
-                    });
+                    if (!canvas.data('initialized')) {
 
-                    /* Clear canvas */
-                    ctx.setTransform(1, 0, 0, 1, 0, 0);
-                    ctx.clearRect(0, 0, canvas[0].width, canvas[0].height);
+                        /* Bind zoom event */
+                        canvas.mousewheel(function(e, delta, deltaX, deltaY) {
+                            var zoom = canvas.data('zoom');
+                            var pan = canvas.data('pan');
+                            if (deltaY < 0) {
+                                zoom = zoom / 1.15;
+                                pan[0] *= 1.15;
+                                pan[1] *= 1.15;
+                            } else if (deltaY > 0 && zoom < 1) {
+                                zoom = zoom * 1.15;
+                                pan[0] /= 1.15;
+                                pan[1] /= 1.15;
+                            }
+                            ctx.setTransform(1, 0, 0, 1, 0, 0);
+                            ctx.clearRect(0, 0, canvas[0].width, canvas[0].height);
 
-                    /* Initial zoom level based on image and viewport dimensions */
-                    var zoom = canvas.data('zoom');
-                    if (zoom == 0) {
-                        var padding = 30;
+                            ctx.scale(zoom, zoom);
+                            ctx.drawImage(image[0], pan[0], pan[1]);
+
+                            canvas.data('pan', pan);
+                            canvas.data('zoom', zoom);
+                        });
+
+                        /* Initial zoom level based on image and viewport dimensions */
+                        var zoom = 1.0;
+                        var padding = 50;
                         var x = view_width / (image[0].width + padding);
                         var y = view_height / (image[0].height + padding);
                         if (x < 1 || y < 1) {
@@ -119,22 +122,34 @@
                             } else {
                                 zoom = y;
                             }
-                            ctx.scale(zoom, zoom);
-                            canvas.data('zoom', zoom);
-                        } else {
-                            canvas.data('zoom', 1);
                         }
+                        canvas.data('zoom', zoom);
+
+                        /* Center image */
+                        var x = (view_width / 2) - (zoom * (image[0].width / 2));
+                        var y = (view_height / 2) - (zoom * (image[0].height / 2));
+                        var pan = [x / zoom, y / zoom];
+                        canvas.data('pan', pan);
+
+                        canvas.data('rotate', 0);
+                        canvas.data('initialized', true);
+
                     }
 
-                    ctx.drawImage(image[0], 0, 0);
+                    /* Clear canvas */
+                    ctx.setTransform(1, 0, 0, 1, 0, 0);
+                    ctx.clearRect(0, 0, canvas[0].width, canvas[0].height);
+
+                    var zoom = canvas.data('zoom');
+                    var pan = canvas.data('pan');
+                    ctx.scale(zoom, zoom);
+                    ctx.drawImage(image[0], pan[0], pan[1]);
                 };
 
                 if (image.length == 0) {
                     /* Bootstrap */
                     var image = $('<img/>').attr('src', canvas.attr('data-image'));
-                    canvas.data('zoom', 0);
-                    canvas.data('pan', [0, 0]);
-                    canvas.data('rotate', 0);
+                    canvas.data('initialized', false);
                     image.load(callback);
                 } else {
                     callback();
