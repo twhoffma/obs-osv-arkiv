@@ -111,16 +111,34 @@
                         settings.mousedown = false;
                         settings.mousemode = null;
 
+                        var draw = function() {
+                            ctx.setTransform(1, 0, 0, 1, 0, 0);
+                            ctx.clearRect(0, 0, canvas[0].width, canvas[0].height);
+
+                            ctx.translate(view_width / 2, view_height / 2);
+                            ctx.rotate(settings.rotate * (Math.PI / 180));
+                            ctx.translate(-view_width / 2, -view_height / 2);
+
+                            ctx.scale(settings.zoom, settings.zoom);
+                            ctx.drawImage(image[0], settings.pan[0], settings.pan[1]);
+                        };
+
                         var mouse_event = function(mode, deltaX, deltaY) {
 
                             if (mode == 'pan') {
 
-                                settings.pan[0] += (deltaX / settings.zoom);
-                                settings.pan[1] += (deltaY / settings.zoom);
-                                ctx.setTransform(1, 0, 0, 1, 0, 0);
-                                ctx.clearRect(0, 0, canvas[0].width, canvas[0].height);
-                                ctx.scale(settings.zoom, settings.zoom);
-                                ctx.drawImage(image[0], settings.pan[0], settings.pan[1]);
+                                var x = deltaX / settings.zoom;
+                                var y = deltaY / settings.zoom;
+
+                                var cos = Math.cos(settings.rotate * (Math.PI / 180));
+                                var sin = Math.sin(settings.rotate * (Math.PI / 180));
+
+                                settings.pan[0] += (x * cos) + (y * sin);
+                                settings.pan[1] += (y * cos) - (x * sin);
+
+                            } else if (mode == 'rotate') {
+
+                                settings.rotate = (settings.rotate + (0.5 * (deltaX + deltaY))) % 360;
 
                             } else if (mode == 'zoom') {
 
@@ -134,12 +152,9 @@
                                     settings.pan[1] /= SCROLL_FACTOR;
                                 }
 
-                                ctx.setTransform(1, 0, 0, 1, 0, 0);
-                                ctx.clearRect(0, 0, canvas[0].width, canvas[0].height);
-                                ctx.scale(settings.zoom, settings.zoom);
-                                ctx.drawImage(image[0], settings.pan[0], settings.pan[1]);
-
                             }
+
+                            draw();
 
                         };
 
@@ -194,12 +209,7 @@
 
                     }
 
-                    /* Clear canvas */
-                    ctx.setTransform(1, 0, 0, 1, 0, 0);
-                    ctx.clearRect(0, 0, canvas[0].width, canvas[0].height);
-
-                    ctx.scale(settings.zoom, settings.zoom);
-                    ctx.drawImage(image[0], settings.pan[0], settings.pan[1]);
+                    draw();
                 };
 
                 if (image.length == 0) {
