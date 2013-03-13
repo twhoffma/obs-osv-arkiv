@@ -32,6 +32,12 @@
     var view_width = 0;
     var view_height = 0;
 
+    /**
+     * Pre-loading icon
+     */
+    var loading = $('<img/>').attr('src', '/static/images/loading.gif').addClass('loading');
+
+
     var methods = {
 
         init : function(options) {
@@ -98,12 +104,11 @@
                 }
 
                 settings = canvas.data('settings');
-                var image = canvas.siblings('img');
 
                 /* Callback for image load */
-                var callback = function() {
-                    canvas[0].width = image[0].width;
-                    canvas[0].height = image[0].height;
+                var load_port = function(image) {
+                    canvas[0].width = view_width;
+                    canvas[0].height = view_height;
                     image.hide().insertAfter(canvas);
                     ctx = canvas[0].getContext('2d');
 
@@ -206,13 +211,13 @@
                         /* Initial zoom level based on image and viewport dimensions */
                         var x = view_width / image[0].width;
                         var y = view_height / image[0].height;
-                        if (x < 1 || y < 1) {
+                        //if (x < 1 || y < 1) {
                             if (x < y) {
                                 settings.zoom = x;
                             } else {
                                 settings.zoom = y;
                             }
-                        }
+                        //}
 
                         /* Center image */
                         var x = (view_width / 2) - ((image[0].width * settings.zoom) / 2);
@@ -224,12 +229,21 @@
                     draw();
                 };
 
+                var image = canvas.siblings('img');
+
                 if (image.length == 0) {
-                    /* Bootstrap */
-                    var image = $('<img/>').attr('src', canvas.attr('data-image'));
-                    image.load(callback);
+                    /* Pre-load thumbnail into viewport for quick view */
+                    image = img.clone();
+                    image.load(function() {
+                        load_port(image);
+                        var loader = loading.clone().insertBefore(canvas);
+
+                        /* Load the real image */
+                        image = $('<img/>').attr('src', canvas.attr('data-image'));
+                        image.load(function() { loader.remove(); load_port(image); });
+                    });
                 } else {
-                    callback();
+                    load_port(image);
                 }
 
             });
