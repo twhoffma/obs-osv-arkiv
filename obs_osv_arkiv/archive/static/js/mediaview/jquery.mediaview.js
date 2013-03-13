@@ -22,6 +22,11 @@
     var SCROLL_FACTOR = 1.1;
 
     /**
+     * Maximal zoom factor
+     */
+    var MAX_ZOOM = 1.25;
+
+    /**
      * Viewport width and height
      */
     var view_width = 0;
@@ -143,7 +148,7 @@
                                 if (deltaY < 0) {
                                     /* zoom out */
                                     scroll_delta = 1 / SCROLL_FACTOR;
-                                } else if (deltaY > 0 && settings.zoom < 1) {
+                                } else if (deltaY > 0 && settings.zoom < MAX_ZOOM) {
                                     /* zoom in */
                                     scroll_delta = SCROLL_FACTOR;
                                 }
