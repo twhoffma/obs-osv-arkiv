@@ -19,7 +19,7 @@
     /**
      * How fast does the wheel zoom?
      */
-    var SCROLL_FACTOR = 1.1;
+    var SCROLL_FACTOR = 1.04;
 
     /**
      * Maximal zoom factor
