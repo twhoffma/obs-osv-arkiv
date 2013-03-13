@@ -120,21 +120,18 @@
                             ctx.translate(-view_width / 2, -view_height / 2);
 
                             ctx.scale(settings.zoom, settings.zoom);
-                            ctx.drawImage(image[0], settings.pan[0], settings.pan[1]);
+                            ctx.drawImage(image[0], settings.pan[0] / settings.zoom, settings.pan[1] / settings.zoom);
                         };
 
                         var mouse_event = function(ev, mode, deltaX, deltaY) {
 
                             if (mode == 'pan') {
 
-                                var x = deltaX / settings.zoom;
-                                var y = deltaY / settings.zoom;
-
                                 var cos = Math.cos(settings.rotate * (Math.PI / 180));
                                 var sin = Math.sin(settings.rotate * (Math.PI / 180));
 
-                                settings.pan[0] += (x * cos) + (y * sin);
-                                settings.pan[1] += (y * cos) - (x * sin);
+                                settings.pan[0] += (deltaX * cos) + (deltaY * sin);
+                                settings.pan[1] += (deltaY * cos) - (deltaX * sin);
 
                             } else if (mode == 'rotate') {
 
@@ -142,11 +139,25 @@
 
                             } else if (mode == 'zoom') {
 
+                                var scroll_delta = 1;
                                 if (deltaY < 0) {
-                                    settings.zoom = settings.zoom / SCROLL_FACTOR;
+                                    /* zoom out */
+                                    scroll_delta = 1 / SCROLL_FACTOR;
                                 } else if (deltaY > 0 && settings.zoom < 1) {
-                                    settings.zoom = settings.zoom * SCROLL_FACTOR;
+                                    /* zoom in */
+                                    scroll_delta = SCROLL_FACTOR;
                                 }
+
+                                settings.zoom = settings.zoom * scroll_delta;
+
+                                /* Zoom to cursor */
+                                var im_x = ev.pageX - settings.pan[0];
+                                var im_y = ev.pageY - settings.pan[1];
+                                var new_x = im_x * scroll_delta;
+                                var new_y = im_y * scroll_delta;
+
+                                settings.pan[0] -= (new_x - im_x);
+                                settings.pan[1] -= (new_y - im_y);
 
                             }
 
@@ -199,9 +210,9 @@
                         }
 
                         /* Center image */
-                        var x = (view_width / 2) - (settings.zoom * (image[0].width / 2));
-                        var y = (view_height / 2) - (settings.zoom * (image[0].height / 2));
-                        settings.pan = [x / settings.zoom, y / settings.zoom];
+                        var x = (view_width / 2) - ((image[0].width * settings.zoom) / 2);
+                        var y = (view_height / 2) - ((image[0].height * settings.zoom) / 2);
+                        settings.pan = [x, y];
 
                     }
 
