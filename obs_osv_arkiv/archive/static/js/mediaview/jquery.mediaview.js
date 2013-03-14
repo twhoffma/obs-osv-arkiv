@@ -35,7 +35,7 @@
     /**
      * Pre-loading icon
      */
-    var loading = $('<img/>').attr('src', '/static/images/loading.gif').addClass('loading');
+    var loading = $('<img/>').attr('src', '/static/images/ajax-loader.gif').addClass('loading');
 
 
     var methods = {
