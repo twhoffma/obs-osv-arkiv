@@ -77,5 +77,46 @@
 }
 
 .infoboks {
+	font-family: 'Gill Sans', 'Quattrocento Sans', arial, sans-serif; 
+	font-size:1.5em; 
+	font-weight:normal; 
+	color:#ccc;
+	background-color:#6f7072;
+	line-height:1.5em;
+	width:500px; 
+	padding:15px 145px 15px 15px;
+	position:absolute;
+	right: 180px;
+	bottom: 0;
+    z-index: 1;
     display: none;
+}
+	
+.infoboks a {color:#666;}
+
+.infoboks a:hover {color:#aaaaaa;}
+
+.infoboks a:active {color:#53a1f1;}
+
+.blocklink {
+    color:#FFF;
+    background-color:#aaaaaa; 
+    text-transform:uppercase; 
+    display:block; 
+    font-size:1.6em; 
+    font-family: 'Gill Sans', 'Quattrocento Sans', arial, sans-serif; 
+    font-weight:normal; 
+    padding:4px 3px 4px 3px; 
+    text-align: center;
+    margin: 0.5em 0;
+}
+
+.blocklink:hover, .blocklink.active {
+    background-color:#000; 
+    color:white;
+}
+
+.blocklink:active {
+    background-color:#53a1f1;
+    color:white; 
 }
