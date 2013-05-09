@@ -76,6 +76,16 @@
     transition: all 0.2s ease-in-out;
 }
 
+#sidebar .thumb-navigator {
+    position: absolute;
+    margin: 0;
+    bottom: 0;
+    right: 0;
+    width: 180px;
+    height: 180px;
+    background: black;
+}
+
 .infoboks {
 	font-family: 'Gill Sans', 'Quattrocento Sans', arial, sans-serif; 
 	font-size:1.5em; 
