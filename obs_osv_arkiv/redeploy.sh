@@ -1,8 +1,14 @@
 #!/bin/bash
 # Deploy a new version of Guttormsgaards arkiv
 
+if [ ! -d "$VIRTUAL_ENV" ]; then
+    echo "Loading environment."
+    webroot=`dirname $0`
+    cd $webroot
+    source $webroot/../deps/bin/activate
+fi
+
 git pull
-git submodule update
 ./manage.py compilemessages
 yes yes | ./manage.py collectstatic
 ./manage.py syncdb
