@@ -56,14 +56,23 @@
                 var piclist = $this.children('#container').children('ul');
 
                 /* Build thumbnail selector */
-                var thumbs = sidebar.children('.thumb-selector');
+                var thumbs_loaded = 0;
+                var thumbs = $('#thumb-selector');
                 var originals = piclist.children('li');
+
+                /* Re-detect dimensions when all thumbnails are loaded. */
+                var thumb_load = function() {
+                    if (++thumbs_loaded == originals.length) {
+                        $this.mediaview('detect_dimensions');
+                    }
+                };
 
                 originals.each(function() {
                     var th = $('<img/>').attr('src', $(this).attr('data-thumb'));
                     var soulmate = $(this);
 
                     thumbs.append(th);
+                    th.load(thumb_load);
 
                     /* Exchange blood */
                     th.data('soulmate', soulmate);
@@ -131,7 +140,7 @@
                     image.hide().insertAfter(canvas);
                     ctx = canvas[0].getContext('2d');
                     mininav_ctx = mininav_canvas[0].getContext('2d');
-                    mininav_ctx.fillStyle = 'rgba(255, 255, 255, 0.7)';
+                    mininav_ctx.fillStyle = 'rgba(255, 255, 255, 0.5)';
                     mininav_ctx.strokeStyle = 'rgba(255, 0, 0, 1)';
 
                     if (!settings.length) {
@@ -350,6 +359,19 @@
 
                 view_width = ul.width();
                 view_height = ul.height();
+
+                /* Enable scrollbar on thumbnails if needed. */
+                var $con = $('#thumb-selector-container');
+                var $sel = $('#thumb-selector');
+                var con_height = $con.height();
+                var thumbs_height = $sel.height();
+
+                if (con_height >= thumbs_height) {
+                    $con.removeClass('overflowing');
+                    return;
+                }
+
+                $con.addClass('overflowing');
 
             });
 

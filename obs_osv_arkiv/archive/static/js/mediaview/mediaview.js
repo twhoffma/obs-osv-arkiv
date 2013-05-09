@@ -4,6 +4,10 @@
 
 $(document).ready(function() {
 
+    var $ts = $('#thumb-selector-inner');
+    var $sup = $('#scroll-up');
+    var $sdn = $('#scroll-down');
+
     $('#mediaview').mediaview();
 
     $('#toggle-details').click(function() {
@@ -17,6 +21,14 @@ $(document).ready(function() {
             details.show('slide', { direction: 'right' }, 'fast');
         }
 
+    });
+
+    $sup.click(function() {
+        $ts[0].scrollTop -= 100;
+    });
+
+    $sdn.click(function() {
+        $ts[0].scrollTop += 100;
     });
 
 });
