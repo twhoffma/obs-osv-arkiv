@@ -174,3 +174,28 @@
     background-color:#53a1f1;
     color:white; 
 }
+
+#controls {
+	position:fixed;
+	bottom:0;
+	right:0;
+	width:140px;
+	background-color:#000;
+	padding:7px 0 5px;
+	text-align:center;
+}
+
+#controls a {
+	color:#aaaaaa;
+	padding:8px;
+	font-size:1.5em;
+}
+
+#controls a:hover {
+	color:#FFF;	
+}
+
+#controls a:active {
+	color:#53a1f1;	
+}
+
