@@ -274,26 +274,6 @@ aside a.cat-lvl-3 {
 	color:#53a1f1;	
 }
 
-.infoboks {
-	font-family: 'Gill Sans', 'Quattrocento Sans', arial, sans-serif; 
-	font-size:1.5em; 
-	font-weight:normal; 
-	color:#ccc;
-	background-color:#6f7072;
-	line-height:1.5em;
-	width:500px; 
-	padding:15px 145px 15px 15px;
-	position:absolute;
-	right:0px;
-	bottom:0px;
-	}
-	
-.infoboks a {color:#666;}
-
-.infoboks a:hover {color:#aaaaaa;}
-
-.infoboks a:active {color:#53a1f1;}
-
 .header {
 	text-transform:uppercase; 
 	color:#000; 

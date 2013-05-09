@@ -31,13 +31,7 @@
     
 <script type="text/javascript" src="{{STATIC_URL}}js/mediaview/jquery.mousewheel.js"></script>    
 <script type="text/javascript" src="{{STATIC_URL}}js/mediaview/jquery.mediaview.js"></script>    
-<script type="text/javascript">
-
-	$(document).ready(function() {
-		$('#mediaview').mediaview();
-	});
-
-</script>    
+<script type="text/javascript" src="{{STATIC_URL}}js/mediaview/mediaview.js"></script>    
 
 </head>
 
@@ -47,11 +41,15 @@
 
 		<nav id="sidebar">	
 
-			<a class="corner-stamp cat-lvl-3" href="{% url 'node' node_pk=current.pk %}">Tilbake</a>
+			<a class="blocklink" href="{% url 'node' node_pk=current.pk %}">Tilbake</a>
 
 			<div class="thumb-selector"></div>
 
-			<div class="infoboks">
+			<a class="blocklink" id="toggle-details" href="javascript:;">Detaljer</a>
+
+			<div id="thumb-navigator"></div>
+
+			<div class="infoboks gradient-bg">
 				<table border="0">
 					{% if object.title %}
 					<tr>
