@@ -141,6 +141,7 @@
                         settings.zoom = 1.0;
                         settings.rotate = 0;
                         settings.mousedown = false;
+                        settings.mininav_mousedown = false;
                         settings.mousemode = null;
 
                         var mininav_draw = function() {
@@ -242,6 +243,9 @@
                         canvas.mousewheel(function(ev, delta, deltaX, deltaY) {
                             mouse_event(ev, 'zoom', deltaX, deltaY);
                         });
+                        mininav_canvas.mousewheel(function(ev, delta, deltaX, deltaY) {
+                            mouse_event(ev, 'zoom', deltaX, deltaY);
+                        });
 
                         /* Panning requires several events */
                         var stopmouse = function() {
@@ -269,6 +273,33 @@
                             var delta = [ ev.pageX - settings.last_mouse[0], ev.pageY - settings.last_mouse[1] ];
                             mouse_event(ev, settings.mousemode, delta[0], delta[1]);
                             settings.last_mouse = [ev.pageX, ev.pageY];
+                        });
+
+                        /* Mininav panning is simpler */
+                        var mininav_stopmouse = function() {
+                            settings.mininav_mousedown = false;
+                        };
+                        mininav_canvas.mousedown(function(ev) {
+                            settings.mininav_mousedown = true;
+                            settings.mininav_last_mouse = [ev.pageX, ev.pageY];
+                            ev.stopPropagation();
+                            ev.preventDefault();
+                        });
+                        mininav_canvas.mouseup(mininav_stopmouse);
+                        mininav_canvas.mouseleave(mininav_stopmouse);
+                        mininav_canvas.mousemove(function(ev) {
+                            if (!settings.mininav_mousedown) {
+                                return;
+                            }
+                            var delta = [ ev.pageX - settings.mininav_last_mouse[0], ev.pageY - settings.mininav_last_mouse[1] ];
+                            delta[0] *= base_ratio * settings.zoom;
+                            delta[1] *= base_ratio * settings.zoom;
+                            var cos = Math.cos(settings.rotate * (Math.PI / 180));
+                            var sin = Math.sin(settings.rotate * (Math.PI / 180));
+                            settings.pan[0] -= (delta[0] * cos) + (delta[1] * sin);
+                            settings.pan[1] -= (delta[1] * cos) - (delta[0] * sin);
+                            draw();
+                            settings.mininav_last_mouse = [ev.pageX, ev.pageY];
                         });
 
                         /* Initial zoom level based on image and viewport dimensions */
