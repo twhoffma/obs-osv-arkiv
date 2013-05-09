@@ -43,9 +43,15 @@
 
 			<a class="blocklink" href="{% url 'node' node_pk=current.pk %}">Tilbake</a>
 
-			<div class="thumb-selector"></div>
-
 			<a class="blocklink" id="toggle-details" href="javascript:;">Detaljer</a>
+
+			<div id="thumb-selector-container">
+				<div id="scroll-up" class="blocklink">opp</div>
+				<div id="thumb-selector-inner">
+					<div id="thumb-selector"></div>
+				</div>
+				<div id="scroll-down" class="blocklink">ned</div>
+			</div>
 
 			<div id="thumb-navigator"></div>
 
