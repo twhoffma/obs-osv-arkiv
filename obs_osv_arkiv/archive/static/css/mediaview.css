@@ -90,7 +90,7 @@
 	font-family: 'Gill Sans', 'Quattrocento Sans', arial, sans-serif; 
 	font-size:1.5em; 
 	font-weight:normal; 
-	color:#ccc;
+	color:#fff;
 	background-color:#6f7072;
 	line-height:1.5em;
 	width:500px; 
@@ -102,7 +102,7 @@
     display: none;
 }
 	
-.infoboks a {color:#666;}
+.infoboks a {color:#ccc;}
 
 .infoboks a:hover {color:#aaaaaa;}
 
