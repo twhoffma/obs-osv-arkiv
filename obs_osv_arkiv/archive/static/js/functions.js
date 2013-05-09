@@ -1,18 +1,11 @@
 // JavaScript Document
 
-$('nav').isotope({
+$('#main-nav').isotope({
   // options
   itemSelector : '.cat',
   layoutMode : 'fitRows'
 });
 
-$('nav #nav').isotope({
-  itemSelector: '.cat cat-lvl-3',
-  masonry: {
-    columnWidth: 120,
-    cornerStampSelector: '.corner-stamp .corner-stamp2'
-  }
-});
 
 $('#item-info-wrapper').isotope({
   // options
@@ -27,15 +20,6 @@ $('#content').isotope({
   layoutMode : 'masonry'
 });
 
-$(function(){
-        $(".thumb").hover(function(){
-                            $(this).fadeTo('fast',0.3);   
-                            },
-                            function(){
-                            $(this).fadeTo('fast',1);       
-                            });
-});
-
 var $container = $('#content');
 
 $container.imagesLoaded( function(){
@@ -44,15 +28,11 @@ $container.imagesLoaded( function(){
   });
 });
 
-//Flexslider
-/*$(window).load(function() {
-  $('.flexslider').flexslider({
-    animation: "slide",
-	animationSpeed: 0,    
-	controlNav: "thumbnails",
-	slideshow: false,
-	touch: true,
-	video: true,
-  });
+
+$(function(){
+    $('a.toggle').click(function(){
+      $('#infobox').animate({
+       width: 'toggle'
+      });
+    });
 });
-*/

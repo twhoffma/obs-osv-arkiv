@@ -4,13 +4,13 @@
 	
 {%if m %}
 	<a href="{% if node %}{% url 'node_and_item' node_pk=node.pk pk=item.pk %}{% else %}{% url 'item' pk=item.pk %}{% endif %}">
-		<div class="thumb">
+		<div class="thumb ease">
 			<img src="{% media_thumb m 200 2000 %}" alt="{{ m }}" />
 		</div>
 	</a>
 {% else %}
 	<a href="{% if node %}{% url 'node_and_item' node_pk=node.pk pk=item.pk %}{% else %}{% url 'item' pk=item.pk %}{% endif %}">
-		<div class="thumb">
+		<div class="thumb ease">
 			<img src="{% static "images/thumb_item.jpg" %}" alt="{{ item }}" />
 			<p>{{ item }}</p>
 		</div>

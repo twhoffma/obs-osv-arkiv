@@ -2,11 +2,10 @@
 <html>
 <head>
 <meta charset=UTF-8>
-<title>Item-title</title><!--dynamisk sette inn gjenstandsnavnet her?-->
+<title>Guttormsgaards ARKIV</title>
 
 <link href='http://fonts.googleapis.com/css?family=Quattrocento+Sans:400,400italic,700,700italic' rel='stylesheet' type='text/css'>
-<link rel="stylesheet" media='screen and (min-width: 600px) and (max-width: 2500px)' href='css/style.css' />
-<link rel="stylesheet" media='screen and (min-width: 1px) and (max-width: 599px)' href='css/style-smaller.css' />
+<link rel="stylesheet" media='screen' href='css/style.css' />
 <link rel="stylesheet" type="text/css" href="css/jquery-ui-1.9.2.custom.min.css" />
 
 <!--[if lt IE 9]>
@@ -21,95 +20,84 @@
 
 <body>
 
-<header>
+<div id="mediaview">
+  
+  <div id="container">
     
-</header>
-
-<section>
-  
-  <!--<img src="images/jorn1.jpg"/>sett inn bilde her-->
-  
-  <div class="infoboks gradient-bg">
-
-  <table border="0">
-  <tr>
-  <td><p class="header">TITTEL/BETEGNELSE</p></td>
-  <td><p class="text">Held og Hasard. Dolk og guitar.</p></td>
-  </tr>
-  <tr>
-  <td><p class="header">KUNSTNER/PRODUSENT</p></td>
-  <td><p class="text">Asger, Jorn.</p></td>
-  </tr>
-  <tr>
-  <td><p class="header">DATERING</p></td>
-  <td><p class="text">1952.</p></td>
-  </tr>
-  <tr>
-  <td><p class="header">OPPHAVSSTED</p></td>
-  <td><p class="text">Silkeborg, Danmark.</p></td>
-  </tr>
-  <tr>
-  <td><p class="header">DIMENSJONER</p></td>
-  <td><p class="text">Bredde: 19,2 cm. Høyde: 26 cm.</p></td>
-  </tr>
-  <tr>
-  <td><p class="header">MATERIALE/TEKNIKK</p></td>
-  <td><p class="text">Linoleumstrykk og trykk på papir, innbundet.</p></td>
-  </tr>
-  <tr>
-  <td><p class="header">SUPPLERENDE</p></td>
-  <td><p class="text">Silkeborg: Privattryk, 1952. Nr. 21. Utgitt i 25 nummererte og signerte eksemplarer. Illustrasjoner i linoleumssnitt, håndtrykket på imitert bøttepapir. Trykket i tre opplag med ulike papirkvaliteter, i henholdsvis 24, 64 og 25 eks.</p></td>
-  </tr>
-  <tr>
-  <td><p class="header">REFERANSELITTERATUR</p></td>
-  <td><p class="text">"Lysten og hemmeligheten", Guttorm Guttormsgaard, Pax forlag, 2004.</p></td>
-  </tr>
-  </table>
-
-  </div><!--END OF INFOBOKS-->
-  
-  
-</section>
-
-<aside>
-  
-  <a href="#" class="cat-lvl-3">tilbake</a>
-  
-  <div id="thumb-slider">
-    
-    <a href="#" data-icon="&#x2191;" class="slider-arrow"></a>
-    
-    <a href="#"><img src="images/jorn1.jpg" alt=""></a>
-    <a href="#"><img src="images/jorn2.jpg" alt=""></a>
-    <a href="#"><img src="images/jorn3.jpg" alt=""></a>
-    <a href="#"><img src="images/jorn4.jpg" alt=""></a>
-    <a href="#"><img src="images/jorn3.jpg" alt=""></a>
-      
-    <a href="#" data-icon="&#x2193;" class="slider-arrow"></a>
-     
-  </div><!--END OF THUMB-SLIDER-->
-  
-  <a href="#" class="cat-lvl-3">se film</a><!--åpner video som overlay mot svart bakgrunn-->
-  <a href="#" class="cat-lvl-3">lydklipp</a>
-  <a href="#" class="cat-lvl-3">info</a>
-
-  <div id="mini-map">
-    <a href="#"><img src="images/jorn1.jpg" alt=""></a>
-    <a href="#" data-icon="&#x271a;"></a>
-    <a href="#" data-icon="&#x23bc;"></a>
-    <a href="#" data-icon="&#x2715;"></a>
   </div>
   
-</aside>
-  
+  <nav id="sidebar">
+    
+    <a class="cat breadcrumbs sidebar-links" href="#">Tilbake</a>
+    <a class="cat breadcrumbs sidebar-links" href="#">Fullskjerm</a>
+    <a class="cat breadcrumbs sidebar-links toggle" href="#">Info</a>
+    
+    <div id="thumb-selector">
+      
+      <a href="#" class="slider-arrow"><span aria-hidden="true" data-icon="&#x2191;"></span></a>
+      <img class="active ease" src="images/jorn1.jpg" />
+      <img class="ease" src="images/jorn2.jpg" />
+      <img class="ease" src="images/jorn3.jpg" />
+      <img class="ease" src="images/jorn4.jpg" />
+      <a href="#" class="slider-arrow"><span aria-hidden="true" data-icon="&#x2193;"></span></a>
+      
+    </div>
+    
+    <div id="controls">
+      <a href="#"><span aria-hidden="true" data-icon="&#x271a;"></span></a>
+      <a href="#"><span aria-hidden="true" data-icon="&#x23bc;"></span></a>
+      <a href="#"><span aria-hidden="true" data-icon="&#x2940;"></span></a>
+      <a href="#"><span aria-hidden="true" data-icon="&#x2715;"></span></a>
+    </div>
+    
+  </nav>
 
+<div id="infobox" class="gradient">
 
+<table border="0">
+<tr>
+<td><p class="title">TITTEL/BETEGNELSE</p></td>
+<td><p class="text">Held og Hasard. Dolk og guitar.</p></td>
+</tr>
+<tr>
+<td><p class="title">KUNSTNER/PRODUSENT</p></td>
+<td><p class="text">Asger, Jorn.</p></td>
+</tr>
+<tr>
+<td><p class="title">DATERING</p></td>
+<td><p class="text">1952.</p></td>
+</tr>
+<tr>
+<td><p class="title">OPPHAVSSTED</p></td>
+<td><p class="text">Silkeborg, Danmark.</p></td>
+</tr>
+<tr>
+<td><p class="title">DIMENSJONER</p></td>
+<td><p class="text">Bredde: 19,2 cm. Høyde: 26 cm.</p></td>
+</tr>
+<tr>
+<td><p class="title">MATERIALE/TEKNIKK</p></td>
+<td><p class="text">Linoleumstrykk og trykk på papir, innbundet.</p></td>
+</tr>
+<tr>
+<td><p class="title">SUPPLERENDE</p></td>
+<td><p class="text">Silkeborg: Privattryk, 1952. Nr. 21. Utgitt i 25 nummererte og signerte eksemplarer. Illustrasjoner i linoleumssnitt, håndtrykket på imitert bøttepapir. Trykket i tre opplag med ulike papirkvaliteter, i henholdsvis 24, 64 og 25 eks.</p></td>
+</tr>
+<tr>
+<td><p class="title">REFERANSELITTERATUR</p></td>
+<td><p class="text">"Lysten og hemmeligheten", Guttorm Guttormsgaard, Pax forlag, 2004.</p></td>
+</tr>
+</table>
+
+</div><!--END OF INFOBOX-->
 
 <footer>
 
 <script type="text/javascript" src="js/functions.js"></script>
 
 </footer>
+
+</div><!--END OF MEDIAVIEW-->
 
 </body>
 
