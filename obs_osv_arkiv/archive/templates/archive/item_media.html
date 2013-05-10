@@ -6,15 +6,15 @@
 {% for m in media %}
 	<li data-thumb="{% media_thumb m 140 2000 %}">
 		{% if m.media_type == "Movie" %}
-				<video controls>
-				{% for file in m.file_set.all %}
-						<source src="{{MEDIA_URL}}/media/{{ file }}" type="{{ file.content_type }}">
-				{% endfor %}
-				</video>
+			<video controls>
+			{% for file in m.file_set.all %}
+				<source src="{{MEDIA_URL}}/media/{{ file }}" type="{{ file.content_type }}">
+			{% endfor %}
+			</video>
 		{% elif m.media_type == "Sound" %}
 			<audio controls>
 				{% for file in m.file_set.all %}
-						<source src="{{MEDIA_URL}}/media/{{ file }}" type="{{ file.content_type }}">
+					<source src="{{MEDIA_URL}}/media/{{ file }}" type="{{ file.content_type }}">
 				{% endfor %}
 			</audio>	
 		{% else %}
