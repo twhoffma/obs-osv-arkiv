@@ -18,9 +18,9 @@
     var settings = {};
 
     /**
-     * Mininav 
-     * FIXME TODO XXX
+     * Enable mininav?
      */
+    var mininav_enabled = false;
 
     /**
      * How fast does the wheel zoom?
@@ -120,13 +120,15 @@
                 }
 
                 /* Set up thumbnail mini-navigation */
-                var mininav = $('#thumb-navigator');
-                var thumb = img.clone().hide();
-                var mininav_canvas = $('<canvas/>');
-                var base_ratio = 1.0;
-                mininav.empty().append(thumb);
-                mininav.append(mininav_canvas);
-                mininav.appendTo(sidebar);
+                if (mininav_enabled) {
+                    var mininav = $('#thumb-navigator');
+                    var thumb = img.clone().hide();
+                    var mininav_canvas = $('<canvas/>');
+                    var base_ratio = 1.0;
+                    mininav.empty().append(thumb);
+                    mininav.append(mininav_canvas);
+                    mininav.appendTo(sidebar);
+                }
 
                 settings = canvas.data('settings');
 
@@ -134,14 +136,17 @@
                 var load_port = function(image) {
                     canvas[0].width = view_width;
                     canvas[0].height = view_height;
-                    mininav_canvas[0].width = img[0].width;
-                    mininav_canvas[0].height = img[0].height;
-                    base_ratio = image[0].width / img[0].width;
                     image.hide().insertAfter(canvas);
                     ctx = canvas[0].getContext('2d');
-                    mininav_ctx = mininav_canvas[0].getContext('2d');
-                    mininav_ctx.fillStyle = 'rgba(255, 255, 255, 0.5)';
-                    mininav_ctx.strokeStyle = 'rgba(255, 0, 0, 1)';
+
+                    if (mininav_enabled) {
+                        mininav_canvas[0].width = img[0].width;
+                        mininav_canvas[0].height = img[0].height;
+                        base_ratio = image[0].width / img[0].width;
+                        mininav_ctx = mininav_canvas[0].getContext('2d');
+                        mininav_ctx.fillStyle = 'rgba(255, 255, 255, 0.5)';
+                        mininav_ctx.strokeStyle = 'rgba(255, 0, 0, 1)';
+                    }
 
                     if (!settings.length) {
 
@@ -152,45 +157,6 @@
                         settings.mousedown = false;
                         settings.mininav_mousedown = false;
                         settings.mousemode = null;
-
-                        var mininav_draw = function() {
-                            mininav_ctx.setTransform(1, 0, 0, 1, 0, 0);
-                            mininav_ctx.clearRect(0, 0, mininav_canvas[0].width, mininav_canvas[0].height);
-
-                            mininav_ctx.translate(img[0].width / 2, img[0].height / 2);
-                            mininav_ctx.rotate(settings.rotate * (Math.PI / 180));
-                            mininav_ctx.translate(-img[0].width / 2, -img[0].height / 2);
-
-                            mininav_ctx.drawImage(img[0], 0, 0);
-
-                            /* Figure out viewport window. */
-                            var x1 = settings.pan[0];
-                            var y1 = settings.pan[1];
-                            var x2 = x1 + (image[0].width * settings.zoom);
-                            var y2 = y1 + (image[0].height * settings.zoom);
-
-                            var mini_x1 = 0;
-                            var mini_y1 = 0;
-                            var mini_x2 = img[0].width;
-                            var mini_y2 = img[0].height;
-
-                            if (x1 < 0) {
-                                mini_x1 = (-x1 / settings.zoom) / base_ratio;
-                            }
-                            if (y1 < 0) {
-                                mini_y1 = (-y1 / settings.zoom) / base_ratio;
-                            }
-                            if (x2 > view_width) {
-                                mini_x2 -= ((x2 - view_width) / base_ratio) / settings.zoom;
-                            }
-                            if (y2 > view_height) {
-                                mini_y2 -= ((y2 - view_height) / base_ratio) / settings.zoom;
-                            }
-
-                            mininav_ctx.fillRect(mini_x1, mini_y1, mini_x2-mini_x1, mini_y2-mini_y1);
-                            mininav_ctx.strokeRect(mini_x1, mini_y1, mini_x2-mini_x1, mini_y2-mini_y1);
-
-                        };
 
                         var draw = function() {
                             ctx.setTransform(1, 0, 0, 1, 0, 0);
@@ -203,7 +169,9 @@
                             ctx.scale(settings.zoom, settings.zoom);
                             ctx.drawImage(image[0], settings.pan[0] / settings.zoom, settings.pan[1] / settings.zoom);
 
-                            mininav_draw();
+                            if (mininav_enabled) {
+                                mininav_draw();
+                            }
                         };
 
                         var mouse_event = function(ev, mode, deltaX, deltaY) {
@@ -252,9 +220,6 @@
                         canvas.mousewheel(function(ev, delta, deltaX, deltaY) {
                             mouse_event(ev, 'zoom', deltaX, deltaY);
                         });
-                        mininav_canvas.mousewheel(function(ev, delta, deltaX, deltaY) {
-                            mouse_event(ev, 'zoom', deltaX, deltaY);
-                        });
 
                         /* Panning requires several events */
                         var stopmouse = function() {
@@ -285,31 +250,76 @@
                         });
 
                         /* Mininav panning is simpler */
-                        var mininav_stopmouse = function() {
-                            settings.mininav_mousedown = false;
-                        };
-                        mininav_canvas.mousedown(function(ev) {
-                            settings.mininav_mousedown = true;
-                            settings.mininav_last_mouse = [ev.pageX, ev.pageY];
-                            ev.stopPropagation();
-                            ev.preventDefault();
-                        });
-                        mininav_canvas.mouseup(mininav_stopmouse);
-                        mininav_canvas.mouseleave(mininav_stopmouse);
-                        mininav_canvas.mousemove(function(ev) {
-                            if (!settings.mininav_mousedown) {
-                                return;
-                            }
-                            var delta = [ ev.pageX - settings.mininav_last_mouse[0], ev.pageY - settings.mininav_last_mouse[1] ];
-                            delta[0] *= base_ratio * settings.zoom;
-                            delta[1] *= base_ratio * settings.zoom;
-                            var cos = Math.cos(settings.rotate * (Math.PI / 180));
-                            var sin = Math.sin(settings.rotate * (Math.PI / 180));
-                            settings.pan[0] -= (delta[0] * cos) + (delta[1] * sin);
-                            settings.pan[1] -= (delta[1] * cos) - (delta[0] * sin);
-                            draw();
-                            settings.mininav_last_mouse = [ev.pageX, ev.pageY];
-                        });
+                        if (mininav_enabled) {
+
+                            var mininav_draw = function() {
+                                mininav_ctx.setTransform(1, 0, 0, 1, 0, 0);
+                                mininav_ctx.clearRect(0, 0, mininav_canvas[0].width, mininav_canvas[0].height);
+
+                                mininav_ctx.translate(img[0].width / 2, img[0].height / 2);
+                                mininav_ctx.rotate(settings.rotate * (Math.PI / 180));
+                                mininav_ctx.translate(-img[0].width / 2, -img[0].height / 2);
+
+                                mininav_ctx.drawImage(img[0], 0, 0);
+
+                                /* Figure out viewport window. */
+                                var x1 = settings.pan[0];
+                                var y1 = settings.pan[1];
+                                var x2 = x1 + (image[0].width * settings.zoom);
+                                var y2 = y1 + (image[0].height * settings.zoom);
+
+                                var mini_x1 = 0;
+                                var mini_y1 = 0;
+                                var mini_x2 = img[0].width;
+                                var mini_y2 = img[0].height;
+
+                                if (x1 < 0) {
+                                    mini_x1 = (-x1 / settings.zoom) / base_ratio;
+                                }
+                                if (y1 < 0) {
+                                    mini_y1 = (-y1 / settings.zoom) / base_ratio;
+                                }
+                                if (x2 > view_width) {
+                                    mini_x2 -= ((x2 - view_width) / base_ratio) / settings.zoom;
+                                }
+                                if (y2 > view_height) {
+                                    mini_y2 -= ((y2 - view_height) / base_ratio) / settings.zoom;
+                                }
+
+                                mininav_ctx.fillRect(mini_x1, mini_y1, mini_x2-mini_x1, mini_y2-mini_y1);
+                                mininav_ctx.strokeRect(mini_x1, mini_y1, mini_x2-mini_x1, mini_y2-mini_y1);
+
+                            };
+
+                            var mininav_stopmouse = function() {
+                                settings.mininav_mousedown = false;
+                            };
+                            mininav_canvas.mousedown(function(ev) {
+                                settings.mininav_mousedown = true;
+                                settings.mininav_last_mouse = [ev.pageX, ev.pageY];
+                                ev.stopPropagation();
+                                ev.preventDefault();
+                            });
+                            mininav_canvas.mouseup(mininav_stopmouse);
+                            mininav_canvas.mouseleave(mininav_stopmouse);
+                            mininav_canvas.mousemove(function(ev) {
+                                if (!settings.mininav_mousedown) {
+                                    return;
+                                }
+                                var delta = [ ev.pageX - settings.mininav_last_mouse[0], ev.pageY - settings.mininav_last_mouse[1] ];
+                                delta[0] *= base_ratio * settings.zoom;
+                                delta[1] *= base_ratio * settings.zoom;
+                                var cos = Math.cos(settings.rotate * (Math.PI / 180));
+                                var sin = Math.sin(settings.rotate * (Math.PI / 180));
+                                settings.pan[0] -= (delta[0] * cos) + (delta[1] * sin);
+                                settings.pan[1] -= (delta[1] * cos) - (delta[0] * sin);
+                                draw();
+                                settings.mininav_last_mouse = [ev.pageX, ev.pageY];
+                            });
+                            mininav_canvas.mousewheel(function(ev, delta, deltaX, deltaY) {
+                                mouse_event(ev, 'zoom', deltaX, deltaY);
+                            });
+                        }
 
                         /* Initial zoom level based on image and viewport dimensions */
                         var x = view_width / image[0].width;
