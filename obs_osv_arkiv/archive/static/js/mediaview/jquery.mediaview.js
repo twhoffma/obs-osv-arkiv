@@ -365,14 +365,26 @@
 
             return this.each(function() {
 
-                var ul = $(this).children('#container').children('ul');
-
-                view_width = ul.width();
-                view_height = ul.height();
-
-                /* Enable scrollbar on thumbnails if needed. */
+                var $ul = $(this).children('#container').children('ul');
                 var $con = $('#thumb-selector-container');
                 var $sel = $('#thumb-selector');
+                var $sidebar = $('#sidebar');
+                var $canvas = $('canvas:visible');
+
+                view_height = $(document).height();
+                view_width = $(document).width();
+                if ($sidebar.is(':visible')) {
+                    view_width -= $sidebar.outerWidth();
+                }
+                $ul.css('height', view_height + 'px');
+                $ul.css('width', view_width + 'px');
+
+                if ($canvas.length > 0) {
+                    $canvas[0].width = view_width;
+                    $canvas[0].height = view_height;
+                }
+
+                /* Enable scrollbar on thumbnails if needed. */
                 var con_height = $con.height();
                 var thumbs_height = $sel.height();
 

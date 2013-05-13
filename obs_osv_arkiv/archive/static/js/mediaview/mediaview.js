@@ -4,11 +4,14 @@
 
 $(document).ready(function() {
 
+    var $doc = $(document);
     var $ts = $('#thumb-selector-inner');
     var $sup = $('#scroll-up');
     var $sdn = $('#scroll-down');
+    var $mediaview = $('#mediaview');
+    var $sidebar = $('#sidebar');
 
-    $('#mediaview').mediaview();
+    $mediaview.mediaview();
 
     $('#toggle-details').click(function() {
 
@@ -21,6 +24,14 @@ $(document).ready(function() {
             details.show('slide', { direction: 'right' }, 'fast');
         }
 
+    });
+
+    $('#toggle-fullscreen').click(function() {
+        $doc.fullScreen(true);
+    });
+
+    $doc.bind('fullscreenchange', function() {
+        $sidebar.toggle(!($doc.fullScreen()));
     });
 
     $sup.click(function() {

@@ -51,7 +51,7 @@
 
 #thumb-selector-container {
     position: absolute;
-    top: 86px;
+    top: 120px; /* increase by 24px when adding buttons */
     bottom: 145px; /* when thumb navigation is visible */
     bottom: 10px;
     width: 140px;

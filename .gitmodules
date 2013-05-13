@@ -1,0 +1,3 @@
+[submodule "obs_osv_arkiv/archive/static/js/fullscreen"]
+	path = obs_osv_arkiv/archive/static/js/fullscreen
+	url = git://github.com/kayahr/jquery-fullscreen-plugin.git

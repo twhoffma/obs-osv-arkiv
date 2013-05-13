@@ -10,7 +10,6 @@
 <link rel="stylesheet" href="{{STATIC_URL}}css/supersized.core.css" type="text/css" media="screen" />
 <link href='http://fonts.googleapis.com/css?family=Quattrocento+Sans:400,400italic,700,700italic' rel='stylesheet' type='text/css'>
 <link rel="stylesheet" media='screen and (min-width: 600px) and (max-width: 2500px)' href="{{STATIC_URL}}css/style.css" type="text/css">
-<link rel="stylesheet" media='screen and (min-width: 300px) and (max-width: 599px)' href='{{STATIC_URL}}css/style-smaller.css' />
 <link rel="stylesheet" href="{{STATIC_URL}}css/jquery-ui-1.9.1.custom.min.css" type="text/css" />
 <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}css/mediaview.css" />
 
@@ -22,13 +21,9 @@
 <script type="text/javascript" src="{{STATIC_URL}}js/jquery-ui-1.9.1.custom.min.js"></script>
 <script type="text/javascript" src="{{STATIC_URL}}js/museum_functions.js"></script>
 
-
-<style type="text/css">
-   @import url({{STATIC_URL}}css/panojs.css);      
-</style>
-
 <script type="text/javascript" src="{{STATIC_URL}}js/extjs/ext-core.js"></script>    
     
+<script type="text/javascript" src="{{STATIC_URL}}js/fullscreen/jquery.fullscreen-min.js"></script>    
 <script type="text/javascript" src="{{STATIC_URL}}js/mediaview/jquery.mousewheel.js"></script>    
 <script type="text/javascript" src="{{STATIC_URL}}js/mediaview/jquery.mediaview.js"></script>    
 <script type="text/javascript" src="{{STATIC_URL}}js/mediaview/mediaview.js"></script>    
@@ -43,7 +38,9 @@
 
 			<a class="blocklink" href="{% url 'node' node_pk=current.pk %}">Tilbake</a>
 
-			<a class="blocklink" id="toggle-details" href="javascript:;">Detaljer</a>
+			<a class="blocklink" id="toggle-fullscreen" href="javascript:;">Fullskjerm</a>
+
+			<a class="blocklink" id="toggle-details" href="javascript:;">Info</a>
 
 			<div id="thumb-selector-container">
 				<div id="scroll-up" class="blocklink">&#x25B2;</div>
