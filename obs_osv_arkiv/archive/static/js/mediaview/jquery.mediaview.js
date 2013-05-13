@@ -9,7 +9,10 @@
     /**
      * The active canvas context for panning, zooming etc.
      */
+    var canvas = null;
     var ctx = null;
+    var canvas_image = null;
+    var mininav = null;
     var mininav_ctx = null;
 
     /**
@@ -21,6 +24,7 @@
      * Enable mininav?
      */
     var mininav_enabled = false;
+    var base_ratio = 1;
 
     /**
      * How fast does the wheel zoom?
@@ -31,7 +35,7 @@
      * Zoom limits
      */
     var MAX_ZOOM = 1.5;
-    var MIN_ZOOM = 0.025;
+    var MIN_ZOOM = 0.25;
 
     /**
      * Viewport width and height
@@ -44,7 +48,60 @@
      */
     var loading = $('<img/>').attr('src', '/static/images/ajax-loader.gif').addClass('loading');
 
+    var draw = function() {
+        ctx.setTransform(1, 0, 0, 1, 0, 0);
+        ctx.clearRect(0, 0, canvas[0].width, canvas[0].height);
 
+        ctx.translate(view_width / 2, view_height / 2);
+        ctx.rotate(settings.rotate * (Math.PI / 180));
+        ctx.translate(-view_width / 2, -view_height / 2);
+
+        ctx.scale(settings.zoom, settings.zoom);
+        ctx.drawImage(canvas_image[0], settings.pan[0] / settings.zoom, settings.pan[1] / settings.zoom);
+
+        if (mininav_enabled) {
+            mininav_draw();
+        }
+    };
+
+    var mininav_draw = function() {
+        mininav_ctx.setTransform(1, 0, 0, 1, 0, 0);
+        mininav_ctx.clearRect(0, 0, mininav_canvas[0].width, mininav_canvas[0].height);
+
+        mininav_ctx.translate(mininav[0].width / 2, mininav[0].height / 2);
+        mininav_ctx.rotate(settings.rotate * (Math.PI / 180));
+        mininav_ctx.translate(-mininav[0].width / 2, -mininav[0].height / 2);
+
+        mininav_ctx.drawImage(mininav[0], 0, 0);
+
+        /* Figure out viewport window. */
+        var x1 = settings.pan[0];
+        var y1 = settings.pan[1];
+        var x2 = x1 + (canvas_image[0].width * settings.zoom);
+        var y2 = y1 + (canvas_image[0].height * settings.zoom);
+
+        var mini_x1 = 0;
+        var mini_y1 = 0;
+        var mini_x2 = mininav[0].width;
+        var mini_y2 = mininav[0].height;
+
+        if (x1 < 0) {
+            mini_x1 = (-x1 / settings.zoom) / base_ratio;
+        }
+        if (y1 < 0) {
+            mini_y1 = (-y1 / settings.zoom) / base_ratio;
+        }
+        if (x2 > view_width) {
+            mini_x2 -= ((x2 - view_width) / base_ratio) / settings.zoom;
+        }
+        if (y2 > view_height) {
+            mini_y2 -= ((y2 - view_height) / base_ratio) / settings.zoom;
+        }
+
+        mininav_ctx.fillRect(mini_x1, mini_y1, mini_x2-mini_x1, mini_y2-mini_y1);
+        mininav_ctx.strokeRect(mini_x1, mini_y1, mini_x2-mini_x1, mini_y2-mini_y1);
+
+    };
     var methods = {
 
         init : function(options) {
@@ -114,7 +171,7 @@
                 soulmate.show().siblings().hide();
 
                 /* Initialize canvas, if applicable */
-                var canvas = soulmate.children('canvas').slice(0, 1);
+                canvas = soulmate.children('canvas').slice(0, 1);
                 if (canvas.length == 0) {
                     return;
                 }
@@ -134,12 +191,14 @@
 
                 /* Callback for image load */
                 var load_port = function(image) {
+                    canvas_image = image;
                     canvas[0].width = view_width;
                     canvas[0].height = view_height;
                     image.hide().insertAfter(canvas);
                     ctx = canvas[0].getContext('2d');
 
                     if (mininav_enabled) {
+                        mininav = img;
                         mininav_canvas[0].width = img[0].width;
                         mininav_canvas[0].height = img[0].height;
                         base_ratio = image[0].width / img[0].width;
@@ -157,22 +216,6 @@
                         settings.mousedown = false;
                         settings.mininav_mousedown = false;
                         settings.mousemode = null;
-
-                        var draw = function() {
-                            ctx.setTransform(1, 0, 0, 1, 0, 0);
-                            ctx.clearRect(0, 0, canvas[0].width, canvas[0].height);
-
-                            ctx.translate(view_width / 2, view_height / 2);
-                            ctx.rotate(settings.rotate * (Math.PI / 180));
-                            ctx.translate(-view_width / 2, -view_height / 2);
-
-                            ctx.scale(settings.zoom, settings.zoom);
-                            ctx.drawImage(image[0], settings.pan[0] / settings.zoom, settings.pan[1] / settings.zoom);
-
-                            if (mininav_enabled) {
-                                mininav_draw();
-                            }
-                        };
 
                         var mouse_event = function(ev, mode, deltaX, deltaY) {
 
@@ -251,46 +294,6 @@
 
                         /* Mininav panning is simpler */
                         if (mininav_enabled) {
-
-                            var mininav_draw = function() {
-                                mininav_ctx.setTransform(1, 0, 0, 1, 0, 0);
-                                mininav_ctx.clearRect(0, 0, mininav_canvas[0].width, mininav_canvas[0].height);
-
-                                mininav_ctx.translate(img[0].width / 2, img[0].height / 2);
-                                mininav_ctx.rotate(settings.rotate * (Math.PI / 180));
-                                mininav_ctx.translate(-img[0].width / 2, -img[0].height / 2);
-
-                                mininav_ctx.drawImage(img[0], 0, 0);
-
-                                /* Figure out viewport window. */
-                                var x1 = settings.pan[0];
-                                var y1 = settings.pan[1];
-                                var x2 = x1 + (image[0].width * settings.zoom);
-                                var y2 = y1 + (image[0].height * settings.zoom);
-
-                                var mini_x1 = 0;
-                                var mini_y1 = 0;
-                                var mini_x2 = img[0].width;
-                                var mini_y2 = img[0].height;
-
-                                if (x1 < 0) {
-                                    mini_x1 = (-x1 / settings.zoom) / base_ratio;
-                                }
-                                if (y1 < 0) {
-                                    mini_y1 = (-y1 / settings.zoom) / base_ratio;
-                                }
-                                if (x2 > view_width) {
-                                    mini_x2 -= ((x2 - view_width) / base_ratio) / settings.zoom;
-                                }
-                                if (y2 > view_height) {
-                                    mini_y2 -= ((y2 - view_height) / base_ratio) / settings.zoom;
-                                }
-
-                                mininav_ctx.fillRect(mini_x1, mini_y1, mini_x2-mini_x1, mini_y2-mini_y1);
-                                mininav_ctx.strokeRect(mini_x1, mini_y1, mini_x2-mini_x1, mini_y2-mini_y1);
-
-                            };
-
                             var mininav_stopmouse = function() {
                                 settings.mininav_mousedown = false;
                             };
@@ -382,6 +385,7 @@
                 if ($canvas.length > 0) {
                     $canvas[0].width = view_width;
                     $canvas[0].height = view_height;
+                    if (ctx) { draw(); }
                 }
 
                 /* Enable scrollbar on thumbnails if needed. */
