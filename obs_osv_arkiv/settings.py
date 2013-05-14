@@ -101,10 +101,10 @@ MIDDLEWARE_CLASSES = (
     # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
 
-ROOT_URLCONF = "%s.urls" % PROJECT_DIRNAME
+ROOT_URLCONF = "urls"
 
 # Python dotted path to the WSGI application used by Django's runserver.
-WSGI_APPLICATION = '%s.wsgi.application' % PROJECT_DIRNAME
+WSGI_APPLICATION = 'wsgi.application'
 
 INSTALLED_APPS = (
     'django.contrib.auth',
