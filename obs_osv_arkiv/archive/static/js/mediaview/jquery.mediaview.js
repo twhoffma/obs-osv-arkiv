@@ -129,7 +129,7 @@
                     var soulmate = $(this);
 
                     thumbs.append(th);
-                    th.load(thumb_load);
+                    th.one('load', thumb_load);
 
                     /* Exchange blood */
                     th.data('soulmate', soulmate);
@@ -139,6 +139,11 @@
                     th.click(function() {
                         $this.mediaview('activate', th);
                     });
+
+                    /* Run load() event even if we missed it */
+                    if (th[0].complete) {
+                        th.load();
+                    }
 
                 });
 
@@ -348,14 +353,20 @@
                 if (image.length == 0) {
                     /* Pre-load thumbnail into viewport for quick view */
                     image = img.clone();
-                    image.load(function() {
+                    image.one('load', function() {
                         load_port(image);
                         var loader = loading.clone().insertBefore(canvas);
 
                         /* Load the real image */
                         image = $('<img/>').attr('src', canvas.attr('data-image'));
-                        image.load(function() { loader.remove(); load_port(image); });
+                        image.one('load', function() { loader.remove(); load_port(image); });
+                        if (image[0].complete) {
+                            image.load();
+                        }
                     });
+                    if (image[0].complete) {
+                        image.load();
+                    }
                 } else {
                     load_port(image);
                 }
@@ -373,10 +384,11 @@
                 var $sel = $('#thumb-selector');
                 var $sidebar = $('#sidebar');
                 var $canvas = $('canvas:visible');
+                var $doc = $(document);
 
-                view_height = $(document).height();
-                view_width = $(document).width();
-                if ($sidebar.is(':visible')) {
+                view_height = $doc.height();
+                view_width = $doc.width();
+                if (!($doc.fullScreen())) {
                     view_width -= $sidebar.outerWidth();
                 }
                 $ul.css('height', view_height + 'px');
