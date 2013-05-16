@@ -329,23 +329,13 @@
                             });
                         }
 
-                        /* Initial zoom level based on image and viewport dimensions */
-                        var x = view_width / image[0].width;
-                        var y = view_height / image[0].height;
-                        if (x < y) {
-                            settings.zoom = x;
-                        } else {
-                            settings.zoom = y;
-                        }
+                        $this.mediaview('reset');
 
-                        /* Center image */
-                        var x = (view_width / 2) - ((image[0].width * settings.zoom) / 2);
-                        var y = (view_height / 2) - ((image[0].height * settings.zoom) / 2);
-                        settings.pan = [x, y];
+                    } else {
+
+                        draw();
 
                     }
-
-                    draw();
                 };
 
                 var image = canvas.siblings('img');
@@ -399,6 +389,33 @@
 
                 settings.pan[0] -= (new_x - im_x);
                 settings.pan[1] -= (new_y - im_y);
+
+                draw();
+
+            });
+
+        },
+
+        reset : function() {
+
+            return this.each(function() {
+
+                settings.last_mouse = [0, 0];
+                settings.rotate = 0;
+
+                /* Initial zoom level based on image and viewport dimensions */
+                var x = view_width / canvas_image[0].width;
+                var y = view_height / canvas_image[0].height;
+                if (x < y) {
+                    settings.zoom = x;
+                } else {
+                    settings.zoom = y;
+                }
+
+                /* Center image */
+                var x = (view_width / 2) - ((canvas_image[0].width * settings.zoom) / 2);
+                var y = (view_height / 2) - ((canvas_image[0].height * settings.zoom) / 2);
+                settings.pan = [x, y];
 
                 draw();
 
