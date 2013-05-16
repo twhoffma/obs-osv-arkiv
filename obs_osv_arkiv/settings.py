@@ -8,6 +8,8 @@ ADMINS = (
     #('Set in local_settings.py', ''),
 )
 
+ALLOWED_HOSTS = ('guttormsgaardsarkiv.no',)
+
 MANAGERS = ADMINS
 
 # Local time zone for this installation. Choices can be found here:
