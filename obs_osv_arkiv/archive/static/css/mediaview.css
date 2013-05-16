@@ -58,7 +58,7 @@ body {
     position: absolute;
     top: 115px; /* increase by 24px when adding buttons */
     bottom: 145px; /* when thumb navigation is visible */
-    bottom: 10px;
+    bottom: 29px;
     width: 120px;
     overflow: hidden;
 }
