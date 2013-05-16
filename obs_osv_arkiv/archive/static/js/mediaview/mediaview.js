@@ -10,6 +10,7 @@ $(document).ready(function() {
     var $sdn = $('#scroll-down');
     var $mediaview = $('#mediaview');
     var $sidebar = $('#sidebar');
+    var rotate_id = null;
 
     $mediaview.mediaview();
 
@@ -38,9 +39,25 @@ $(document).ready(function() {
         $mediaview.mediaview('zoom', -1.2);
     });
 
-    $('#controls #rotate').click(function() {
-        $mediaview.mediaview('rotate', 0);
+    var do_rotate = function() {
+        $mediaview.mediaview('rotate', 0.75);
+    };
+
+    var clear_rotate = function() {
+        if (rotate_id !== null) {
+            clearInterval(rotate_id);
+            rotate_id = null;
+        }
+    };
+
+    $('#controls #rotate').mousedown(function() {
+        if (rotate_id === null) {
+            rotate_id = setInterval(do_rotate, 5);
+        }
     });
+
+    $('#controls #rotate').mouseout(clear_rotate);
+    $('#controls #rotate').mouseup(clear_rotate);
 
     $('#controls #reset').click(function() {
         $mediaview.mediaview('reset');

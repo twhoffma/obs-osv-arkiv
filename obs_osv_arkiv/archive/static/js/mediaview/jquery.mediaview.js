@@ -396,6 +396,18 @@
 
         },
 
+        rotate : function(degrees) {
+
+            return this.each(function() {
+
+                settings.rotate += degrees;
+
+                draw();
+
+            });
+
+        },
+
         reset : function() {
 
             return this.each(function() {
