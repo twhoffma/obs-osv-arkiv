@@ -15,13 +15,13 @@ $(document).ready(function() {
 
     $('#toggle-details').click(function() {
 
-        var details = $('.infoboks');
+        var details = $('#infobox');
         $(this).toggleClass('active');
 
         if (details.is(':visible')) {
-            details.hide('slide', { direction: 'right' }, 'fast');
+            details.hide('slide', { direction: 'right' }, 400);
         } else {
-            details.show('slide', { direction: 'right' }, 'fast');
+            details.show('slide', { direction: 'right' }, 400);
         }
 
     });

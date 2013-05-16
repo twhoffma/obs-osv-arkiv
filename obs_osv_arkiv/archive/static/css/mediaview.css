@@ -4,6 +4,11 @@
  * @author: Kim Tore Jensen <kim@incendio.no>
  */
 
+body {
+    font-family: 'Gill Sans', 'Quattrocento Sans', arial, sans-serif; 
+    font-weight: normal; 
+}
+
 #mediaview {
     position: absolute;
     top: 0;
@@ -44,7 +49,7 @@
     top: 0;
     bottom: 0;
     right: 0;
-    width: 120px;
+    width: 140px;
     padding: 0 10px;
     background: #707172;
 }
@@ -131,33 +136,11 @@
     margin: 0;
     bottom: 0;
     right: 0;
-    width: 120px;
-    height: 120px;
+    width: 140px;
+    height: 140px;
     padding: 10px 20px;
     background: black;
 }
-
-.infoboks {
-	font-family: 'Gill Sans', 'Quattrocento Sans', arial, sans-serif; 
-	font-size:1.5em; 
-	font-weight:normal; 
-	color:#fff;
-	background-color:#6f7072;
-	line-height:1.5em;
-	width:500px; 
-	padding:15px 145px 15px 15px;
-	position:absolute;
-	right: 180px;
-	top: 0;
-    z-index: 1;
-    display: none;
-}
-	
-.infoboks a {color:#ccc;}
-
-.infoboks a:hover {color:#aaaaaa;}
-
-.infoboks a:active {color:#53a1f1;}
 
 .blocklink {
     color: white;
@@ -166,8 +149,6 @@
     display: block; 
     font-size: 15px;
     line-height: 15px;
-    font-family: 'Gill Sans', 'Quattrocento Sans', arial, sans-serif; 
-    font-weight: normal; 
     padding: 5px 3px;
     text-align: center;
     margin: 10px 0;

@@ -54,89 +54,89 @@
 			<div id="thumb-navigator"></div>
 			{% endcomment %}
 
-			<div class="infoboks gradient-bg">
-				<table border="0">
-					{% if object.title %}
-					<tr>
-						<td><p class="header">{%trans "title" %}</p></td>
-						<td><p class="text">{{object.title}}</p></td>
-					</tr>
-					{% endif %}
-					{% if object.artist %}
-					<tr>
-						<td><p class="header">{%trans "artist" %}</p></td>
-						<td><p class="text"><a href="{% url 'artist' artist=object.artist %}">{{object.artist}}</a></p></td>
-					</tr>
-					{% endif %}
-					{% if object.date_from or object.date_to %}
-					<tr>
-						<td><p class="header">{%trans "dating" %}</p></td>
-						<td><p class="text">
-							{% if object.date_from %}
-								{% if object.dating_certainty %}
-									<span style="text-transform: capitalize;">{%trans "from" %}{% if object.dating_certainty != "sure" %}</span> {%trans "approx" %}. {% endif %} {{ object.date_from }} 
-								{% endif%}
-							{% endif %}
-							{% if object.date_to %}
-								{% if object.date_from %} {%trans "to" %} {{ object.date_to }}
-								{% else %}
-									<span style="text-transform: capitalize;">{%trans "to" %}</span> {{ object.date_to }}
-								{% endif %}
-							{% endif %}
-						</p></td>
-					</tr>
-					{% endif %}
-					{% if object.origin_city or object.origin_country %}
-					<tr>
-						<td><p class="header">{%trans "origin" %}</p></td>
-						<td><p class="text">
-						{% if object.origin_city %}
-							<a href="{% url 'city' city=object.origin_city %}" />{{object.origin_city}}</a>
-						{% endif %} 
-						{%if object.origin_country %}
-						{%if object.origin_city %}, {%endif%}
-						<a href="{% url 'country' country=object.origin_country %}">{{ object.origin_country  }}</a>
-						{% endif %} 
-						 {% blocktrans %}{{ object.origin_certainty}}{% endblocktrans %}
-						</p></td>
-					</tr>
-					{% endif %}
-					{% if object.dim_height or object.dim_width or object.dim_depth or object.dim_weight %}
-					<tr>
-						<td><p class="header">{%trans "dimensions" %}</p></td>
-						<td><p class="text">
-							{% if object.dim_width %}
-								<span style="text-transform: capitalize;">{% trans "width" %}</span>: {{object.dim_width}} cm.
-							{% endif %}
-							{% if object.dim_height %}
-								<span style="text-transform: capitalize;">{% trans "height" %}</span>: {{object.dim_height}} cm.
-							{% endif %}
-							{% if object.dim_depth %}
-								<span style="text-transform: capitalize;">{% trans "depth" %}</span>: {{object.dim_depth }} cm.
-							{% endif %}
-							{% if object.dim_weight %}
-								<span style="text-transform: capitalize;">{% trans "weight" %}</span>: {{object.dim_weight }} cm.
-							{% endif %}
-						</p></td>
-					</tr>
-					{% endif %}
-					{% if object.materials.count > 0 %}
-					<tr>
-						<td><p class="header">MATERIALE/TEKNIKK</p></td>
-						<td><p class="text">{% for m in object.materials.all %}{{m}}{% if not forloop.last %},  {% endif%}{% endfor%}</p></td>
-					</tr>
-					{% endif %}
-					{%if object.description %}
-					<tr>
-						<td><p class="header">{%trans "description" %}</p></td>
-						<td><p class="text">{{object.description}}</p></td>
-					</tr>
-					{% endif %}
-				</table>
-			<div>
-
 		</nav>
-	
+
+		<div id="infobox" class="gradient">
+			<table border="0">
+				{% if object.title %}
+				<tr>
+					<td><p class="title">{%trans "title" %}</p></td>
+					<td><p class="text">{{object.title}}</p></td>
+				</tr>
+				{% endif %}
+				{% if object.artist %}
+				<tr>
+					<td><p class="title">{%trans "artist" %}</p></td>
+					<td><p class="text"><a href="{% url 'artist' artist=object.artist %}">{{object.artist}}</a></p></td>
+				</tr>
+				{% endif %}
+				{% if object.date_from or object.date_to %}
+				<tr>
+					<td><p class="title">{%trans "dating" %}</p></td>
+					<td><p class="text">
+						{% if object.date_from %}
+							{% if object.dating_certainty %}
+								<span style="text-transform: capitalize;">{%trans "from" %}{% if object.dating_certainty != "sure" %}</span> {%trans "approx" %}. {% endif %} {{ object.date_from }} 
+							{% endif%}
+						{% endif %}
+						{% if object.date_to %}
+							{% if object.date_from %} {%trans "to" %} {{ object.date_to }}
+							{% else %}
+								<span style="text-transform: capitalize;">{%trans "to" %}</span> {{ object.date_to }}
+							{% endif %}
+						{% endif %}
+					</p></td>
+				</tr>
+				{% endif %}
+				{% if object.origin_city or object.origin_country %}
+				<tr>
+					<td><p class="title">{%trans "origin" %}</p></td>
+					<td><p class="text">
+					{% if object.origin_city %}
+						<a href="{% url 'city' city=object.origin_city %}" />{{object.origin_city}}</a>
+					{% endif %} 
+					{%if object.origin_country %}
+					{%if object.origin_city %}, {%endif%}
+					<a href="{% url 'country' country=object.origin_country %}">{{ object.origin_country  }}</a>
+					{% endif %} 
+					 {% blocktrans %}{{ object.origin_certainty}}{% endblocktrans %}
+					</p></td>
+				</tr>
+				{% endif %}
+				{% if object.dim_height or object.dim_width or object.dim_depth or object.dim_weight %}
+				<tr>
+					<td><p class="title">{%trans "dimensions" %}</p></td>
+					<td><p class="text">
+						{% if object.dim_width %}
+							<span style="text-transform: capitalize;">{% trans "width" %}</span>: {{object.dim_width}} cm.
+						{% endif %}
+						{% if object.dim_height %}
+							<span style="text-transform: capitalize;">{% trans "height" %}</span>: {{object.dim_height}} cm.
+						{% endif %}
+						{% if object.dim_depth %}
+							<span style="text-transform: capitalize;">{% trans "depth" %}</span>: {{object.dim_depth }} cm.
+						{% endif %}
+						{% if object.dim_weight %}
+							<span style="text-transform: capitalize;">{% trans "weight" %}</span>: {{object.dim_weight }} cm.
+						{% endif %}
+					</p></td>
+				</tr>
+				{% endif %}
+				{% if object.materials.count > 0 %}
+				<tr>
+					<td><p class="title">MATERIALE/TEKNIKK</p></td>
+					<td><p class="text">{% for m in object.materials.all %}{{m}}{% if not forloop.last %},  {% endif%}{% endfor%}</p></td>
+				</tr>
+				{% endif %}
+				{%if object.description %}
+				<tr>
+					<td><p class="title">{%trans "description" %}</p></td>
+					<td><p class="text">{{object.description}}</p></td>
+				</tr>
+				{% endif %}
+			</table>
+		</div>
+
 		<div id="container">
 
 			<ul>{% item_media object %}</ul>
