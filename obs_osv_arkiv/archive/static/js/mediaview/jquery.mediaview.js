@@ -375,6 +375,37 @@
 
         },
 
+        zoom : function(factor) {
+
+            return this.each(function() {
+
+                factor = parseFloat(factor);
+                var scroll_delta = 1;
+                if (factor < -1 && settings.zoom > MIN_ZOOM) {
+                    /* zoom out */
+                    scroll_delta = 1 / -factor;
+                } else if (factor > 1 && settings.zoom < MAX_ZOOM) {
+                    /* zoom in */
+                    scroll_delta = factor;
+                }
+
+                settings.zoom = settings.zoom * scroll_delta;
+
+                /* Zoom to center */
+                var im_x = (view_width / 2) - settings.pan[0];
+                var im_y = (view_height / 2) - settings.pan[1];
+                var new_x = im_x * scroll_delta;
+                var new_y = im_y * scroll_delta;
+
+                settings.pan[0] -= (new_x - im_x);
+                settings.pan[1] -= (new_y - im_y);
+
+                draw();
+
+            });
+
+        },
+
         detect_dimensions : function(options) {
 
             return this.each(function() {

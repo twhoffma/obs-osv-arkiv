@@ -286,17 +286,18 @@ footer a:hover {color:#000;}
     text-align:center;
 }
 
-#controls a {
+#controls span {
     color:#aaaaaa;
     padding:8px;
     font-size:1.5em;
+    cursor: pointer;
 }
 
-#controls a:hover {
+#controls span:hover {
     color:#FFF; 
 }
 
-#controls a:active {
+#controls span:active {
     color:#53a1f1;  
 }
 

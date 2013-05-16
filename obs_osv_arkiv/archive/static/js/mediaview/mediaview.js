@@ -30,6 +30,22 @@ $(document).ready(function() {
         $doc.fullScreen(true);
     });
 
+    $('#controls #zoom-in').click(function() {
+        $mediaview.mediaview('zoom', 1.2);
+    });
+
+    $('#controls #zoom-out').click(function() {
+        $mediaview.mediaview('zoom', -1.2);
+    });
+
+    $('#controls #rotate').click(function() {
+        $mediaview.mediaview('rotate', 0);
+    });
+
+    $('#controls #reset').click(function() {
+        $mediaview.mediaview('reset');
+    });
+
     $doc.bind('fullscreenchange', function() {
         $sidebar.toggle(!($doc.fullScreen()));
     });
