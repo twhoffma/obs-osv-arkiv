@@ -10,20 +10,21 @@ $(document).ready(function() {
     var $sdn = $('#scroll-down');
     var $mediaview = $('#mediaview');
     var $sidebar = $('#sidebar');
+    var $toggle_details = $('#toggle-details');
+    var $details = $('#infobox');
     var rotate_id = null;
     var zoom_id = null;
 
     $mediaview.mediaview();
 
-    $('#toggle-details').click(function() {
+    $toggle_details.click(function() {
 
-        var details = $('#infobox');
         $(this).toggleClass('active');
 
-        if (details.is(':visible')) {
-            details.hide('slide', { direction: 'right' }, 400);
+        if ($details.is(':visible')) {
+            $details.hide('slide', { direction: 'right' }, 400);
         } else {
-            details.show('slide', { direction: 'right' }, 400);
+            $details.show('slide', { direction: 'right' }, 400);
         }
 
     });
@@ -86,6 +87,10 @@ $(document).ready(function() {
 
     $doc.bind('fullscreenchange', function() {
         $sidebar.toggle(!($doc.fullScreen()));
+        if ($doc.fullScreen()) {
+            $toggle_details.removeClass('active');
+            $details.hide();
+        }
     });
 
     $sup.click(function() {
