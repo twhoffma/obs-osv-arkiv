@@ -352,22 +352,6 @@ td {
     background-image:      -o-linear-gradient(right, #646567, #6f7072);
 }
 
-video {  
-    width:90%;
-    max-width:1200px; 
-    height:auto;
-    margin:40px 5% 0;
-}
-
-audio {
-    width:100%;
-    position:absolute;
-    bottom:0;
-    left:0;
-}
-
-
-
 /* Search page */
 
 .searchbox {
