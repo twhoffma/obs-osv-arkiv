@@ -1,7 +1,6 @@
 {% load i18n admin_static admin_modify %}
 {% load media_details %}
 {% load admin_urls %}
-{% load url from future %}
 
 <div class="inline-group" id="{{ inline_admin_formset.formset.prefix }}-group">
   <div class="tabular inline-related {% if forloop.last %}last-related{% endif %}">
@@ -32,8 +31,8 @@
              id="{{ inline_admin_formset.formset.prefix }}-{% if not forloop.last %}{{ forloop.counter0 }}{% else %}empty{% endif %}">
         <td class="original">
           {% if inline_admin_form.original or inline_admin_form.show_url %}<p>
-          {% if inline_admin_form.original %}{% endif %}
-          {% if inline_admin_form.show_url %}<a href="../../../r/{{ inline_admin_form.original_content_type_id }}/{{ inline_admin_form.original.id }}/">{% trans "View on site" %}</a>{% endif %}
+          {% if inline_admin_form.original %} {{ inline_admin_form.original }}{% endif %}
+          {% if inline_admin_form.show_url %}<a href="{% url 'admin:view_on_site' inline_admin_form.original_content_type_id inline_admin_form.original.pk %}">{% trans "View on site" %}</a>{% endif %}
             </p>{% endif %}
           {% if inline_admin_form.has_auto_field %}{{ inline_admin_form.pk_field.field }}{% endif %}
           {{ inline_admin_form.fk_field.field }}
@@ -52,21 +51,19 @@
             {% for field in line %}
               <td{% if field.field.name %} class="field-{{ field.field.name }}"{% endif %}>
               {% if field.is_readonly %}
-                  <p>{{ field.contents }}</p>
+                  <p>{{ field.contents|linebreaksbr }}</p>
               {% else %}
                   {{ field.field.errors.as_ul }}
                   {{ field.field }}
 		  
-		  {% if field.field.name == "media" %}
-		  		<div class="media_details">
-		  		{% if inline_admin_form.original.media %}	
-					{% media_details inline_admin_form.original.media %}
-		  		{% endif %}
-				</div>
-				<input type="button" class="select_media_button" value='{%trans "Select media" %}' />
-				<a href="{% url opts|admin_urlname:'add' %}" target="true">[Add media]</a>
-				<a href="">[Select existing media]</a>
-		  {% endif %}
+                  {% if field.field.name == "media" %}
+                        <div class="media_details">
+                            {% if inline_admin_form.original.media %}	
+                                {% media_details inline_admin_form.original.media %}
+                            {% endif %}
+                        </div>
+                        <input type="button" class="select_media_button" value='{%trans "Select media" %}' />
+                  {% endif %}
               {% endif %}
               </td>
             {% endfor %}
@@ -148,3 +145,5 @@
 })(django.jQuery);
     
 </script>
+
+{# vi: se ft=htmldjango: #}

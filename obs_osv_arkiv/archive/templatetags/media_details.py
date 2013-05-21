@@ -1,19 +1,20 @@
-from django.template import Library
+from django import template
 import os.path
-import pdb
 
-register = Library()
+register = template.Library()
 
 @register.inclusion_tag('archive/media_details.html')
 def media_details(media):
-	if media == '' or not os.path.exists(media.filename.path):
-		filename = ''
-		mime_type = ''
-		file = ''
-		msg = 'Warning: Attached file not found'
-	else:
-		file = media.filename
-		filename = media.filename.name
-		mime_type = media.media_type
-		msg = ''
-	return({'filename': filename, 'mime': mime_type, 'file': file, 'm': media, 'msg': msg})
+    try:
+        if not os.path.exists(media.filename.path):
+            raise Exception('File is gone!')
+        file = media.filename
+        filename = media.filename.name
+        mime_type = media.media_type
+        msg = ''
+    except Exception, e:
+        filename = ''
+        mime_type = ''
+        file = ''
+        msg = 'Warning: Attached file not found (' + e.message + ')'
+    return({'filename': filename, 'mime': mime_type, 'file': file, 'm': media, 'msg': msg})

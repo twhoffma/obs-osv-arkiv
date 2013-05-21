@@ -5,8 +5,11 @@ from mptt.models import MPTTModel, TreeForeignKey
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth.models import User
 from os.path import split, splitext
+from django.conf import settings
+from easy_thumbnails.files import get_thumbnailer
 
-import pdb 
+import os
+import settings
 
 
 class ItemHistory(models.Model):
@@ -50,12 +53,18 @@ class File(models.Model):
 		return(self.file.name)
 	
 class Media(models.Model):
+	MEDIA_TYPE_IMAGE = 'Picture'
+	MEDIA_TYPE_MOVIE = 'Movie'
+	MEDIA_TYPE_SOUND = 'Sound'
+	MEDIA_TYPE_TEXT = 'Text'
+	MEDIA_TYPE_MISC = 'Misc'
+
 	MEDIA_TYPES = (
-		('Image', _("Picture")),
-		('Movie', _('Film/Animation')),
-		('Sound', _('Sound')),
-		('Text', _('Text')),
-		('Misc', _('Other'))
+		(MEDIA_TYPE_IMAGE, _("Picture")),
+		(MEDIA_TYPE_MOVIE, _('Film/Animation')),
+		(MEDIA_TYPE_SOUND, _('Sound')),
+		(MEDIA_TYPE_TEXT, _('Text')),
+		(MEDIA_TYPE_MISC, _('Other'))
 	)
 	
 	filename = models.FileField(upload_to='media', verbose_name=_("thumbnail"), blank=True)
@@ -64,6 +73,33 @@ class Media(models.Model):
 	class Meta:
 		verbose_name = _("media")
 		verbose_name_plural = _("media")
+
+	def thumbnail(self, width, height):
+		"""
+		Generate a thumbnail image of this media file, and return its URL.
+		"""
+		if self.filename and os.path.exists(self.filename.path):
+			thumbnailer = get_thumbnailer(self.filename)
+			try:
+				thumb = thumbnailer.get_thumbnail({'size': (width, height)})
+				thumb_url = thumb.url
+				return thumb_url
+			except:
+				pass
+
+		thumb_url = settings.STATIC_URL + 'images/'
+		
+		if self.media_type == self.MEDIA_TYPE_IMAGE:
+			thumb_url = thumb_url + 'thumb_image.jpg'
+		elif self.media_type == self.MEDIA_TYPE_MOVIE:
+			thumb_url = thumb_url + 'thumb_movie.jpg'
+		elif self.media_type == self.MEDIA_TYPE_SOUND:
+			thumb_url = thumb_url + 'thumb_audio.jpg'
+		elif self.media_type == self.MEDIA_TYPE_TEXT:
+			thumb_url = thumb_url + 'thumb_text.jpg'
+		else:
+			thumb_url = thumb_url + 'thumb_misc.jpg'
+		return(thumb_url)
 		
 	def __unicode__(self):
 		from os.path import basename
@@ -237,3 +273,5 @@ class Item(models.Model):
 	def __unicode__(self):
 		return(self.item_number)
 
+
+# vi: se noet:
