@@ -6,14 +6,6 @@ $('#main-nav').isotope({
   layoutMode : 'fitRows'
 });
 
-
-$('#item-info-wrapper').isotope({
-  // options
-  itemSelector : '.infoboks',
-  layoutMode : 'masonry'
-});
-
-
 $('#content').isotope({
   // options
   itemSelector : '.thumb',
