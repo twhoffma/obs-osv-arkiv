@@ -152,15 +152,14 @@ footer {
     left:0;
     margin-left:2.5%;
     padding:0 0 10px 4px;
+    font-size: 1.6em;
+    font-family: 'Gill Sans', 'Quattrocento Sans', arial, sans-serif;
+    font-weight:normal;
 }
 
 footer a {
     color:#FFF;
-    font-size: 1.3em;
-    font-family: 'Gill Sans', 'Quattrocento Sans', arial, sans-serif;
-    font-weight:normal;
     text-transform:uppercase; 
-    letter-spacing:0.1em;
 }
 
 footer a:hover {color:#000;}

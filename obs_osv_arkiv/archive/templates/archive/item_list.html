@@ -28,6 +28,15 @@ $('#content').isotope({
   layoutMode : 'masonry'
 });</script>
 
+{% if bg %}
+	<style>
+		body {
+			background: #000 url('/static/images/supersized/{{ bg }}') 50% 50% no-repeat;
+			background-size: cover;
+		}
+	</style>
+{% endif %}
+
 </head>
 
 <body>
@@ -91,20 +100,13 @@ $('#content').isotope({
 
 <footer>
 
-{% if bg %}
-	<style>
-		body {
-			background: #000 url('/static/images/supersized/{{ bg }}') 50% 50% no-repeat;
-			background-size: cover;
-		}
-	</style>
-{% endif %}
-
-<script type="text/javascript" src="{{STATIC_URL}}js/functions.js"></script>
+<a href="{% url "archive.views.copyright" %}">© Guttorm Guttormsgaard</a>
 
 </footer>
 
 </div><!--end of page-wrap-->
+
+<script type="text/javascript" src="{{STATIC_URL}}js/functions.js"></script>
 
 </body>
 

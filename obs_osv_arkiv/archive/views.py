@@ -300,3 +300,6 @@ def category_autocomplete(request):
 			results = list(models.filter(name__icontains=value).values_list('name', flat=True).distinct().order_by('name'))
 	json_out = json.dumps(results)
 	return HttpResponse(json_out)
+
+def copyright(request):
+    return render_to_response("archive/copyright.html", {}, RequestContext(request))
