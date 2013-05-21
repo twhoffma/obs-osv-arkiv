@@ -11,6 +11,7 @@ $(document).ready(function() {
     var $mediaview = $('#mediaview');
     var $sidebar = $('#sidebar');
     var rotate_id = null;
+    var zoom_id = null;
 
     $mediaview.mediaview();
 
@@ -31,13 +32,33 @@ $(document).ready(function() {
         $doc.fullScreen(true);
     });
 
-    $('#controls #zoom-in').click(function() {
-        $mediaview.mediaview('zoom', 1.2);
+    var do_zoom = function(factor) {
+        $mediaview.mediaview('zoom', factor);
+    };
+
+    var clear_zoom = function() {
+        if (zoom_id !== null) {
+            clearInterval(zoom_id);
+            zoom_id = null;
+        }
+    };
+
+    $('#controls #zoom-in').mousedown(function() {
+        if (zoom_id === null) {
+            zoom_id = setInterval(do_zoom, 5, 1.005);
+        }
     });
 
-    $('#controls #zoom-out').click(function() {
-        $mediaview.mediaview('zoom', -1.2);
+    $('#controls #zoom-out').mousedown(function() {
+        if (zoom_id === null) {
+            zoom_id = setInterval(do_zoom, 5, -1.005);
+        }
     });
+
+    $('#controls #zoom-in').mouseout(clear_zoom);
+    $('#controls #zoom-in').mouseup(clear_zoom);
+    $('#controls #zoom-out').mouseout(clear_zoom);
+    $('#controls #zoom-out').mouseup(clear_zoom);
 
     var do_rotate = function() {
         $mediaview.mediaview('rotate', 0.75);
