@@ -313,7 +313,7 @@ footer a:hover {color:#000;}
     position:absolute;
     top:0px;
     right:140px;
-    width:600px;
+    width:550px;
 }
 
 #infobox a {color:#ccc;}
@@ -322,11 +322,12 @@ footer a:hover {color:#000;}
 
 #infobox a:active {color:#53a1f1;}
 
-table {
+#infobox table {
     padding:15px 0 15px 15px;
+    width: 100%;
 }
 
-.title {
+#infobox .title {
     text-transform:uppercase; 
     color:#000; 
     margin-right:5px; 
@@ -335,8 +336,8 @@ table {
     line-height:1.5em;
 }
 
-.text {
-    width:360px;
+#infobox .text {
+    width:310px;
 }
 
 td {
