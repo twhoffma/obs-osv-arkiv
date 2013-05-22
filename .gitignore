@@ -13,3 +13,4 @@ migrations/
 .pyc
 *.mo
 django-trunk/
+/solr/cores/*/data
