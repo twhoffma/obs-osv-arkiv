@@ -119,7 +119,8 @@ INSTALLED_APPS = (
     'archive',
     'mptt', 
     'easy_thumbnails',
-    'django_filters'
+    'django_filters',
+    'haystack'
 )
 
 # A sample logging configuration. The only tangible logging
@@ -149,6 +150,16 @@ LOGGING = {
             'propagate': True,
         },
     }
+}
+
+#
+# Haystack engine.
+# Needs override in local_settings.py.
+#
+HAYSTACK_CONNECTIONS = {
+    'default': {
+        'ENGINE': 'haystack.backends.simple_backend.SimpleEngine',
+    },
 }
 
 LOCALE_PATHS = (

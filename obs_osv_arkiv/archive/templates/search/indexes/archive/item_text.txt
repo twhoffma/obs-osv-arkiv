@@ -1,0 +1,9 @@
+{% spaceless %}
+    {{ object.title }}
+    {{ object.artist }}
+    {% for material in object.materials.all %}
+        {{ material.name }}
+    {% endfor %}
+{% endspaceless %}
+
+{# vi: se ft=htmldjango: #}
