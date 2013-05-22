@@ -122,6 +122,8 @@
     <dynamicField name="*_p" type="location" indexed="true" stored="true"/>
     <dynamicField name="*_coordinate"  type="tdouble" indexed="true"  stored="false"/>
 
+    <field name="categories" type="text_en" indexed="true" stored="true" multiValued="true" />
+
     <field name="era_to" type="text_en" indexed="true" stored="true" multiValued="false" />
 
     <field name="era_from" type="text_en" indexed="true" stored="true" multiValued="false" />

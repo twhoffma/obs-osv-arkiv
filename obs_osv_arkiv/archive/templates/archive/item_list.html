@@ -48,7 +48,7 @@ $('#content').isotope({
 	<div id="logo"><a href="/">guttormsgaards arkiv</a></div>
 	
 	<nav style="overflow: visible;" id="main-nav">	
-	  <a class="cat search" href="#">søk</a>
+		<a class="cat search" href="{% url "item_search" %}">søk</a>
 	  
 		{% for cnode in parent %}
 			{% if node.is_root_node %}

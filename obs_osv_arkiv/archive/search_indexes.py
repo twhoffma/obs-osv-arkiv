@@ -7,6 +7,7 @@ class ItemIndex(indexes.SearchIndex, indexes.Indexable):
 
     published = indexes.BooleanField(model_attr='published')
     title = indexes.CharField(model_attr='title')
+    categories = indexes.MultiValueField()
     era_from = indexes.CharField(model_attr='era_from', null=True)
     date_from = indexes.IntegerField(model_attr='date_from', null=True)
     era_to = indexes.CharField(model_attr='era_to', null=True)
@@ -16,6 +17,9 @@ class ItemIndex(indexes.SearchIndex, indexes.Indexable):
     artist = indexes.CharField(model_attr='artist', null=True)
     materials = indexes.MultiValueField(null=True)
     video_only = indexes.BooleanField()
+
+    def prepare_categories(self, obj):
+        return [x.name for x in obj.category.all()]
 
     def prepare_materials(self, obj):
         return [x.name for x in obj.materials.all()]

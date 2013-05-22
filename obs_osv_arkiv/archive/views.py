@@ -3,23 +3,22 @@ from django.shortcuts import render_to_response, get_object_or_404
 from archive.forms import ItemSearchForm
 from django.http import HttpResponse, Http404
 from django.core.context_processors import csrf
-#from django.forms.formsets import formset_factory
-#from django.forms.models import modelformset_factory, inlineformset_factory
 from django.utils import simplejson
-import json
 from django.views.decorators.csrf import csrf_exempt
 from django.template import Template, RequestContext
 from django.core.urlresolvers import reverse
+from haystack.query import SearchQuerySet
 
 from django.views.generic.list import ListView
 from django.views.generic import DetailView
 from django.views.generic.edit import FormView
-import pdb
+
+import json
 
 class ItemSearchView(FormView):
 	template_name = 'archive/search.html'
 	form_class = ItemSearchForm
-	
+
 class ItemListView(ListView):
 	model = Item
 	
@@ -54,34 +53,48 @@ class ItemListView(ListView):
 	
 	def post(self, request, *args, **kwargs):
 		frm = ItemSearchForm(request.POST)
-		self.object_list = Item.objects.filter(published=True)
+		self.object_list = Item.objects.none()
 		
 		if frm.is_valid():
-			cleaned_data = frm.clean()
-			if cleaned_data['category']:
-				self.object_list = self.object_list.filter(category__name__icontains=cleaned_data['category'])
-			if cleaned_data['title']:
-				self.object_list = self.object_list.filter(title__icontains=cleaned_data['title'])
-			if cleaned_data['artist']:
-				self.object_list = self.object_list.filter(artist__icontains=cleaned_data['artist'])
-			if cleaned_data['date_from']:
-				self.object_list = self.object_list.filter(date_from__gte=cleaned_data['date_from'])
-			if cleaned_data['date_to']:
-				self.object_list = self.object_list.filter(date_to__lte=cleaned_data['date_to'])
-			if cleaned_data['city']:
-				self.object_list = self.object_list.filter(origin_city__iexact=cleaned_data['date_to'])
-			if cleaned_data['country']:
-				self.object_list = self.object_list.filter(origin_country__iexact=cleaned_data['date_to'])
-			if cleaned_data['material']:
-				m = Materials.objects.filter(name__iexact=cleaned_data['material'])
-				self.object_list = self.object_list.filter(materials__in=m)
-			if cleaned_data['checkmovie']:
-				pdb.set_trace()
-				self.object_list = self.object_list.filter(media__media_type='Movie')
+
+			cdata = frm.clean()
+			sqs = SearchQuerySet().filter(published=True)
+
+			if cdata['categories']:
+				sqs = sqs.filter(categories__in=[x.strip() for x in cdata['categories'].split(' ')])
+			if cdata['title']:
+				sqs = sqs.filter(title=cdata['title'])
+			if cdata['artist']:
+				sqs = sqs.filter(artist=cdata['artist'])
+			if cdata['date_from']:
+				sqs = sqs.filter(date_from__gte=cdata['date_from'])
+			if cdata['date_to']:
+				sqs = sqs.filter(date_to__lte=cdata['date_to'])
+			if cdata['origin_city']:
+				sqs = sqs.filter(origin_city=cdata['origin_city'])
+			if cdata['origin_country']:
+				sqs = sqs.filter(origin_country=cdata['origin_country'])
+			if cdata['materials']:
+				sqs = sqs.filter(materials__in=[x.strip() for x in cdata['materials'].split(' ')])
+			if cdata['video_only']:
+				sqs = sqs.filter(video_only=True)
+
+			# fulltext search
+			if cdata['q']:
+				sqs = sqs.filter(content=cdata['q'])
+
+			# Assigning a list to self.object_list won't work, it needs a QuerySet.
+			# We're basically loading the items twice :(
+			results = list(sqs.order_by('score')[:1000])  # slicing the array prevents multiple queries to Solr.
+			print len(results)
+			ids = [x.object.id for x in results]  # sqs.values_list('django_id', flat=True) won't work with Haystack.
+			self.object_list = Item.objects.filter(id__in=ids)
+
 		self.parent_category = None
 		self.current_category = None
 		self.child_categories = None
 		context = self.get_context_data(object_list=self.object_list)
+		print context
 		return(self.render_to_response(context))	
 		
 	
@@ -302,4 +315,6 @@ def category_autocomplete(request):
 	return HttpResponse(json_out)
 
 def copyright(request):
-    return render_to_response("archive/copyright.html", {}, RequestContext(request))
+	return render_to_response("archive/copyright.html", {}, RequestContext(request))
+
+# vi: se noet:

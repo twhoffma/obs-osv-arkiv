@@ -1,161 +1,55 @@
 <!DOCTYPE HTML>
+{% load i18n %}
 <html>
-<head>
-<meta charset=UTF-8>
-<title>Søk i ARKIVET</title>
+    <head>
+        <meta charset=UTF-8>
+        <title>Søk i ARKIVET</title>
 
-<link href='http://fonts.googleapis.com/css?family=Quattrocento+Sans:400,400italic,700,700italic' rel='stylesheet' type='text/css'>
-<link rel="stylesheet" media='screen' href='{{STATIC_URL}}css/style.css' />
-<link rel="stylesheet" type="text/css" href="{{STATIC_URL}}css/jquery-ui-1.9.2.custom.min.css" />
+        <link href='http://fonts.googleapis.com/css?family=Quattrocento+Sans:400,400italic,700,700italic' rel='stylesheet' type='text/css'>
+        <link rel="stylesheet" media='screen' href='{{STATIC_URL}}css/style.css' />
+        <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}css/jquery-ui-1.9.2.custom.min.css" />
 
-<!--[if lt IE 9]>
-<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-<![endif]-->
+        <!--[if lt IE 9]>
+        <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
 
-<script type="text/javascript" src="{{STATIC_URL}}js/jquery-1.8.2.min.js"></script>
-<script type="text/javascript" src="{{STATIC_URL}}js/jquery.isotope.min.js"></script>
-<script type="text/javascript" src="{{STATIC_URL}}js/jquery-ui-1.9.2.custom.min.js"></script>
+        <script type="text/javascript" src="{{STATIC_URL}}js/jquery-1.8.2.min.js"></script>
+        <script type="text/javascript" src="{{STATIC_URL}}js/jquery.isotope.min.js"></script>
+        <script type="text/javascript" src="{{STATIC_URL}}js/jquery-ui-1.9.2.custom.min.js"></script>
 
-<script type="text/javascript">
-	$(document).ready(
-		function(){
-			$("#title").autocomplete({
-				source: complete_title,
-				minLength: 0
-			});
-			$("#category").autocomplete({
-				source: complete_category,
-				minLength: 0
-			});
-			$("#artist").autocomplete({
-				source: complete_artist,
-				minLength: 0
-			});
-			$("#city").autocomplete({
-				source: complete_city,
-				minLength: 0
-			});
-			$("#country").autocomplete({
-				source: complete_country,
-				minLength: 0
-			});
-			$("#material").autocomplete({
-				source: complete_materials,
-				minLength: 0
-			});
-		}
-	);
+        <style>
+            .ui-widget {
+                max-height: 10em;
+                overflow-y: scroll;
+                overflow-x: hidden;
+            }
+        </style>
 
-	function complete_city(request, response){
-		$.ajax({
-			type: "POST",
-			url: "/city_autocomplete/",
-			data: {
-				'query': request.term,
-			},
-			success: function(data) {
-					response($.parseJSON(data));
-				}
-		});
-	}
-	
-	function complete_country(request, response){
-		$.ajax({
-			type: "POST",
-			url: "/country_autocomplete/",
-			data: {
-				'query': request.term,
-			},
-			success: function(data) {
-					response($.parseJSON(data));
-				}
-		});
-	}
-	
-	function complete_title(request, response){
-		$.ajax({
-			type: "POST",
-			url: "/title_autocomplete/",
-			data: {
-				'query': request.term,
-			},
-			success: function(data) {
-					response($.parseJSON(data));
-				}
-		});
-	}
-	
-	function complete_artist(request, response){
-		$.ajax({
-			type: "POST",
-			url: "/artist_autocomplete/",
-			data: {
-				'query': request.term,
-			},
-			success: function(data) {
-					response($.parseJSON(data));
-				}
-		});
-	}
-	
-	function complete_category(request, response){
-		$.ajax({
-			type: "POST",
-			url: "/category_autocomplete/",
-			data: {
-				'query': request.term,
-			},
-			success: function(data) {
-					response($.parseJSON(data));
-				}
-		});
-	}
-	
-	function complete_materials(request, response){
-		$.ajax({
-			type: "POST",
-			url: "/materials_autocomplete/",
-			data: {
-				'query': request.term,
-			},
-			success: function(data) {
-					response($.parseJSON(data));
-				}
-		});
-	}
-</script>
+    </head>
 
-<style>
-	.ui-widget {
-		max-height: 10em;
-		overflow-y: scroll;
-		overflow-x: hidden;
-	}
-</style>
+    <body>
 
-</head>
+        <header>  
+        </header>
 
-<body>
-
-<header>  
-</header>
-
-<div class="searchbox">
-<form action="/" method="POST">
-	{{ form.as_p}}
-	{% csrf_token %}
-	<input type="submit" value="Søk" />
-</form>
-</div>
+        <div class="searchbox">
+            <form action="/" method="POST">
+                {{ form.as_p}}
+                {% csrf_token %}
+                <input type="submit" value="{% trans "Søk" %}" />
+            </form>
+        </div>
 
 
-<footer>
+        <footer>
 
-<script type="text/javascript" src="{{STATIC_URL}}js/functions.js"></script>
+        <script type="text/javascript" src="{{STATIC_URL}}js/functions.js"></script>
 
-</footer>
+        </footer>
 
-<div class="ui-widget" style="max-height: 30px;"></div>
-</body>
+        <div class="ui-widget" style="max-height: 30px;"></div>
+    </body>
 
 </html>
+
+{# vi: se ft=htmldjango: #}
