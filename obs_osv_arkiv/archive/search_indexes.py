@@ -26,6 +26,6 @@ class ItemIndex(indexes.SearchIndex, indexes.Indexable):
     def get_model(self):
         return archive.models.Item
 
-    def index_querysef(self, using=None):
+    def index_queryset(self, using=None):
         return self.get_model().objects.all()
 
