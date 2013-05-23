@@ -494,6 +494,16 @@ td {
     color:#53a1f1;
 }
 
+#zero-results {
+    clear: both;
+    color: white;
+    margin: 0 auto;
+    padding: 3em 0 0;
+    text-align: center;
+    font-family: 'Gill Sans', 'Quattrocento Sans', arial, sans-serif; 
+    font-size: 2em;
+}
+
 /**** Isotope CSS3 transitions ****/
 
 .isotope,

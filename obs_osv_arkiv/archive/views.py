@@ -110,6 +110,12 @@ class ItemSearchResultView(ItemListView):
 		context = self.get_context_data(object_list=self.object_list)
 		return(self.render_to_response(context))	
 
+	def get_context_data(self, **kwargs):
+		context = super(ItemSearchResultView, self).get_context_data(**kwargs)
+		context['bg'] = None
+		context['search'] = True
+		return context
+
 class ItemDetailView(DetailView):
 	model = Item
 	

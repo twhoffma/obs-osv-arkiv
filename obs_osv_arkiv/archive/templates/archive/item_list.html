@@ -89,6 +89,10 @@
 		{% endfor %}
 	</div>
 
+	{% if search and object_list.count == 0 %}
+		<div id="zero-results">Ditt søk ga dessverre ingen treff.</div>
+	{% endif %}
+
 <footer>
 
 	{% if object_list.count == 0 %}
