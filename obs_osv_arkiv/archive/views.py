@@ -51,10 +51,25 @@ class ItemListView(ListView):
 			self.child_categories = Category.objects.root_nodes().filter(tree_id__in=Item.category.through.objects.filter(item__published=True).values_list('category__tree_id').distinct()).order_by('name')
 			return(Item.objects.filter(pk=None).filter(published=True))
 	
-	def post(self, request, *args, **kwargs):
-		frm = ItemSearchForm(request.POST)
+	def get_context_data(self, **kwargs):
+		context = super(ItemListView, self).get_context_data(**kwargs)
+		context['parent'] = self.parent_category
+		context['current'] = self.current_category
+		context['nodes'] = self.child_categories
+		if self.object_list:
+			context['bg'] = None
+		elif (self.parent_category and self.parent_category.count > 0) or self.current_category:
+			context['bg'] = u'flyvemann2.jpg'
+		else:
+			context['bg'] = u'flyvemann1.jpg'
+		return(context)
+
+class ItemSearchResultView(ItemListView):
+
+	def get(self, request):
+		frm = ItemSearchForm(request.GET)
 		self.object_list = Item.objects.none()
-		
+
 		if frm.is_valid():
 
 			cdata = frm.clean()
@@ -94,20 +109,6 @@ class ItemListView(ListView):
 		self.child_categories = None
 		context = self.get_context_data(object_list=self.object_list)
 		return(self.render_to_response(context))	
-		
-	
-	def get_context_data(self, **kwargs):
-		context = super(ItemListView, self).get_context_data(**kwargs)
-		context['parent'] = self.parent_category
-		context['current'] = self.current_category
-		context['nodes'] = self.child_categories
-		if self.object_list:
-			context['bg'] = None
-		elif (self.parent_category and self.parent_category.count > 0) or self.current_category:
-			context['bg'] = u'flyvemann2.jpg'
-		else:
-			context['bg'] = u'flyvemann1.jpg'
-		return(context)
 
 class ItemDetailView(DetailView):
 	model = Item
