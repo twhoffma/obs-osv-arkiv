@@ -20,8 +20,6 @@
 <script type="text/javascript" src="{{STATIC_URL}}js/jquery-ui-1.9.1.custom.min.js"></script>
 <script type="text/javascript" src="{{STATIC_URL}}js/museum_functions.js"></script>
 
-<script type="text/javascript" src="{{STATIC_URL}}js/extjs/ext-core.js"></script>    
-    
 <script type="text/javascript" src="{{STATIC_URL}}js/fullscreen/jquery.fullscreen-min.js"></script>    
 <script type="text/javascript" src="{{STATIC_URL}}js/mediaview/jquery.mousewheel.js"></script>    
 <script type="text/javascript" src="{{STATIC_URL}}js/mediaview/jquery.mediaview.js"></script>    
@@ -35,7 +33,13 @@
 
 		<nav id="sidebar">	
 
-			<a class="blocklink" href="{% url 'node' node_pk=current.pk %}">Tilbake</a>
+			{% if node %}
+				<a class="blocklink" href="{% url 'node' node_pk=current.pk %}">Tilbake</a>
+			{% elif request.META.HTTP_REFERER %}
+				<a class="blocklink" href="{{ request.META.HTTP_REFERER }}">Tilbake</a>
+			{% else %}
+				<a class="blocklink" href="/">Tilbake</a>
+			{% endif %}
 
 			<a class="blocklink" id="toggle-fullscreen" href="javascript:;">Fullskjerm</a>
 
