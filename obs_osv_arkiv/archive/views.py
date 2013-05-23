@@ -86,7 +86,6 @@ class ItemListView(ListView):
 			# Assigning a list to self.object_list won't work, it needs a QuerySet.
 			# We're basically loading the items twice :(
 			results = list(sqs.order_by('score')[:1000])  # slicing the array prevents multiple queries to Solr.
-			print len(results)
 			ids = [x.object.id for x in results]  # sqs.values_list('django_id', flat=True) won't work with Haystack.
 			self.object_list = Item.objects.filter(id__in=ids)
 
@@ -94,7 +93,6 @@ class ItemListView(ListView):
 		self.current_category = None
 		self.child_categories = None
 		context = self.get_context_data(object_list=self.object_list)
-		print context
 		return(self.render_to_response(context))	
 		
 	
