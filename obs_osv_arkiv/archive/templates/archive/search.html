@@ -29,24 +29,47 @@
 
     <body>
 
-        <header>  
-        </header>
-
         <div class="searchbox">
+            <a class="cat breadcrumbs" href="/">{% trans "Back" %}</a>
+            <h1>{% trans "Search the archives" %}</h1>
             <form action="{% url "item_search_results" %}" method="GET">
-                {{ form.as_p}}
+
+                {% for field in form.hidden_fields %}
+                    {{ field }}
+                {% endfor %}
+
+                {% for field in form.visible_fields %}
+                    {% if field.name == "date_from" %}
+                        <p>
+                            <label for="id_{{ field.name }}">{% trans "Dating" %}</label>
+                            {{ field }}
+                    {% elif field.name == "date_to" %}
+                            {{ field }}
+                        </p>
+                    {% elif field.name == "origin_city" %}
+                        <p>
+                            <label for="id_{{ field.name }}">{% trans "Origin" %}</label>
+                            {{ field }}
+                    {% elif field.name == "origin_country" %}
+                            {{ field }}
+                        </p>
+                    {% else %}
+                        <p>
+                            {{ field.label_tag }}
+                            {{ field }}
+                        </p>
+                    {% endif %}
+                {% endfor %}
+
                 <input type="submit" value="{% trans "Search" %}" />
+
             </form>
         </div>
 
-
-        <footer>
-
         <script type="text/javascript" src="{{STATIC_URL}}js/functions.js"></script>
 
-        </footer>
-
         <div class="ui-widget" style="max-height: 30px;"></div>
+
     </body>
 
 </html>

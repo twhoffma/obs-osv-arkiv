@@ -357,7 +357,7 @@ td {
 
 .searchbox {
     background-color:#ccc;
-    width:550px;
+    width:600px;
     margin:82px auto;
     padding:5px 10px 20px 10px;
 }
@@ -375,9 +375,7 @@ td {
     text-transform:uppercase;
     font-family: 'Gill Sans', 'Quattrocento Sans', arial, sans-serif;
     font-weight:normal;
-    position:relative;
-    left:127px;
-    float:left;
+    margin: 10px 0 0 195px;
 }
 
 .searchbox form {
@@ -385,56 +383,83 @@ td {
     text-transform:uppercase;
     font-size:1.5em;
     color:#000;
+    position: relative;
+}
+
+.searchbox p {
+    clear: both;
+    height: 2.5em;
 }
 
 .searchbox form label {
-    float:right;
-    position:relative;
-    right:365px;
-    padding:5px;
-    margin-top:5px;
-    clear:both;
+    width: 180px;
+    display: block;
+    float: left;
+    text-align: right;
+    line-height: 2.5em;
+    height: 2.5em;
+    margin: 0 15px 0 0;
 }
 
-input {
+.searchbox form input {
     font-family: 'Gill Sans', 'Quattrocento Sans', arial, sans-serif;
-    border:none;
-    position:relative;
-    left:185px;
-    margin:5px 0px 5px 5px;
+    float: left;
+    border: none;
+    height: 2em;
+    line-height: 2em;
+    margin: 0.25em 0;
 }
 
-input[type="text"] {
-    width:270px;
+.searchbox form input[type="text"] {
+    width:300px;
     padding:4px;
 }
 
-input[type="submit"] {
-    padding:0px 10px;
+.searchbox form input[type="submit"] {
+    padding: 0 10px;
     text-transform:uppercase;
-    color:#FFF;
-    background-color:#6f7072;
-    margin:0px;
-    height:26px;
+    color: white;
+    background-color: #6f7072;
+    margin: 0;
+    position: absolute;
+    right: 0;
+    bottom: 41px;
+    height: 2em;
+    line-height: 2em;
 }
 
-input[type="submit"]:hover {
+.searchbox form input[type="submit"]:hover {
     background-color:#000;
 }
 
-input[type="submit"]:active {
+.searchbox form input[type="submit"]:active {
     background-color:#53a1f1;
 }
 
-input[type="text"].value-text {
+.searchbox form input[type="text"].value-text {
     color:#999;
     width:127px;
 }
 
-input[type="checkbox"] {
-    position:relative;
-    left:440px;
-    top:2px;
+.searchbox label[for="id_video_only"] {
+    width: auto;
+    margin-left: 195px;
+}
+
+.searchbox form input[type="checkbox"] {
+    width: 26px;
+    height: 26px;
+}
+
+.searchbox #id_date_from,
+.searchbox #id_origin_city {
+    width: 145px;
+    margin-right: 10px;
+}
+
+.searchbox #id_date_to,
+.searchbox #id_origin_country {
+    width: 145px;
 }
 
 /* Other */

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-05-23 12:45+0200\n"
+"POT-Creation-Date: 2013-05-23 13:23+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -46,16 +46,32 @@ msgid "Artist"
 msgstr "Kunstner/produsent"
 
 #: archive/forms.py:17
+msgid "FROM"
+msgstr "FRA"
+
+#: archive/forms.py:17
 msgid "Dating, from"
 msgstr "Datering, fra"
+
+#: archive/forms.py:18
+msgid "TO"
+msgstr "TIL"
 
 #: archive/forms.py:18
 msgid "Dating, to"
 msgstr "Datering, til"
 
 #: archive/forms.py:19
+msgid "CITY"
+msgstr "BY"
+
+#: archive/forms.py:19
 msgid "City"
 msgstr "By"
+
+#: archive/forms.py:20
+msgid "COUNTRY"
+msgstr "LAND"
 
 #: archive/forms.py:20
 msgid "Country"
@@ -497,7 +513,15 @@ msgstr " Av %(filter_title)s "
 msgid "Files"
 msgstr "filer"
 
+#: archive/templates/archive/search.html:34
+msgid "Back"
+msgstr "Tilbake"
+
 #: archive/templates/archive/search.html:39
+msgid "Search the archives"
+msgstr "Søk i arkivet"
+
+#: archive/templates/archive/search.html:42
 msgid "Search"
 msgstr "Søk"
 
