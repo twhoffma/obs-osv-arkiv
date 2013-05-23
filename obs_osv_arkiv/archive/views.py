@@ -7,6 +7,7 @@ from django.utils import simplejson
 from django.views.decorators.csrf import csrf_exempt
 from django.template import Template, RequestContext
 from django.core.urlresolvers import reverse
+from django.shortcuts import redirect
 from haystack.query import SearchQuerySet
 
 from django.views.generic.list import ListView
@@ -74,6 +75,12 @@ class ItemSearchResultView(ItemListView):
 
 			cdata = frm.clean()
 			sqs = SearchQuerySet().filter(published=True)
+			psqs = sqs
+
+			# No blank values, please
+			for key in cdata.iterkeys():
+				if isinstance(cdata[key], basestring):
+					cdata[key] = cdata[key].strip()
 
 			if cdata['categories']:
 				sqs = sqs.filter(categories__in=[x.strip() for x in cdata['categories'].split(' ')])
@@ -97,6 +104,10 @@ class ItemSearchResultView(ItemListView):
 			# fulltext search
 			if cdata['q']:
 				sqs = sqs.filter(content=cdata['q'])
+
+			# No search data entered
+			if psqs == sqs:
+				return redirect(reverse('item_search'))
 
 			# Assigning a list to self.object_list won't work, it needs a QuerySet.
 			# We're basically loading the items twice :(
