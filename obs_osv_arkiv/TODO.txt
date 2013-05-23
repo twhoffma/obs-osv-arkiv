@@ -1,2 +1,0 @@
-- Rekkefølgen på materialer må beholdes slik den skrives
-- Stor forbokstav på første keyword og materiale i front, alt lagres med små bokstaver i db.
