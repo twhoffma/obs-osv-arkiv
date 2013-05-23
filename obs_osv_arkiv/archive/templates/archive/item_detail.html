@@ -86,21 +86,25 @@
 					<td><p class="text">
 						{% if object.date_from %}
 							{% if object.dating_certainty %}
-								<span style="text-transform: capitalize;">Fra {% if object.dating_certainty != "sure" %}ca.{% endif %}</span> {{ object.date_from }}
+								<span>{% if object.date_to %}Fra {% endif %}{% if object.dating_certainty != "sure" %}ca.{% endif %}</span> {{ object.date_from }}
+							{% endif %}
+							{% if object.era_from != object.era_to %}
+								{{ object.era_from }}
 							{% endif %}
 						{% endif %}
 						{% if object.date_to %}
-							{% if object.date_from %} til {{ object.date_to }}
+							{% if not object.date_from %}{{ object.date_to }}
 							{% else %}
-								<span style="text-transform: capitalize;">til</span> {{ object.date_to }}
+								<span>til</span> {{ object.date_to }}
 							{% endif %}
+							{{ object.era_to }}
 						{% endif %}
 					</p></td>
 				</tr>
 				{% endif %}
 				{% if object.origin_city or object.origin_country %}
 				<tr>
-					<td><p class="title">Opprinnelse</p></td>
+					<td><p class="title">Opphavssted</p></td>
 					<td><p class="text">
 					{% if object.origin_city %}
 						<a href="{% url 'city' city=object.origin_city %}" />{{object.origin_city}}</a>
