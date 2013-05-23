@@ -1,6 +1,4 @@
-// JavaScript Document
-
-$(document).ready(function() {
+$(window).load(function() {
 
     var $container = $('#content');
 
@@ -14,9 +12,8 @@ $(document).ready(function() {
         layoutMode : 'masonry'
     });
 
-    $container.imagesLoaded( function(){
-        $container.isotope({
-        });
+    $container.imagesLoaded(function() {
+        $container.isotope({});
     });
 
 });
