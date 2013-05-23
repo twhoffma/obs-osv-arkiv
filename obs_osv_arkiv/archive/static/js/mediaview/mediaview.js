@@ -12,10 +12,58 @@ $(document).ready(function() {
     var $sidebar = $('#sidebar');
     var $toggle_details = $('#toggle-details');
     var $details = $('#infobox');
+    var $controls = $('#controls');
     var rotate_id = null;
     var zoom_id = null;
+    var controls_id = null;
+    var controls_visible_locked = false;
+    var controls_visible = true;
 
     $mediaview.mediaview();
+
+    /**
+     * Automatically show/hide fullscreen controls on mousemove.
+     */
+    $doc.mousemove(function() {
+
+        if (!$doc.fullScreen()) {
+            return;
+        }
+
+        if (!controls_visible) {
+            controls_visible = true;
+            $controls.stop(true, true).show();
+        }
+
+        if (controls_id !== null) {
+            clearTimeout(controls_id);
+            if (controls_visible_locked) {
+                controls_id = null;
+            }
+        }
+
+        if (controls_visible && !controls_visible_locked) {
+            controls_id = setTimeout(function() {
+                controls_visible = false;
+                $controls.fadeOut();
+            }, 500);
+        }
+
+    });
+
+    /**
+     * Lock controls on-screen when mouse is hovering.
+     */
+    $controls.mouseenter(function() {
+        controls_visible_locked = true;
+    });
+
+    /**
+     * Unlock controls on-screen when mouse is leaving.
+     */
+    $controls.mouseleave(function() {
+        controls_visible_locked = false;
+    });
 
     $toggle_details.click(function() {
 
@@ -90,6 +138,10 @@ $(document).ready(function() {
         if ($doc.fullScreen()) {
             $toggle_details.removeClass('active');
             $details.hide();
+            $doc.trigger('mousemove');
+        } else {
+            controls_visible = true;
+            $controls.stop(true, true).show();
         }
     });
 
