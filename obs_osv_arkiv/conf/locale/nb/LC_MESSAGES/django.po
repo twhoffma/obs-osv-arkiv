@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-05-23 13:23+0200\n"
+"POT-Creation-Date: 2013-05-23 14:08+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,11 +17,11 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: archive/admin.py:88
+#: archive/admin.py:88 archive/templates/archive/search.html:44
 msgid "Dating"
 msgstr "Datering"
 
-#: archive/admin.py:90
+#: archive/admin.py:90 archive/templates/archive/search.html:51
 msgid "Origin"
 msgstr "Opphav"
 
@@ -164,7 +164,6 @@ msgstr "filtype"
 
 #: archive/models.py:74 archive/models.py:75 archive/models.py:117
 #: archive/models.py:121 archive/models.py:269
-#, fuzzy
 msgid "media"
 msgstr "media"
 
@@ -310,9 +309,8 @@ msgid "certainty"
 msgstr "sikkerhet"
 
 #: archive/models.py:245 archive/models.py:247
-#, fuzzy
 msgid "period"
-msgstr "Periode"
+msgstr "periode"
 
 #: archive/models.py:246 archive/templates/archive/item_detail.html:86
 msgid "from"
@@ -356,7 +354,6 @@ msgid "weight (g)"
 msgstr "vekt (g)"
 
 #: archive/models.py:259
-#, fuzzy
 msgid "materials/technique"
 msgstr "materialer/teknikk"
 
@@ -389,7 +386,6 @@ msgid "Add"
 msgstr "Legg til"
 
 #: archive/templates/admin/archive/change_form_base.html:34
-#, fuzzy
 msgid "Change History"
 msgstr "Historiske endringer"
 
@@ -509,19 +505,18 @@ msgid " By %(filter_title)s "
 msgstr " Av %(filter_title)s "
 
 #: archive/templates/archive/media_details.html:23
-#, fuzzy
 msgid "Files"
-msgstr "filer"
+msgstr "Filer"
 
-#: archive/templates/archive/search.html:34
+#: archive/templates/archive/search.html:33
 msgid "Back"
 msgstr "Tilbake"
 
-#: archive/templates/archive/search.html:39
+#: archive/templates/archive/search.html:34
 msgid "Search the archives"
 msgstr "Søk i arkivet"
 
-#: archive/templates/archive/search.html:42
+#: archive/templates/archive/search.html:64
 msgid "Search"
 msgstr "Søk"
 
@@ -561,7 +556,6 @@ msgstr "Alle"
 #~ msgid "Tags"
 #~ msgstr "Tagger"
 
-#, fuzzy
 #~ msgid "Position"
 #~ msgstr "posisjon"
 

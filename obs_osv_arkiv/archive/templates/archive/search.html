@@ -31,7 +31,7 @@
 
         <div class="searchbox">
             <a class="cat breadcrumbs" href="/">{% trans "Back" %}</a>
-            <h1>{% trans "Search the archives" %}</h1>
+            <h1>Søk i arkivet</h1>
             <form action="{% url "item_search_results" %}" method="GET">
 
                 {% for field in form.hidden_fields %}
@@ -41,14 +41,14 @@
                 {% for field in form.visible_fields %}
                     {% if field.name == "date_from" %}
                         <p>
-                            <label for="id_{{ field.name }}">{% trans "Dating" %}</label>
+                            <label for="id_{{ field.name }}">Datering</label>
                             {{ field }}
                     {% elif field.name == "date_to" %}
                             {{ field }}
                         </p>
                     {% elif field.name == "origin_city" %}
                         <p>
-                            <label for="id_{{ field.name }}">{% trans "Origin" %}</label>
+                            <label for="id_{{ field.name }}">Opphav</label>
                             {{ field }}
                     {% elif field.name == "origin_country" %}
                             {{ field }}
@@ -61,7 +61,7 @@
                     {% endif %}
                 {% endfor %}
 
-                <input type="submit" value="{% trans "Search" %}" />
+                <input type="submit" value="Søk" />
 
             </form>
         </div>
