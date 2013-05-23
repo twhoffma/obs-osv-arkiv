@@ -88,8 +88,8 @@
 							{% if object.dating_certainty %}
 								<span>{% if object.date_to %}Fra {% endif %}{% if object.dating_certainty != "sure" %}ca.{% endif %}</span> {{ object.date_from }}
 							{% endif %}
-							{% if object.era_from != object.era_to %}
-								{{ object.era_from }}
+							{% if object.era_from == "BC" and object.era_from != object.era_to %}
+								{{ object.get_era_from_display }}
 							{% endif %}
 						{% endif %}
 						{% if object.date_to %}
@@ -97,7 +97,9 @@
 							{% else %}
 								<span>til</span> {{ object.date_to }}
 							{% endif %}
-							{{ object.era_to }}
+							{% if object.era_to != object.era_from or object.era_to == "BC" %}
+								{{ object.get_era_to_display }}
+							{% endif %}
 						{% endif %}
 					</p></td>
 				</tr>

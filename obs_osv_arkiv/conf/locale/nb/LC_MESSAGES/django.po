@@ -266,11 +266,11 @@ msgstr "oppbevaringssteder"
 
 #: archive/models.py:224
 msgid "AD"
-msgstr "FVT"
+msgstr "EVT"
 
 #: archive/models.py:225
 msgid "BC"
-msgstr "EVT"
+msgstr "FVT"
 
 #: archive/models.py:228
 msgid "sure"
