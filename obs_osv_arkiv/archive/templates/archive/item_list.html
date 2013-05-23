@@ -100,7 +100,9 @@ $('#content').isotope({
 
 <footer>
 
-<a href="{% url "archive.views.copyright" %}">© Guttorm Guttormsgaard</a>
+	{% if object_list.count == 0 %}
+		<a href="{% url "archive.views.copyright" %}">© Guttorm Guttormsgaard</a>
+	{% endif %}
 
 </footer>
 
