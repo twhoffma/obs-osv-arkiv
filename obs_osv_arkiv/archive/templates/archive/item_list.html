@@ -36,9 +36,16 @@
 
 <header>
   
-	<div id="logo"><a href="/">guttormsgaards arkiv</a></div>
+	{% if object_list.count == 0 %}
+		<div id="logo"><a href="/">guttormsgaards arkiv</a></div>
+	{% endif %}
 	
 	<nav style="overflow: visible;" id="main-nav">	
+
+		{% if object_list.count > 0 %}
+			<a class="cat" href="/">guttormsgaards arkiv</a>
+		{% endif %}
+
 		<a class="cat search" href="{% url "item_search" %}">søk</a>
 	  
 		{% for cnode in parent %}
