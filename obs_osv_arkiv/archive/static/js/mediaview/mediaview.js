@@ -145,6 +145,10 @@ $(document).ready(function() {
         }
     });
 
+    $doc.bind('fullscreenerror', function() {
+        alert("Nettleseren du bruker, støtter ikke fullskjerm. Vennligst oppdater, eller om mulig, bytt nettleser for å bruke denne funksjonen. Støttede nettlesere er bl.a. Google Chrome og Mozilla Firefox.");
+    });
+
     $sup.click(function() {
         $ts[0].scrollTop -= 100;
     });
