@@ -355,10 +355,14 @@ td {
 
 /* Search page */
 
+#searchbox-container {
+    padding:82px 0 0;
+}
+
 .searchbox {
     background-color:#ccc;
     width:600px;
-    margin:82px auto;
+    margin: 0 auto;
     padding:5px 10px 20px 10px;
 }
 
