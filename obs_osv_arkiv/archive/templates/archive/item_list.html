@@ -42,12 +42,12 @@
 	
 	<nav style="overflow: visible;" id="main-nav">	
 
-		{% if object_list.count > 0 %}
-			<a class="cat" href="/">guttormsgaards arkiv</a>
-		{% endif %}
-
 		<a class="cat search" href="{% url "item_search" %}">søk</a>
 	  
+		{% if object_list.count > 0 %}
+			<a class="cat breadcrumbs" href="/">guttormsgaards arkiv</a>
+		{% endif %}
+
 		{% for cnode in parent %}
 			{% if node.is_root_node %}
 				{% if object_list.count == 0 %}
