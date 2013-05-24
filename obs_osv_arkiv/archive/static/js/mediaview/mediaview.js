@@ -101,13 +101,13 @@ $(document).ready(function() {
 
     $('#controls #zoom-in').mousedown(function() {
         if (zoom_id === null) {
-            zoom_id = setInterval(do_zoom, 5, 1.005);
+            zoom_id = setInterval(function() { do_zoom(1.005); }, 5);
         }
     });
 
     $('#controls #zoom-out').mousedown(function() {
         if (zoom_id === null) {
-            zoom_id = setInterval(do_zoom, 5, -1.005);
+            zoom_id = setInterval(function() { do_zoom(-1.005); }, 5);
         }
     });
 
