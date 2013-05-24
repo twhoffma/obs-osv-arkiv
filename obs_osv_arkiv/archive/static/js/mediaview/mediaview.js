@@ -77,8 +77,15 @@ $(document).ready(function() {
 
     });
 
+    var fullscreen_detect = function() {
+        if (!($doc.fullScreen())) {
+            alert("Nettleseren du bruker, støtter ikke fullskjerm. Vennligst oppdater, eller om mulig, bytt nettleser for å bruke denne funksjonen. Støttede nettlesere er bl.a. Google Chrome og Mozilla Firefox.");
+        }
+    };
+
     $('#toggle-fullscreen').click(function() {
         $doc.fullScreen(true);
+        setTimeout(fullscreen_detect, 1000);
     });
 
     var do_zoom = function(factor) {
@@ -143,10 +150,6 @@ $(document).ready(function() {
             controls_visible = true;
             $controls.stop(true, true).show();
         }
-    });
-
-    $doc.bind('fullscreenerror', function() {
-        alert("Nettleseren du bruker, støtter ikke fullskjerm. Vennligst oppdater, eller om mulig, bytt nettleser for å bruke denne funksjonen. Støttede nettlesere er bl.a. Google Chrome og Mozilla Firefox.");
     });
 
     $sup.click(function() {
