@@ -57,6 +57,7 @@
         ctx.translate(-view_width / 2, -view_height / 2);
 
         ctx.scale(settings.zoom, settings.zoom);
+        console.log(canvas_image[0].width);
         ctx.drawImage(canvas_image[0], settings.pan[0] / settings.zoom, settings.pan[1] / settings.zoom);
 
         if (mininav_enabled) {
@@ -68,9 +69,9 @@
         mininav_ctx.setTransform(1, 0, 0, 1, 0, 0);
         mininav_ctx.clearRect(0, 0, mininav_canvas[0].width, mininav_canvas[0].height);
 
-        mininav_ctx.translate(mininav[0].width / 2, mininav[0].height / 2);
+        mininav_ctx.translate(mininav.attr('width') / 2, mininav.attr('height') / 2);
         mininav_ctx.rotate(settings.rotate * (Math.PI / 180));
-        mininav_ctx.translate(-mininav[0].width / 2, -mininav[0].height / 2);
+        mininav_ctx.translate(-mininav.attr('width') / 2, -mininav.attr('height') / 2);
 
         mininav_ctx.drawImage(mininav[0], 0, 0);
 
@@ -196,17 +197,17 @@
 
                 /* Callback for image load */
                 var load_port = function(image) {
+                    image.hide().insertAfter(canvas);
                     canvas_image = image;
                     canvas[0].width = view_width;
                     canvas[0].height = view_height;
-                    image.hide().insertAfter(canvas);
                     ctx = canvas[0].getContext('2d');
 
                     if (mininav_enabled) {
                         mininav = img;
-                        mininav_canvas[0].width = img[0].width;
-                        mininav_canvas[0].height = img[0].height;
-                        base_ratio = image[0].width / img[0].width;
+                        mininav_canvas[0].width = img.attr('width');
+                        mininav_canvas[0].height = img.attr('height');
+                        base_ratio = image.attr('width') / img.attr('width');
                         mininav_ctx = mininav_canvas[0].getContext('2d');
                         mininav_ctx.fillStyle = 'rgba(255, 255, 255, 0.5)';
                         mininav_ctx.strokeStyle = 'rgba(255, 0, 0, 1)';
@@ -416,8 +417,8 @@
                 settings.rotate = 0;
 
                 /* Initial zoom level based on image and viewport dimensions */
-                var x = view_width / canvas_image[0].width;
-                var y = view_height / canvas_image[0].height;
+                var x = view_width / canvas_image.attr('width');
+                var y = view_height / canvas_image.attr('height');
                 if (x < y) {
                     settings.zoom = x;
                 } else {
@@ -425,8 +426,8 @@
                 }
 
                 /* Center image */
-                var x = (view_width / 2) - ((canvas_image[0].width * settings.zoom) / 2);
-                var y = (view_height / 2) - ((canvas_image[0].height * settings.zoom) / 2);
+                var x = (view_width / 2) - ((canvas_image.attr('width') * settings.zoom) / 2);
+                var y = (view_height / 2) - ((canvas_image.attr('height') * settings.zoom) / 2);
                 settings.pan = [x, y];
 
                 draw();
