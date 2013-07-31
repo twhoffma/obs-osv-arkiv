@@ -57,7 +57,25 @@
         ctx.translate(-view_width / 2, -view_height / 2);
 
         ctx.scale(settings.zoom, settings.zoom);
-        ctx.drawImage(canvas_image[0], settings.pan[0] / settings.zoom, settings.pan[1] / settings.zoom);
+
+        /**
+         * The following disgusting piece of code is a workaround for Firefox,
+         * which throws NS_ERROR_NOT_AVAILABLE intermittently.
+         *
+         * https://bugzilla.mozilla.org/show_bug.cgi?id=764066
+         * https://bugzilla.mozilla.org/show_bug.cgi?id=574330
+         */
+        var drawn = false;
+        var retries = 0; // endless loop failsafe
+        do {
+            try {
+                ctx.drawImage(canvas_image[0], settings.pan[0] / settings.zoom, settings.pan[1] / settings.zoom);
+                drawn = true;
+            } catch (e) {
+                ++retries;
+            }
+        }
+        while (!drawn && retries < 10000);
 
         if (mininav_enabled) {
             mininav_draw();
@@ -342,21 +360,17 @@
 
                 if (image.length == 0) {
                     /* Pre-load thumbnail into viewport for quick view */
-                    image = img.clone();
+                    image = $('<img/>');
                     image.one('load', function() {
                         load_port(image);
                         var loader = loading.clone().insertBefore(canvas);
 
                         /* Load the real image */
-                        image = $('<img/>').attr('src', canvas.attr('data-image'));
-                        image.one('load', function() { loader.remove(); load_port(image); });
-                        if (image[0].complete) {
-                            image.load();
-                        }
+                        var im = $('<img/>');
+                        im.one('load', function() { loader.remove(); load_port(im); });
+                        im.attr('src', canvas.attr('data-image'));
                     });
-                    if (image[0].complete) {
-                        image.load();
-                    }
+                    image.attr('src', img.attr('src'));
                 } else {
                     load_port(image);
                 }
