@@ -17,3 +17,15 @@ $(window).load(function() {
     });
 
 });
+
+$(function(){
+    $('a.toggle').click(function(){
+      $('#infobox').fadeToggle("fast");
+    });
+});
+
+$( ".mobileinfo" ).click(function() {
+  $( "#infobox" ).slideToggle( "normal", function() {
+    // Animation complete.
+  });
+});

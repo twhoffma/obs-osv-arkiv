@@ -30,6 +30,8 @@
 <script type="text/javascript" src="{{STATIC_URL}}js/mediaview/jquery.mediaview.js"></script>    
 <script type="text/javascript" src="{{STATIC_URL}}js/mediaview/mediaview.js"></script>    
 
+<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1" />
+
 </head>
 
 <body>
@@ -49,6 +51,8 @@
 			<a class="blocklink" id="toggle-fullscreen" href="javascript:;">Fullskjerm</a>
 
 			<a class="blocklink" id="toggle-details" href="javascript:;">Info</a>
+			
+			<a class="blocklink cat breadcrumbs sidebar-links mobileinfo" id="toggle-details" href="javascript:;">Info</a>    
 
 			<div id="thumb-selector-container">
 				<div id="scroll-up" class="blocklink">&#x25B2;</div>
@@ -71,24 +75,22 @@
 			<span id="reset" aria-hidden="true" data-icon="&#x2715;"></span>
 		</div>
 
-		<div id="infobox" class="gradient">
-			<table border="0">
+		<div id="infobox">
+			<div id="infotext">
+			  
+			  <a href="#" class="toggle"><span aria-hidden="true" data-icon="&#x2715;"></span></a>
+			  
 				{% if object.title %}
-				<tr>
-					<td><p class="title">Tittel</p></td>
-					<td><p class="text">{{object.title}}</p></td>
-				</tr>
+					<p><span class="title">Tittel/betegnelse:</span>
+					<span class="text">{{object.title}}</span></p>
 				{% endif %}
 				{% if object.artist %}
-				<tr>
-					<td><p class="title">Artist</p></td>
-					<td><p class="text"><a href="{% url 'artist' artist=object.artist %}">{{object.artist}}</a></p></td>
-				</tr>
+					<p><span class="title">Kunstner/produsent:</span>
+					<span class="text"><a href="{% url 'artist' artist=object.artist %}">{{object.artist}}</a></span></p>
 				{% endif %}
 				{% if object.date_from or object.date_to %}
-				<tr>
-					<td><p class="title">Datering</p></td>
-					<td><p class="text">
+					<p><span class="title">Datering:</span>
+					<span class="text">
 						{% if object.date_from %}
 							{% if object.dating_certainty %}
 								<span>{% if object.date_to %}Fra {% endif %}{% if object.dating_certainty != "sure" %}ca.{% endif %}</span> {{ object.date_from }}
@@ -106,13 +108,11 @@
 								{{ object.get_era_to_display }}
 							{% endif %}
 						{% endif %}
-					</p></td>
-				</tr>
+					</span></p>
 				{% endif %}
 				{% if object.origin_city or object.origin_country %}
-				<tr>
-					<td><p class="title">Opphavssted</p></td>
-					<td><p class="text">
+					<p><span class="title">Opphavssted:</span>
+					<span class="text">
 					{% if object.origin_city %}
 						<a href="{% url 'city' city=object.origin_city %}" />{{object.origin_city}}</a>
 					{% endif %} 
@@ -121,43 +121,37 @@
 					<a href="{% url 'country' country=object.origin_country %}">{{ object.origin_country  }}</a>
 					{% endif %} 
 					 {% blocktrans %}{{ object.origin_certainty}}{% endblocktrans %}
-					</p></td>
-				</tr>
+					</span></p>
 				{% endif %}
 				{% if object.dim_height or object.dim_width or object.dim_depth or object.dim_weight %}
-				<tr>
-					<td><p class="title">Dimensjoner</p></td>
-					<td><p class="text">
+					<p><span class="title">Dimensjoner:</span>
+					<span class="text">
 						{% if object.dim_width %}
-							<span style="text-transform: capitalize;">Bredde</span>: {{object.dim_width}} cm.
+							Bredde: {{object.dim_width}} cm.
 						{% endif %}
 						{% if object.dim_height %}
-							<span style="text-transform: capitalize;">Høyde</span>: {{object.dim_height}} cm.
+							Høyde: {{object.dim_height}} cm.
 						{% endif %}
 						{% if object.dim_depth %}
-							<span style="text-transform: capitalize;">Dybde</span>: {{object.dim_depth }} cm.
+							Dybde: {{object.dim_depth }} cm.
 						{% endif %}
 						{% if object.dim_weight %}
-							<span style="text-transform: capitalize;">Vekt</span>: {{object.dim_weight }} cm.
+							Vekt: {{object.dim_weight }} cm.
 						{% endif %}
-					</p></td>
-				</tr>
+					</span></p>
 				{% endif %}
 				{% if object.materials.count > 0 %}
-				<tr>
-					<td><p class="title">MATERIALE/TEKNIKK</p></td>
-					<td><p class="text">{% for m in object.materials.all %}{{m}}{% if not forloop.last %},  {% endif%}{% endfor%}</p></td>
-				</tr>
+					<p><span class="title">MATERIALE/TEKNIKK:</span>
+					<span class="text">{% for m in object.materials.all %}{{m}}{% if not forloop.last %},  {% endif%}{% endfor%}</span></p>
 				{% endif %}
 				{%if object.description %}
-				<tr>
-					<td><p class="title">Beskrivelse</p></td>
-					<td><p class="text">{{object.description}}</p></td>
-				</tr>
+				  <p><span class="title">Beskrivelse:</span>
+					<span class="text">{{object.description}}</span></p>
 				{% endif %}
-			</table>
-		</div>
+        </div><!--END OF INFOTEXT-->
 
+      </div><!--END OF INFOBOX-->
+      
 		<div id="container">
 
 			<ul>{% item_media object %}</ul>
