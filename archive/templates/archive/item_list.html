@@ -1,0 +1,119 @@
+{% load feature_image %}
+
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset=UTF-8>
+<title>Guttormsgaards ARKIV</title>
+
+
+<link href='http://fonts.googleapis.com/css?family=Quattrocento+Sans:400,400italic,700,700italic' rel='stylesheet' type='text/css'>
+<link rel="stylesheet" media='screen' href="{{STATIC_URL}}css/style.css" type="text/css">
+<link rel="stylesheet" href="{{STATIC_URL}}css/jquery-ui-1.9.2.custom.min.css" type="text/css" />
+
+<!--[if lt IE 9]>
+<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+
+<script type="text/javascript" src="{{STATIC_URL}}js/jquery-1.8.2.min.js"></script>
+<script type="text/javascript" src="{{STATIC_URL}}js/jquery.isotope.min.js"></script>
+<script type="text/javascript" src="{{STATIC_URL}}js/jquery-ui-1.9.2.custom.min.js"></script>
+
+{% if bg %}
+	<style>
+		body {
+			background: #000 url('/static/images/supersized/{{ bg }}') 50% 50% no-repeat;
+			background-size: cover;
+		}
+	</style>
+{% endif %}
+
+</head>
+
+<body>
+  
+<div id="page-wrap">
+
+<header>
+  
+	{% if object_list.count == 0 %}
+		<div id="logo"><a href="/">guttormsgaards arkiv</a></div>
+	{% endif %}
+	
+	<nav style="overflow: visible;" id="main-nav">	
+
+		<a class="cat search" href="{% url "item_search" %}">søk</a>
+	  
+		{% if object_list.count > 0 %}
+			<a class="cat breadcrumbs" href="/">guttormsgaards arkiv</a>
+		{% endif %}
+
+		{% for cnode in parent %}
+			{% if node.is_root_node %}
+				{% if object_list.count == 0 %}
+					<a class="cat breadcrumbs" href="/">{{ cnode.name }} </a>
+				{% else %}
+					<a class="cat breadcrumbs" href="/">{{ cnode.name }} </a>
+				{% endif %}
+			{% else %}
+				{% if object_list.count == 0 %}
+					<a class="cat breadcrumbs" href="{% url 'node' node_pk=cnode.pk  %}">{{ cnode.name }} </a>
+				{% else %}
+					<a class="cat breadcrumbs" href="{% url 'node' node_pk=cnode.pk  %}">{{ cnode.name }} </a>
+				{% endif %}
+			{% endif %}
+			
+		{% endfor %}
+		{% if current %}
+			{% if current.is_root_node %}
+				{% if object_list.count == 0 %}
+					<a class="cat breadcrumbs" href="/">{{ current.name }} </a>
+				{% else %}
+					<a class="cat breadcrumbs" href="/">{{ current.name }} </a>
+				{% endif %}
+			{% else %}
+				{% if object_list.count == 0 %}
+					<a class="cat breadcrumbs" href="{% url 'node' node_pk=current.pk %}">{{ current.name }} </a>
+				{% else %}
+					<a class="cat breadcrumbs" href="{% url 'node' node_pk=current.pk %}">{{ current.name }} </a>
+				{% endif %}
+			{% endif %}
+		{% endif %}
+		{% for cnode in nodes %}
+				{% if object_list.count == 0 %}
+					<a class="cat" href="{% url 'node' node_pk=cnode.pk %}">{{ cnode.name }} </a>
+				{% else %}
+					<a class="cat breadcrumbs" href="{% url 'node' node_pk=cnode.pk %}">{{ cnode.name }} </a>
+				{% endif %}
+		{% endfor %}
+    	</nav>
+
+</header>
+	
+	<div id="content">
+		{% for item in object_list %}
+			{% feature_image item current %}	
+		{% endfor %}
+	</div>
+
+	{% if search and object_list.count == 0 %}
+		<div id="zero-results">Ditt søk ga dessverre ingen treff.</div>
+	{% endif %}
+
+<footer>
+
+	{% if object_list.count == 0 %}
+		<a href="{% url "archive.views.copyright" %}">© Guttorm Guttormsgaard</a>
+	{% endif %}
+
+</footer>
+
+</div><!--end of page-wrap-->
+
+<script type="text/javascript" src="{{STATIC_URL}}js/functions.js"></script>
+
+</body>
+
+</html>
+
+{# vi: se ft=htmldjango noet: #}

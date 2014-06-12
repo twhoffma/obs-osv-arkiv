@@ -1,0 +1,11 @@
+{% load thumbnail %}
+{% load static %}
+{% load media_thumb %}
+
+<ul class="media_suggestion_matrix">
+{% for m  in media %}
+	<li>
+		<a href="{{m.pk}}"><img src="{% media_thumb m 50 50 %}" style="height: 50px; width: 50px;" alt="{{m}}" />{{m}}</a>
+	</li>	
+{% endfor %}
+</ul>

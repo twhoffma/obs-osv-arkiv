@@ -1,0 +1,80 @@
+{% extends "admin/archive/change_form_base.html" %}
+{% load thumbnail %}
+{% load admin_urls %}
+{% load url from future %}
+
+{% block extrahead %}
+	{{ block.super }}
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript"></script>
+	<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.9/jquery-ui.min.js" type="text/javascript"></script>
+
+	<script src="{{ STATIC_URL }}autocomplete_light/autocomplete.js" type="text/javascript"></script>
+	<script src="{{ STATIC_URL }}js/lightbox.js" type="text/javascript"></script>
+	<script src="{{ STATIC_URL}}js/archive_functions.js"></script>
+	<script src="{{ STATIC_URL}}js/location_autocomplete.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function(){
+				window.dismissAddAnotherPopup = function dismissAddAnotherPopup(win, newId, newRepr) {
+    					// newId and newRepr are expected to have previously been escaped by
+    					// django.utils.html.escape.
+ 					newId = html_unescape(newId);
+    					newRepr = html_unescape(newRepr);
+    					var name = windowname_to_id(win.name);
+    					var elem = document.getElementById(name);
+    					if (elem) {
+        					var elemName = elem.nodeName.toUpperCase();
+        					if (elemName == 'SELECT') {
+            						var o = new Option(newRepr, newId);
+            						elem.options[elem.options.length] = o;
+            						o.selected = true;
+        					} else if (elemName == 'INPUT') {
+            						if (elem.className.indexOf('vManyToManyRawIdAdminField') != -1 && elem.value) {
+                						elem.value += ',' + newId;
+            						} else {
+                						elem.value = newId;
+            						}
+        					}
+    					} else {
+        					var toId = name + "_to";
+        					elem = document.getElementById(toId);
+        					var o = new Option(newRepr, newId);
+        					SelectBox.add_to_cache(toId, o);
+        					SelectBox.redisplay(toId);
+    					}
+					$('#'+name).trigger('change');
+					$('#'+name).change();
+					$('#'+name).parent().find("div.media_details").load("/media_details?media_pk="+$('#'+name).val());
+					win.close();
+				}
+			}
+		);
+	</script>
+{% endblock %}
+
+
+{% block content %}
+  <div class="lightbox">
+	
+  </div>
+  <div class="select_media">
+	<input type="text" id="search_media" />
+	<input type="hidden" id="target" />
+	<p><a href="{% url opts|admin_urlname:'add' %}" target="_blank">Add new media</a></p>
+	<div class="suggested_media" style="overflow-y: scroll; overflow-x: hidden; max-height: 300px;">
+
+	</div>	
+  </div>
+  
+  {{ block.super }}
+		
+  <div class="ui-widget">
+  </div>
+{% endblock %}
+
+{% block extrastyle %}
+	{{ block.super }}
+	
+	<link rel="stylesheet" href="{{ STATIC_URL }}css/autocomplete.css" />	
+	<link rel="stylesheet" href="{{ STATIC_URL }}css/item_admin.css" />	
+	<link rel="stylesheet" href="{{STATIC_URL}}css/jquery-ui-1.9.1.custom.min.css" type="text/css" />
+{% endblock %}
