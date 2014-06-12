@@ -57,7 +57,25 @@
         ctx.translate(-view_width / 2, -view_height / 2);
 
         ctx.scale(settings.zoom, settings.zoom);
-        ctx.drawImage(canvas_image[0], settings.pan[0] / settings.zoom, settings.pan[1] / settings.zoom);
+
+        /**
+         * The following disgusting piece of code is a workaround for Firefox,
+         * which throws NS_ERROR_NOT_AVAILABLE intermittently.
+         *
+         * https://bugzilla.mozilla.org/show_bug.cgi?id=764066
+         * https://bugzilla.mozilla.org/show_bug.cgi?id=574330
+         */
+        var drawn = false;
+        var retries = 0; // endless loop failsafe
+        do {
+            try {
+                ctx.drawImage(canvas_image[0], settings.pan[0] / settings.zoom, settings.pan[1] / settings.zoom);
+                drawn = true;
+            } catch (e) {
+                ++retries;
+            }
+        }
+        while (!drawn && retries < 10000);
 
         if (mininav_enabled) {
             mininav_draw();
@@ -68,9 +86,9 @@
         mininav_ctx.setTransform(1, 0, 0, 1, 0, 0);
         mininav_ctx.clearRect(0, 0, mininav_canvas[0].width, mininav_canvas[0].height);
 
-        mininav_ctx.translate(mininav[0].width / 2, mininav[0].height / 2);
+        mininav_ctx.translate(mininav.width() / 2, mininav.height() / 2);
         mininav_ctx.rotate(settings.rotate * (Math.PI / 180));
-        mininav_ctx.translate(-mininav[0].width / 2, -mininav[0].height / 2);
+        mininav_ctx.translate(-mininav.width() / 2, -mininav.height() / 2);
 
         mininav_ctx.drawImage(mininav[0], 0, 0);
 
@@ -196,17 +214,17 @@
 
                 /* Callback for image load */
                 var load_port = function(image) {
+                    image.hide().insertAfter(canvas);
                     canvas_image = image;
                     canvas[0].width = view_width;
                     canvas[0].height = view_height;
-                    image.hide().insertAfter(canvas);
                     ctx = canvas[0].getContext('2d');
 
                     if (mininav_enabled) {
                         mininav = img;
-                        mininav_canvas[0].width = img[0].width;
-                        mininav_canvas[0].height = img[0].height;
-                        base_ratio = image[0].width / img[0].width;
+                        mininav_canvas[0].width = img.width()
+                        mininav_canvas[0].height = img.height();
+                        base_ratio = image.width() / img.width();
                         mininav_ctx = mininav_canvas[0].getContext('2d');
                         mininav_ctx.fillStyle = 'rgba(255, 255, 255, 0.5)';
                         mininav_ctx.strokeStyle = 'rgba(255, 0, 0, 1)';
@@ -342,21 +360,17 @@
 
                 if (image.length == 0) {
                     /* Pre-load thumbnail into viewport for quick view */
-                    image = img.clone();
+                    image = $('<img/>');
                     image.one('load', function() {
                         load_port(image);
                         var loader = loading.clone().insertBefore(canvas);
 
                         /* Load the real image */
-                        image = $('<img/>').attr('src', canvas.attr('data-image'));
-                        image.one('load', function() { loader.remove(); load_port(image); });
-                        if (image[0].complete) {
-                            image.load();
-                        }
+                        var im = $('<img/>');
+                        im.one('load', function() { loader.remove(); load_port(im); });
+                        im.attr('src', canvas.attr('data-image'));
                     });
-                    if (image[0].complete) {
-                        image.load();
-                    }
+                    image.attr('src', img.attr('src'));
                 } else {
                     load_port(image);
                 }
@@ -416,8 +430,8 @@
                 settings.rotate = 0;
 
                 /* Initial zoom level based on image and viewport dimensions */
-                var x = view_width / canvas_image[0].width;
-                var y = view_height / canvas_image[0].height;
+                var x = view_width / canvas_image.width();
+                var y = view_height / canvas_image.height();
                 if (x < y) {
                     settings.zoom = x;
                 } else {
@@ -425,8 +439,8 @@
                 }
 
                 /* Center image */
-                var x = (view_width / 2) - ((canvas_image[0].width * settings.zoom) / 2);
-                var y = (view_height / 2) - ((canvas_image[0].height * settings.zoom) / 2);
+                var x = (view_width / 2) - ((canvas_image.width() * settings.zoom) / 2);
+                var y = (view_height / 2) - ((canvas_image.height() * settings.zoom) / 2);
                 settings.pan = [x, y];
 
                 draw();

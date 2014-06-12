@@ -7,20 +7,20 @@ from django.forms.util import flatatt
 from django.utils.safestring import mark_safe
 from django.utils.encoding import force_unicode
 from itertools import chain
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import ugettext as _
 
 
 class ItemSearchForm(forms.Form):
-    categories = forms.CharField(widget=forms.TextInput(attrs={'id': 'category', 'name': 'category'}), label=_('Category'), required=False)
-    title = forms.CharField(widget=forms.TextInput(attrs={'id': 'title', 'name': 'title'}), label=_('Title'), required=False)
-    artist = forms.CharField(widget=forms.TextInput(attrs={'id': 'artist', 'name': 'artist'}), label=_('Artist'), required=False)
-    date_from = forms.CharField(widget=forms.TextInput(attrs={'id': 'from', 'name': 'from'}), label=_('Dating, From'), required=False)
-    date_to = forms.CharField(widget=forms.TextInput(attrs={'id': 'to', 'name': 'to'}), label=_('Dating, To'), required=False)
-    origin_city = forms.CharField(widget=forms.TextInput(attrs={'id': 'city', 'name': 'city'}), label=_('City'), required=False)
-    origin_country = forms.CharField(widget=forms.TextInput(attrs={'id': 'country', 'name': 'country'}), label=_('Country'), required=False)
-    materials = forms.CharField(widget=forms.TextInput(attrs={'id': 'material', 'name': 'material'}), label=_('Material'), required=False)
-    q = forms.CharField(widget=forms.TextInput(attrs={'id': 'fulltext', 'name': 'fulltext'}), label=_('Fulltext'), required=False)
-    video_only = forms.BooleanField(widget=forms.CheckboxInput(attrs={'id': 'checkmovie', 'name': 'checkmovie'}), label=_('Item with movies'), required=False)
+    categories = forms.CharField(label=_('Category'), required=False)
+    title = forms.CharField(label=_('Title'), required=False)
+    artist = forms.CharField(label=_('Artist'), required=False)
+    date_from = forms.IntegerField(widget=forms.TextInput(attrs={'placeholder': _('FROM')}), label=_('Dating, from'), required=False)
+    date_to = forms.IntegerField(widget=forms.TextInput(attrs={'placeholder': _('TO')}), label=_('Dating, to'), required=False)
+    origin_city = forms.CharField(widget=forms.TextInput(attrs={'placeholder': _('CITY')}), label=_('City'), required=False)
+    origin_country = forms.CharField(widget=forms.TextInput(attrs={'placeholder': _('COUNTRY')}), label=_('Country'), required=False)
+    materials = forms.CharField(label=_('Material/technique'), required=False)
+    q = forms.CharField(label=_('Fulltext'), required=False)
+    video_only = forms.BooleanField(widget=forms.CheckboxInput, label=_('Item with movies'), required=False)
 
 class ItemAdminForm(forms.ModelForm):
     materials = forms.CharField(widget=ManyToManyTextWidget(attrs={'rows': 3, 'cls': Materials}), required=False, label=_("Materials"))

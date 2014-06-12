@@ -7,10 +7,15 @@
 <meta charset=UTF-8>
 <title>Guttormsgaards ARKIV</title>
 
-<link href='http://fonts.googleapis.com/css?family=Quattrocento+Sans:400,400italic,700,700italic' rel='stylesheet' type='text/css'>
-<link rel="stylesheet" media='screen and (min-width: 600px) and (max-width: 2500px)' href="{{STATIC_URL}}css/style.css" type="text/css">
+<link href='http://fonts.googleapis.com/css?family=Quattrocento+Sans:400,400italic,700,700italic' rel='stylesheet' type='text/css' />
+<link rel="stylesheet" href="{{STATIC_URL}}css/style.css" type="text/css" />
 <link rel="stylesheet" href="{{STATIC_URL}}css/jquery-ui-1.9.1.custom.min.css" type="text/css" />
 <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}css/mediaview.css" />
+
+<!-- Internet Exploder needs a little push to get up in the morning. -->
+<!--[if IE]>
+	<script type="text/javascript" src="{{STATIC_URL}}js/excanvas.compiled.js"></script>
+<![endif]-->
 
 <!--[if lt IE 9]>
 <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -20,8 +25,6 @@
 <script type="text/javascript" src="{{STATIC_URL}}js/jquery-ui-1.9.1.custom.min.js"></script>
 <script type="text/javascript" src="{{STATIC_URL}}js/museum_functions.js"></script>
 
-<script type="text/javascript" src="{{STATIC_URL}}js/extjs/ext-core.js"></script>    
-    
 <script type="text/javascript" src="{{STATIC_URL}}js/fullscreen/jquery.fullscreen-min.js"></script>    
 <script type="text/javascript" src="{{STATIC_URL}}js/mediaview/jquery.mousewheel.js"></script>    
 <script type="text/javascript" src="{{STATIC_URL}}js/mediaview/jquery.mediaview.js"></script>    
@@ -35,7 +38,13 @@
 
 		<nav id="sidebar">	
 
-			<a class="blocklink" href="{% url 'node' node_pk=current.pk %}">Tilbake</a>
+			{% if node %}
+				<a class="blocklink" href="{% url 'node' node_pk=current.pk %}">Tilbake</a>
+			{% elif request.META.HTTP_REFERER %}
+				<a class="blocklink" href="{{ request.META.HTTP_REFERER }}">Tilbake</a>
+			{% else %}
+				<a class="blocklink" href="/">Tilbake</a>
+			{% endif %}
 
 			<a class="blocklink" id="toggle-fullscreen" href="javascript:;">Fullskjerm</a>
 
@@ -66,29 +75,35 @@
 			<table border="0">
 				{% if object.title %}
 				<tr>
-					<td><p class="title">{%trans "title" %}</p></td>
+					<td><p class="title">Tittel</p></td>
 					<td><p class="text">{{object.title}}</p></td>
 				</tr>
 				{% endif %}
 				{% if object.artist %}
 				<tr>
-					<td><p class="title">{%trans "artist" %}</p></td>
+					<td><p class="title">Artist</p></td>
 					<td><p class="text"><a href="{% url 'artist' artist=object.artist %}">{{object.artist}}</a></p></td>
 				</tr>
 				{% endif %}
 				{% if object.date_from or object.date_to %}
 				<tr>
-					<td><p class="title">{%trans "dating" %}</p></td>
+					<td><p class="title">Datering</p></td>
 					<td><p class="text">
 						{% if object.date_from %}
 							{% if object.dating_certainty %}
-								<span style="text-transform: capitalize;">{%trans "from" %}{% if object.dating_certainty != "sure" %}</span> {%trans "approx" %}. {% endif %} {{ object.date_from }} 
-							{% endif%}
+								<span>{% if object.date_to %}Fra {% endif %}{% if object.dating_certainty != "sure" %}ca.{% endif %}</span> {{ object.date_from }}
+							{% endif %}
+							{% if object.era_from == "BC" and object.era_from != object.era_to %}
+								{{ object.get_era_from_display }}
+							{% endif %}
 						{% endif %}
 						{% if object.date_to %}
-							{% if object.date_from %} {%trans "to" %} {{ object.date_to }}
+							{% if not object.date_from %}{{ object.date_to }}
 							{% else %}
-								<span style="text-transform: capitalize;">{%trans "to" %}</span> {{ object.date_to }}
+								<span>til</span> {{ object.date_to }}
+							{% endif %}
+							{% if object.era_to != object.era_from or object.era_to == "BC" %}
+								{{ object.get_era_to_display }}
 							{% endif %}
 						{% endif %}
 					</p></td>
@@ -96,7 +111,7 @@
 				{% endif %}
 				{% if object.origin_city or object.origin_country %}
 				<tr>
-					<td><p class="title">{%trans "origin" %}</p></td>
+					<td><p class="title">Opphavssted</p></td>
 					<td><p class="text">
 					{% if object.origin_city %}
 						<a href="{% url 'city' city=object.origin_city %}" />{{object.origin_city}}</a>
@@ -111,19 +126,19 @@
 				{% endif %}
 				{% if object.dim_height or object.dim_width or object.dim_depth or object.dim_weight %}
 				<tr>
-					<td><p class="title">{%trans "dimensions" %}</p></td>
+					<td><p class="title">Dimensjoner</p></td>
 					<td><p class="text">
 						{% if object.dim_width %}
-							<span style="text-transform: capitalize;">{% trans "width" %}</span>: {{object.dim_width}} cm.
+							<span style="text-transform: capitalize;">Bredde</span>: {{object.dim_width}} cm.
 						{% endif %}
 						{% if object.dim_height %}
-							<span style="text-transform: capitalize;">{% trans "height" %}</span>: {{object.dim_height}} cm.
+							<span style="text-transform: capitalize;">Høyde</span>: {{object.dim_height}} cm.
 						{% endif %}
 						{% if object.dim_depth %}
-							<span style="text-transform: capitalize;">{% trans "depth" %}</span>: {{object.dim_depth }} cm.
+							<span style="text-transform: capitalize;">Dybde</span>: {{object.dim_depth }} cm.
 						{% endif %}
 						{% if object.dim_weight %}
-							<span style="text-transform: capitalize;">{% trans "weight" %}</span>: {{object.dim_weight }} cm.
+							<span style="text-transform: capitalize;">Vekt</span>: {{object.dim_weight }} cm.
 						{% endif %}
 					</p></td>
 				</tr>
@@ -136,7 +151,7 @@
 				{% endif %}
 				{%if object.description %}
 				<tr>
-					<td><p class="title">{%trans "description" %}</p></td>
+					<td><p class="title">Beskrivelse</p></td>
 					<td><p class="text">{{object.description}}</p></td>
 				</tr>
 				{% endif %}

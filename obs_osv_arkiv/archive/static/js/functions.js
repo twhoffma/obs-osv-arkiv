@@ -1,30 +1,19 @@
-// JavaScript Document
+$(window).load(function() {
 
-$('#main-nav').isotope({
-  // options
-  itemSelector : '.cat',
-  layoutMode : 'fitRows'
-});
+    var $container = $('#content');
 
-$('#content').isotope({
-  // options
-  itemSelector : '.thumb',
-  layoutMode : 'masonry'
-});
-
-var $container = $('#content');
-
-$container.imagesLoaded( function(){
-  $container.isotope({
-    // options...
-  });
-});
-
-
-$(function(){
-    $('a.toggle').click(function(){
-      $('#infobox').animate({
-       width: 'toggle'
-      });
+    $('#main-nav').isotope({
+        itemSelector : '.cat',
+        layoutMode : 'fitRows'
     });
+
+    $container.isotope({
+        itemSelector : '.thumb',
+        layoutMode : 'masonry'
+    });
+
+    $container.imagesLoaded(function() {
+        $container.isotope({});
+    });
+
 });

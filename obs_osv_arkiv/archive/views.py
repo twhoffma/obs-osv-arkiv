@@ -7,6 +7,7 @@ from django.utils import simplejson
 from django.views.decorators.csrf import csrf_exempt
 from django.template import Template, RequestContext
 from django.core.urlresolvers import reverse
+from django.shortcuts import redirect
 from haystack.query import SearchQuerySet
 
 from django.views.generic.list import ListView
@@ -51,14 +52,35 @@ class ItemListView(ListView):
 			self.child_categories = Category.objects.root_nodes().filter(tree_id__in=Item.category.through.objects.filter(item__published=True).values_list('category__tree_id').distinct()).order_by('name')
 			return(Item.objects.filter(pk=None).filter(published=True))
 	
-	def post(self, request, *args, **kwargs):
-		frm = ItemSearchForm(request.POST)
+	def get_context_data(self, **kwargs):
+		context = super(ItemListView, self).get_context_data(**kwargs)
+		context['parent'] = self.parent_category
+		context['current'] = self.current_category
+		context['nodes'] = self.child_categories
+		if self.object_list:
+			context['bg'] = None
+		elif (self.parent_category and self.parent_category.count > 0) or self.current_category:
+			context['bg'] = u'flyvemann2.jpg'
+		else:
+			context['bg'] = u'flyvemann1.jpg'
+		return(context)
+
+class ItemSearchResultView(ItemListView):
+
+	def get(self, request):
+		frm = ItemSearchForm(request.GET)
 		self.object_list = Item.objects.none()
-		
+
 		if frm.is_valid():
 
 			cdata = frm.clean()
 			sqs = SearchQuerySet().filter(published=True)
+			psqs = sqs
+
+			# No blank values, please
+			for key in cdata.iterkeys():
+				if isinstance(cdata[key], basestring):
+					cdata[key] = cdata[key].strip()
 
 			if cdata['categories']:
 				sqs = sqs.filter(categories__in=[x.strip() for x in cdata['categories'].split(' ')])
@@ -83,6 +105,10 @@ class ItemListView(ListView):
 			if cdata['q']:
 				sqs = sqs.filter(content=cdata['q'])
 
+			# No search data entered
+			if psqs == sqs:
+				return redirect(reverse('item_search'))
+
 			# Assigning a list to self.object_list won't work, it needs a QuerySet.
 			# We're basically loading the items twice :(
 			results = list(sqs.order_by('score')[:1000])  # slicing the array prevents multiple queries to Solr.
@@ -94,20 +120,12 @@ class ItemListView(ListView):
 		self.child_categories = None
 		context = self.get_context_data(object_list=self.object_list)
 		return(self.render_to_response(context))	
-		
-	
+
 	def get_context_data(self, **kwargs):
-		context = super(ItemListView, self).get_context_data(**kwargs)
-		context['parent'] = self.parent_category
-		context['current'] = self.current_category
-		context['nodes'] = self.child_categories
-		if self.object_list:
-			context['bg'] = None
-		elif (self.parent_category and self.parent_category.count > 0) or self.current_category:
-			context['bg'] = u'flyvemann2.jpg'
-		else:
-			context['bg'] = u'flyvemann1.jpg'
-		return(context)
+		context = super(ItemSearchResultView, self).get_context_data(**kwargs)
+		context['bg'] = None
+		context['search'] = True
+		return context
 
 class ItemDetailView(DetailView):
 	model = Item
