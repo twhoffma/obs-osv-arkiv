@@ -173,10 +173,6 @@ HAYSTACK_CONNECTIONS = {
     },
 }
 
-LOCALE_PATHS = (
-	os.path.join(PROJECT_ROOT, 'conf', 'locale'),
-)
-
 # Import site-specific and user defined settings, i.e. for
 # databases and debugging.
 
