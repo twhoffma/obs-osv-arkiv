@@ -180,7 +180,4 @@ LOCALE_PATHS = (
 # Import site-specific and user defined settings, i.e. for
 # databases and debugging.
 
-try:
-    from local_settings import *
-except ImportError:
-    pass
+from local_settings import *
