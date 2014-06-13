@@ -14,3 +14,6 @@ migrations/
 *.mo
 django-trunk/
 /solr/cores/*/data
+deploy.sh
+secret_key.py
+wsgi.py
