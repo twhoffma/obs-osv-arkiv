@@ -100,6 +100,12 @@
 		<div id="zero-results">Ditt søk ga dessverre ingen treff.</div>
 	{% endif %}
 
+	{% if current.description and object_list.count != 0 %}
+		<div id="commentary">
+			{{current.description|linebreaksbr}}
+		</div>
+	{% endif %}
+
 <footer>
 
 	{% if object_list.count == 0 %}

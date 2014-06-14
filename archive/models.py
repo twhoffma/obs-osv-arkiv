@@ -22,6 +22,7 @@ class ItemHistory(models.Model):
 class Category(MPTTModel):
 	name = models.CharField(max_length=50, verbose_name=_("name"))
 	parent = TreeForeignKey('self', null=True, blank=True, related_name='children', verbose_name=_("parent"))
+	description = models.TextField(null=True, blank=True)
 	
 	class Meta:
 		unique_together = (("name", "parent"), )
