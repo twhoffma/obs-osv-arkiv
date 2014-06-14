@@ -68,12 +68,7 @@ $(document).ready(function() {
     $toggle_details.click(function() {
 
         $(this).toggleClass('active');
-
-        if ($details.is(':visible')) {
-            $details.hide('slide', { direction: 'right' }, 400);
-        } else {
-            $details.show('slide', { direction: 'right' }, 400);
-        }
+        $details.fadeToggle("fast");
 
     });
 

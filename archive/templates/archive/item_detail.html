@@ -71,91 +71,124 @@
 			<span id="reset" aria-hidden="true" data-icon="&#x2715;"></span>
 		</div>
 
-		<div id="infobox" class="gradient">
-			<table border="0">
+		<div id="infobox">
+
+		    <div id="infotext">
+
+				<a href="#" class="toggle"><span aria-hidden="true" data-icon="&#x2715;"></span></a>
+
 				{% if object.title %}
-				<tr>
-					<td><p class="title">Tittel</p></td>
-					<td><p class="text">{{object.title}}</p></td>
-				</tr>
+					<p>
+						<span class="title">Tittel/betegnelse:</span>
+						<span class="text">{{object.title}}</span>
+					</p>
 				{% endif %}
+
+				{% if object.item_number %}
+					<p>
+						<span class="title">Reg.nr.:</span>
+						<span class="text">{{object.item_number}}</span>
+					</p>
+				{% endif %}
+
 				{% if object.artist %}
-				<tr>
-					<td><p class="title">Artist</p></td>
-					<td><p class="text"><a href="{% url 'artist' artist=object.artist %}">{{object.artist}}</a></p></td>
-				</tr>
+					<p>
+						<span class="title">Kunstner/produsent:</span>
+						<span class="text"><a href="{% url 'artist' artist=object.artist %}">{{object.artist}}</a></span>
+					</p>
 				{% endif %}
+
 				{% if object.date_from or object.date_to %}
-				<tr>
-					<td><p class="title">Datering</p></td>
-					<td><p class="text">
-						{% if object.date_from %}
-							{% if object.dating_certainty %}
-								<span>{% if object.date_to %}Fra {% endif %}{% if object.dating_certainty != "sure" %}ca.{% endif %}</span> {{ object.date_from }}
+					<p>
+						<span class="title">Datering:</span>
+						<span class="text">
+							{% if object.date_from %}
+								{% if object.dating_certainty %}
+									<span>{% if object.date_to %}Fra {% endif %}{% if object.dating_certainty != "sure" %}ca.{% endif %}</span> {{ object.date_from }}
+								{% endif %}
+								{% if object.era_from == "BC" and object.era_from != object.era_to %}
+									{{ object.get_era_from_display }}
+								{% endif %}
 							{% endif %}
-							{% if object.era_from == "BC" and object.era_from != object.era_to %}
-								{{ object.get_era_from_display }}
+							{% if object.date_to %}
+								{% if not object.date_from %}{{ object.date_to }}
+								{% else %}
+									<span>til</span> {{ object.date_to }}
+								{% endif %}
+								{% if object.era_to != object.era_from or object.era_to == "BC" %}
+									{{ object.get_era_to_display }}
+								{% endif %}
 							{% endif %}
-						{% endif %}
-						{% if object.date_to %}
-							{% if not object.date_from %}{{ object.date_to }}
-							{% else %}
-								<span>til</span> {{ object.date_to }}
-							{% endif %}
-							{% if object.era_to != object.era_from or object.era_to == "BC" %}
-								{{ object.get_era_to_display }}
-							{% endif %}
-						{% endif %}
-					</p></td>
-				</tr>
+						</span>
+					</p>
 				{% endif %}
+
 				{% if object.origin_city or object.origin_country %}
-				<tr>
-					<td><p class="title">Opphavssted</p></td>
-					<td><p class="text">
-					{% if object.origin_city %}
-						<a href="{% url 'city' city=object.origin_city %}" />{{object.origin_city}}</a>
-					{% endif %} 
-					{%if object.origin_country %}
-					{%if object.origin_city %}, {%endif%}
-					<a href="{% url 'country' country=object.origin_country %}">{{ object.origin_country  }}</a>
-					{% endif %} 
-					 {% blocktrans %}{{ object.origin_certainty}}{% endblocktrans %}
-					</p></td>
-				</tr>
+					<p>
+						<span class="title">Opphavssted:</span>
+						<span class="text">
+						{% if object.origin_city %}
+							<a href="{% url 'city' city=object.origin_city %}" />{{object.origin_city}}</a>
+						{% endif %} 
+						{%if object.origin_country %}
+						{%if object.origin_city %}, {%endif%}
+						<a href="{% url 'country' country=object.origin_country %}">{{ object.origin_country  }}</a>
+						{% endif %} 
+						 {% blocktrans %}{{ object.origin_certainty}}{% endblocktrans %}
+						</span>
+					</p>
 				{% endif %}
+
 				{% if object.dim_height or object.dim_width or object.dim_depth or object.dim_weight %}
-				<tr>
-					<td><p class="title">Dimensjoner</p></td>
-					<td><p class="text">
-						{% if object.dim_width %}
-							<span style="text-transform: capitalize;">Bredde</span>: {{object.dim_width}} cm.
-						{% endif %}
-						{% if object.dim_height %}
-							<span style="text-transform: capitalize;">Høyde</span>: {{object.dim_height}} cm.
-						{% endif %}
-						{% if object.dim_depth %}
-							<span style="text-transform: capitalize;">Dybde</span>: {{object.dim_depth }} cm.
-						{% endif %}
-						{% if object.dim_weight %}
-							<span style="text-transform: capitalize;">Vekt</span>: {{object.dim_weight }} cm.
-						{% endif %}
-					</p></td>
-				</tr>
+					<p>
+						<span class="title">Dimensjoner:</span>
+						<span class="text">
+							{% if object.dim_width %}
+								<span style="text-transform: capitalize;">Bredde:</span> {{object.dim_width}} cm.
+							{% endif %}
+							{% if object.dim_height %}
+								<span style="text-transform: capitalize;">Høyde:</span> {{object.dim_height}} cm.
+							{% endif %}
+							{% if object.dim_depth %}
+								<span style="text-transform: capitalize;">Dybde:</span> {{object.dim_depth }} cm.
+							{% endif %}
+							{% if object.dim_weight %}
+								<span style="text-transform: capitalize;">Vekt:</span> {{object.dim_weight }} cm.
+							{% endif %}
+						</span>
+					</p>
 				{% endif %}
+
 				{% if object.materials.count > 0 %}
-				<tr>
-					<td><p class="title">MATERIALE/TEKNIKK</p></td>
-					<td><p class="text">{% for m in object.materials.all %}{{m}}{% if not forloop.last %},  {% endif%}{% endfor%}</p></td>
-				</tr>
+					<p>
+						<span class="title">Materiale/teknikk:</span>
+						<span class="text">{% for m in object.materials.all %}{{m}}{% if not forloop.last %},  {% endif%}{% endfor%}</span>
+					</p>
 				{% endif %}
-				{%if object.description %}
-				<tr>
-					<td><p class="title">Beskrivelse</p></td>
-					<td><p class="text">{{object.description}}</p></td>
-				</tr>
+
+				{% if object.origin_provinience %}
+					<p>
+						<span class="title">Proviniens:</span>
+						<span class="text">{{object.origin_provinience|linebreaksbr}}</span>
+					</p>
 				{% endif %}
-			</table>
+
+				{% if object.description %}
+					<p>
+						<span class="title">Beskrivelse:</span>
+						<span class="text">{{object.description|linebreaksbr}}</span>
+					</p>
+				{% endif %}
+
+				{% if object.ref_literature %}
+					<p>
+						<span class="title">Referanselitteratur:</span>
+						<span class="text">{{object.ref_literature|linebreaksbr}}</span>
+					</p>
+				{% endif %}
+
+			</div>
+
 		</div>
 
 		<div id="container">
