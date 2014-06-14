@@ -236,7 +236,7 @@ class Item(models.Model):
 	def header_image(self):
 		return(self.itemmedia_set.order_by('order')[:1])
 		
-	published = models.BooleanField(verbose_name=_("published"))
+	published = models.BooleanField(verbose_name=_("published"), default=False)
 	item_number = models.CharField(max_length=14, unique=True, blank=False, verbose_name=_("item number"))
 	title = models.CharField(max_length=200, blank=True, verbose_name=_("title"), null=True)
 	condition = models.ForeignKey(Condition, blank=True, null=True, verbose_name=_("condition"))
