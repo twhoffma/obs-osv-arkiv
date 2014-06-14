@@ -56,6 +56,7 @@
 			{% endif %}
 			
 		{% endfor %}
+
 		{% if current %}
 			{% if current.is_root_node %}
 				<a class="cat breadcrumbs" href="/">{{ current.name }} </a>
@@ -63,12 +64,17 @@
 				<a class="cat breadcrumbs" href="{% url 'node' node_pk=current.pk %}">{{ current.name }} </a>
 			{% endif %}
 		{% endif %}
+
 		{% for cnode in nodes %}
-				{% if object_list.count == 0 %}
-					<a class="cat" href="{% url 'node' node_pk=cnode.pk %}">{{ cnode.name }} </a>
-				{% else %}
-					<a class="cat breadcrumbs" href="{% url 'node' node_pk=cnode.pk %}">{{ cnode.name }} </a>
-				{% endif %}
+			{% if object_list.count == 0 %}
+				<a class="cat" href="{% url 'node' node_pk=cnode.pk %}">{{ cnode.name }} </a>
+			{% else %}
+				<a class="cat breadcrumbs" href="{% url 'node' node_pk=cnode.pk %}">{{ cnode.name }} </a>
+			{% endif %}
+		{% endfor %}
+
+		{% for sibling in sibling_categories %}
+			<a class="cat muted" href="{% url 'node' node_pk=sibling.pk %}">{{ sibling.name }}</a>
 		{% endfor %}
 
 	</nav>

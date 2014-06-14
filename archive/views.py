@@ -57,6 +57,8 @@ class ItemListView(ListView):
 		context['parent'] = self.parent_category
 		context['current'] = self.current_category
 		context['nodes'] = self.child_categories
+		if self.current_category and self.current_category.parent:
+			context['sibling_categories'] = self.current_category.parent.get_descendants().exclude(pk=self.current_category.pk).order_by('name')
 		if self.object_list:
 			context['bg'] = None
 		elif (self.parent_category and self.parent_category.count > 0) or self.current_category:
