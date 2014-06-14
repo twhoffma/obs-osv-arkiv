@@ -126,12 +126,19 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.admin',
+    'south',
     'archive',
     'mptt', 
     'easy_thumbnails',
     'django_filters',
     'haystack'
 )
+
+SOUTH_MIGRATION_MODULES = {
+    'archive': 'archive.migrations',
+    'easy_thumbnails': 'easy_thumbnails.south_migrations',
+}
+
 
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to

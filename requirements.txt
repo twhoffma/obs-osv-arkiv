@@ -1,8 +1,10 @@
 Django==1.6.5
+Pillow==2.4.0
+South==0.8.4
 distribute==0.6.24
 django-haystack==2.1.0
 django-mptt==0.5.5
-easy-thumbnails==1.2
+easy-thumbnails==2.0.1
 lxml==3.2.1
 pysolr==3.0.6
-wsgiref==0.1.2
+requests==2.3.0
