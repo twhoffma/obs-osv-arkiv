@@ -50,33 +50,17 @@
 
 		{% for cnode in parent %}
 			{% if node.is_root_node %}
-				{% if object_list.count == 0 %}
-					<a class="cat breadcrumbs" href="/">{{ cnode.name }} </a>
-				{% else %}
-					<a class="cat breadcrumbs" href="/">{{ cnode.name }} </a>
-				{% endif %}
+				<a class="cat breadcrumbs" href="/">{{ cnode.name }} </a>
 			{% else %}
-				{% if object_list.count == 0 %}
-					<a class="cat breadcrumbs" href="{% url 'node' node_pk=cnode.pk  %}">{{ cnode.name }} </a>
-				{% else %}
-					<a class="cat breadcrumbs" href="{% url 'node' node_pk=cnode.pk  %}">{{ cnode.name }} </a>
-				{% endif %}
+				<a class="cat breadcrumbs" href="{% url 'node' node_pk=cnode.pk  %}">{{ cnode.name }} </a>
 			{% endif %}
 			
 		{% endfor %}
 		{% if current %}
 			{% if current.is_root_node %}
-				{% if object_list.count == 0 %}
-					<a class="cat breadcrumbs" href="/">{{ current.name }} </a>
-				{% else %}
-					<a class="cat breadcrumbs" href="/">{{ current.name }} </a>
-				{% endif %}
+				<a class="cat breadcrumbs" href="/">{{ current.name }} </a>
 			{% else %}
-				{% if object_list.count == 0 %}
-					<a class="cat breadcrumbs" href="{% url 'node' node_pk=current.pk %}">{{ current.name }} </a>
-				{% else %}
-					<a class="cat breadcrumbs" href="{% url 'node' node_pk=current.pk %}">{{ current.name }} </a>
-				{% endif %}
+				<a class="cat breadcrumbs" href="{% url 'node' node_pk=current.pk %}">{{ current.name }} </a>
 			{% endif %}
 		{% endif %}
 		{% for cnode in nodes %}
@@ -86,7 +70,8 @@
 					<a class="cat breadcrumbs" href="{% url 'node' node_pk=cnode.pk %}">{{ cnode.name }} </a>
 				{% endif %}
 		{% endfor %}
-    	</nav>
+
+	</nav>
 
 </header>
 	
