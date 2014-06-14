@@ -173,6 +173,9 @@ HAYSTACK_CONNECTIONS = {
     },
 }
 
+# Index items as soon as they're saved in the database.
+HAYSTACK_SIGNAL_PROCESSOR = 'haystack.signals.RealtimeSignalProcessor'
+
 # Import site-specific and user defined settings, i.e. for
 # databases and debugging.
 
