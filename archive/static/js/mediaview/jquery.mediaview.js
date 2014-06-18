@@ -193,6 +193,13 @@
                 img.addClass('active').siblings().removeClass('active');
                 soulmate.show().siblings().hide();
 
+                /* Autoplay video */
+                var $video = soulmate.children('video');
+                if ($video.length == 1) {
+                    $video[0].play();
+                    return;
+                }
+
                 /* Initialize canvas, if applicable */
                 canvas = soulmate.children('canvas').slice(0, 1);
                 if (canvas.length == 0) {
