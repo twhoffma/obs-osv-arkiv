@@ -70,6 +70,7 @@ class Media(models.Model):
 	
 	filename = models.FileField(upload_to='media', verbose_name=_("thumbnail"), blank=True)
 	media_type = models.CharField(max_length=10, choices=MEDIA_TYPES, verbose_name=_("filetype"))
+	macro_zoom = models.BooleanField(default=False)
 	
 	class Meta:
 		verbose_name = _("media")
