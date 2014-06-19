@@ -19,14 +19,7 @@
 <script type="text/javascript" src="{{STATIC_URL}}js/jquery.isotope.min.js"></script>
 <script type="text/javascript" src="{{STATIC_URL}}js/jquery-ui-1.9.2.custom.min.js"></script>
 
-<script type="text/javascript" src="{{STATIC_URL}}js/museum_functions.js"></script>
-
-<script type="text/javascript">
-$('#content').isotope({
-  // options
-  itemSelector : '.thumb',
-  layoutMode : 'masonry'
-});</script>
+<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1" />
 
 {% if bg %}
 	<style>
@@ -45,11 +38,18 @@ $('#content').isotope({
 
 <header>
   
-	<div id="logo"><a href="/">guttormsgaards arkiv</a></div>
+	{% if object_list.count == 0 %}
+		<div id="logo"><a href="/">guttormsgaards arkiv</a></div>
+	{% endif %}
 	
 	<nav style="overflow: visible;" id="main-nav">	
+
 		<a class="cat search" href="{% url "item_search" %}">søk</a>
 	  
+		{% if object_list.count > 0 %}
+			<a class="cat breadcrumbs" href="/">guttormsgaards arkiv</a>
+		{% endif %}
+
 		{% for cnode in parent %}
 			{% if node.is_root_node %}
 				{% if object_list.count == 0 %}
@@ -89,6 +89,8 @@ $('#content').isotope({
 				{% endif %}
 		{% endfor %}
     	</nav>
+    	
+    	<div id="icon-info">MAKRO-ZOOM: <img src="images/makro-white.png"/> FILM: <img src="images/film-white.png"/></div>
 
 </header>
 	
@@ -98,9 +100,16 @@ $('#content').isotope({
 		{% endfor %}
 	</div>
 
+	{% if search and object_list.count == 0 %}
+		<div id="zero-results">Ditt søk ga dessverre ingen treff.</div>
+	{% endif %}
+
+
 <footer>
 
-<a href="{% url "archive.views.copyright" %}">© Guttorm Guttormsgaard</a>
+	{% if object_list.count == 0 %}
+		<a href="{% url "archive.views.copyright" %}">© Guttorm Guttormsgaard</a>
+	{% endif %}
 
 </footer>
 

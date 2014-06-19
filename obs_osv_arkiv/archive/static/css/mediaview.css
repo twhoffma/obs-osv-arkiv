@@ -100,7 +100,7 @@ body {
     position: absolute;
     overflow: hidden;
     width: 100%;
-    height: 100%;
+    /*height: 100%;*/
 }
 
 #thumb-selector-container.overflowing #thumb-selector-inner {
@@ -178,5 +178,103 @@ audio {
     right: 0;
 }
 
+@media only screen and (max-width : 480px), only screen and (max-device-width: 480px) {
 
+    .blocklink {
+        font-size: 2em;
+        line-height: 1.5em;
+        padding: 0;
+    }
 
+    #scroll-up, #scroll-down {
+        display: none !important;
+    }
+
+    #mediaview {
+        overflow: auto;
+    }
+
+    #container, #controls {
+        display: none !important;
+    }
+
+    #thumb-selector-container {
+        width: 100%;
+        position: static;
+        overflow: auto;
+        height: auto;
+    }
+
+    #thumb-selector {
+        width: 100%;
+        position: static;
+        overflow: auto;
+        height: auto;
+    }
+
+    #thumb-selector-inner {
+        width: auto;
+        position: static;
+        overflow: auto;
+        height: auto;
+    }
+
+    #thumb-selector img {
+        opacity: 1;
+        width: 100%;
+    }
+
+    #sidebar {
+        width: 100%;
+        position: static;
+        overflow: auto;
+        height: auto;
+    }
+
+    #sidebar #toggle-fullscreen {
+        display: none !important;
+    }
+
+    #infobox {
+        font-size:1.2em; 
+        position:absolute;
+        z-index:200;
+        top: 90px;
+        left: 0;
+        right: 0;
+        width: auto;
+    }
+
+    .title {
+        float: none; 
+        width: 100% !important;
+        padding: 3px 0 0 !important;
+        margin: 0;
+    }
+
+    .text {
+        width: 100% !important;
+        float: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    td {
+        width: 100%;
+        display:block;
+    }
+
+    table {
+        width: 100%;
+        padding: 0;
+        margin: 0;
+    }
+
+    .gradient {
+        background-color: #6f7072; 
+        background-image: -webkit-linear-gradient(bottom, #6f7072, #6f7072); 
+        background-image:    -moz-linear-gradient(bottom, #6f7072, #6f7072);
+        background-image:     -ms-linear-gradient(bottom, #6f7072, #6f7072);
+        background-image:      -o-linear-gradient(bottom, #6f7072, #6f7072);
+    }
+}

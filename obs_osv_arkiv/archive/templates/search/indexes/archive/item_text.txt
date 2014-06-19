@@ -1,8 +1,21 @@
 {% spaceless %}
     {{ object.title }}
     {{ object.artist }}
+    {{ object.description }}
+    {{ object.origin_city }}
+    {{ object.origin_country }}
+    {{ object.origin_continent }}
+    {{ object.origin_provinience }}
+    {% for category in object.category.all %}
+        {{ category.name }}
+    {% endfor %}
+    {% for keyword in object.keywords.all %}
+        {{ keyword.name }}
+        {{ keyword.description }}
+    {% endfor %}
     {% for material in object.materials.all %}
         {{ material.name }}
+        {{ material.description }}
     {% endfor %}
 {% endspaceless %}
 

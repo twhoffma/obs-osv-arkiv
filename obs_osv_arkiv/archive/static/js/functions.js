@@ -1,30 +1,31 @@
-// JavaScript Document
+$(window).load(function() {
 
-$('#main-nav').isotope({
-  // options
-  itemSelector : '.cat',
-  layoutMode : 'fitRows'
+    var $container = $('#content');
+
+    $('#main-nav').isotope({
+        itemSelector : '.cat',
+        layoutMode : 'fitRows'
+    });
+
+    $container.isotope({
+        itemSelector : '.thumb',
+        layoutMode : 'masonry'
+    });
+
+    $container.imagesLoaded(function() {
+        $container.isotope({});
+    });
+
 });
-
-$('#content').isotope({
-  // options
-  itemSelector : '.thumb',
-  layoutMode : 'masonry'
-});
-
-var $container = $('#content');
-
-$container.imagesLoaded( function(){
-  $container.isotope({
-    // options...
-  });
-});
-
 
 $(function(){
     $('a.toggle').click(function(){
-      $('#infobox').animate({
-       width: 'toggle'
-      });
+      $('#infobox').fadeToggle("fast");
     });
+});
+
+$( ".mobileinfo" ).click(function() {
+  $( "#infobox" ).slideToggle( "normal", function() {
+    // Animation complete.
+  });
 });
