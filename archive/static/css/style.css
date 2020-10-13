@@ -19,6 +19,7 @@ img {border:none;}
 header, section, footer, aside, nav, article, figure {display: block;}/*HTML 5 support - Sets new HTML 5 tags to display:block so browsers know how to render the tags properly. */
 
 body { 
+    font-family: GillSansRegular, "Gill Sans MT", 'Gill Sans', 'Quattrocento Sans', sans-serif;
     font-size:62.5%;
     background-color:#6f7072;
     height:100%;
@@ -70,7 +71,6 @@ ul {list-style:none;}
     font-size:3.3em;
     color:white;
     text-transform:uppercase;
-    font-family: 'Gill Sans', 'Quattrocento Sans', arial, sans-serif;
     font-weight:normal;
     display:block;
     -webkit-font-smoothing: antialiased;
@@ -87,7 +87,6 @@ ul {list-style:none;}
     text-transform:uppercase; 
     display:block; 
     font-size:1.5em; 
-    font-family: 'Gill Sans', 'Quattrocento Sans', arial, sans-serif; 
     -webkit-font-smoothing: antialiased;
   	-moz-osx-font-smoothing: grayscale;
     font-weight:normal; 
@@ -163,7 +162,6 @@ footer {
     margin-left:2.5%;
     padding:0 0 10px 4px;
     font-size: 1.6em;
-    font-family: 'Gill Sans', 'Quattrocento Sans', arial, sans-serif;
     -webkit-font-smoothing: antialiased;
   	-moz-osx-font-smoothing: grayscale;
     font-weight:normal;
@@ -204,7 +202,6 @@ footer a:hover {color:#000;}
   float:left;
   margin:30px 5px 20px 5px;
   text-align:center;
-	font-family: 'Gill Sans', 'Quattrocento Sans', arial, sans-serif; 
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 	font-size:1.5em; 
@@ -258,11 +255,18 @@ footer a:hover {color:#000;}
   float:right;
   bottom:0px;
   color:#FFF;
-  font-family: 'Gill Sans', 'Quattrocento Sans', arial, sans-serif; 
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
   text-transform:uppercase; 
 	font-size:1.5em;
+}
+
+#icon-info div {
+    position: relative;
+    width: 32px;
+    height: 20px;
+    display: inline-block;
+    margin: 0 0 -7px;
 }
 
 #icon-info img:nth-child(2) {
@@ -381,7 +385,6 @@ footer a:hover {color:#000;}
     z-index: 200;
     display:none;
     color:#ccc;
-    font-family: 'Gill Sans', 'Quattrocento Sans', arial, sans-serif; 
     -webkit-font-smoothing: antialiased;
   	-moz-osx-font-smoothing: grayscale;
     position:absolute;
@@ -391,9 +394,9 @@ footer a:hover {color:#000;}
     right:140px;
 }
 
-#infobox a {color:#ccc;}
+#infobox a {color:#eee;}
 
-#infobox a:hover {color:#000;}
+#infobox a:hover {color:white;}
 
 #infobox a:active {color:#53a1f1;}
 
@@ -468,13 +471,11 @@ footer a:hover {color:#000;}
     font-size:3.3em;
     color:#6f7072;
     text-transform:uppercase;
-    font-family: 'Gill Sans', 'Quattrocento Sans', arial, sans-serif;
     font-weight:normal;
     margin: 10px 0 0 195px;
 }
 
 .searchbox form {
-    font-family: 'Gill Sans', 'Quattrocento Sans', arial, sans-serif;
     text-transform:uppercase;
     font-size:1.5em;
     color:#000;
@@ -497,7 +498,6 @@ footer a:hover {color:#000;}
 }
 
 .searchbox form input {
-    font-family: 'Gill Sans', 'Quattrocento Sans', arial, sans-serif;
     float: left;
     border: none;
     height: 2em;
@@ -575,7 +575,6 @@ footer a:hover {color:#000;}
 
 #copyright p {
     color:#000;
-    font-family: 'Gill Sans', 'Quattrocento Sans', arial, sans-serif; 
     font-size:1.5em; 
     font-weight:normal;
     margin-top:10px;
@@ -597,7 +596,6 @@ footer a:hover {color:#000;}
     margin: 0 auto;
     padding: 3em 0 0;
     text-align: center;
-    font-family: 'Gill Sans', 'Quattrocento Sans', arial, sans-serif; 
     font-size: 2em;
 }
 

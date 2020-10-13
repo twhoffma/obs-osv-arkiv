@@ -179,6 +179,57 @@
                 /* Show the first image in the series */
                 $this.mediaview('activate', thumbs.children().slice(0, 1));
 
+                /* Bind movement keys: LEFT, UP, RIGHT, DOWN */
+                $(document).keydown(function(e) {
+                    switch(e.which) {
+                        case 37:
+                            $this.mediaview('navigate_prev');
+                            break;
+                        case 38:
+                            break;
+                        case 39:
+                            $this.mediaview('navigate_next');
+                            break;
+                        case 40:
+                            break;
+                        default:
+                            return;
+                    }
+                    e.preventDefault();
+                });
+
+            });
+
+        },
+
+        navigate_prev : function() {
+
+            return this.each(function() {
+
+                var $this = $(this);
+                var $active = $('#thumb-selector img.active');
+                var $prev = $active.prev();
+
+                if ($prev.length > 0) {
+                    return $this.mediaview('activate', $prev);
+                }
+
+            });
+
+        },
+
+        navigate_next : function() {
+
+            return this.each(function() {
+
+                var $this = $(this);
+                var $active = $('#thumb-selector img.active');
+                var $next = $active.next();
+
+                if ($next.length > 0) {
+                    return $this.mediaview('activate', $next);
+                }
+
             });
 
         },

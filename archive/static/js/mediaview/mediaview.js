@@ -147,12 +147,16 @@ $(document).ready(function() {
         }
     });
 
+    var scroll_to = function(pos) {
+        $ts.animate({scrollTop: pos}, 90);
+    }
+
     $sup.click(function() {
-        $ts[0].scrollTop -= 100;
+        scroll_to($ts[0].scrollTop-100);
     });
 
     $sdn.click(function() {
-        $ts[0].scrollTop += 100;
+        scroll_to($ts[0].scrollTop+100);
     });
 
 });

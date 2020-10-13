@@ -4,8 +4,8 @@
 	
 <a href="{% if node %}{% url 'node_and_item' node_pk=node.pk pk=item.pk %}{% else %}{% url 'item' pk=item.pk %}{% endif %}">
 	<div class="thumb ease">
-		{% if num_macro > 0 %}<span class="icon makro-icon-white"></span>{% endif %}
-		{% if num_movies > 0 %}<span class="icon2 film-icon-white"></span>{% endif %}
+		{% if num_macro > 0 %}<span class="icon makro-icon-{{ icon_color }}"></span>{% endif %}
+		{% if num_movies > 0 %}<span class="icon{% if num_macro > 0 %}2{% endif %} film-icon-{{ icon_color }}"></span>{% endif %}
 		{% if m %}
 			<img src="{% media_thumb m 200 2000 %}" alt="{{ m }}" />
 		{% else %}

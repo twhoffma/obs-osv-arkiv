@@ -67,14 +67,27 @@ class Media(models.Model):
 		(MEDIA_TYPE_TEXT, _('Text')),
 		(MEDIA_TYPE_MISC, _('Other'))
 	)
+
+	ICON_COLOR_BLACK = 0
+	ICON_COLOR_WHITE = 1
+	ICON_COLORS = (
+		(ICON_COLOR_WHITE, _("White")),
+		(ICON_COLOR_BLACK, _("Black")),
+	)
 	
 	filename = models.FileField(upload_to='media', verbose_name=_("thumbnail"), blank=True)
 	media_type = models.CharField(max_length=10, choices=MEDIA_TYPES, verbose_name=_("filetype"))
 	macro_zoom = models.BooleanField(default=False)
+	icon_color = models.IntegerField(default=ICON_COLOR_WHITE, choices=ICON_COLORS)
 	
 	class Meta:
 		verbose_name = _("media")
 		verbose_name_plural = _("media")
+	
+	def icon_color_name(self):
+		if self.icon_color == self.ICON_COLOR_BLACK:
+			return 'black'
+		return 'white'
 
 	def thumbnail(self, width, height):
 		"""

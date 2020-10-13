@@ -81,7 +81,12 @@
 
 	</nav>
     	
-	<div id="icon-info">MAKRO-ZOOM: <img src="images/makro-white.png"/> FILM: <img src="images/film-white.png"/></div>
+	{% if object_list.count == 0 %}
+		<div id="icon-info">
+			MAKRO-ZOOM: <div><span class="icon makro-icon-white"></span></div>
+			FILM: <div><span class="icon film-icon-white"></span></div>
+		</div>
+	{% endif %}
 
 </header>
 	

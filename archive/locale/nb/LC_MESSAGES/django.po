@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-05-23 14:08+0200\n"
+"POT-Creation-Date: 2014-08-26 22:15+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,532 +17,524 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: archive/admin.py:88 archive/templates/archive/search.html:44
+#: admin.py:90
 msgid "Dating"
 msgstr "Datering"
 
-#: archive/admin.py:90 archive/templates/archive/search.html:51
+#: admin.py:92
 msgid "Origin"
 msgstr "Opphav"
 
-#: archive/admin.py:94
+#: admin.py:96
 msgid "Dimensions"
 msgstr "Mål"
 
-#: archive/admin.py:96
+#: admin.py:98
 msgid "Placement"
 msgstr "Oppbevaring"
 
-#: archive/forms.py:14
+#: forms.py:14
 msgid "Category"
 msgstr "Kategori"
 
-#: archive/forms.py:15
+#: forms.py:15
 msgid "Title"
 msgstr "Tittel"
 
-#: archive/forms.py:16
+#: forms.py:16
 msgid "Artist"
 msgstr "Kunstner/produsent"
 
-#: archive/forms.py:17
+#: forms.py:17
 msgid "FROM"
 msgstr "FRA"
 
-#: archive/forms.py:17
+#: forms.py:17
 msgid "Dating, from"
 msgstr "Datering, fra"
 
-#: archive/forms.py:18
+#: forms.py:18
 msgid "TO"
 msgstr "TIL"
 
-#: archive/forms.py:18
+#: forms.py:18
 msgid "Dating, to"
 msgstr "Datering, til"
 
-#: archive/forms.py:19
+#: forms.py:19
 msgid "CITY"
 msgstr "BY"
 
-#: archive/forms.py:19
+#: forms.py:19
 msgid "City"
 msgstr "By"
 
-#: archive/forms.py:20
+#: forms.py:20
 msgid "COUNTRY"
 msgstr "LAND"
 
-#: archive/forms.py:20
+#: forms.py:20
 msgid "Country"
 msgstr "Land"
 
-#: archive/forms.py:21
+#: forms.py:21
 msgid "Material/technique"
 msgstr "Materiale/teknikk"
 
-#: archive/forms.py:22
+#: forms.py:22
 msgid "Fulltext"
 msgstr "Fritekst"
 
-#: archive/forms.py:23
+#: forms.py:23
 msgid "Item with movies"
 msgstr "Finn kun gjenstander med film"
 
-#: archive/forms.py:26
+#: forms.py:26
 msgid "Materials"
 msgstr "Materialer"
 
-#: archive/forms.py:27
+#: forms.py:27
 msgid "Keywords"
 msgstr "Nøkkelord"
 
-#: archive/models.py:16
+#: models.py:16
 msgid "action time"
-msgstr ""
+msgstr "tid for handlingen"
 
-#: archive/models.py:19
+#: models.py:19
 msgid "field"
-msgstr ""
+msgstr "felt"
 
-#: archive/models.py:20
+#: models.py:20
 msgid "value"
-msgstr ""
+msgstr "verdi"
 
-#: archive/models.py:23 archive/models.py:128 archive/models.py:173
-#: archive/models.py:187 archive/models.py:199 archive/models.py:211
+#: models.py:23 models.py:143 models.py:188 models.py:202 models.py:214
+#: models.py:226
 msgid "name"
 msgstr "navn"
 
-#: archive/models.py:24
+#: models.py:24
 msgid "parent"
 msgstr "foreldrenode"
 
-#: archive/models.py:28
+#: models.py:29
 msgid "category"
 msgstr "kategori"
 
-#: archive/models.py:29 archive/models.py:270
+#: models.py:30 models.py:285
 msgid "categories"
 msgstr "kategorier"
 
-#: archive/models.py:37 archive/models.py:42
+#: models.py:38 models.py:43
 msgid "file"
 msgstr "fil"
 
-#: archive/models.py:43
+#: models.py:44
 msgid "files"
 msgstr "filer"
 
-#: archive/models.py:63
+#: models.py:64
 msgid "Picture"
 msgstr "Bilde"
 
-#: archive/models.py:64
+#: models.py:65
 msgid "Film/Animation"
 msgstr "Film/Animasjon"
 
-#: archive/models.py:65
+#: models.py:66
 msgid "Sound"
 msgstr "Lyd"
 
-#: archive/models.py:66
+#: models.py:67
 msgid "Text"
 msgstr "Tekst"
 
-#: archive/models.py:67
+#: models.py:68
 msgid "Other"
 msgstr "Annet"
 
-#: archive/models.py:70
+#: models.py:74
+msgid "White"
+msgstr "Hvit"
+
+#: models.py:75
+msgid "Black"
+msgstr "Sort"
+
+#: models.py:78
 msgid "thumbnail"
 msgstr "miniatyrbilde"
 
-#: archive/models.py:71
+#: models.py:79
 msgid "filetype"
 msgstr "filtype"
 
-#: archive/models.py:74 archive/models.py:75 archive/models.py:117
-#: archive/models.py:121 archive/models.py:269
+#: models.py:84 models.py:85 models.py:132 models.py:136 models.py:284
 msgid "media"
 msgstr "media"
 
-#: archive/models.py:120
+#: models.py:135
 msgid "item"
 msgstr "gjenstand"
 
-#: archive/models.py:122
+#: models.py:137
 msgid "order"
 msgstr "rekkefølge"
 
-#: archive/models.py:129 archive/models.py:268
-#: archive/templates/archive/item_detail.html:140
+#: models.py:144 models.py:283
 msgid "description"
 msgstr "beskrivelse"
 
-#: archive/models.py:132
+#: models.py:147
 msgid "tag"
 msgstr "tag"
 
-#: archive/models.py:133
+#: models.py:148
 msgid "tags"
 msgstr "tagger"
 
-#: archive/models.py:143
+#: models.py:158
 msgid "material"
 msgstr "materiale"
 
-#: archive/models.py:144
+#: models.py:159
 msgid "materials"
 msgstr "materialer"
 
-#: archive/models.py:154 archive/models.py:155 archive/models.py:260
+#: models.py:169 models.py:170 models.py:275
 msgid "keywords"
 msgstr "nøkkelord"
 
-#: archive/models.py:166 archive/models.py:242
+#: models.py:181 models.py:257
 msgid "condition"
 msgstr "tilstand"
 
-#: archive/models.py:167
+#: models.py:182
 msgid "conditions"
 msgstr "tilstander"
 
-#: archive/models.py:174
+#: models.py:189
 msgid "street"
 msgstr "vei"
 
-#: archive/models.py:175
+#: models.py:190
 msgid "postal number"
 msgstr "postnummer"
 
-#: archive/models.py:176
+#: models.py:191
 msgid "postal area"
 msgstr "poststed"
 
-#: archive/models.py:177 archive/models.py:251
+#: models.py:192 models.py:266
 msgid "country"
 msgstr "land"
 
-#: archive/models.py:180 archive/models.py:188 archive/models.py:262
+#: models.py:195 models.py:203 models.py:277
 msgid "address"
 msgstr "addresse"
 
-#: archive/models.py:181
+#: models.py:196
 msgid "addresses"
 msgstr "addresser"
 
-#: archive/models.py:192
+#: models.py:207
 msgid "area/building"
 msgstr "område/bygning"
 
-#: archive/models.py:193
+#: models.py:208
 msgid "areas/buildings"
 msgstr "områder/bygninger"
 
-#: archive/models.py:200 archive/models.py:263
+#: models.py:215 models.py:278
 msgid "area"
 msgstr "område/bygning"
 
-#: archive/models.py:204
+#: models.py:219
 msgid "subarea/room"
 msgstr "underområde/rom"
 
-#: archive/models.py:205
+#: models.py:220
 msgid "subareas/rooms"
 msgstr "underområder/rom"
 
-#: archive/models.py:212 archive/models.py:264
+#: models.py:227 models.py:279
 msgid "room"
 msgstr "underområde/rom"
 
-#: archive/models.py:216 archive/models.py:265
+#: models.py:231 models.py:280
 msgid "location"
 msgstr "oppbevaringssted"
 
-#: archive/models.py:217
+#: models.py:232
 msgid "locations"
 msgstr "oppbevaringssteder"
 
-#: archive/models.py:224
+#: models.py:239
 msgid "AD"
 msgstr "EVT"
 
-#: archive/models.py:225
+#: models.py:240
 msgid "BC"
 msgstr "FVT"
 
-#: archive/models.py:228
+#: models.py:243
 msgid "sure"
 msgstr "sikker"
 
-#: archive/models.py:229
+#: models.py:244
 msgid "approximate/uncertain"
 msgstr "tilnærmet/usikker"
 
-#: archive/models.py:233
+#: models.py:248
 msgid "Item"
 msgstr "Gjenstand"
 
-#: archive/models.py:234
+#: models.py:249
 msgid "Items"
 msgstr "Gjenstander"
 
-#: archive/models.py:239
+#: models.py:254
 msgid "published"
 msgstr "publisert"
 
-#: archive/models.py:240
+#: models.py:255
 msgid "item number"
 msgstr "gjenstandsnummer"
 
-#: archive/models.py:241 archive/templates/archive/item_detail.html:70
+#: models.py:256
 msgid "title"
 msgstr "tittel"
 
-#: archive/models.py:243
+#: models.py:258
 msgid "condition details"
 msgstr "tilstandsnotater"
 
-#: archive/models.py:244 archive/models.py:249
+#: models.py:259 models.py:264
 msgid "certainty"
 msgstr "sikkerhet"
 
-#: archive/models.py:245 archive/models.py:247
+#: models.py:260 models.py:262
 msgid "period"
 msgstr "periode"
 
-#: archive/models.py:246 archive/templates/archive/item_detail.html:86
+#: models.py:261
 msgid "from"
 msgstr "fra"
 
-#: archive/models.py:248 archive/templates/archive/item_detail.html:90
-#: archive/templates/archive/item_detail.html:92
+#: models.py:263
 msgid "to"
 msgstr "til"
 
-#: archive/models.py:250
+#: models.py:265
 msgid "city"
 msgstr "by"
 
-#: archive/models.py:252
+#: models.py:267
 msgid "continent"
 msgstr "kontinent"
 
-#: archive/models.py:253
+#: models.py:268
 msgid "provinience"
 msgstr "proviniens"
 
-#: archive/models.py:254 archive/templates/archive/item_detail.html:76
+#: models.py:269
 msgid "artist"
 msgstr "kunstner/produsent"
 
-#: archive/models.py:255
+#: models.py:270
 msgid "height (cm)"
 msgstr "høyde (cm)"
 
-#: archive/models.py:256
+#: models.py:271
 msgid "width (cm)"
 msgstr "bredde (cm)"
 
-#: archive/models.py:257
+#: models.py:272
 msgid "depth (cm)"
 msgstr "dybde (cm)"
 
-#: archive/models.py:258
+#: models.py:273
 msgid "weight (g)"
 msgstr "vekt (g)"
 
-#: archive/models.py:259
+#: models.py:274
 msgid "materials/technique"
 msgstr "materialer/teknikk"
 
-#: archive/models.py:261
+#: models.py:276
 msgid "literature"
 msgstr "litteratur"
 
-#: archive/models.py:266
+#: models.py:281
 msgid "position"
 msgstr "posisjon"
 
-#: archive/models.py:267
+#: models.py:282
 msgid "loan status"
 msgstr "utlånsstatus"
 
-#: archive/models.py:271
+#: models.py:286
 msgid "insurance value"
 msgstr "forsikringsverdi"
 
-#: archive/templates/admin/archive/change_form_base.html:21
-#: archive/templates/admin/archive/item/change_history.html:8
-#: archive/templates/admin/archive/item/change_list.html:57
-#: archive/templates/admin/archive/media/change_form.html:26
+#: templates/admin/archive/change_form_base.html:21
+#: templates/admin/archive/item/change_history.html:8
+#: templates/admin/archive/item/change_list.html:57
+#: templates/admin/archive/media/change_form.html:26
 msgid "Home"
 msgstr "Hjem"
 
-#: archive/templates/admin/archive/change_form_base.html:24
-#: archive/templates/admin/archive/media/change_form.html:36
+#: templates/admin/archive/change_form_base.html:24
+#: templates/admin/archive/media/change_form.html:36
 msgid "Add"
 msgstr "Legg til"
 
-#: archive/templates/admin/archive/change_form_base.html:34
+#: templates/admin/archive/change_form_base.html:34
 msgid "Change History"
 msgstr "Historiske endringer"
 
-#: archive/templates/admin/archive/change_form_base.html:35
-#: archive/templates/admin/archive/item/change_history.html:10
-#: archive/templates/admin/archive/media/change_form.html:51
+#: templates/admin/archive/change_form_base.html:35
+#: templates/admin/archive/item/change_history.html:10
+#: templates/admin/archive/media/change_form.html:51
 msgid "History"
 msgstr "Historiske endringer"
 
-#: archive/templates/admin/archive/change_form_base.html:36
-#: archive/templates/admin/archive/edit_inline/category_tabular.html:30
-#: archive/templates/admin/archive/edit_inline/media_tabular.html:35
-#: archive/templates/admin/archive/edit_inline/tabular.html:30
-#: archive/templates/admin/archive/media/change_form.html:52
+#: templates/admin/archive/change_form_base.html:36
+#: templates/admin/archive/edit_inline/category_tabular.html:30
+#: templates/admin/archive/edit_inline/media_tabular.html:35
+#: templates/admin/archive/edit_inline/tabular.html:30
+#: templates/admin/archive/media/change_form.html:52
 msgid "View on site"
 msgstr "Se på siden"
 
-#: archive/templates/admin/archive/change_form_base.html:48
-#: archive/templates/admin/archive/item/change_list.html:83
-#: archive/templates/admin/archive/media/change_form.html:65
+#: templates/admin/archive/change_form_base.html:48
+#: templates/admin/archive/item/change_list.html:83
+#: templates/admin/archive/media/change_form.html:65
 msgid "Please correct the error below."
 msgid_plural "Please correct the errors below."
 msgstr[0] "Vennligst rett feilen under"
 msgstr[1] "Vennligst rett feilene under"
 
-#: archive/templates/admin/archive/edit_inline/category_tabular.html:17
-#: archive/templates/admin/archive/edit_inline/media_tabular.html:22
-#: archive/templates/admin/archive/edit_inline/tabular.html:17
+#: templates/admin/archive/edit_inline/category_tabular.html:17
+#: templates/admin/archive/edit_inline/media_tabular.html:22
+#: templates/admin/archive/edit_inline/tabular.html:17
 msgid "Delete?"
 msgstr "Slette?"
 
-#: archive/templates/admin/archive/edit_inline/category_tabular.html:115
-#: archive/templates/admin/archive/edit_inline/media_tabular.html:129
-#: archive/templates/admin/archive/edit_inline/tabular.html:115
+#: templates/admin/archive/edit_inline/category_tabular.html:115
+#: templates/admin/archive/edit_inline/media_tabular.html:130
+#: templates/admin/archive/edit_inline/tabular.html:115
 #, python-format
 msgid "Add another %(verbose_name)s"
 msgstr "Legg til en ny %(verbose_name)s"
 
-#: archive/templates/admin/archive/edit_inline/category_tabular.html:118
-#: archive/templates/admin/archive/edit_inline/media_tabular.html:132
-#: archive/templates/admin/archive/edit_inline/tabular.html:118
+#: templates/admin/archive/edit_inline/category_tabular.html:118
+#: templates/admin/archive/edit_inline/media_tabular.html:133
+#: templates/admin/archive/edit_inline/tabular.html:118
 msgid "Remove"
 msgstr "Slett"
 
-#: archive/templates/admin/archive/edit_inline/media_tabular.html:65
+#: templates/admin/archive/edit_inline/media_tabular.html:65
+msgid "Edit media"
+msgstr "Rediger media"
+
+#: templates/admin/archive/edit_inline/media_tabular.html:66
 msgid "Select media"
 msgstr "Velg media"
 
-#: archive/templates/admin/archive/item/change_history.html:22
+#: templates/admin/archive/item/change_history.html:22
 msgid "Date/time"
 msgstr "Dato/tid"
 
-#: archive/templates/admin/archive/item/change_history.html:23
+#: templates/admin/archive/item/change_history.html:23
 msgid "User"
 msgstr "Bruker"
 
-#: archive/templates/admin/archive/item/change_history.html:24
+#: templates/admin/archive/item/change_history.html:24
 msgid "Value"
 msgstr "Verdi"
 
-#: archive/templates/admin/archive/item/change_history.html:38
+#: templates/admin/archive/item/change_history.html:38
 msgid ""
 "This object doesn't have a change history. It probably wasn't added via this "
 "admin site."
 msgstr ""
 
-#: archive/templates/admin/archive/item/change_list.html:74
+#: templates/admin/archive/item/change_list.html:74
 #, python-format
 msgid "Add %(name)s"
 msgstr "Legg til %(name)s"
 
-#: archive/templates/admin/archive/item/change_list.html:94
+#: templates/admin/archive/item/change_list.html:94
 msgid "Filter"
 msgstr "Filtrer"
 
-#: archive/templates/archive/item_detail.html:82
-msgid "dating"
-msgstr "datering"
-
-#: archive/templates/archive/item_detail.html:86
-msgid "approx"
-msgstr "ca"
-
-#: archive/templates/archive/item_detail.html:100
-msgid "origin"
-msgstr "opphav"
-
-#: archive/templates/archive/item_detail.html:109
+#: templates/archive/item_detail.html:138
 #, python-format
 msgid "%(object.origin_certainty)s"
-msgstr ""
+msgstr "%(object.origin_certainty)s"
 
-#: archive/templates/archive/item_detail.html:115
-msgid "dimensions"
-msgstr "dimensjoner"
-
-#: archive/templates/archive/item_detail.html:118
-msgid "width"
-msgstr "bredde"
-
-#: archive/templates/archive/item_detail.html:121
-msgid "height"
-msgstr "høyde"
-
-#: archive/templates/archive/item_detail.html:124
-msgid "depth"
-msgstr "dybde"
-
-#: archive/templates/archive/item_detail.html:127
-msgid "weight"
-msgstr "vekt"
-
-#: archive/templates/archive/location_filter.html:2
-#: archive/templates/archive/year_filter.html:2
+#: templates/archive/location_filter.html:2
+#: templates/archive/year_filter.html:2
 #, python-format
 msgid " By %(filter_title)s "
 msgstr " Av %(filter_title)s "
 
-#: archive/templates/archive/media_details.html:23
+#: templates/archive/media_details.html:23
 msgid "Files"
 msgstr "Filer"
 
-#: archive/templates/archive/search.html:33
-msgid "Back"
-msgstr "Tilbake"
+#~ msgid "dating"
+#~ msgstr "datering"
 
-#: archive/templates/archive/search.html:34
-msgid "Search the archives"
-msgstr "Søk i arkivet"
+#~ msgid "approx"
+#~ msgstr "ca"
 
-#: archive/templates/archive/search.html:64
-msgid "Search"
-msgstr "Søk"
+#~ msgid "origin"
+#~ msgstr "opphav"
 
-#: django_filters/filters.py:149
-msgid "Any Date"
-msgstr "Når som helst"
+#~ msgid "dimensions"
+#~ msgstr "dimensjoner"
 
-#: django_filters/filters.py:150
-msgid "Today"
-msgstr "I dag"
+#~ msgid "width"
+#~ msgstr "bredde"
 
-#: django_filters/filters.py:155
-msgid "Past 7 days"
-msgstr "Siste 7 dager"
+#~ msgid "height"
+#~ msgstr "høyde"
 
-#: django_filters/filters.py:159
-msgid "This month"
-msgstr "Denne måneden"
+#~ msgid "depth"
+#~ msgstr "dybde"
 
-#: django_filters/filters.py:163
-msgid "This year"
-msgstr "Dette året"
+#~ msgid "weight"
+#~ msgstr "vekt"
 
-#: django_filters/widgets.py:58
-msgid "All"
-msgstr "Alle"
+#~ msgid "Back"
+#~ msgstr "Tilbake"
+
+#~ msgid "Search the archives"
+#~ msgstr "Søk i arkivet"
+
+#~ msgid "Search"
+#~ msgstr "Søk"
+
+#~ msgid "Any Date"
+#~ msgstr "Når som helst"
+
+#~ msgid "Today"
+#~ msgstr "I dag"
+
+#~ msgid "Past 7 days"
+#~ msgstr "Siste 7 dager"
+
+#~ msgid "This month"
+#~ msgstr "Denne måneden"
+
+#~ msgid "This year"
+#~ msgstr "Dette året"
+
+#~ msgid "All"
+#~ msgstr "Alle"
 
 #~ msgid "Categories"
 #~ msgstr "Kategorier"

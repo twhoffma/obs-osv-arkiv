@@ -62,6 +62,7 @@
                                 {% media_details inline_admin_form.original.media %}
                             {% endif %}
                         </div>
+                        <a href="/admin/archive/media/{{ inline_admin_form.original.media.id }}">{% trans "Edit media" %}</a>
                         <input type="button" class="select_media_button" value='{%trans "Select media" %}' />
                   {% endif %}
               {% endif %}

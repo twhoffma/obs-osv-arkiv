@@ -76,12 +76,14 @@ class ItemAdmin(admin.ModelAdmin):
 	inlines = [MediaInline, ItemCategoryInline]	
 	exclude = ('media', 'category')
 	radio_fields = {'condition': admin.HORIZONTAL}
-	search_fields = ['item_number', 'title', 'artist', 'materials__name', 'keywords__name', 'description', 'category__name']
+	search_fields = ['item_number', 'title', 'artist', 'materials__name', 'keywords__name', 'description', 'category__name',
+        'condition_comment', 'origin_city', 'origin_country', 'origin_continent', 'origin_provinience', 'ref_literature', 'position', 'loan_status',
+            ]
 	list_display = ['published', 'item_number', 'title', 'artist']
 	actions = ['publish', 'unpublish']
 	list_display_links = ['item_number']
 	save_on_top = True
-	list_filter = (('address', FilterLocation), ('area', FilterLocation), ('room', FilterLocation), ('location', FilterLocation),)
+	list_filter = (('address', FilterLocation), ('area', FilterLocation), ('room', FilterLocation), ('location', FilterLocation), ('category', FilterLocation),)
 	
 	fieldsets = (
 			(None, { 'fields': ('published','item_number','title', 'condition', 'condition_comment')}),

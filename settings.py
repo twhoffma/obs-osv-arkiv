@@ -8,7 +8,8 @@ ADMINS = (
     #('Set in local_settings.py', ''),
 )
 
-ALLOWED_HOSTS = ('guttormsgaardsarkiv.no',)
+#ALLOWED_HOSTS = ('guttormsgaardsarkiv.no',)
+ALLOWED_HOSTS = ('arkiv.guttormsgaardsarkiv.no',)
 
 MANAGERS = ADMINS
 
@@ -131,7 +132,8 @@ INSTALLED_APPS = (
     'mptt', 
     'easy_thumbnails',
     'django_filters',
-    'haystack'
+    'haystack',
+    'whoosh',
 )
 
 SOUTH_MIGRATION_MODULES = {
@@ -175,7 +177,9 @@ LOGGING = {
 #
 HAYSTACK_CONNECTIONS = {
     'default': {
-        'ENGINE': 'haystack.backends.simple_backend.SimpleEngine',
+        'ENGINE': 'haystack.backends.whoosh_backend.WhooshEngine',
+        'PATH': os.path.join(PROJECT_ROOT, 'whoosh'),
+        'STORAGE': 'file',
     },
 }
 

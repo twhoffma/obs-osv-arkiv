@@ -25,6 +25,7 @@ def feature_image(item, node):
         'item': item,
         'node': node,
         'num_macro': item.itemmedia_set.filter(media__macro_zoom=True).count(),
-        'num_movies': item.itemmedia_set.filter(media__media_type=archive.models.Media.MEDIA_TYPE_MOVIE),
+        'num_movies': item.itemmedia_set.filter(media__media_type=archive.models.Media.MEDIA_TYPE_MOVIE).count(),
+        'icon_color': media.icon_color_name() if media else None,
         'm': media
     }

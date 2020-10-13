@@ -4,7 +4,7 @@
 {% load media_thumb %}
 
 {% for m in media %}
-	<li data-thumb="{% media_thumb m 120 2000 %}">
+	<li data-thumb="{% media_thumb m 460 2000 %}">
 		{% if m.media_type == "Movie" %}
 			<video controls>
 			{% for file in m.file_set.all %}
