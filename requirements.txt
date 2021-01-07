@@ -6,7 +6,7 @@ argparse==1.2.1
 django-haystack==2.1.0
 django-mptt==0.5.5
 easy-thumbnails==2.0.1
-lxml==3.2.1
+lxml==4.6.2
 pysolr==3.0.6
 requests==2.3.0
 wsgiref==0.1.2
