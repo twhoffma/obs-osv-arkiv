@@ -15,6 +15,23 @@ sudo apt-get install mysql-server mysql-client
 sudo apt-get install default-libmysqlclient-dev build-essential
 
 
+#Add special user for uwsgi
+sudo adduser guttormsgaardsarkiv_no
+
+
+#Subfolder contains app under guttormsgaardsarkiv_no
+sudo mkdir -p /srv/www/production/guttormsgaardsarkiv.no/guttormsgaardsarkiv_no
+
+#This folder contains mediafiles
+#Owned by guttormsgaardsarkiv_no:www-data
+sudo mkdir -p /srv/www/media/guttormsgaardsarkiv.no/media
+sudo chown -R guttormsgaardsarkiv_no:www-data /srv/www/media/guttormsgaardsarkiv.no/media
+
+
+#Django collect static places files here
+mkdir -p /srv/www/static/guttormsgaardsarkiv.no
+
+
 #Manual step
 #sudo mysql
 #ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password by '';
@@ -83,13 +100,4 @@ sudo ufw allow https
 
 
 #type sudo ufw enable 
-#Subfolder contains app under guttormsgaardsarkiv_no
-mkdir -p /srv/www/production/guttormsgaardsarkiv.no
-
-#This folder contains mediafiles
-#Owned by guttormsgaardsarkiv_no:www-data
-mkdir -p /srv/www/media/guttormsgaardsarkiv.no/media
-
-#Django collect static places files here
-mkdir -p /srv/www/static/guttormsgaardsarkiv.no
 
