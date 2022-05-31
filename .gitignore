@@ -16,3 +16,4 @@ django-trunk/
 secret_key.py
 wsgi.py
 whoosh/*
+/archive/fixtures/db.json
