@@ -80,7 +80,14 @@ sudo useradd guttormsgaardsarkiv_no
 sudo apt-get install nginx 
 #TBA copy config to sites-available and link to sites-enabled. Restart service.
 
+#This will install the wrong version sicne there is no python2 plugin for ubuntu2
 sudo apt-get install uwsgi
+
+wget http://security.ubuntu.com/ubuntu/pool/universe/u/uwsgi/uwsgi-plugin-python_2.0.15-10.2ubuntu2.2_amd64.deb
+
+sudo dpkg --ignore-depends=uwsgi-core -i uwsgi-plugin-python_2.0.15-10.2ubuntu2.2_amd64.deb
+
+
 #TBA: Copy to apps-enabled and link to apps-available. Restart service.
 
 
