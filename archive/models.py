@@ -99,8 +99,8 @@ class Media(models.Model):
 				thumb = thumbnailer.get_thumbnail({'size': (width, height)})
 				thumb_url = thumb.url
 				return thumb_url
-			except:
-				pass
+			except Exception as e:
+				raise e #pass
 
 		thumb_url = settings.STATIC_URL + 'images/'
 		

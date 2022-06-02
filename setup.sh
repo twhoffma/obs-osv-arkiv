@@ -13,7 +13,7 @@ set -e
 
 sudo apt-get install mysql-server mysql-client
 sudo apt-get install default-libmysqlclient-dev build-essential
-
+sudo apt-get install gettext libjpeg-dev libjpeg8-dev
 
 #Add special user for uwsgi
 sudo adduser guttormsgaardsarkiv_no
@@ -80,9 +80,24 @@ sudo useradd guttormsgaardsarkiv_no
 sudo apt-get install nginx 
 #TBA copy config to sites-available and link to sites-enabled. Restart service.
 
+sudo cp etc/nginx.conf /etc/uwsgi/sites-enabled/arkiv.conf
+
+#Some manual steps to make sure it doesn't hit ssl with a missing cert
+
+sudo apt-get install certbot
+
+sudo certbot certonly --webroot --webroot-path=/srv/www/production/guttormsgaardsarkiv.no/guttormsgaardsarkiv_no -d arkivet.guttormsgaardsarkiv.no
+
+
+
 #This will install the wrong version sicne there is no python2 plugin for ubuntu2
 sudo apt-get install uwsgi
 
+sudo cp etc/uwsgi /etc/uwsgi/apps-enabled/arkiv.ini
+
+#make sure they reference the same socket file
+
+#Trick to get a package no longer shipped with ubuntu
 wget http://security.ubuntu.com/ubuntu/pool/universe/u/uwsgi/uwsgi-plugin-python_2.0.15-10.2ubuntu2.2_amd64.deb
 
 sudo dpkg --ignore-depends=uwsgi-core -i uwsgi-plugin-python_2.0.15-10.2ubuntu2.2_amd64.deb
