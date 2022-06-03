@@ -46,6 +46,12 @@ mkdir -p /srv/www/static/guttormsgaardsarkiv.no
 
 sudo apt-get install python2.7 
 sudo apt-get install python2.7-dev
+sudo apt-get install python3
+
+#Assuming you are in the django project, you can generate secretkey.py as following:
+
+#python3 -c "import secrets; print('SECRET_KEY=\'' + secrets.token_urlsafe() + '\'')"
+
 
 curl https://bootstrap.pypa.io/pip/2.7/get-pip.py --output get-pip.py
 
