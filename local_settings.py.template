@@ -8,7 +8,7 @@ SERVER_EMAIL = 'ikke_svar@guttormsgaardsarkiv.no'
 
 DEFAULT_FROM_EMAIL = SERVER_EMAIL
 
-ALLOWED_HOSTS = ('arkiv.guttormsgaardsarkiv.no',)
+ALLOWED_HOSTS = ('arkiv.guttormsgaardsarkiv.no', 'arkivet.guttormsgaardsarkiv.no')
 
 STATIC_URL = '/static/'
 
