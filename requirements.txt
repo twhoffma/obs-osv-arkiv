@@ -3,7 +3,7 @@ django-haystack==2.1.0
 django-mptt==0.5.5
 easy-thumbnails==2.0.1
 mysqlclient==1.4.6
-Pillow==2.4.0
+Pillow==10.0.1
 South==0.8.4
 Whoosh==2.6.0
 #uwsgi
